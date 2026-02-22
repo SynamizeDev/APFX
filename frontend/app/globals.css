@@ -1,0 +1,7 @@
+/* This file is intentionally minimal.
+   All global styles live in: /styles/globals.css
+   All design tokens live in: /styles/tokens.css
+   
+   The root layout (app/layout.tsx) imports @/styles/globals.css directly.
+   This file is kept only to satisfy Next.js file conventions if needed.
+*/

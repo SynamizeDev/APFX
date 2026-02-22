@@ -1,0 +1,198 @@
+.page {
+    background: var(--color-bg);
+}
+
+.main {
+    padding-bottom: 80px;
+}
+
+.container {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-px);
+}
+
+.section {
+    padding-block: var(--section-py);
+}
+
+.accountGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    align-items: stretch;
+}
+
+.accCard {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 3rem 2.5rem;
+    border-radius: var(--radius-xl);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: all var(--duration-normal) var(--ease-out);
+}
+
+.accCard.featured {
+    border-color: var(--color-accent);
+    background: var(--color-surface-2);
+    transform: scale(1.03);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: var(--color-accent);
+    color: #000;
+    font-size: 0.65rem;
+    font-weight: var(--fw-extrabold);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.accName {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    color: var(--color-text-1);
+    margin-bottom: 1rem;
+}
+
+.accDesc {
+    color: var(--color-text-3);
+    font-size: var(--text-sm);
+    line-height: var(--lh-relaxed);
+    margin-bottom: 2.5rem;
+}
+
+.metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+}
+
+.metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.metric span {
+    font-size: var(--text-xs);
+    color: var(--color-text-3);
+    text-transform: uppercase;
+}
+
+.metric strong {
+    font-family: var(--font-mono);
+    color: var(--color-text-1);
+    font-size: var(--text-sm);
+}
+
+.footer {
+    margin-top: auto;
+}
+
+.best {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+    font-weight: var(--fw-medium);
+}
+
+.btnOpen {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--color-border-2);
+    color: var(--color-text-1);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    font-weight: var(--fw-bold);
+    cursor: pointer;
+    transition: all var(--duration-normal);
+}
+
+.accCard.featured .btnOpen {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #000;
+}
+
+.accCard:hover:not(.featured) {
+    border-color: var(--color-border-2);
+}
+
+/* ── Table Section ─────────────────────────────────────────── */
+.tableSection {
+    padding-bottom: var(--section-py);
+}
+
+.tableHeader {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.tableHeader h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    color: var(--color-text-1);
+    margin-bottom: 1rem;
+}
+
+.tableHeader p {
+    color: var(--color-text-3);
+}
+
+.tableWrapper {
+    overflow-x: auto;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 1.5rem 2rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.table th {
+    font-family: var(--font-display);
+    color: var(--color-text-1);
+    font-weight: var(--fw-bold);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.table td {
+    color: var(--color-text-2);
+    font-size: var(--text-sm);
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+@media (max-width: 1024px) {
+    .accountGrid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .accCard.featured {
+        transform: none;
+    }
+}

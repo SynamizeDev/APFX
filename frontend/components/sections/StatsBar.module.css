@@ -1,0 +1,77 @@
+/* ── Stats Bar ───────────────────────────────────────────────── */
+.statsBar {
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding-block: 3.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.statsBar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 100% at 50% 0%, rgba(0, 200, 150, 0.04), transparent);
+}
+
+.grid {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-px);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    position: relative;
+}
+
+.item {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    transition: background var(--duration-normal) var(--ease-out);
+}
+
+.item:hover {
+    background: var(--color-surface-2);
+}
+
+.value {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: var(--fw-extrabold);
+    color: var(--color-text-1);
+    letter-spacing: var(--ls-tight);
+    line-height: 1;
+    display: block;
+}
+
+.accent {
+    color: var(--color-accent);
+}
+
+.label {
+    font-size: var(--text-sm);
+    color: var(--color-text-3);
+    margin-top: 0.5rem;
+    display: block;
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    font-weight: var(--fw-medium);
+}
+
+.divider {
+    width: 1px;
+    background: var(--color-border);
+    margin-block: auto;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .divider {
+        display: none;
+    }
+}
