@@ -51,10 +51,10 @@ const ACCOUNTS = [
 
 export default function AccountTypes() {
     return (
-        <section className={styles.section} aria-labelledby="accounts-heading">
+        <section className={`${styles.section} apfx-section`} aria-labelledby="accounts-heading">
             <div className={styles.inner}>
                 <header className={styles.header}>
-                    <h2 id="accounts-heading" className={styles.title}>Account Types Tailored for You</h2>
+                    <h2 id="accounts-heading" className={styles.title}>Account Structures Built Around Your Edge</h2>
                 </header>
 
                 <div className={styles.grid}>

@@ -1,3 +1,6 @@
+'use client'
+
+import { motion } from 'framer-motion'
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
@@ -5,7 +8,29 @@ import styles from './LegalPage.module.css'
 
 export const metadata = {
     title: 'Privacy Policy — APFX',
-    description: 'Learn how APFX collects, uses, and protects your personal data in accordance with global privacy standards.',
+    description:
+        'Learn how APFX collects, uses, and protects your personal data in accordance with global privacy and regulatory standards.',
+}
+
+/* ──────────────────────────────────────────────────────────
+   Motion system — restrained, formal, compliance-safe
+   ────────────────────────────────────────────────────────── */
+const fadeUp = {
+    hidden: { opacity: 0, y: 22 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.55, ease: 'easeOut' },
+    },
+}
+
+const stagger = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.12,
+        },
+    },
 }
 
 export default function PrivacyPage() {
@@ -14,26 +39,68 @@ export default function PrivacyPage() {
             <InnerPageHero
                 title="Privacy"
                 accentLine="Policy"
-                subtitle="Your privacy is of paramount importance to us. This policy outlines how we handle and protect your personal information."
-                breadcrumbs={[{ label: 'Legal', href: '/legal' }, { label: 'Privacy Policy' }]}
+                subtitle="Your privacy is fundamental to how we operate. This policy explains how APFX collects, uses, and safeguards your personal information across our global operations."
+                breadcrumbs={[
+                    { label: 'Legal', href: '/legal' },
+                    { label: 'Privacy Policy' },
+                ]}
             />
 
             <main className={styles.main}>
-                <section className={styles.section}>
+                <section className={`${styles.section} apfx-section`}>
                     <div className={styles.container}>
-                        <div className={styles.content}>
-                            <h3>1. Information Collection</h3>
-                            <p>We collect personal information that you provide to us when you open an account, use our services, or communicate with us.</p>
+                        <motion.div
+                            className={styles.content}
+                            variants={stagger}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: '-80px' }}
+                        >
+                            <motion.h3 variants={fadeUp}>
+                                1. Information Collection
+                            </motion.h3>
+                            <motion.p variants={fadeUp}>
+                                We collect personal information that you voluntarily
+                                provide when opening an account, accessing our
+                                platforms, submitting forms, or communicating with
+                                APFX. This may include identification, contact, and
+                                transactional data required for regulatory and
+                                operational purposes.
+                            </motion.p>
 
-                            <h3>2. Use of Information</h3>
-                            <p>Your information is used to provide our services, verify your identity, process transactions, and comply with legal obligations.</p>
+                            <motion.h3 variants={fadeUp}>
+                                2. Use of Information
+                            </motion.h3>
+                            <motion.p variants={fadeUp}>
+                                Your information is used to deliver our services,
+                                verify identity, manage accounts, process
+                                transactions, enhance platform security, and meet
+                                applicable legal, regulatory, and compliance
+                                obligations.
+                            </motion.p>
 
-                            <h3>3. Data Protection</h3>
-                            <p>We implement advanced security measures to protect your data from unauthorized access, loss, or disclosure.</p>
+                            <motion.h3 variants={fadeUp}>
+                                3. Data Protection
+                            </motion.h3>
+                            <motion.p variants={fadeUp}>
+                                We employ industry-standard administrative,
+                                technical, and physical safeguards to protect your
+                                data against unauthorized access, alteration,
+                                disclosure, or destruction. Access to personal data
+                                is restricted to authorized personnel only.
+                            </motion.p>
 
-                            <h3>4. Disclosure to Third Parties</h3>
-                            <p>We do not sell your personal data. We may share information with trusted partners who assist us in providing our services.</p>
-                        </div>
+                            <motion.h3 variants={fadeUp}>
+                                4. Disclosure to Third Parties
+                            </motion.h3>
+                            <motion.p variants={fadeUp}>
+                                APFX does not sell or rent your personal information.
+                                Data may be shared with trusted third parties,
+                                including liquidity providers, technology partners,
+                                and regulators, solely where necessary to provide
+                                services or comply with legal requirements.
+                            </motion.p>
+                        </motion.div>
                     </div>
                 </section>
             </main>

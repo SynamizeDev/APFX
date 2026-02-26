@@ -1,7 +1,7 @@
 /* ── Account Types Section ───────────────────────────────────── */
 .section {
     padding-block: var(--section-py);
-    background: var(--color-surface);
+    background-color: var(--color-surface);
     position: relative;
 }
 

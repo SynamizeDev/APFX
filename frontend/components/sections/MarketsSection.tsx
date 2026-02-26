@@ -75,16 +75,16 @@ const MARKETS = [
 
 export default function MarketsSection() {
     return (
-        <section className={styles.section} aria-labelledby="markets-heading">
+        <section className={`${styles.section} apfx-section`} aria-labelledby="markets-heading">
             <div className={styles.inner}>
                 <header className={styles.header}>
                     <div className={styles.eyebrow}>Our Markets</div>
                     <h2 id="markets-heading" className={styles.title}>
-                        Trade Everything That Moves
+                        Trade Every Major Market in One Place
                     </h2>
                     <p className={styles.subtitle}>
-                        From Forex to equities, metals to crypto — all on one platform with
-                        institutional-grade execution.
+                        Access forex, indices, commodities, metals, stocks, and crypto CFDs from a single,
+                        institutional-grade trading stack.
                     </p>
                 </header>
 

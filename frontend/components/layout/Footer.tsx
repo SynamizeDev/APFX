@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { Twitter, Linkedin, Send, Youtube } from 'lucide-react'
+import { Twitter, Linkedin, Send, Youtube, Sparkles } from 'lucide-react'
 import styles from './Footer.module.css'
 
 interface StatItem {
@@ -105,7 +105,7 @@ function AnimatedCounter({ stat }: { stat: StatItem }) {
 
 export default function Footer() {
     return (
-        <footer className={styles.footer} role="contentinfo">
+        <footer className={`${styles.footer} apfx-section apfx-section--no-divider`} role="contentinfo">
 
             {/* ── Stats Bar ───────────────────────────────────────── */}
             <div className={styles.statsBar}>
@@ -125,8 +125,13 @@ export default function Footer() {
                 {/* Brand */}
                 <div className={styles.brand}>
                     <Link href="/" className={styles.footerLogo}>
-                        <span className={styles.logoMark} aria-hidden="true">AP</span>
-                        APFX
+                        <span className={styles.logoMark} aria-hidden="true">
+                            <Sparkles className={styles.logoIcon} />
+                        </span>
+                        <span className={styles.logoWordmark}>
+                            <span className={styles.logoPrefix}>AP</span>
+                            <span className={styles.logoFx}>FX</span>
+                        </span>
                     </Link>
                     <p className={styles.tagline}>
                         Institutional-grade trading for every investor.

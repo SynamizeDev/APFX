@@ -1,7 +1,7 @@
 /* ── Trading Platforms Section ───────────────────────────────── */
 .section {
     padding-block: var(--section-py);
-    background: var(--color-bg);
+    background-color: var(--color-bg);
     position: relative;
     overflow: hidden;
 }

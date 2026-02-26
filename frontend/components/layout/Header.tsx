@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
+import { Sparkles } from 'lucide-react'
 import styles from './Header.module.css'
 
 const NAV_LINKS = [
@@ -53,8 +53,13 @@ export default function Header() {
 
                     {/* ── Logo ──────────────────────────────────────────── */}
                     <Link href="/" className={styles.logo} aria-label="APFX Home" onClick={closeMenu}>
-                        <span className={styles.logoMark} aria-hidden="true">AP</span>
-                        APFX
+                        <span className={styles.logoMark} aria-hidden="true">
+                            <Sparkles className={styles.logoIcon} />
+                        </span>
+                        <span className={styles.logoWordmark}>
+                            <span className={styles.logoPrefix}>AP</span>
+                            <span className={styles.logoFx}>FX</span>
+                        </span>
                     </Link>
 
                     {/* ── Desktop Navigation ────────────────────────────── */}

@@ -2,61 +2,99 @@
 
 import { useRef, useMemo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Sphere, MeshDistortMaterial, Float, Stars, Points, PointMaterial } from '@react-three/drei'
+import {
+    Sphere,
+    Float,
+    Stars,
+} from '@react-three/drei'
 import * as THREE from 'three'
 
-function RotatingGlobe() {
-    const meshRef = useRef<THREE.Mesh>(null!)
+/* =========================================================
+   APFX Global Network Globe
+   Premium, restrained, institutional visualization
+   ---------------------------------------------------------
+   • Subtle rotation + float (no gimmicks)
+   • Clear regional presence (liquidity hubs)
+   • Performance-conscious materials & lights
+   • Brand-aligned emerald accent
+   ========================================================= */
 
-    useFrame((state) => {
-        meshRef.current.rotation.y += 0.002
+function RotatingGlobe() {
+    const globeRef = useRef<THREE.Mesh>(null!)
+
+    useFrame(() => {
+        // Slow, authoritative rotation (institutional, not playful)
+        globeRef.current.rotation.y += 0.0018
     })
 
-    // Mock dots for major regions (UAE, India, UK, USA)
-    const dots = useMemo(() => {
-        return [
+    /**
+     * Major liquidity / operations hubs
+     * Positions are intentionally abstracted (not geographic-accurate)
+     * to keep the visual editorial rather than literal.
+     */
+    const nodes = useMemo(
+        () => [
             { pos: [1.2, 0.8, 1.2], label: 'London' },
-            { pos: [1.5, 0.2, 0.8], label: 'Dubai' },
-            { pos: [1.3, -0.4, 1.5], label: 'Mumbai' },
-            { pos: [-1.4, 0.6, 1.0], label: 'New York' },
-            { pos: [0.8, -1.2, 1.5], label: 'Singapore' },
-        ]
-    }, [])
+            { pos: [1.45, 0.2, 0.9], label: 'Dubai' },
+            { pos: [1.25, -0.45, 1.55], label: 'Mumbai' },
+            { pos: [-1.4, 0.55, 1.05], label: 'New York' },
+            { pos: [0.85, -1.2, 1.45], label: 'Singapore' },
+        ],
+        []
+    )
 
     return (
         <group>
-            {/* Base Globe */}
-            <Sphere ref={meshRef} args={[2, 64, 64]}>
+            {/* ── Base Globe ─────────────────────────────── */}
+            <Sphere ref={globeRef} args={[2, 64, 64]}>
                 <meshStandardMaterial
-                    color="#101827"
-                    roughness={0.7}
-                    metalness={0.4}
+                    color="#0B1020"
+                    roughness={0.65}
+                    metalness={0.35}
                     emissive="#00C896"
-                    emissiveIntensity={0.05}
+                    emissiveIntensity={0.045}
                 />
             </Sphere>
 
-            {/* Wireframe overlay */}
+            {/* ── Subtle Wireframe Overlay ───────────────── */}
             <Sphere args={[2.02, 32, 32]}>
-                <meshBasicMaterial color="#00C896" wireframe transparent opacity={0.05} />
+                <meshBasicMaterial
+                    color="#00C896"
+                    wireframe
+                    transparent
+                    opacity={0.045}
+                />
             </Sphere>
 
-            {/* Atmospheric glow */}
-            <Sphere args={[2.1, 32, 32]}>
-                <meshBasicMaterial color="#00C896" transparent opacity={0.02} side={THREE.BackSide} />
+            {/* ── Atmospheric Halo ───────────────────────── */}
+            <Sphere args={[2.12, 32, 32]}>
+                <meshBasicMaterial
+                    color="#00C896"
+                    transparent
+                    opacity={0.018}
+                    side={THREE.BackSide}
+                />
             </Sphere>
 
-            {/* Region Highlights */}
-            {dots.map((dot, i) => (
-                <mesh key={i} position={dot.pos as any}>
-                    <sphereGeometry args={[0.04, 16, 16]} />
-                    <meshBasicMaterial color="#00C896" />
-                    {/* Subtle pulse */}
-                    <mesh position={[0, 0, 0]} scale={[1.5, 1.5, 1.5]}>
-                        <sphereGeometry args={[0.04, 16, 16]} />
-                        <meshBasicMaterial color="#00C896" transparent opacity={0.2} />
+            {/* ── Network Nodes ──────────────────────────── */}
+            {nodes.map((node, i) => (
+                <group key={i} position={node.pos as any}>
+                    {/* Core point */}
+                    <mesh>
+                        <sphereGeometry args={[0.045, 18, 18]} />
+                        <meshBasicMaterial color="#00C896" />
                     </mesh>
-                </mesh>
+
+                    {/* Glow pulse */}
+                    <mesh scale={[1.8, 1.8, 1.8]}>
+                        <sphereGeometry args={[0.045, 18, 18]} />
+                        <meshBasicMaterial
+                            color="#00C896"
+                            transparent
+                            opacity={0.18}
+                        />
+                    </mesh>
+                </group>
             ))}
         </group>
     )
@@ -69,18 +107,46 @@ export default function Globe() {
             gl={{
                 antialias: false,
                 powerPreference: 'high-performance',
-                stencil: false
+                stencil: false,
+                depth: true,
             }}
             dpr={[1, 2]}
         >
-            <ambientLight intensity={0.4} />
-            <pointLight position={[10, 10, 10]} intensity={1} color="#00C896" />
-            <pointLight position={[-10, -5, -10]} intensity={0.5} />
-            <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
+            {/* ── Lighting ──────────────────────────────── */}
+            <ambientLight intensity={0.45} />
+
+            {/* Primary accent light */}
+            <pointLight
+                position={[10, 8, 10]}
+                intensity={1}
+                color="#00C896"
+            />
+
+            {/* Soft fill for depth */}
+            <pointLight
+                position={[-8, -6, -10]}
+                intensity={0.45}
+            />
+
+            {/* ── Motion Wrapper ────────────────────────── */}
+            <Float
+                speed={1.4}
+                rotationIntensity={0.4}
+                floatIntensity={0.45}
+            >
                 <RotatingGlobe />
             </Float>
-            {/* Low density stars for depth */}
-            <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
+
+            {/* ── Background Stars (low density, premium) ─ */}
+            <Stars
+                radius={120}
+                depth={60}
+                count={1800}
+                factor={4}
+                saturation={0}
+                fade
+                speed={0.6}
+            />
         </Canvas>
     )
 }

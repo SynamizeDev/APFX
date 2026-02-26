@@ -68,15 +68,16 @@ const FEATURES = [
 
 export default function WhyAPFX() {
     return (
-        <section className={styles.section} aria-labelledby="why-heading">
+        <section className={`${styles.section} apfx-section`} aria-labelledby="why-heading">
             <div className={styles.inner}>
                 <header className={styles.header}>
                     <div className={styles.eyebrow}>Why APFX</div>
                     <h2 id="why-heading" className={styles.title}>
-                        Built for Serious Traders
+                        Engineered for Serious Traders
                     </h2>
                     <p className={styles.subtitle}>
-                        Every feature, every decision — designed to give you an institutional edge.
+                        Every decision in our stack is designed to compress latency, sharpen pricing, and
+                        give you the kind of edge usually reserved for institutional desks.
                     </p>
                 </header>
 

@@ -1,3 +1,6 @@
+'use client'
+
+import { motion } from 'framer-motion'
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
@@ -5,54 +8,92 @@ import styles from './AccountsPage.module.css'
 
 export const metadata = {
     title: 'Account Types — APFX',
-    description: 'Choose the account that fits your trading style. From commission-free Standard accounts to ultra-low spread Raw accounts for professionals.',
+    description:
+        'Choose the account that fits your trading style. From commission-free Standard accounts to ultra-low spread Raw accounts for professionals.',
 }
 
 const ACCOUNTS = [
     {
         name: 'Standard',
-        desc: 'Perfect for retail traders wanting a simple, all-inclusive pricing model.',
+        desc: 'Perfect for retail traders seeking a simple, all-inclusive pricing model with no commissions.',
         spreads: 'from 1.0 pips',
         commission: '$0',
         deposit: '$100',
-        bestFor: 'Beginners & Swing Traders'
+        bestFor: 'Beginners & Swing Traders',
     },
     {
         name: 'Raw Spread',
-        desc: 'Our most popular account. Institutional spreads with a small commission.',
+        desc: 'Institutional-grade spreads paired with a transparent commission structure.',
         spreads: 'from 0.0 pips',
         commission: '$3.50 per side',
         deposit: '$500',
         bestFor: 'Scalpers & Day Traders',
-        featured: true
+        featured: true,
     },
     {
         name: 'Institutional',
-        desc: 'Custom-tailored solutions for high-volume traders and corporate clients.',
+        desc: 'Custom execution, pricing, and liquidity solutions for high-volume and corporate clients.',
         spreads: 'from 0.0 pips',
         commission: 'Custom / Tiered',
         deposit: '$25,000+',
-        bestFor: 'Professional Traders'
-    }
+        bestFor: 'Professional Traders',
+    },
 ]
+
+/* ──────────────────────────────────────────────────────────
+   Motion system — restrained, premium, scroll-led
+   ────────────────────────────────────────────────────────── */
+const fadeUp = {
+    hidden: { opacity: 0, y: 28 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.65, ease: 'easeOut' },
+    },
+}
+
+const stagger = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.12,
+        },
+    },
+}
 
 export default function AccountsPage() {
     return (
         <div className={styles.page}>
             <InnerPageHero
-                title="Trading Accounts for"
-                accentLine="Every Ambition"
-                subtitle="Whether you're just starting or managing an institutional portfolio, our account types are designed to give you a competitive edge."
+                title="Account Structures for"
+                accentLine="Every Trading Mandate"
+                subtitle="From simple all-in pricing to raw spread and institutional tiers, our accounts are engineered to support how you trade today — and how you plan to scale tomorrow."
                 breadcrumbs={[{ label: 'Accounts' }]}
             />
 
             <main className={styles.main}>
-                <section className={styles.section}>
+                {/* ── Account Cards ───────────────────────── */}
+                <section className={`${styles.section} apfx-section`}>
                     <div className={styles.container}>
-                        <div className={styles.accountGrid}>
+                        <motion.div
+                            className={styles.accountGrid}
+                            variants={stagger}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: '-80px' }}
+                        >
                             {ACCOUNTS.map((acc) => (
-                                <div key={acc.name} className={`${styles.accCard} ${acc.featured ? styles.featured : ''}`}>
-                                    {acc.featured && <div className={styles.badge}>Most Popular</div>}
+                                <motion.div
+                                    key={acc.name}
+                                    className={`${styles.accCard} ${
+                                        acc.featured ? styles.featured : ''
+                                    }`}
+                                    variants={fadeUp}
+                                >
+                                    {acc.featured && (
+                                        <div className={styles.badge}>Most Popular</div>
+                                    )}
+
                                     <h3 className={styles.accName}>{acc.name}</h3>
                                     <p className={styles.accDesc}>{acc.desc}</p>
 
@@ -72,22 +113,43 @@ export default function AccountsPage() {
                                     </div>
 
                                     <div className={styles.footer}>
-                                        <span className={styles.best}>Best for: {acc.bestFor}</span>
-                                        <button className={styles.btnOpen}>Open Account</button>
+                                        <span className={styles.best}>
+                                            Best for: {acc.bestFor}
+                                        </span>
+                                        <button className={styles.btnOpen}>
+                                            Open Account
+                                        </button>
                                     </div>
-                                </div>
+                                </motion.div>
                             ))}
-                        </div>
+                        </motion.div>
                     </div>
                 </section>
 
-                <section className={styles.tableSection}>
+                {/* ── Comparison Table ────────────────────── */}
+                <section className={`${styles.tableSection} apfx-section`}>
                     <div className={styles.container}>
-                        <header className={styles.tableHeader}>
+                        <motion.header
+                            className={styles.tableHeader}
+                            initial={{ opacity: 0, y: 24 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, ease: 'easeOut' }}
+                        >
                             <h2>Full Feature Comparison</h2>
-                            <p>Deep dive into the technical specifications of each account type.</p>
-                        </header>
-                        <div className={styles.tableWrapper}>
+                            <p>
+                                A detailed breakdown of execution, platform access,
+                                and trading conditions across all account tiers.
+                            </p>
+                        </motion.header>
+
+                        <motion.div
+                            className={styles.tableWrapper}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+                        >
                             <table className={styles.table}>
                                 <thead>
                                     <tr>
@@ -117,14 +179,14 @@ export default function AccountsPage() {
                                         <td>40%</td>
                                     </tr>
                                     <tr>
-                                        <td>Min Lot Size</td>
+                                        <td>Minimum Lot Size</td>
                                         <td>0.01 Lots</td>
                                         <td>0.01 Lots</td>
                                         <td>0.1 Lots</td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </motion.div>
                     </div>
                 </section>
             </main>

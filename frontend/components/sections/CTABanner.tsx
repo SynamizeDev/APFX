@@ -6,13 +6,14 @@ import styles from './CTABanner.module.css'
 
 export default function CTABanner() {
     return (
-        <section className={styles.section}>
+        <section className={`${styles.section} apfx-section`}>
             <div className={styles.container}>
                 <div className={styles.glassCard}>
                     <div className={styles.content}>
-                        <h2 className={styles.title}>Ready to Trade with an Institutional Edge?</h2>
+                        <h2 className={styles.title}>Ready to Trade with a True Institutional Edge?</h2>
                         <p className={styles.desc}>
-                            Join 27,000+ traders globally and experience the difference of elite execution.
+                            Join 27,000+ active traders and experience execution, pricing, and support that
+                            feel closer to a prop desk than a retail broker.
                         </p>
                         <div className={styles.actions}>
                             <Link href="https://portal.apfx.com/register" className={styles.btnPrimary}>

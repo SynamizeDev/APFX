@@ -1,7 +1,7 @@
 /* ── Testimonials — Infinite marquee ─────────────────────────── */
 .section {
     padding-block: var(--section-py);
-    background: var(--color-bg);
+    background-color: var(--color-bg);
     overflow: hidden;
 }
 
