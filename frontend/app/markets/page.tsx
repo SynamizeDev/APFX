@@ -46,14 +46,14 @@ export default function MarketsPage() {
     return (
         <div className={styles.page}>
             <InnerPageHero
-                title="Deep Liquidity across"
-                accentLine="6 Asset Classes"
-                subtitle="Whether you're a day trader or an institutional investor, our DMA (Direct Market Access) technology provides the speed and reliability you need."
+                title="Deep Liquidity Across"
+                accentLine="Six Core Asset Classes"
+                subtitle="From FX majors to global indices and metals, our DMA infrastructure is built to handle institutional flow while staying accessible to performance‑driven traders."
                 breadcrumbs={[{ label: 'Markets' }]}
             />
 
             <main className={styles.main}>
-                <section className={styles.section}>
+                <section className={`${styles.section} apfx-section`}>
                     <div className={styles.container}>
                         <div className={styles.marketGrid}>
                             {MARKET_BLOCKS.map((m) => (
@@ -70,7 +70,7 @@ export default function MarketsPage() {
                     </div>
                 </section>
 
-                <section className={styles.conditions}>
+                <section className={`${styles.conditions} apfx-section`}>
                     <div className={styles.container}>
                         <div className={styles.conditionsInner}>
                             <h2>Superior Trading Conditions</h2>

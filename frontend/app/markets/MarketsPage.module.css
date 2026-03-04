@@ -69,7 +69,8 @@
 /* ── Conditions ────────────────────────────────────────────── */
 .conditions {
     padding-block: var(--section-py);
-    background: radial-gradient(circle at center, rgba(0, 200, 150, 0.05), transparent);
+    background-color: var(--color-bg);
+    --apfx-section-bg: radial-gradient(circle at center, rgba(0, 200, 150, 0.05), transparent), var(--section-ambient);
 }
 
 .conditionsInner {

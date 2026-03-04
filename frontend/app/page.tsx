@@ -2,17 +2,46 @@
 
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
+import { motion, AnimatePresence } from 'framer-motion'
 import EntryAnimation from '@/components/sections/EntryAnimation'
 
-const HeroSection = dynamic(() => import('@/components/sections/HeroSection'), {
-  ssr: true, // We want the shell to be SEO friendly
-  loading: () => <div style={{ height: '80vh', background: 'var(--color-bg)' }} />
-})
+/* =========================================================
+   Dynamic Imports — SEO-safe & performance-aware
+   ========================================================= */
 
-const GlobalScale = dynamic(() => import('@/components/sections/GlobalScale'), {
-  ssr: false,
-  loading: () => <div style={{ height: '600px', background: 'var(--color-bg)' }} />
-})
+const HeroSection = dynamic(
+  () => import('@/components/sections/HeroSection'),
+  {
+    ssr: true, // Keep SEO shell intact
+    loading: () => (
+      <div
+        style={{
+          height: '80vh',
+          background: 'var(--color-bg)',
+        }}
+      />
+    ),
+  }
+)
+
+const GlobalScale = dynamic(
+  () => import('@/components/sections/GlobalScale'),
+  {
+    ssr: false, // Heavy / canvas-based section
+    loading: () => (
+      <div
+        style={{
+          height: '600px',
+          background: 'var(--color-bg)',
+        }}
+      />
+    ),
+  }
+)
+
+/* =========================================================
+   Static Sections
+   ========================================================= */
 
 import StatsBar from '@/components/sections/StatsBar'
 import MarketsSection from '@/components/sections/MarketsSection'
@@ -24,12 +53,35 @@ import CTABanner from '@/components/sections/CTABanner'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 
+/* =========================================================
+   Motion Presets — subtle, confidence-led
+   ========================================================= */
+
+const pageFade = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut',
+    },
+  },
+}
+
+/* =========================================================
+   Home Page
+   ========================================================= */
+
 export default function HomePage() {
   const [showAnimation, setShowAnimation] = useState(false)
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    // Always show animation on load/refresh as per user request
+    /**
+     * As requested:
+     * Always show entry animation on load / refresh.
+     * This ensures a controlled, cinematic first impression.
+     */
     setShowAnimation(true)
   }, [])
 
@@ -40,15 +92,25 @@ export default function HomePage() {
 
   return (
     <>
-      {showAnimation && <EntryAnimation onComplete={handleAnimationComplete} />}
+      {/* ── Entry Animation ───────────────────────────── */}
+      <AnimatePresence>
+        {showAnimation && (
+          <EntryAnimation onComplete={handleAnimationComplete} />
+        )}
+      </AnimatePresence>
 
-      {/* 
-        Visible only after animation completes (or if already played). 
-        Using conditional rendering for the whole main content 
-        to ensure no layout shift or partial renders.
-      */}
+      {/* ── Main Experience ─────────────────────────────
+          Rendered only after animation completes to:
+          • avoid layout shift
+          • preserve visual authority
+          • ensure intentional reveal
+      --------------------------------------------------- */}
       {ready && (
-        <>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={pageFade}
+        >
           <HeroSection />
           <StatsBar />
           <MarketsSection />
@@ -60,7 +122,7 @@ export default function HomePage() {
           <CTABanner />
           <Footer />
           <BottomBar />
-        </>
+        </motion.div>
       )}
     </>
   )

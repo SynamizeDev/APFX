@@ -57,7 +57,7 @@ function Counter({ stat }: { stat: Stat }) {
 
 export default function StatsBar() {
     return (
-        <section className={styles.statsBar} aria-label="Platform statistics">
+        <section className={`${styles.statsBar} apfx-section apfx-section--no-divider`} aria-label="Platform statistics">
             <div className={styles.grid}>
                 {STATS.map((stat, i) => (
                     <Fragment key={stat.label}>

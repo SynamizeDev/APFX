@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { motion, useReducedMotion } from 'framer-motion'
 import styles from './InnerPageHero.module.css'
 
 interface Breadcrumb {
@@ -19,20 +20,30 @@ export default function InnerPageHero({
     title,
     subtitle,
     breadcrumbs,
-    accentLine
+    accentLine,
 }: InnerPageHeroProps) {
+    const prefersReducedMotion = useReducedMotion()
+
     return (
         <section className={styles.hero}>
             <div className={styles.container}>
                 {/* Breadcrumbs */}
-                <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
+                <motion.nav
+                    className={styles.breadcrumbs}
+                    aria-label="Breadcrumb"
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: -6 }}
+                    animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: 'easeOut' }}
+                >
                     <ol role="list">
                         <li>
                             <Link href="/">Home</Link>
                         </li>
                         {breadcrumbs.map((crumb, i) => (
                             <li key={i}>
-                                <span className={styles.separator} aria-hidden="true">/</span>
+                                <span className={styles.separator} aria-hidden="true">
+                                    /
+                                </span>
                                 {crumb.href ? (
                                     <Link href={crumb.href}>{crumb.label}</Link>
                                 ) : (
@@ -41,10 +52,19 @@ export default function InnerPageHero({
                             </li>
                         ))}
                     </ol>
-                </nav>
+                </motion.nav>
 
                 {/* Content */}
-                <div className={styles.content}>
+                <motion.div
+                    className={styles.content}
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+                    animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                    transition={{
+                        duration: 0.7,
+                        ease: [0.16, 1, 0.3, 1], // matches your design system ease-out
+                        delay: 0.05,
+                    }}
+                >
                     <h1 className={styles.title}>
                         {title}
                         {accentLine && (
@@ -54,11 +74,25 @@ export default function InnerPageHero({
                             </>
                         )}
                     </h1>
-                    {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-                </div>
+
+                    {subtitle && (
+                        <motion.p
+                            className={styles.subtitle}
+                            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                            transition={{
+                                duration: 0.6,
+                                ease: 'easeOut',
+                                delay: 0.15,
+                            }}
+                        >
+                            {subtitle}
+                        </motion.p>
+                    )}
+                </motion.div>
             </div>
 
-            {/* Subtle background glow */}
+            {/* Ambient background glow */}
             <div className={styles.glow} aria-hidden="true" />
         </section>
     )

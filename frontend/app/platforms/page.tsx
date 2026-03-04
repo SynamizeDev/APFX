@@ -1,4 +1,7 @@
+'use client'
+
 import { BarChart3, TrendingUp, Globe, Smartphone } from 'lucide-react'
+import { motion } from 'framer-motion'
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
@@ -6,85 +9,161 @@ import styles from './PlatformsPage.module.css'
 
 export const metadata = {
     title: 'Trading Platforms — APFX',
-    description: 'Experience institutional-grade trading on MT4, MT5, and WebTrader. Trade on desktop, web, or mobile with APFX.',
+    description:
+        'Experience institutional-grade trading on MT4, MT5, and WebTrader. Trade seamlessly on desktop, web, or mobile with APFX.',
 }
 
 const PLATFORMS = [
     {
         name: 'MetaTrader 4',
         tag: 'The Global Standard',
-        desc: 'The most popular platform for retail traders. Features advanced charting, automated trading via EAs, and a massive library of indicators.',
-        features: ['30 Default Indicators', '9 Timeframes', 'Automated Trading (EAs)', 'Hedging Allowed'],
-        icon: <BarChart3 size={40} />
+        desc: 'The industry’s most widely adopted trading platform, offering advanced charting, automated trading via Expert Advisors, and a vast ecosystem of indicators.',
+        features: [
+            '30 Built-in Indicators',
+            '9 Timeframes',
+            'Automated Trading (EAs)',
+            'Hedging Supported',
+        ],
+        icon: <BarChart3 size={42} strokeWidth={1.6} />,
     },
     {
         name: 'MetaTrader 5',
         tag: 'Next-Generation Trading',
-        desc: 'Built for the modern multi-asset trader. More timeframes, more indicators, and a powerful MQL5 engine for lightning-fast backtesting.',
-        features: ['38 Technical Indicators', '21 Timeframes', 'Built-in Economic Calendar', 'Depth of Market (DOM)'],
-        icon: <TrendingUp size={40} />
+        desc: 'Designed for modern, multi-asset trading. MT5 delivers more analytical power, deeper market insight, and faster strategy testing.',
+        features: [
+            '38 Technical Indicators',
+            '21 Timeframes',
+            'Integrated Economic Calendar',
+            'Depth of Market (DOM)',
+        ],
+        icon: <TrendingUp size={42} strokeWidth={1.6} />,
     },
     {
         name: 'WebTrader',
         tag: 'Trading without Limits',
-        desc: 'Access the markets from any browser on any device. No download required. Perfectly synced with your desktop account.',
-        features: ['No Installation Required', 'One-Click Trading', 'Advanced Analytical Tools', 'Real-time Account Sync'],
-        icon: <Globe size={40} />
+        desc: 'Trade directly from your browser with zero installation. Fully synchronized with your desktop and mobile platforms.',
+        features: [
+            'No Installation Required',
+            'One-Click Trading',
+            'Advanced Analytical Tools',
+            'Real-Time Account Sync',
+        ],
+        icon: <Globe size={42} strokeWidth={1.6} />,
     },
     {
         name: 'Mobile App',
         tag: 'Trading on the Go',
-        desc: 'Full trading functionality on your smartphone. Available for iOS and Android with real-time sync.',
-        features: ['Full Mobile Control', 'Push Notifications', 'Real-time Charts', 'Secure Transactions'],
-        icon: <Smartphone size={40} />
-    }
+        desc: 'Institutional-grade execution in your pocket. Trade, manage risk, and monitor markets anywhere, anytime.',
+        features: [
+            'Full Mobile Trading Control',
+            'Push Notifications',
+            'Real-Time Charts',
+            'Secure Transactions',
+        ],
+        icon: <Smartphone size={42} strokeWidth={1.6} />,
+    },
 ]
+
+/* ──────────────────────────────────────────────────────────
+   Motion system — premium, directional, confidence-led
+   ────────────────────────────────────────────────────────── */
+const fadeUp = {
+    hidden: { opacity: 0, y: 32 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.65, ease: 'easeOut' },
+    },
+}
 
 export default function PlatformsPage() {
     return (
         <div className={styles.page}>
             <InnerPageHero
-                title="Institutional Tech"
-                accentLine="for Every Device"
-                subtitle="Whether you prefer the reliability of desktop or the flexibility of mobile, our platforms are powered by fibre-optic cross-connects for the fastest execution."
+                title="Platforms That Scale"
+                accentLine="From Desktop to Mobile"
+                subtitle="Run your trading the way institutional desks do. MT4, MT5, WebTrader, and mobile are all connected to the same low-latency, fibre-backed infrastructure."
                 breadcrumbs={[{ label: 'Platforms' }]}
             />
 
             <main className={styles.main}>
-                <section className={styles.section}>
+                {/* ── Platforms List ─────────────────────── */}
+                <section className={`${styles.section} apfx-section`}>
                     <div className={styles.container}>
                         <div className={styles.platformList}>
                             {PLATFORMS.map((p, i) => (
-                                <div key={p.name} className={`${styles.platformItem} ${i % 2 !== 0 ? styles.reverse : ''}`}>
+                                <motion.div
+                                    key={p.name}
+                                    className={`${styles.platformItem} ${
+                                        i % 2 !== 0 ? styles.reverse : ''
+                                    }`}
+                                    variants={fadeUp}
+                                    initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true, margin: '-120px' }}
+                                >
                                     <div className={styles.info}>
                                         <span className={styles.tag}>{p.tag}</span>
                                         <h2 className={styles.name}>{p.name}</h2>
                                         <p className={styles.desc}>{p.desc}</p>
+
                                         <ul className={styles.features}>
-                                            {p.features.map(f => <li key={f}>{f}</li>)}
+                                            {p.features.map((f) => (
+                                                <li key={f}>{f}</li>
+                                            ))}
                                         </ul>
+
                                         <div className={styles.actions}>
-                                            <button className={styles.btnPrimary}>Download Now</button>
-                                            <button className={styles.btnSecondary}>Quick Guide</button>
+                                            <button className={styles.btnPrimary}>
+                                                Download Platform
+                                            </button>
+                                            <button className={styles.btnSecondary}>
+                                                View Quick Guide
+                                            </button>
                                         </div>
                                     </div>
+
                                     <div className={styles.visual}>
-                                        <div className={styles.visualIcon}>{p.icon}</div>
+                                        <motion.div
+                                            className={styles.visualIcon}
+                                            initial={{ scale: 0.9, opacity: 0 }}
+                                            whileInView={{ scale: 1, opacity: 1 }}
+                                            viewport={{ once: true }}
+                                            transition={{
+                                                duration: 0.6,
+                                                ease: 'easeOut',
+                                            }}
+                                        >
+                                            {p.icon}
+                                        </motion.div>
                                         <div className={styles.glow} />
                                     </div>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
                     </div>
                 </section>
 
-                <section className={styles.ctaSection}>
+                {/* ── CTA ────────────────────────────────── */}
+                <section className={`${styles.ctaSection} apfx-section`}>
                     <div className={styles.container}>
-                        <div className={styles.ctaBox}>
-                            <h2>One Account, All Platforms.</h2>
-                            <p>Switch between desktop, web, and mobile seamlessly with a single set of credentials.</p>
-                            <button className={styles.btnAccent}>Start Trading Now</button>
-                        </div>
+                        <motion.div
+                            className={styles.ctaBox}
+                            initial={{ opacity: 0, y: 28 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, ease: 'easeOut' }}
+                        >
+                            <h2>One Account. Every Platform.</h2>
+                            <p>
+                                Trade seamlessly across desktop, web, and mobile
+                                using a single APFX account and unified liquidity
+                                pool.
+                            </p>
+                            <button className={styles.btnAccent}>
+                                Start Trading Now
+                            </button>
+                        </motion.div>
                     </div>
                 </section>
             </main>

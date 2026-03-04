@@ -1,9 +1,12 @@
-.hero {
+
+
+   .hero {
     position: relative;
-    padding-block: clamp(4rem, 8vw, 6rem);
+    padding-block: clamp(4.5rem, 8.5vw, 6.5rem);
     background: var(--color-bg);
     overflow: hidden;
     border-bottom: 1px solid var(--color-border);
+    isolation: isolate;
 }
 
 .container {
@@ -16,14 +19,14 @@
 
 /* ── Breadcrumbs ────────────────────────────────────────────── */
 .breadcrumbs {
-    margin-bottom: 2rem;
+    margin-bottom: 2.25rem;
 }
 
 .breadcrumbs ol {
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
     padding: 0;
 }
 
@@ -31,7 +34,9 @@
     font-size: var(--text-xs);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
+    color: var(--color-text-3);
+    letter-spacing: var(--ls-wide);
 }
 
 .breadcrumbs a {
@@ -45,58 +50,70 @@
 }
 
 .separator {
-    color: var(--color-text-3);
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 .current {
     color: var(--color-accent);
-    font-weight: var(--fw-medium);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
 }
 
 /* ── Content ────────────────────────────────────────────────── */
 .content {
-    max-width: 800px;
+    max-width: 820px;
 }
 
 .title {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: var(--lh-tight);
+    font-size: clamp(2.75rem, 5.2vw, 4.25rem);
+    line-height: 1.05;
     color: var(--color-text-1);
     letter-spacing: var(--ls-tight);
     font-weight: var(--fw-extrabold);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.65rem;
 }
 
 .accent {
     color: var(--color-accent);
 }
 
+/* Subheading / description */
 .subtitle {
     font-size: var(--text-lg);
     color: var(--color-text-2);
-    line-height: var(--lh-normal);
-    max-width: 600px;
+    line-height: var(--lh-relaxed);
+    max-width: 620px;
 }
 
-/* ── Background Glow ─────────────────────────────────────────── */
+/* ── Ambient Background Glow ───────────────────────────────── */
 .glow {
     position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 60%;
-    height: 100%;
-    background: radial-gradient(circle at 50% 50%,
-            rgba(0, 200, 150, 0.08),
-            transparent 70%);
-    filter: blur(80px);
+    inset: auto -15% -35% auto;
+    width: 65%;
+    height: 120%;
+    background: radial-gradient(
+        ellipse at 40% 40%,
+        rgba(0, 200, 150, 0.085),
+        rgba(0, 200, 150, 0.04) 35%,
+        transparent 70%
+    );
+    filter: blur(90px);
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
 }
 
+/* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 768px) {
     .hero {
-        padding-block: 3.5rem;
+        padding-block: 3.75rem;
+    }
+
+    .breadcrumbs {
+        margin-bottom: 1.75rem;
+    }
+
+    .title {
+        font-size: clamp(2.25rem, 8vw, 3.2rem);
     }
 }

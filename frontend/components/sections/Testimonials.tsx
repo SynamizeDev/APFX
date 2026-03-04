@@ -88,11 +88,11 @@ function Card({ r }: { r: (typeof REVIEWS)[0] }) {
 
 export default function Testimonials() {
     return (
-        <section className={styles.section} aria-labelledby="testimonials-heading">
+        <section className={`${styles.section} apfx-section`} aria-labelledby="testimonials-heading">
             <div className={styles.inner}>
                 <div className={styles.eyebrow}>Client Reviews</div>
                 <h2 id="testimonials-heading" className={styles.title}>
-                    Trusted by Traders Globally
+                    Trusted by Performance‑Driven Traders Worldwide
                 </h2>
             </div>
 

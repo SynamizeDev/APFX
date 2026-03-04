@@ -28,16 +28,16 @@ const PLATFORMS = [
 
 export default function TradingPlatforms() {
     return (
-        <section className={styles.section} aria-labelledby="platforms-heading">
+        <section className={`${styles.section} apfx-section`} aria-labelledby="platforms-heading">
             <div className={styles.inner}>
                 <div className={styles.content}>
                     <span className={styles.eyebrow}>Award-Winning Tech</span>
                     <h2 id="platforms-heading" className={styles.title}>
-                        Master the Markets on Any Device
+                        Institutional Platforms on Every Device
                     </h2>
                     <p className={styles.desc}>
-                        Whether you are a scalper, a news trader, or a long-term investor,
-                        our suite of platforms provides the stability and tools you need.
+                        Whether you scalp intraday volatility or run systematic strategies,
+                        our MT4, MT5, WebTrader and mobile apps are tuned for speed, stability, and control.
                     </p>
 
                     <div className={styles.platformsGrid}>
