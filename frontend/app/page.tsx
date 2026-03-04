@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, Variants } from 'framer-motion'
 import EntryAnimation from '@/components/sections/EntryAnimation'
 
 /* =========================================================
@@ -52,18 +52,19 @@ import Testimonials from '@/components/sections/Testimonials'
 import CTABanner from '@/components/sections/CTABanner'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
+import AnimatedSection from '@/components/animations/AnimatedSection'
 
 /* =========================================================
    Motion Presets — subtle, confidence-led
    ========================================================= */
 
-const pageFade = {
+const pageFade: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: 'easeOut',
+      ease: 'easeOut' as const,
     },
   },
 }
@@ -112,14 +113,39 @@ export default function HomePage() {
           variants={pageFade}
         >
           <HeroSection />
-          <StatsBar />
-          <MarketsSection />
-          <WhyAPFX />
-          <TradingPlatforms />
-          <AccountTypes />
-          <GlobalScale />
-          <Testimonials />
-          <CTABanner />
+
+          <AnimatedSection className="bg-alternate-1">
+            <StatsBar />
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <MarketsSection />
+          </AnimatedSection>
+
+          <AnimatedSection className="bg-alternate-2">
+            <WhyAPFX />
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <TradingPlatforms />
+          </AnimatedSection>
+
+          <AnimatedSection className="bg-alternate-1">
+            <AccountTypes />
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <GlobalScale />
+          </AnimatedSection>
+
+          <AnimatedSection className="bg-alternate-2">
+            <Testimonials />
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <CTABanner />
+          </AnimatedSection>
+
           <Footer />
           <BottomBar />
         </motion.div>

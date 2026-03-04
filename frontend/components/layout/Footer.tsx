@@ -44,8 +44,8 @@ const FOOTER_LINKS = {
     ],
     Support: [
         { label: 'Help Center', href: '/support' },
-        { label: 'Open Account', href: 'https://portal.apfx.com/register' },
-        { label: 'Deposit', href: 'https://portal.apfx.com/deposit' },
+        { label: 'Open Account', href: '/register' },
+        { label: 'Login', href: '/login' },
         { label: 'IB Program', href: '/partners' },
         { label: 'FAQ', href: '/faq' },
     ],

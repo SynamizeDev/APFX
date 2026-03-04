@@ -6,12 +6,6 @@ import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import styles from './AccountsPage.module.css'
 
-export const metadata = {
-    title: 'Account Types — APFX',
-    description:
-        'Choose the account that fits your trading style. From commission-free Standard accounts to ultra-low spread Raw accounts for professionals.',
-}
-
 const ACCOUNTS = [
     {
         name: 'Standard',
@@ -85,9 +79,8 @@ export default function AccountsPage() {
                             {ACCOUNTS.map((acc) => (
                                 <motion.div
                                     key={acc.name}
-                                    className={`${styles.accCard} ${
-                                        acc.featured ? styles.featured : ''
-                                    }`}
+                                    className={`${styles.accCard} ${acc.featured ? styles.featured : ''
+                                        }`}
                                     variants={fadeUp}
                                 >
                                     {acc.featured && (

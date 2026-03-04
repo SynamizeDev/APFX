@@ -82,6 +82,10 @@ export default function HeroSection() {
                 <HeroCanvas />
             </div>
 
+            {/* Abstract Floating Orbs */}
+            <div className={styles.orb1} />
+            <div className={styles.orb2} />
+
             {/* Dark vignette */}
             <div className={styles.vignette} />
 

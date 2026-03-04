@@ -1,175 +1,91 @@
 'use client'
 
-import { BarChart3, TrendingUp, Globe, Smartphone } from 'lucide-react'
-import { motion } from 'framer-motion'
-import InnerPageHero from '@/components/layout/InnerPageHero'
+import { Monitor, Smartphone, LayoutDashboard, Zap, Activity, Clock } from 'lucide-react'
+import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
-import styles from './PlatformsPage.module.css'
-
-export const metadata = {
-    title: 'Trading Platforms — APFX',
-    description:
-        'Experience institutional-grade trading on MT4, MT5, and WebTrader. Trade seamlessly on desktop, web, or mobile with APFX.',
-}
-
-const PLATFORMS = [
-    {
-        name: 'MetaTrader 4',
-        tag: 'The Global Standard',
-        desc: 'The industry’s most widely adopted trading platform, offering advanced charting, automated trading via Expert Advisors, and a vast ecosystem of indicators.',
-        features: [
-            '30 Built-in Indicators',
-            '9 Timeframes',
-            'Automated Trading (EAs)',
-            'Hedging Supported',
-        ],
-        icon: <BarChart3 size={42} strokeWidth={1.6} />,
-    },
-    {
-        name: 'MetaTrader 5',
-        tag: 'Next-Generation Trading',
-        desc: 'Designed for modern, multi-asset trading. MT5 delivers more analytical power, deeper market insight, and faster strategy testing.',
-        features: [
-            '38 Technical Indicators',
-            '21 Timeframes',
-            'Integrated Economic Calendar',
-            'Depth of Market (DOM)',
-        ],
-        icon: <TrendingUp size={42} strokeWidth={1.6} />,
-    },
-    {
-        name: 'WebTrader',
-        tag: 'Trading without Limits',
-        desc: 'Trade directly from your browser with zero installation. Fully synchronized with your desktop and mobile platforms.',
-        features: [
-            'No Installation Required',
-            'One-Click Trading',
-            'Advanced Analytical Tools',
-            'Real-Time Account Sync',
-        ],
-        icon: <Globe size={42} strokeWidth={1.6} />,
-    },
-    {
-        name: 'Mobile App',
-        tag: 'Trading on the Go',
-        desc: 'Institutional-grade execution in your pocket. Trade, manage risk, and monitor markets anywhere, anytime.',
-        features: [
-            'Full Mobile Trading Control',
-            'Push Notifications',
-            'Real-Time Charts',
-            'Secure Transactions',
-        ],
-        icon: <Smartphone size={42} strokeWidth={1.6} />,
-    },
-]
-
-/* ──────────────────────────────────────────────────────────
-   Motion system — premium, directional, confidence-led
-   ────────────────────────────────────────────────────────── */
-const fadeUp = {
-    hidden: { opacity: 0, y: 32 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.65, ease: 'easeOut' },
-    },
-}
+import AnimatedSection from '@/components/animations/AnimatedSection'
+import styles from './page.module.css'
 
 export default function PlatformsPage() {
     return (
-        <div className={styles.page}>
-            <InnerPageHero
-                title="Platforms That Scale"
-                accentLine="From Desktop to Mobile"
-                subtitle="Run your trading the way institutional desks do. MT4, MT5, WebTrader, and mobile are all connected to the same low-latency, fibre-backed infrastructure."
-                breadcrumbs={[{ label: 'Platforms' }]}
-            />
+        <>
+            <Header />
 
-            <main className={styles.main}>
-                {/* ── Platforms List ─────────────────────── */}
-                <section className={`${styles.section} apfx-section`}>
-                    <div className={styles.container}>
-                        <div className={styles.platformList}>
-                            {PLATFORMS.map((p, i) => (
-                                <motion.div
-                                    key={p.name}
-                                    className={`${styles.platformItem} ${
-                                        i % 2 !== 0 ? styles.reverse : ''
-                                    }`}
-                                    variants={fadeUp}
-                                    initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true, margin: '-120px' }}
-                                >
-                                    <div className={styles.info}>
-                                        <span className={styles.tag}>{p.tag}</span>
-                                        <h2 className={styles.name}>{p.name}</h2>
-                                        <p className={styles.desc}>{p.desc}</p>
-
-                                        <ul className={styles.features}>
-                                            {p.features.map((f) => (
-                                                <li key={f}>{f}</li>
-                                            ))}
-                                        </ul>
-
-                                        <div className={styles.actions}>
-                                            <button className={styles.btnPrimary}>
-                                                Download Platform
-                                            </button>
-                                            <button className={styles.btnSecondary}>
-                                                View Quick Guide
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div className={styles.visual}>
-                                        <motion.div
-                                            className={styles.visualIcon}
-                                            initial={{ scale: 0.9, opacity: 0 }}
-                                            whileInView={{ scale: 1, opacity: 1 }}
-                                            viewport={{ once: true }}
-                                            transition={{
-                                                duration: 0.6,
-                                                ease: 'easeOut',
-                                            }}
-                                        >
-                                            {p.icon}
-                                        </motion.div>
-                                        <div className={styles.glow} />
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
+            <main style={{ backgroundColor: 'var(--color-bg)' }}>
+                {/* Hero Section */}
+                <section className={styles.platformsHero}>
+                    <AnimatedSection>
+                        <h1 className={styles.heroTitle}>Trade on the World's <br /> Most Advanced Terminals</h1>
+                        <p className={styles.heroSubtitle}>
+                            Whether you prefer web, desktop, or mobile—our infrastructure seamlessly routes your orders to top-tier liquidity providers with execution paths averaging under 12ms.
+                        </p>
+                    </AnimatedSection>
                 </section>
 
-                {/* ── CTA ────────────────────────────────── */}
-                <section className={`${styles.ctaSection} apfx-section`}>
-                    <div className={styles.container}>
-                        <motion.div
-                            className={styles.ctaBox}
-                            initial={{ opacity: 0, y: 28 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, ease: 'easeOut' }}
-                        >
-                            <h2>One Account. Every Platform.</h2>
-                            <p>
-                                Trade seamlessly across desktop, web, and mobile
-                                using a single APFX account and unified liquidity
-                                pool.
+                {/* Bento Grid */}
+                <section className={styles.bentoGridSection}>
+                    <div className={styles.bentoGrid}>
+
+                        {/* WebTrader - Large Span */}
+                        <div className={`${styles.bentoCard} ${styles.largeCard}`}>
+                            <div className={styles.cardIcon}>
+                                <LayoutDashboard size={40} />
+                            </div>
+                            <h3 className={styles.cardTitle}>APFX WebTrader</h3>
+                            <p className={styles.cardDesc}>
+                                Our proprietary HTML5 terminal. Access institutional spread betting and CFD trading directly from any browser without downloading software.
                             </p>
-                            <button className={styles.btnAccent}>
-                                Start Trading Now
-                            </button>
-                        </motion.div>
+                            <ul className={styles.cardFeatureList}>
+                                <li className={styles.featureItem}><span className={styles.featureCheck}>✓</span> Integrated TradingView Charting</li>
+                                <li className={styles.featureItem}><span className={styles.featureCheck}>✓</span> One-Click Execution via UI</li>
+                                <li className={styles.featureItem}><span className={styles.featureCheck}>✓</span> Real-Time DOM & Depth of Market</li>
+                            </ul>
+                        </div>
+
+                        {/* Mobile App - Tall Span */}
+                        <div className={`${styles.bentoCard} ${styles.tallCard}`}>
+                            <div className={styles.cardIcon}>
+                                <Smartphone size={40} />
+                            </div>
+                            <h3 className={styles.cardTitle}>Mobile App</h3>
+                            <p className={styles.cardDesc}>
+                                Never miss a market move. Full account management, charting, and execution capabilities engineered natively for iOS and Android.
+                            </p>
+                            <ul className={styles.cardFeatureList}>
+                                <li className={styles.featureItem}><span className={styles.featureCheck}>✓</span> Push Alert Price Notifications</li>
+                                <li className={styles.featureItem}><span className={styles.featureCheck}>✓</span> Secure Biometric Login</li>
+                                <li className={styles.featureItem}><span className={styles.featureCheck}>✓</span> Manage Open Orders on the Go</li>
+                                <li className={styles.featureItem}><span className={styles.featureCheck}>✓</span> Custom Dashboards</li>
+                            </ul>
+                        </div>
+
+                        {/* FIX API */}
+                        <div className={styles.bentoCard}>
+                            <div className={styles.cardIcon}>
+                                <Zap size={32} />
+                            </div>
+                            <h3 className={styles.cardTitle}>FIX API 4.4</h3>
+                            <p className={styles.cardDesc}>
+                                Direct market access for algorithmic and HFT traders requiring absolute sub-millisecond execution control.
+                            </p>
+                        </div>
+
+                        {/* MT5 / Desktop */}
+                        <div className={styles.bentoCard}>
+                            <div className={styles.cardIcon}>
+                                <Monitor size={32} />
+                            </div>
+                            <h3 className={styles.cardTitle}>MetaTrader 5</h3>
+                            <p className={styles.cardDesc}>
+                                The global industry standard platform. MQL5 custom indicator support, strategy testing, and algorithmic trading.
+                            </p>
+                        </div>
+
                     </div>
                 </section>
             </main>
 
             <Footer />
-            <BottomBar />
-        </div>
+        </>
     )
 }

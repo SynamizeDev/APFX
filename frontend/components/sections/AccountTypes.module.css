@@ -42,9 +42,9 @@
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    border-color: var(--color-accent);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(0, 200, 150, 0.5);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 200, 150, 0.15);
 }
 
 .cardFeatured {

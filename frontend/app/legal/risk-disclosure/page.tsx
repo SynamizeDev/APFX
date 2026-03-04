@@ -6,12 +6,6 @@ import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import styles from './LegalPage.module.css'
 
-export const metadata = {
-    title: 'Risk Disclosure — APFX',
-    description:
-        'Trading financial instruments carries significant risk. This disclosure outlines the risks involved and your responsibilities as a trader.',
-}
-
 /* ──────────────────────────────────────────────────────────
    Motion system — serious, compliance-first, non-distracting
    ────────────────────────────────────────────────────────── */
@@ -20,7 +14,7 @@ const fadeUp = {
     visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.55, ease: 'easeOut' },
+        transition: { duration: 0.55, ease: 'easeOut' as const },
     },
 }
 

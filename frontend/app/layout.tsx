@@ -67,6 +67,8 @@ export const metadata: Metadata = {
   },
 }
 
+import PageTransition from '@/components/animations/PageTransition'
+
 export default function RootLayout({
   children,
 }: {
@@ -92,9 +94,8 @@ export default function RootLayout({
               '@type': 'Organization',
               name: 'APFX',
               url: process.env.NEXT_PUBLIC_SITE_URL || 'https://apfx.com',
-              logo: `${
-                process.env.NEXT_PUBLIC_SITE_URL || 'https://apfx.com'
-              }/logo.svg`,
+              logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://apfx.com'
+                }/logo.svg`,
               description:
                 'Premium global trading platform for Forex, Commodities, Indices, and Metals.',
               sameAs: [
@@ -128,7 +129,7 @@ export default function RootLayout({
               isolation: 'isolate',
             }}
           >
-            {children}
+            <PageTransition>{children}</PageTransition>
           </main>
         </SmoothScrollProvider>
       </body>

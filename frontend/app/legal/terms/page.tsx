@@ -6,12 +6,6 @@ import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import styles from '../privacy/LegalPage.module.css'
 
-export const metadata = {
-    title: 'Terms of Service — APFX',
-    description:
-        'Read the terms and conditions governing your access to and use of APFX’s services and trading platforms.',
-}
-
 /* ──────────────────────────────────────────────────────────
    Motion system — formal, conservative, regulator-safe
    ────────────────────────────────────────────────────────── */
@@ -20,7 +14,7 @@ const fadeUp = {
     visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.55, ease: 'easeOut' },
+        transition: { duration: 0.55, ease: 'easeOut' as const },
     },
 }
 

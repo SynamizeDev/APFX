@@ -1,100 +1,156 @@
-import { RefreshCcw, Droplets, BarChart3, Gem, Building2, Bitcoin } from 'lucide-react'
-import InnerPageHero from '@/components/layout/InnerPageHero'
+'use client'
+
+import { useState, useEffect, Suspense } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useSearchParams } from 'next/navigation'
+import { fetchMarketData, MarketQuote, DEFAULT_SYMBOLS } from '@/services/marketData'
+import LivePriceWidget from '@/components/ui/LivePriceWidget'
+import styles from './page.module.css'
+import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
-import styles from './MarketsPage.module.css'
 
-export const metadata = {
-    title: 'Trade Global Markets — APFX',
-    description: 'Explore the wide range of markets available at APFX. Trade Forex, Commodities, Indices, Stocks and more with institutional conditions.',
+// Map categories to their symbols
+const CATEGORY_MAP: Record<string, string[]> = {
+    'All': DEFAULT_SYMBOLS,
+    'Forex': ['EUR/USD', 'GBP/USD', 'USD/JPY', 'USD/CHF', 'AUD/USD', 'NZD/USD'],
+    'Crypto': ['BTC/USD', 'ETH/USD', 'BNB/USD', 'SOL/USD', 'XRP/USD', 'ADA/USD'],
+    'Metals': ['XAU/USD', 'XAG/USD', 'XPT/USD'],
+    'Stocks': ['AAPL', 'TSLA', 'MSFT', 'NVDA', 'AMZN', 'META'],
+    'ETFs': ['SPY', 'QQQ', 'DIA', 'VTI'],
+    'Indices': ['IXIC', 'DJI', 'S&P500', 'NASDAQ', 'DOW', 'FTSE100', 'NIKKEI225']
 }
 
-const MARKET_BLOCKS = [
-    {
-        title: 'Forex',
-        icon: <RefreshCcw size={32} />,
-        desc: '60+ Currency pairs with spreads from 0.0 pips and 24/5 institutional depth.',
-    },
-    {
-        title: 'Commodities',
-        icon: <Droplets size={32} />,
-        desc: 'Trade Oil, Gas, and Hard Commodities with zero commission and flexible leverage.',
-    },
-    {
-        title: 'Indices',
-        icon: <BarChart3 size={32} />,
-        desc: 'Access major global exchanges like S&P 500, DAX, and FTSE 100 with ultra-low latency.',
-    },
-    {
-        title: 'Metals',
-        icon: <Gem size={32} />,
-        desc: 'Spot Gold and Silver against major currencies with the tightest spreads in the industry.',
-    },
-    {
-        title: 'Stocks',
-        icon: <Building2 size={32} />,
-        desc: 'Hundreds of blue-chip global shares with dividend payments and leverage.',
-    },
-    {
-        title: 'Crypto',
-        icon: <Bitcoin size={32} />,
-        desc: 'Trade major cryptocurrencies against USD with fast execution and 24/7 availability.',
-    },
-]
+function getCategoryForSymbol(symbol: string): string {
+    for (const [cat, symbols] of Object.entries(CATEGORY_MAP)) {
+        if (cat !== 'All' && symbols.includes(symbol)) return cat;
+    }
+    return 'Other';
+}
 
-export default function MarketsPage() {
+function MarketsContent() {
+    const searchParams = useSearchParams()
+    const initialFilter = searchParams.get('filter') || 'All'
+
+    // Capitalize filter to match tab keys
+    const startTab = Object.keys(CATEGORY_MAP).find(k => k.toLowerCase() === initialFilter.toLowerCase()) || 'All'
+
+    const [activeTab, setActiveTab] = useState(startTab)
+    const [quotes, setQuotes] = useState<MarketQuote[]>([])
+    const [loading, setLoading] = useState(true)
+    const [lastUpdated, setLastUpdated] = useState<string>('')
+
+    useEffect(() => {
+        let isMounted = true;
+
+        async function load() {
+            try {
+                // Use centralized fetcher
+                const data = await fetchMarketData();
+                if (isMounted && data) {
+                    setQuotes(data);
+                    setLoading(false);
+                    setLastUpdated(new Date().toLocaleTimeString());
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        load();
+        const interval = setInterval(load, 60000);
+        return () => {
+            isMounted = false;
+            clearInterval(interval);
+        }
+    }, [])
+
+    const displayedSymbols = CATEGORY_MAP[activeTab] || DEFAULT_SYMBOLS;
+    const displayedQuotes = quotes.filter(q => displayedSymbols.includes(q.symbol))
+
+    const tabs = Object.keys(CATEGORY_MAP)
+
     return (
-        <div className={styles.page}>
-            <InnerPageHero
-                title="Deep Liquidity Across"
-                accentLine="Six Core Asset Classes"
-                subtitle="From FX majors to global indices and metals, our DMA infrastructure is built to handle institutional flow while staying accessible to performance‑driven traders."
-                breadcrumbs={[{ label: 'Markets' }]}
-            />
+        <main className={styles.container}>
+            <div className="container" style={{ position: 'relative', zIndex: 2 }}>
 
-            <main className={styles.main}>
-                <section className={`${styles.section} apfx-section`}>
-                    <div className={styles.container}>
-                        <div className={styles.marketGrid}>
-                            {MARKET_BLOCKS.map((m) => (
-                                <div key={m.title} className={styles.marketCard}>
-                                    <div className={styles.marketIcon}>
-                                        {m.icon}
+                <header className={styles.header}>
+                    <h1 className={styles.title}>Global Markets Dashboard</h1>
+                    <p className={styles.subtitle}>
+                        Real-time pricing data across major asset classes. Powered by institutional liquidity.
+                    </p>
+                    {lastUpdated && (
+                        <div className={styles.lastUpdated}>
+                            Last updated: {lastUpdated}
+                        </div>
+                    )}
+                </header>
+
+                <div className={styles.tabs} role="tablist">
+                    {tabs.map(tab => (
+                        <button
+                            key={tab}
+                            role="tab"
+                            aria-selected={activeTab === tab}
+                            className={`${styles.tabBtn} ${activeTab === tab ? styles.tabBtnActive : ''}`}
+                            onClick={() => setActiveTab(tab)}
+                        >
+                            {tab}
+                        </button>
+                    ))}
+                </div>
+
+                {loading ? (
+                    <div className={styles.loading}>Connecting to pricing engine...</div>
+                ) : (
+                    <motion.div layout className={styles.marketGrid}>
+                        <AnimatePresence mode="popLayout">
+                            {displayedQuotes.map((quote) => (
+                                <motion.div
+                                    key={quote.symbol}
+                                    layout
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    transition={{ duration: 0.2 }}
+                                    className={styles.marketCard}
+                                >
+                                    <div className={styles.cardHeader}>
+                                        <span className={styles.symbolName}>{quote.symbol}</span>
+                                        <span className={styles.categoryBadge}>{getCategoryForSymbol(quote.symbol)}</span>
                                     </div>
-                                    <h3 className={styles.marketTitle}>{m.title}</h3>
-                                    <p className={styles.marketDesc}>{m.desc}</p>
-                                    <div className={styles.marketLink}>Explore {m.title} →</div>
-                                </div>
+
+                                    <div className={styles.priceRow}>
+                                        <div>
+                                            <div className={styles.priceLabel}>Current Price</div>
+                                            <LivePriceWidget
+                                                quote={quote}
+                                                priceClassName={styles.livePrice}
+                                                changeClassName={styles.liveChange}
+                                                upClassName={styles.up}
+                                                downClassName={styles.down}
+                                            />
+                                        </div>
+                                    </div>
+                                </motion.div>
                             ))}
-                        </div>
-                    </div>
-                </section>
+                        </AnimatePresence>
+                    </motion.div>
+                )}
 
-                <section className={`${styles.conditions} apfx-section`}>
-                    <div className={styles.container}>
-                        <div className={styles.conditionsInner}>
-                            <h2>Superior Trading Conditions</h2>
-                            <div className={styles.statsRow}>
-                                <div className={styles.stat}>
-                                    <span className={styles.val}>0.0</span>
-                                    <span className={styles.lab}>Spread from</span>
-                                </div>
-                                <div className={styles.stat}>
-                                    <span className={styles.val}>$0</span>
-                                    <span className={styles.lab}>Commission</span>
-                                </div>
-                                <div className={styles.stat}>
-                                    <span className={styles.val}>1:500</span>
-                                    <span className={styles.lab}>Max Leverage</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
+            </div>
+        </main>
+    )
+}
 
-            <Footer />
+export default function MarketsDashboardPage() {
+    return (
+        <>
+            <Header />
+            <Suspense fallback={<div className={styles.loading}>Loading Dashboard...</div>}>
+                <MarketsContent />
+            </Suspense>
             <BottomBar />
-        </div>
+        </>
     )
 }

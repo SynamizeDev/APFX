@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Sparkles } from 'lucide-react'
 import styles from './Header.module.css'
 
@@ -14,13 +15,14 @@ const NAV_LINKS = [
 ]
 
 export default function Header() {
+    const pathname = usePathname()
     const [scrolled, setScrolled] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
     const headerRef = useRef<HTMLElement>(null)
 
     // ── Scroll-aware class ─────────────────────────────────────
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 60)
+        const onScroll = () => setScrolled(window.scrollY > 40)
         window.addEventListener('scroll', onScroll, { passive: true })
         return () => window.removeEventListener('scroll', onScroll)
     }, [])
@@ -30,15 +32,6 @@ export default function Header() {
         document.body.style.overflow = menuOpen ? 'hidden' : ''
         return () => { document.body.style.overflow = '' }
     }, [menuOpen])
-
-    // ── Close menu on Escape ───────────────────────────────────
-    useEffect(() => {
-        const onKey = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') setMenuOpen(false)
-        }
-        window.addEventListener('keydown', onKey)
-        return () => window.removeEventListener('keydown', onKey)
-    }, [])
 
     const closeMenu = () => setMenuOpen(false)
 
@@ -65,20 +58,28 @@ export default function Header() {
                     {/* ── Desktop Navigation ────────────────────────────── */}
                     <nav aria-label="Main navigation">
                         <ul className={styles.nav} role="list">
-                            {NAV_LINKS.map((link) => (
-                                <li key={link.href}>
-                                    <Link href={link.href}>{link.label}</Link>
-                                </li>
-                            ))}
+                            {NAV_LINKS.map((link) => {
+                                const isActive = pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/')
+                                return (
+                                    <li key={link.href}>
+                                        <Link
+                                            href={link.href}
+                                            className={isActive ? styles.navActive : ''}
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                )
+                            })}
                         </ul>
                     </nav>
 
                     {/* ── Actions ───────────────────────────────────────── */}
                     <div className={styles.actions}>
-                        <Link href="https://portal.apfx.com/login" className={styles.btnLogin}>
+                        <Link href="/login" className={styles.btnLogin}>
                             Log In
                         </Link>
-                        <Link href="https://portal.apfx.com/register" className={styles.btnCta}>
+                        <Link href="/register" className={styles.btnCta}>
                             Open Account
                         </Link>
 
@@ -105,14 +106,16 @@ export default function Header() {
                 aria-label="Mobile navigation"
                 aria-hidden={!menuOpen}
             >
-                {NAV_LINKS.map((link) => (
-                    <Link key={link.href} href={link.href} onClick={closeMenu}>
-                        {link.label}
+                <div className={styles.mobileInner}>
+                    {NAV_LINKS.map((link) => (
+                        <Link key={link.href} href={link.href} onClick={closeMenu}>
+                            {link.label}
+                        </Link>
+                    ))}
+                    <Link href="/register" className={styles.mobileCta} onClick={closeMenu}>
+                        Open Account
                     </Link>
-                ))}
-                <Link href="https://portal.apfx.com/register" className={styles.mobileCta} onClick={closeMenu}>
-                    Open Account
-                </Link>
+                </div>
             </nav>
         </>
     )
