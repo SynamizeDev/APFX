@@ -85,7 +85,6 @@
 .bentoLarge {
     grid-column: span 2;
     grid-row: span 1;
-    background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-bg) 100%);
     display: flex;
     gap: 2rem;
     align-items: flex-start;

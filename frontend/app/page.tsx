@@ -48,6 +48,8 @@ import MarketsSection from '@/components/sections/MarketsSection'
 import WhyAPFX from '@/components/sections/WhyAPFX'
 import TradingPlatforms from '@/components/sections/TradingPlatforms'
 import AccountTypes from '@/components/sections/AccountTypes'
+import TradingAcademy from '@/components/sections/TradingAcademy'
+import DifferenceSection from '@/components/sections/DifferenceSection'
 import Testimonials from '@/components/sections/Testimonials'
 import CTABanner from '@/components/sections/CTABanner'
 import Footer from '@/components/layout/Footer'
@@ -113,7 +115,6 @@ export default function HomePage() {
           variants={pageFade}
         >
           <HeroSection />
-
           <AnimatedSection className="bg-alternate-1">
             <StatsBar />
           </AnimatedSection>
@@ -139,13 +140,20 @@ export default function HomePage() {
           </AnimatedSection>
 
           <AnimatedSection className="bg-alternate-2">
+            <TradingAcademy />
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <DifferenceSection />
+          </AnimatedSection>
+
+          <AnimatedSection className="bg-alternate-1">
             <Testimonials />
           </AnimatedSection>
 
           <AnimatedSection>
             <CTABanner />
           </AnimatedSection>
-
           <Footer />
           <BottomBar />
         </motion.div>

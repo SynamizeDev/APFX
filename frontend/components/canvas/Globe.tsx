@@ -34,11 +34,8 @@ function RotatingGlobe() {
      */
     const nodes = useMemo(
         () => [
-            { pos: [1.2, 0.8, 1.2], label: 'London' },
             { pos: [1.45, 0.2, 0.9], label: 'Dubai' },
             { pos: [1.25, -0.45, 1.55], label: 'Mumbai' },
-            { pos: [-1.4, 0.55, 1.05], label: 'New York' },
-            { pos: [0.85, -1.2, 1.45], label: 'Singapore' },
         ],
         []
     )

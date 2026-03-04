@@ -59,16 +59,11 @@ export default function StatsBar() {
     return (
         <section className={`${styles.statsBar} apfx-section apfx-section--no-divider`} aria-label="Platform statistics">
             <div className={styles.grid}>
-                {STATS.map((stat, i) => (
-                    <Fragment key={stat.label}>
-                        <div className={styles.item}>
-                            <Counter stat={stat} />
-                            <span className={styles.label}>{stat.label}</span>
-                        </div>
-                        {i < STATS.length - 1 && (
-                            <div key={`div-${i}`} className={styles.divider} aria-hidden="true" />
-                        )}
-                    </Fragment>
+                {STATS.map((stat) => (
+                    <div key={stat.label} className={styles.item}>
+                        <Counter stat={stat} />
+                        <span className={styles.label}>{stat.label}</span>
+                    </div>
                 ))}
             </div>
         </section>
