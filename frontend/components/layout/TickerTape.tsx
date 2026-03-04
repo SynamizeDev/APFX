@@ -25,8 +25,6 @@ export default function TickerTape() {
                 const data = await fetchMarketData()
 
                 if (isMounted && data && data.length > 0) {
-                    // Filter locally for just the ticker symbols if needed, 
-                    // though fetchMarketData returns all by default.
                     const tickerData = data.filter(q => TICKER_SYMBOLS.includes(q.symbol));
                     setPrices(tickerData)
                 }
@@ -35,10 +33,7 @@ export default function TickerTape() {
             }
         }
 
-        // Initial load
         loadPrices()
-
-        // Refresh every 60 seconds (as requested, the service caches identically)
         const interval = setInterval(loadPrices, 60000)
 
         return () => {
@@ -47,10 +42,8 @@ export default function TickerTape() {
         }
     }, [])
 
-    // Duplicate array for seamless infinite loop
     const items = [...prices, ...prices]
 
-    // Render empty track while loading first batch
     if (prices.length === 0) {
         return (
             <div className={styles.ticker} aria-label="Live forex prices ticker">
