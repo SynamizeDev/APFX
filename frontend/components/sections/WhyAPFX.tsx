@@ -1,6 +1,6 @@
 'use client'
 
-import { Zap, Landmark, BarChart3, Lock, Globe, Smartphone } from 'lucide-react'
+import { Zap, Landmark, BarChart3, Lock, Globe, Smartphone, Headphones } from 'lucide-react'
 import styles from './WhyAPFX.module.css'
 
 const FEATURES = [
@@ -60,6 +60,16 @@ const FEATURES = [
         title: 'Trade Anywhere, Any Device',
         desc: 'MT4, MT5, WebTrader, and native mobile apps for iOS and Android. Seamless across all your devices.',
         large: false,
+        iconBg: 'rgba(59,130,246,0.1)',
+        iconBorder: 'rgba(59,130,246,0.2)',
+        glow: 'rgba(59,130,246,0.1)',
+    },
+    {
+        icon: <Headphones size={24} />,
+        label: 'Support',
+        title: 'Expert 24/5 Local Support',
+        desc: 'Dedicated institutional-grade support desks localized for UAE and India regions via chat, phone and email.',
+        large: true,
         iconBg: 'rgba(59,130,246,0.1)',
         iconBorder: 'rgba(59,130,246,0.2)',
         glow: 'rgba(59,130,246,0.1)',

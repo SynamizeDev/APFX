@@ -1,10 +1,9 @@
-/* ── Stats Bar ───────────────────────────────────────────────── */
 .statsBar {
     --apfx-section-bg: none;
     background-color: var(--color-surface);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
-    padding-block: 3.5rem;
+    padding-block: 1.5rem;
     position: relative;
     overflow: hidden;
 }
@@ -20,15 +19,16 @@
     max-width: var(--container-max);
     margin-inline: auto;
     padding-inline: var(--container-px);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
     position: relative;
 }
 
 .item {
     text-align: center;
-    padding: 1.5rem;
+    padding: 0.5rem;
     border-radius: var(--radius-lg);
     transition: background var(--duration-normal) var(--ease-out);
 }
@@ -39,7 +39,7 @@
 
 .value {
     font-family: var(--font-display);
-    font-size: var(--text-4xl);
+    font-size: var(--text-2xl);
     font-weight: var(--fw-extrabold);
     color: var(--color-text-1);
     letter-spacing: var(--ls-tight);
@@ -52,27 +52,37 @@
 }
 
 .label {
-    font-size: var(--text-sm);
+    font-size: 0.7rem;
     color: var(--color-text-3);
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
     display: block;
     letter-spacing: var(--ls-wide);
     text-transform: uppercase;
     font-weight: var(--fw-medium);
 }
 
-.divider {
-    width: 1px;
-    background: var(--color-border);
-    margin-block: auto;
+@media (max-width: 1024px) {
+    .grid {
+        gap: 2rem;
+    }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
     .grid {
-        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        flex-wrap: nowrap;
+        /* Force single line if possible */
     }
 
-    .divider {
-        display: none;
+    .value {
+        font-size: var(--text-lg);
+    }
+
+    .label {
+        font-size: 0.55rem;
+    }
+
+    .item {
+        padding: 0.15rem;
     }
 }

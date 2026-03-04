@@ -5,21 +5,6 @@ import Link from 'next/link'
 import { Twitter, Linkedin, Send, Youtube, Sparkles } from 'lucide-react'
 import styles from './Footer.module.css'
 
-interface StatItem {
-    value: number
-    prefix?: string
-    suffix: string
-    label: string
-    decimals?: number
-}
-
-const STATS: StatItem[] = [
-    { value: 2, prefix: '$', suffix: 'B+', label: 'Trading Volume' },
-    { value: 150, suffix: '+', label: 'Countries Served' },
-    { value: 27, suffix: 'K+', label: 'Instruments' },
-    { value: 99.9, suffix: '%', label: 'Uptime SLA', decimals: 1 },
-]
-
 const FOOTER_LINKS = {
     Trading: [
         { label: 'Forex', href: '/markets/forex' },
@@ -58,66 +43,11 @@ const SOCIAL = [
     { label: 'YouTube', href: 'https://youtube.com/@apfx', icon: <Youtube size={18} /> },
 ]
 
-function AnimatedCounter({ stat }: { stat: StatItem }) {
-    const ref = useRef<HTMLSpanElement>(null)
-
-    useEffect(() => {
-        const el = ref.current
-        if (!el) return
-
-        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        if (prefersReduced) {
-            el.textContent = `${stat.prefix ?? ''}${stat.value.toFixed(stat.decimals ?? 0)}${stat.suffix}`
-            return
-        }
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (!entry.isIntersecting) return
-                observer.disconnect()
-
-                const start = performance.now()
-                const duration = 2000
-                const from = 0
-                const to = stat.value
-
-                function step(now: number) {
-                    const elapsed = now - start
-                    const progress = Math.min(elapsed / duration, 1)
-                    // expo out easing
-                    const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress)
-                    const current = from + (to - from) * eased
-                    el!.textContent = `${stat.prefix ?? ''}${current.toFixed(stat.decimals ?? 0)}${stat.suffix}`
-                    if (progress < 1) requestAnimationFrame(step)
-                }
-
-                requestAnimationFrame(step)
-            },
-            { threshold: 0.5 }
-        )
-
-        observer.observe(el)
-        return () => observer.disconnect()
-    }, [stat])
-
-    return <span ref={ref} className={styles.statValue}>0</span>
-}
 
 export default function Footer() {
     return (
         <footer className={`${styles.footer} apfx-section apfx-section--no-divider`} role="contentinfo">
 
-            {/* ── Stats Bar ───────────────────────────────────────── */}
-            <div className={styles.statsBar}>
-                <div className={styles.statsGrid}>
-                    {STATS.map((stat) => (
-                        <div key={stat.label} className={styles.stat}>
-                            <AnimatedCounter stat={stat} />
-                            <span className={styles.statLabel}>{stat.label}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
 
             {/* ── Main Columns ────────────────────────────────────── */}
             <div className={styles.main}>

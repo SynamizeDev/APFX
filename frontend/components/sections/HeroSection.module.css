@@ -1,9 +1,10 @@
 /* ── Hero Section ────────────────────────────────────────────── */
 .hero {
     position: relative;
-    min-height: 100vh;
+    min-height: 80vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: center;
     overflow: hidden;
     background: var(--color-bg);
 }
@@ -40,10 +41,12 @@
 .content {
     position: relative;
     z-index: 3;
-    max-width: var(--container-max);
+    max-width: 1200px;
     margin-inline: auto;
     padding-inline: var(--container-px);
-    padding-block: 6rem 4rem;
+    padding-top: 15vh;
+    padding-bottom: 0.5rem;
+    text-align: center;
 }
 
 /* Label chip */
@@ -87,12 +90,13 @@
 /* Headline */
 .headline {
     font-family: var(--font-display);
-    font-size: var(--text-6xl);
+    font-size: var(--text-4xl);
     font-weight: var(--fw-extrabold);
     color: var(--color-text-1);
     line-height: var(--lh-tight);
     letter-spacing: var(--ls-tight);
-    max-width: 760px;
+    max-width: 1000px;
+    margin-inline: auto;
     margin-bottom: 1.5rem;
     opacity: 0;
 }
@@ -107,9 +111,10 @@
 
 /* Sub-headline */
 .sub {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     color: var(--color-text-2);
-    max-width: 520px;
+    max-width: 700px;
+    margin-inline: auto;
     line-height: var(--lh-relaxed);
     margin-bottom: 2.5rem;
     opacity: 0;
@@ -118,6 +123,7 @@
 /* CTA row */
 .ctas {
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
@@ -171,6 +177,7 @@
 /* Trust pills row */
 .trust {
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 1.5rem;
     margin-top: 3rem;

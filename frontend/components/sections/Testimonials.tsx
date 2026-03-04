@@ -63,8 +63,7 @@ const REVIEWS = [
     },
 ]
 
-const ROW_1 = REVIEWS.slice(0, 4)
-const ROW_2 = REVIEWS.slice(4)
+const ROW = REVIEWS
 
 function Card({ r }: { r: (typeof REVIEWS)[0] }) {
     return (
@@ -96,17 +95,10 @@ export default function Testimonials() {
                 </h2>
             </div>
 
-            {/* Row 1 — scrolls left */}
+            {/* Row — scrolls left */}
             <div className={styles.marqueeWrap} aria-hidden="true">
                 <div className={styles.track}>
-                    {[...ROW_1, ...ROW_1].map((r, i) => <Card key={i} r={r} />)}
-                </div>
-            </div>
-
-            {/* Row 2 — scrolls right */}
-            <div className={`${styles.marqueeWrap} ${styles.gap}`} aria-hidden="true">
-                <div className={`${styles.track} ${styles.trackReverse}`}>
-                    {[...ROW_2, ...ROW_2].map((r, i) => <Card key={i} r={r} />)}
+                    {[...ROW, ...ROW].map((r, i) => <Card key={i} r={r} />)}
                 </div>
             </div>
 

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, Variants } from 'framer-motion'
 import EntryAnimation from '@/components/sections/EntryAnimation'
 
 /* =========================================================
@@ -48,6 +48,8 @@ import MarketsSection from '@/components/sections/MarketsSection'
 import WhyAPFX from '@/components/sections/WhyAPFX'
 import TradingPlatforms from '@/components/sections/TradingPlatforms'
 import AccountTypes from '@/components/sections/AccountTypes'
+import TradingAcademy from '@/components/sections/TradingAcademy'
+import DifferenceSection from '@/components/sections/DifferenceSection'
 import Testimonials from '@/components/sections/Testimonials'
 import CTABanner from '@/components/sections/CTABanner'
 import Footer from '@/components/layout/Footer'
@@ -57,7 +59,7 @@ import BottomBar from '@/components/layout/BottomBar'
    Motion Presets — subtle, confidence-led
    ========================================================= */
 
-const pageFade = {
+const pageFade: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -118,6 +120,8 @@ export default function HomePage() {
           <TradingPlatforms />
           <AccountTypes />
           <GlobalScale />
+          <TradingAcademy />
+          <DifferenceSection />
           <Testimonials />
           <CTABanner />
           <Footer />
