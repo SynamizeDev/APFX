@@ -85,6 +85,7 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        <meta name="theme-color" content="#03050A" />
 
         {/* ── Structured Data (Organization) ───────────── */}
         <script

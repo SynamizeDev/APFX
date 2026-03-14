@@ -37,10 +37,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
 
-    /* Subtle depth across the entire app */
+    /* Subtle depth — neutral dark only (no green tint on first paint) */
     background-image:
         radial-gradient(1400px 420px at 50% -12%,
-            var(--color-accent-subtle),
+            rgba(255, 255, 255, 0.02),
             transparent 70%);
 }
 

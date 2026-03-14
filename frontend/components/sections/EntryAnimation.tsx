@@ -15,7 +15,6 @@ export default function EntryAnimation({
     onReadyToReveal?: () => void
     onMergeStart?: () => void
 }) {
-    const flashRef = useRef<HTMLDivElement>(null)
     const glassRef = useRef<HTMLDivElement>(null)
     const logoContainerRef = useRef<HTMLDivElement>(null)
     const lineRef = useRef<HTMLDivElement>(null)
@@ -34,52 +33,54 @@ export default function EntryAnimation({
 
         const tl = gsap.timeline()
 
-        // Initial State - cleaner, no abrupt flash
-        gsap.set(glassRef.current, { opacity: 0 })
-        gsap.set(logoContainerRef.current, { opacity: 0, scale: 0.95, y: 10 })
+        // Initial state: dark overlay visible from start, logo hidden
+        gsap.set(glassRef.current, { opacity: 1 })
+        gsap.set(logoContainerRef.current, { opacity: 0, scale: 0.98, y: 8 })
         gsap.set(lineRef.current, { width: 0, opacity: 0 })
         gsap.set(pulseRef.current, { scale: 1, opacity: 0 })
 
-        // Sequence - Institutional & Smooth
+        // Sequence: dark background first, then logo fades in for at least 3s
+        const LOGO_FADE_DURATION = 3
+
         tl
-            /* 1. Dark Glass Overlay (0ms) */
-            .to(glassRef.current, { opacity: 1, duration: 0.4, ease: 'power2.inOut' }, 0)
-            
-            /* Background ready (200ms) */
+            /* Dark overlay already at 1 — site stays dark for full 3s+ logo fade-in */
+            /* Background ready so header can mount (hidden behind overlay) */
             .call(() => {
                 if (onReadyToReveal) onReadyToReveal()
-            }, undefined, 0.2)
+            }, undefined, 0.15)
             
-            /* 2. Smooth Logo Entry (400ms) */
+            /* 2. Logo fades in over 3 seconds - branding hold */
             .to(logoContainerRef.current, { 
                 opacity: 1, 
                 scale: 1, 
                 y: 0, 
-                duration: 0.8, 
-                ease: 'expo.out' 
-            }, 0.4)
+                duration: LOGO_FADE_DURATION, 
+                ease: 'power2.inOut' 
+            }, 0.25)
             
-            /* 3. Subtle Line Expansion (600ms) */
+            /* 3. Subtle line after logo is visible */
             .to(lineRef.current, { 
                 width: '120px', 
                 opacity: 0.5, 
-                duration: 1.0, 
+                duration: 0.8, 
                 ease: 'power3.inOut' 
-            }, 0.6)
+            }, LOGO_FADE_DURATION + 0.2)
             
-            /* 4. Logo Slide-Merge Transition (1800ms) */
+            /* 4. Logo slide-merge to header (after 3s fade-in + brief hold) */
             .call(() => {
                 const headerLogo = document.getElementById('header-logo');
                 if (headerLogo && logoContainerRef.current) {
                     const hRect = headerLogo.getBoundingClientRect();
                     const lRect = logoContainerRef.current.getBoundingClientRect();
-                    
-                    // Calculate deltas to move from current center to header position
+                    if (lRect.width <= 0 || lRect.height <= 0) {
+                        if (onMergeStart) onMergeStart();
+                        onComplete();
+                        return;
+                    }
                     const dx = hRect.left - lRect.left;
                     const dy = hRect.top - lRect.top;
                     const targetScale = hRect.width / lRect.width;
-                    
-                    // The "Creamy Merge" - slightly longer, better easing, motion blur
+                    gsap.set(logoContainerRef.current, { transformOrigin: '0 0' });
                     gsap.to(logoContainerRef.current, { 
                         x: dx,
                         y: dy,
@@ -122,7 +123,7 @@ export default function EntryAnimation({
                     if (onMergeStart) onMergeStart();
                     onComplete();
                 }
-            }, undefined, 1.8)
+            }, undefined, LOGO_FADE_DURATION + 0.5)
 
         return () => {
             tl.kill()
@@ -131,31 +132,16 @@ export default function EntryAnimation({
 
     return (
         <>
-            {/* Initial Green Flash Overlay */}
-            <div
-                ref={flashRef}
-                style={{
-                    position: 'fixed',
-                    inset: 0,
-                    zIndex: 9999,
-                    background: 'rgba(16, 185, 129, 0.15)',
-                    pointerEvents: 'none',
-                    opacity: 0
-                }}
-            />
-
-            {/* Dark Glass Overlay */}
+            {/* Dark overlay — keeps site dark for full logo fade-in (3s+) */}
             <div
                 ref={glassRef}
                 style={{
                     position: 'fixed',
                     inset: 0,
                     zIndex: 9997, 
-                    background: 'rgba(3, 5, 10, 0.75)',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
+                    background: '#03050A',
                     pointerEvents: 'none',
-                    opacity: 0
+                    opacity: 1
                 }}
             />
 
@@ -169,26 +155,26 @@ export default function EntryAnimation({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    flexDirection: 'column',
+                    gap: '1.25rem',
                     perspective: '1000px'
                 }}
             >
-                <div 
-                    ref={logoContainerRef} 
-                    style={{ 
-                        pointerEvents: 'none', 
-                        display: 'flex', 
-                        flexDirection: 'column', 
+                <div className={styles.pulse} ref={pulseRef} />
+                <div
+                    ref={logoContainerRef}
+                    style={{
+                        pointerEvents: 'none',
+                        display: 'flex',
+                        flexDirection: 'column',
                         alignItems: 'center',
-                        position: 'relative'
+                        position: 'relative',
                     }}
                 >
-                    <div className={styles.pulse} ref={pulseRef} />
-                    
                     <Logo size="lg" />
-
-                    <div className={styles.linePulseContainer}>
-                        <div className={styles.line} ref={lineRef} />
-                    </div>
+                </div>
+                <div className={styles.linePulseContainer}>
+                    <div className={styles.line} ref={lineRef} />
                 </div>
             </div>
         </>

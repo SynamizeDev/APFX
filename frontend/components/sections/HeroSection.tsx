@@ -52,6 +52,7 @@ export default function HeroSection() {
                     {
                         y: -14,
                         rotateZ: -2,
+                        scale: 1.03,
                         duration: 2.8,
                         ease: 'sine.inOut',
                         yoyo: true,

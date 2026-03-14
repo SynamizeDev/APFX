@@ -158,7 +158,7 @@ export default function HomePage() {
               <CTABanner />
             </AnimatedSection>
             <Footer />
-            <BottomBar />
+            {!showAnimation && <BottomBar />}
           </motion.div>
         </>
       )}
