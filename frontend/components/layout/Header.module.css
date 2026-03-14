@@ -95,7 +95,7 @@
 .nav {
     display: flex;
     align-items: center;
-    gap: 0.1rem;
+    gap: 1.25rem;
     list-style: none;
 }
 
@@ -103,7 +103,8 @@
     position: relative;
 }
 
-.nav a {
+.nav a,
+.nav button {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -117,9 +118,14 @@
     transition:
         color var(--duration-normal) var(--ease-out),
         background var(--duration-normal) var(--ease-out);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
 }
 
-.nav a::after {
+.nav a::after,
+.nav button::after {
     content: '';
     position: absolute;
     left: 0.75rem;
@@ -133,17 +139,21 @@
     opacity: 0.9;
 }
 
-.nav a:hover {
+.nav a:hover,
+.nav button:hover {
     color: var(--color-text-1);
     background: rgba(255, 255, 255, 0.035);
 }
 
-.nav a.navActive {
+.nav a.navActive,
+.nav button.navActive {
     color: var(--color-text-1);
 }
 
 .nav a:hover::after,
-.nav a.navActive::after {
+.nav a.navActive::after,
+.nav button:hover::after,
+.nav button.navActive::after {
     transform: scaleX(1);
     transform-origin: left;
 }

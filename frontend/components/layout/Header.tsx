@@ -33,8 +33,8 @@ const MEGA_MENU_DATA = {
             title: '',
             links: [
                 { label: 'Calculators', href: '/tools/calculators' },
-                { label: 'Stock Compare', href: '/tools/stock-compare' },
-                { label: 'Mutual Funds Compare', href: '/tools/mutual-funds-compare' },
+                { label: 'Copy Trade', href: '/tools/stock-compare' },
+                { label: 'Risk Management tools', href: '/tools/mutual-funds-compare' },
             ],
         },
     ],
@@ -147,20 +147,33 @@ export default function Header() {
                             {NAV_LINKS.map((link) => (
                                 <li
                                     key={link.href}
-                                    onMouseEnter={link.hasMegaMenu ? () => handleMouseEnter(link.label) : undefined}
+                                    onMouseEnter={
+                                        link.hasMegaMenu
+                                            ? () => handleMouseEnter(link.label)
+                                            : () => setActiveDropdown(null)
+                                    }
                                 >
-                                    <Link
-                                        href={link.href}
-                                        className={activeDropdown === link.label ? styles.navActive : undefined}
-                                    >
-                                        {link.label}
-                                        {link.hasMegaMenu && (
+                                    {link.hasMegaMenu ? (
+                                        <button
+                                            type="button"
+                                            className={activeDropdown === link.label ? styles.navActive : undefined}
+                                            onClick={() => setActiveDropdown((prev) => (prev === link.label ? null : link.label))}
+                                            aria-expanded={activeDropdown === link.label}
+                                            aria-haspopup="true"
+                                        >
+                                            {link.label}
                                             <ChevronDown
                                                 className={styles.navChevron}
                                                 aria-hidden
                                             />
-                                        )}
-                                    </Link>
+                                        </button>
+                                    ) : (
+                                        <Link
+                                            href={link.href}
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    )}
 
                                     <AnimatePresence>
                                         {link.hasMegaMenu && activeDropdown === link.label && (

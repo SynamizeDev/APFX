@@ -11,7 +11,7 @@ const ACCOUNTS = [
         features: [
             'Spreads from 1.0 pips',
             'No commissions',
-            'Leverage up to 1:500',
+            'Leverage up to 1:1000',
             'All platforms available',
             'Min. deposit: $100',
         ],
@@ -25,7 +25,7 @@ const ACCOUNTS = [
         features: [
             'Spreads from 0.0 pips',
             'Institutional liquidity',
-            'Leverage up to 1:500',
+            'Leverage up to 1:1000',
             'Deep liquidity pool',
             'Min. deposit: $500',
         ],
