@@ -1,0 +1,495 @@
+/* Become a Partner — dark theme, benefits, steps, form, CTA */
+
+.page {
+  background: var(--color-bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.main {
+  padding-bottom: 4rem;
+}
+
+.section {
+  padding: clamp(3rem, 5vw, 4.5rem) 0;
+  position: relative;
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    1200px 400px at 50% -10%,
+    rgba(0, 200, 150, 0.03),
+    transparent 70%
+  );
+}
+
+.container {
+  max-width: var(--container-max, 1200px);
+  margin-inline: auto;
+  padding-inline: var(--container-px, 1.5rem);
+  position: relative;
+  z-index: 1;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.sectionSubtitle {
+  font-size: var(--text-base);
+  color: var(--color-text-2);
+  line-height: var(--lh-relaxed);
+  max-width: 640px;
+  margin-bottom: 2rem;
+}
+
+/* Hero CTAs */
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.heroCtaPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.9rem 1.75rem;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  color: #020617;
+  font-weight: var(--fw-bold);
+  font-size: 1rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  transition: transform var(--duration-fast), box-shadow var(--duration-normal);
+}
+
+.heroCtaPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+}
+
+.heroCtaSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.9rem 1.75rem;
+  background: transparent;
+  color: var(--color-accent);
+  font-weight: var(--fw-semibold);
+  font-size: 1rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  border: 1px solid rgba(0, 200, 150, 0.4);
+  transition: background var(--duration-fast), border-color var(--duration-fast);
+}
+
+.heroCtaSecondary:hover {
+  background: rgba(0, 200, 150, 0.08);
+  border-color: var(--color-accent);
+}
+
+/* Why partner — benefits grid */
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.benefitCard {
+  background: linear-gradient(165deg, rgba(11, 15, 26, 0.5) 0%, rgba(6, 10, 18, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  transition: border-color var(--duration-normal), transform var(--duration-fast);
+}
+
+.benefitCard:hover {
+  border-color: rgba(0, 200, 150, 0.2);
+  transform: translateY(-4px);
+}
+
+.benefitIcon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  color: var(--color-accent);
+}
+
+.benefitCard h3 {
+  font-size: 1rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 0.5rem;
+}
+
+.benefitCard p {
+  font-size: 0.875rem;
+  color: var(--color-text-2);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Partnership types */
+.typesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.typeCard {
+  background: linear-gradient(165deg, rgba(11, 15, 26, 0.6) 0%, rgba(6, 10, 18, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  border-left: 4px solid var(--color-accent);
+}
+
+.typeCard h3 {
+  font-size: 1.125rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 0.5rem;
+}
+
+.typeCard p {
+  font-size: 0.9375rem;
+  color: var(--color-text-2);
+  line-height: 1.55;
+  margin-bottom: 0.75rem;
+}
+
+.typeCard ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.875rem;
+  color: var(--color-text-2);
+  line-height: 1.6;
+}
+
+/* How it works — steps */
+.stepsWrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.stepCard {
+  flex: 1 1 200px;
+  min-width: 0;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(165deg, rgba(11, 15, 26, 0.5) 0%, rgba(6, 10, 18, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+}
+
+.stepNum {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: rgba(0, 200, 150, 0.2);
+  color: var(--color-accent);
+  font-weight: var(--fw-bold);
+  font-size: 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stepCard h4 {
+  font-size: 1rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 0.35rem;
+}
+
+.stepCard p {
+  font-size: 0.875rem;
+  color: var(--color-text-2);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Commission */
+.commissionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .commissionGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.commissionCard {
+  background: linear-gradient(165deg, rgba(11, 15, 26, 0.6) 0%, rgba(6, 10, 18, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+}
+
+.commissionCard h4 {
+  font-size: 1.125rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 1rem;
+}
+
+.commissionCard ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-2);
+  line-height: 1.65;
+}
+
+.exampleEarnings {
+  background: rgba(0, 200, 150, 0.06);
+  border: 1px solid rgba(0, 200, 150, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.exampleEarnings p {
+  font-size: 0.9375rem;
+  color: var(--color-text-2);
+  margin-bottom: 0.5rem;
+}
+
+.exampleEarnings .amount {
+  font-size: 1.5rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+}
+
+/* Partner tools */
+.toolsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.toolItem {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+}
+
+.toolItemIcon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  color: var(--color-accent);
+}
+
+.toolItem h4 {
+  font-size: 1rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 0.25rem;
+}
+
+.toolItem p {
+  font-size: 0.875rem;
+  color: var(--color-text-2);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* FAQ */
+.faqList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 720px;
+}
+
+.faqItem {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.25rem 0;
+}
+
+.faqItem:first-child {
+  padding-top: 0;
+}
+
+.faqItem h4 {
+  font-size: 1rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 0.5rem;
+}
+
+.faqItem p {
+  font-size: 0.9375rem;
+  color: var(--color-text-2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Application form */
+.formCard {
+  background: linear-gradient(165deg, rgba(11, 15, 26, 0.7) 0%, rgba(6, 10, 18, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl);
+  padding: 2rem 2.25rem;
+  max-width: 560px;
+}
+
+.formCard h3 {
+  font-size: 1.25rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 1.5rem;
+}
+
+.formGroup {
+  margin-bottom: 1.25rem;
+}
+
+.formGroup label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-2);
+  margin-bottom: 0.5rem;
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  color: var(--color-text-1);
+  font-size: 0.9375rem;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.15);
+}
+
+.formGroup input::placeholder {
+  color: var(--color-text-3);
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  margin-top: 0.5rem;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  color: #020617;
+  font-weight: var(--fw-bold);
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: transform var(--duration-fast), box-shadow var(--duration-normal);
+}
+
+.submitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 200, 150, 0.35);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.formSuccess {
+  padding: 1rem;
+  margin-top: 1rem;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--radius-md);
+  color: #10b981;
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+/* CTA section */
+.ctaSection {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  margin-top: 1rem;
+  background: linear-gradient(180deg, rgba(0, 200, 150, 0.06) 0%, transparent 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl);
+}
+
+.ctaTitle {
+  font-size: 1.5rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 0.5rem;
+}
+
+.ctaSubtitle {
+  color: var(--color-text-2);
+  font-size: 0.9375rem;
+  margin-bottom: 1.5rem;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.9rem 1.75rem;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  color: #020617;
+  font-weight: var(--fw-bold);
+  font-size: 1rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  transition: transform var(--duration-fast), box-shadow var(--duration-normal);
+}
+
+.ctaBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+}
+
+@media (max-width: 768px) {
+  .benefitsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .typesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .stepsWrap {
+    flex-direction: column;
+  }
+
+  .toolsGrid {
+    grid-template-columns: 1fr;
+  }
+}
