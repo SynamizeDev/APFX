@@ -27,7 +27,7 @@
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .card {
@@ -37,6 +37,8 @@
     padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    flex-grow: 1;
     transition: transform var(--duration-normal) var(--ease-out), border-color var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
     position: relative;
 }
@@ -141,8 +143,12 @@
 
 @media (max-width: 1024px) {
     .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .grid {
         grid-template-columns: 1fr;
-        max-width: 400px;
-        margin-inline: auto;
     }
 }

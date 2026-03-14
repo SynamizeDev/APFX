@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -109,46 +109,66 @@ const Sparkline = ({ data, positive }: { data: number[], positive: boolean }) =>
 
 const INSTRUMENTS: Record<string, Instrument[]> = {
     forex: [
-        { symbol: 'EURUSD', code: 'EURUSD', bid: '1.16203', high: '1.19', low: '1.14', change: '+0.01%', changePositive: true, trend: [10, 15, 12, 18, 14, 20, 18, 25, 22] },
-        { symbol: 'GBPUSD', code: 'GBPUSD', bid: '1.33567', high: '1.36', low: '1.31', change: '+0.01%', changePositive: true, trend: [20, 18, 25, 22, 28, 24, 30, 28, 32] },
-        { symbol: 'USDJPY', code: 'USDJPY', bid: '157.371', high: '160.52', low: '154.22', change: '+0.01%', changePositive: true, trend: [15, 12, 18, 14, 20, 15, 22, 18, 25] },
-        { symbol: 'AUDUSD', code: 'AUDUSD', bid: '0.67423', high: '0.69', low: '0.66', change: '-0.02%', changePositive: false, trend: [30, 28, 25, 20, 22, 18, 15, 12, 10] },
-        { symbol: 'USDCHF', code: 'USDCHF', bid: '0.78206', high: '0.80', low: '0.77', change: '+0.05%', changePositive: true, trend: [10, 12, 14, 16, 18, 20, 22, 24, 26] },
-        { symbol: 'USDCAD', code: 'USDCAD', bid: '1.36768', high: '1.40', low: '1.34', change: '+0.01%', changePositive: true, trend: [25, 22, 28, 24, 20, 22, 25, 28, 30] },
-        { symbol: 'NZDUSD', code: 'NZDUSD', bid: '0.59112', high: '0.60', low: '0.58', change: '+0.06%', changePositive: true, trend: [12, 15, 18, 20, 22, 24, 26, 28, 30] },
-        { symbol: 'EURGBP', code: 'EURGBP', bid: '0.87012', high: '0.89', low: '0.85', change: '+0.05%', changePositive: true, trend: [18, 16, 20, 18, 22, 20, 24, 22, 26] },
-        { symbol: 'EURJPY', code: 'EURJPY', bid: '182.876', high: '186.53', low: '179.22', change: '+0.03%', changePositive: true, trend: [20, 22, 24, 26, 28, 30, 32, 34, 36] },
+        { symbol: 'EUR/USD', code: 'EUR/USD', bid: '1.1020', high: '1.1100', low: '1.1000', change: '+0.01%', changePositive: true, trend: [10, 15, 12, 18, 14, 20, 18, 25, 22] },
+        { symbol: 'GBP/USD', code: 'GBP/USD', bid: '1.3050', high: '1.3100', low: '1.3000', change: '+0.01%', changePositive: true, trend: [20, 18, 25, 22, 28, 24, 30, 28, 32] },
+        { symbol: 'USD/JPY', code: 'USD/JPY', bid: '150.37', high: '151.00', low: '150.00', change: '+0.01%', changePositive: true, trend: [15, 12, 18, 14, 20, 15, 22, 18, 25] },
+        { symbol: 'AUD/USD', code: 'AUD/USD', bid: '0.6640', high: '0.6700', low: '0.6600', change: '-0.02%', changePositive: false, trend: [30, 28, 25, 20, 22, 18, 15, 12, 10] },
+        { symbol: 'USD/CAD', code: 'USD/CAD', bid: '1.3670', high: '1.3700', low: '1.3600', change: '+0.01%', changePositive: true, trend: [25, 22, 28, 24, 20, 22, 25, 28, 30] },
+        { symbol: 'USD/CHF', code: 'USD/CHF', bid: '0.8800', high: '0.8900', low: '0.8750', change: '+0.05%', changePositive: true, trend: [10, 12, 14, 16, 18, 20, 22, 24, 26] },
+        { symbol: 'NZD/USD', code: 'NZD/USD', bid: '0.5910', high: '0.6000', low: '0.5800', change: '+0.06%', changePositive: true, trend: [12, 15, 18, 20, 22, 24, 26, 28, 30] },
+        { symbol: 'USD/INR', code: 'USD/INR', bid: '83.50', high: '83.80', low: '83.20', change: '+0.05%', changePositive: true, trend: [18, 16, 20, 18, 22, 20, 24, 22, 26] },
+        { symbol: 'USD/AED', code: 'USD/AED', bid: '3.6725', high: '3.6730', low: '3.6720', change: '+0.00%', changePositive: true, trend: [20, 20, 20, 20, 20, 20, 20, 20, 20] },
+        { symbol: 'USD/SGD', code: 'USD/SGD', bid: '1.3500', high: '1.3600', low: '1.3400', change: '+0.03%', changePositive: true, trend: [20, 22, 24, 26, 28, 30, 32, 34, 36] },
+        { symbol: 'USD/HKD', code: 'USD/HKD', bid: '7.8100', high: '7.8200', low: '7.8000', change: '-0.01%', changePositive: false, trend: [30, 28, 25, 20, 22, 18, 15, 12, 10] },
+        { symbol: 'USD/CNY', code: 'USD/CNY', bid: '7.2100', high: '7.2300', low: '7.2000', change: '+0.02%', changePositive: true, trend: [10, 12, 15, 12, 18, 20, 25, 30, 35] },
     ],
     commodities: [
-        { symbol: 'XAUUSD', code: 'Gold', bid: '2,341.50', high: '2,365.00', low: '2,320.00', change: '+0.45%', changePositive: true, trend: [10, 15, 12, 18, 20, 22, 25, 28, 30] },
-        { symbol: 'XAGUSD', code: 'Silver', bid: '29.485', high: '30.12', low: '28.90', change: '+0.32%', changePositive: true, trend: [15, 12, 18, 14, 20, 22, 20, 25, 28] },
-        { symbol: 'USOIL', code: 'Crude Oil', bid: '78.240', high: '79.50', low: '77.10', change: '-0.18%', changePositive: false, trend: [25, 22, 20, 18, 15, 12, 14, 10, 8] },
-        { symbol: 'UKOIL', code: 'Brent', bid: '82.670', high: '83.80', low: '81.40', change: '-0.12%', changePositive: false, trend: [22, 20, 18, 15, 12, 14, 10, 12, 9] },
-        { symbol: 'NATGAS', code: 'Nat Gas', bid: '2.894', high: '3.01', low: '2.78', change: '+1.24%', changePositive: true, trend: [10, 12, 15, 12, 18, 20, 25, 30, 35] },
-        { symbol: 'COPPER', code: 'Copper', bid: '4.352', high: '4.42', low: '4.28', change: '+0.08%', changePositive: true, trend: [18, 16, 20, 18, 22, 20, 24, 22, 25] },
+        { symbol: 'XAU/USD', code: 'Gold', bid: '2341.50', high: '2365.00', low: '2320.00', change: '+0.45%', changePositive: true, trend: [10, 15, 12, 18, 20, 22, 25, 28, 30] },
+        { symbol: 'XAG/USD', code: 'Silver', bid: '29.48', high: '30.12', low: '28.90', change: '+0.32%', changePositive: true, trend: [15, 12, 18, 14, 20, 22, 20, 25, 28] },
+        { symbol: 'WTI Oil', code: 'WTI Crude', bid: '78.24', high: '79.50', low: '77.10', change: '-0.18%', changePositive: false, trend: [25, 22, 20, 18, 15, 12, 14, 10, 8] },
+        { symbol: 'Brent Oil', code: 'Brent Crude', bid: '82.67', high: '83.80', low: '81.40', change: '-0.12%', changePositive: false, trend: [22, 20, 18, 15, 12, 14, 10, 12, 9] },
+        { symbol: 'Natural Gas', code: 'Nat Gas', bid: '2.89', high: '3.01', low: '2.78', change: '+1.24%', changePositive: true, trend: [10, 12, 15, 12, 18, 20, 25, 30, 35] },
+        { symbol: 'Copper', code: 'Copper', bid: '4.35', high: '4.42', low: '4.28', change: '+0.08%', changePositive: true, trend: [18, 16, 20, 18, 22, 20, 24, 22, 25] },
+    ],
+    crypto: [
+        { symbol: 'BTC/USD', code: 'Bitcoin', bid: '63120', high: '64000', low: '62000', change: '+1.80%', changePositive: true, trend: [25, 28, 25, 30, 35, 32, 38, 40, 45] },
+        { symbol: 'ETH/USD', code: 'Ethereum', bid: '3450', high: '3500', low: '3400', change: '+2.10%', changePositive: true, trend: [20, 22, 20, 25, 28, 25, 30, 32, 35] },
+        { symbol: 'BNB/USD', code: 'Binance Coin', bid: '580', high: '590', low: '570', change: '+0.50%', changePositive: true, trend: [15, 18, 22, 20, 25, 28, 30, 32, 35] },
+        { symbol: 'SOL/USD', code: 'Solana', bid: '145', high: '150', low: '140', change: '-1.20%', changePositive: false, trend: [35, 32, 30, 25, 28, 20, 15, 18, 12] },
+        { symbol: 'XRP/USD', code: 'Ripple', bid: '0.52', high: '0.55', low: '0.50', change: '+0.80%', changePositive: true, trend: [10, 15, 20, 18, 25, 30, 35, 40, 50] },
+        { symbol: 'ADA/USD', code: 'Cardano', bid: '0.45', high: '0.48', low: '0.42', change: '-0.40%', changePositive: false, trend: [18, 20, 25, 22, 28, 30, 35, 38, 42] },
+        { symbol: 'DOGE/USD', code: 'Dogecoin', bid: '0.15', high: '0.16', low: '0.14', change: '+1.10%', changePositive: true, trend: [10, 12, 15, 12, 18, 20, 25, 30, 35] },
     ],
     indices: [
-        { symbol: 'US500', code: 'S&P 500', bid: '5,432.10', high: '5,460.00', low: '5,410.00', change: '+0.12%', changePositive: true, trend: [20, 22, 20, 25, 22, 28, 25, 30, 32] },
-        { symbol: 'US30', code: 'Dow 30', bid: '39,872.50', high: '40,120.00', low: '39,650.00', change: '+0.08%', changePositive: true, trend: [18, 20, 18, 22, 20, 24, 22, 26, 28] },
-        { symbol: 'USTEC', code: 'Nasdaq', bid: '18,945.30', high: '19,100.00', low: '18,820.00', change: '+0.22%', changePositive: true, trend: [25, 28, 25, 30, 28, 35, 32, 38, 40] },
-        { symbol: 'UK100', code: 'FTSE 100', bid: '8,234.60', high: '8,260.00', low: '8,200.00', change: '-0.05%', changePositive: false, trend: [22, 20, 18, 15, 18, 12, 15, 10, 8] },
-        { symbol: 'GER40', code: 'DAX 40', bid: '18,567.80', high: '18,620.00', low: '18,490.00', change: '+0.15%', changePositive: true, trend: [15, 18, 15, 20, 18, 22, 20, 25, 28] },
-        { symbol: 'JPN225', code: 'Nikkei', bid: '38,912.40', high: '39,100.00', low: '38,750.00', change: '+0.34%', changePositive: true, trend: [12, 15, 12, 18, 15, 20, 18, 22, 25] },
+        { symbol: 'S&P 500', code: 'S&P 500', bid: '5432.10', high: '5460.00', low: '5410.00', change: '+0.12%', changePositive: true, trend: [20, 22, 20, 25, 22, 28, 25, 30, 32] },
+        { symbol: 'NASDAQ', code: 'Nasdaq', bid: '18945.30', high: '19100.00', low: '18820.00', change: '+0.22%', changePositive: true, trend: [25, 28, 25, 30, 28, 35, 32, 38, 40] },
+        { symbol: 'Dow Jones', code: 'Dow 30', bid: '39872.50', high: '40120.00', low: '39650.00', change: '+0.08%', changePositive: true, trend: [18, 20, 18, 22, 20, 24, 22, 26, 28] },
+        { symbol: 'FTSE 100', code: 'FTSE 100', bid: '8234.60', high: '8260.00', low: '8200.00', change: '-0.05%', changePositive: false, trend: [22, 20, 18, 15, 18, 12, 15, 10, 8] },
+        { symbol: 'DAX', code: 'DAX 40', bid: '18567.80', high: '18620.00', low: '18490.00', change: '+0.15%', changePositive: true, trend: [15, 18, 15, 20, 18, 22, 20, 25, 28] },
+        { symbol: 'Nikkei 225', code: 'Nikkei', bid: '38912.40', high: '39100.00', low: '38750.00', change: '+0.34%', changePositive: true, trend: [12, 15, 12, 18, 15, 20, 18, 22, 25] },
+        { symbol: 'Nifty 50', code: 'Nifty 50', bid: '23500.00', high: '23600.00', low: '23400.00', change: '+0.50%', changePositive: true, trend: [18, 16, 20, 18, 22, 20, 24, 22, 26] },
+        { symbol: 'Sensex', code: 'BSE Sensex', bid: '77000.00', high: '77500.00', low: '76500.00', change: '+0.60%', changePositive: true, trend: [15, 18, 15, 20, 18, 22, 20, 25, 28] },
+        { symbol: 'Dubai Financial Market Index', code: 'DFMGI', bid: '4000.00', high: '4050.00', low: '3950.00', change: '+0.10%', changePositive: true, trend: [10, 12, 15, 12, 18, 20, 25, 30, 35] },
     ],
     stocks: [
-        { symbol: 'AAPL', code: 'Apple', bid: '195.42', high: '197.10', low: '193.80', change: '+0.85%', changePositive: true, trend: [25, 28, 25, 30, 35, 32, 38, 40, 45] },
-        { symbol: 'MSFT', code: 'Microsoft', bid: '425.30', high: '428.50', low: '422.10', change: '+0.42%', changePositive: true, trend: [20, 22, 20, 25, 28, 25, 30, 32, 35] },
-        { symbol: 'TSLA', code: 'Tesla', bid: '178.65', high: '182.30', low: '175.20', change: '-1.23%', changePositive: false, trend: [35, 32, 30, 25, 28, 20, 15, 18, 12] },
-        { symbol: 'NVDA', code: 'NVIDIA', bid: '124.80', high: '126.50', low: '122.40', change: '+2.15%', changePositive: true, trend: [10, 15, 20, 18, 25, 30, 35, 40, 50] },
-        { symbol: 'AMZN', code: 'Amazon', bid: '186.25', high: '188.40', low: '184.00', change: '+0.55%', changePositive: true, trend: [15, 18, 22, 20, 25, 28, 30, 32, 35] },
-        { symbol: 'META', code: 'Meta', bid: '502.10', high: '506.80', low: '498.30', change: '+0.72%', changePositive: true, trend: [18, 20, 25, 22, 28, 30, 35, 38, 42] },
+        { symbol: 'Apple', code: 'AAPL', bid: '195.42', high: '197.10', low: '193.80', change: '+0.85%', changePositive: true, trend: [25, 28, 25, 30, 35, 32, 38, 40, 45] },
+        { symbol: 'Microsoft', code: 'MSFT', bid: '425.30', high: '428.50', low: '422.10', change: '+0.42%', changePositive: true, trend: [20, 22, 20, 25, 28, 25, 30, 32, 35] },
+        { symbol: 'Amazon', code: 'AMZN', bid: '186.25', high: '188.40', low: '184.00', change: '+0.55%', changePositive: true, trend: [15, 18, 22, 20, 25, 28, 30, 32, 35] },
+        { symbol: 'Nvidia', code: 'NVDA', bid: '124.80', high: '126.50', low: '122.40', change: '+2.15%', changePositive: true, trend: [10, 15, 20, 18, 25, 30, 35, 40, 50] },
+        { symbol: 'Tesla', code: 'TSLA', bid: '178.65', high: '182.30', low: '175.20', change: '-1.23%', changePositive: false, trend: [35, 32, 30, 25, 28, 20, 15, 18, 12] },
+        { symbol: 'Meta', code: 'META', bid: '502.10', high: '506.80', low: '498.30', change: '+0.72%', changePositive: true, trend: [18, 20, 25, 22, 28, 30, 35, 38, 42] },
+        { symbol: 'Google', code: 'GOOGL', bid: '175.00', high: '178.00', low: '172.00', change: '+1.50%', changePositive: true, trend: [15, 12, 18, 14, 20, 22, 20, 25, 28] },
+        { symbol: 'Saudi Aramco', code: '2222.SR', bid: '30.00', high: '31.00', low: '29.50', change: '+0.00%', changePositive: true, trend: [20, 20, 20, 20, 20, 20, 20, 20, 20] },
+        { symbol: 'Reliance', code: 'RELIANCE', bid: '2900.00', high: '2950.00', low: '2850.00', change: '+1.20%', changePositive: true, trend: [15, 18, 15, 20, 18, 22, 20, 25, 28] },
+        { symbol: 'TCS', code: 'TCS', bid: '3800.00', high: '3850.00', low: '3750.00', change: '-0.30%', changePositive: false, trend: [25, 22, 20, 18, 15, 12, 14, 10, 8] },
+        { symbol: 'HDFC Bank', code: 'HDFCBANK', bid: '1550.00', high: '1580.00', low: '1530.00', change: '+0.80%', changePositive: true, trend: [10, 12, 15, 12, 18, 20, 25, 30, 35] },
     ],
     futures: [
-        { symbol: 'ESU4', code: 'E-mini S&P', bid: '5,430.25', high: '5,458.00', low: '5,408.00', change: '+0.10%', changePositive: true, trend: [15, 18, 15, 20, 18, 22, 20, 24, 26] },
-        { symbol: 'NQU4', code: 'E-mini Nasdaq', bid: '18,940.50', high: '19,095.00', low: '18,815.00', change: '+0.20%', changePositive: true, trend: [20, 22, 20, 25, 22, 28, 25, 30, 32] },
-        { symbol: 'CLU4', code: 'Crude Future', bid: '78.12', high: '79.40', low: '77.00', change: '-0.15%', changePositive: false, trend: [25, 22, 20, 18, 15, 12, 14, 10, 8] },
-        { symbol: 'GCQ4', code: 'Gold Future', bid: '2,339.80', high: '2,363.00', low: '2,318.00', change: '+0.40%', changePositive: true, trend: [12, 15, 18, 20, 22, 24, 26, 28, 30] },
-        { symbol: 'ZBU4', code: '30Y T-Bond', bid: '119.25', high: '119.80', low: '118.70', change: '+0.08%', changePositive: true, trend: [10, 12, 11, 13, 12, 14, 13, 15, 16] },
+        { symbol: 'E-mini S&P', code: 'ES', bid: '5430.25', high: '5458.00', low: '5408.00', change: '+0.10%', changePositive: true, trend: [15, 18, 15, 20, 18, 22, 20, 24, 26] },
+        { symbol: 'E-mini Nasdaq', code: 'NQ', bid: '18940.50', high: '19095.00', low: '18815.00', change: '+0.20%', changePositive: true, trend: [20, 22, 20, 25, 22, 28, 25, 30, 32] },
+        { symbol: 'Crude Future', code: 'CL', bid: '78.12', high: '79.40', low: '77.00', change: '-0.15%', changePositive: false, trend: [25, 22, 20, 18, 15, 12, 14, 10, 8] },
+        { symbol: 'Gold Future', code: 'GC', bid: '2339.80', high: '2363.00', low: '2318.00', change: '+0.40%', changePositive: true, trend: [12, 15, 18, 20, 22, 24, 26, 28, 30] },
+        { symbol: '30Y T-Bond', code: 'ZB', bid: '119.25', high: '119.80', low: '118.70', change: '+0.08%', changePositive: true, trend: [10, 12, 11, 13, 12, 14, 13, 15, 16] },
     ],
 }
 
@@ -176,6 +196,60 @@ const rowVariants = {
         },
     },
 }
+
+/* ── Individual Row Component (handles flashing) ──────────────── */
+function MarketRow({ inst, liveData }: { inst: Instrument, liveData: MarketQuote | undefined }) {
+    const bidValue = liveData && liveData.price !== undefined ? liveData.price : parseFloat(inst.bid.replace(/,/g, ''));
+    const prevPriceRef = useRef(bidValue);
+    const [flashClass, setFlashClass] = useState('');
+
+    useEffect(() => {
+        if (liveData && liveData.price !== undefined && liveData.price !== prevPriceRef.current) {
+            if (liveData.price > prevPriceRef.current) {
+                setFlashClass(styles.flashUp);
+                setTimeout(() => setFlashClass(''), 400);
+            } else if (liveData.price < prevPriceRef.current) {
+                setFlashClass(styles.flashDown);
+                setTimeout(() => setFlashClass(''), 400);
+            }
+            prevPriceRef.current = liveData.price;
+        }
+    }, [liveData]);
+
+    const bid = liveData && liveData.price !== undefined ? liveData.price.toFixed(5) : inst.bid
+    const high = inst.high
+    const low = inst.low
+    const change = liveData && liveData.percent_change !== undefined
+        ? `${liveData.percent_change >= 0 ? '+' : ''}${liveData.percent_change.toFixed(2)}%`
+        : inst.change
+    const changePositive = liveData && liveData.up !== undefined ? liveData.up : inst.changePositive
+
+    return (
+        <motion.div
+            key={inst.symbol}
+            className={`${styles.tableRow} ${flashClass}`}
+            variants={rowVariants}
+        >
+            <div className={styles.tdSymbol}>
+                <span className={styles.symbolName}>{inst.symbol}</span>
+                <span className={styles.symbolCode}>{inst.code}</span>
+            </div>
+            <span className={styles.tdNum}>{bid}</span>
+            <span className={styles.tdNum}>{high}</span>
+            <span className={styles.tdNum}>{low}</span>
+            <span className={`${styles.tdNum} ${changePositive ? styles.changeUp : styles.changeDown}`}>
+                {change}
+            </span>
+            <div className={styles.tdTrend}>
+                <Sparkline data={inst.trend} positive={changePositive} />
+            </div>
+            <Link href="https://portal.apfx.com/register" className={styles.tradeBtn}>
+                Trade now
+            </Link>
+        </motion.div>
+    )
+}
+
 
 /* ── Component ─────────────────────────────────────────────── */
 export default function MarketsSection() {
@@ -206,7 +280,7 @@ export default function MarketsSection() {
         }
 
         loadData();
-        const interval = setInterval(loadData, 60000);
+        const interval = setInterval(loadData, 10000); // Poll every 10s for fast UI updates
 
         return () => {
             isMounted = false;
@@ -290,39 +364,7 @@ export default function MarketsSection() {
                                 exit="exit"
                             >
                                 {instruments.map((inst) => {
-                                    const live = marketData[inst.symbol]
-                                    const bid = live && live.price !== undefined ? live.price.toFixed(5) : inst.bid
-                                    const high = inst.high
-                                    const low = inst.low
-                                    const change = live && live.percent_change !== undefined
-                                        ? `${live.percent_change >= 0 ? '+' : ''}${live.percent_change.toFixed(2)}%`
-                                        : inst.change
-                                    const changePositive = live && live.up !== undefined ? live.up : inst.changePositive
-
-                                    return (
-                                        <motion.div
-                                            key={inst.symbol}
-                                            className={styles.tableRow}
-                                            variants={rowVariants}
-                                        >
-                                            <div className={styles.tdSymbol}>
-                                                <span className={styles.symbolName}>{inst.symbol}</span>
-                                                <span className={styles.symbolCode}>{inst.code}</span>
-                                            </div>
-                                            <span className={styles.tdNum}>{bid}</span>
-                                            <span className={styles.tdNum}>{high}</span>
-                                            <span className={styles.tdNum}>{low}</span>
-                                            <span className={`${styles.tdNum} ${changePositive ? styles.changeUp : styles.changeDown}`}>
-                                                {change}
-                                            </span>
-                                            <div className={styles.tdTrend}>
-                                                <Sparkline data={inst.trend} positive={changePositive} />
-                                            </div>
-                                            <Link href="https://portal.apfx.com/register" className={styles.tradeBtn}>
-                                                Trade now
-                                            </Link>
-                                        </motion.div>
-                                    )
+                                    return <MarketRow key={inst.symbol} inst={inst} liveData={marketData[inst.symbol]} />;
                                 })}
                             </motion.div>
                         </AnimatePresence>

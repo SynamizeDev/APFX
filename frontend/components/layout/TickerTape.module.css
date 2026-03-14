@@ -128,3 +128,22 @@
         transform: scale(0.75);
     }
 }
+
+/* ── Price Update Flashing ────────────────────────────────── */
+@keyframes flash-up {
+    0% { background-color: rgba(16, 185, 129, 0.4); }
+    100% { background-color: transparent; }
+}
+
+@keyframes flash-down {
+    0% { background-color: rgba(239, 68, 68, 0.4); }
+    100% { background-color: transparent; }
+}
+
+.flashUp {
+    animation: flash-up 0.4s ease-out;
+}
+
+.flashDown {
+    animation: flash-down 0.4s ease-out;
+}

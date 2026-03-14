@@ -44,7 +44,7 @@ export default function TradingAcademy() {
             <div className={styles.inner}>
                 <header className={styles.header}>
                     <h2 id="academy-heading" className={styles.title}>
-                        Trading <span className={styles.titleAccent}>Starts Here</span>
+                        Start <span className={styles.titleAccent}>Learning Here</span>
                     </h2>
                 </header>
 

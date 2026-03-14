@@ -14,8 +14,8 @@ const FOOTER_LINKS = {
         { label: 'Stocks', href: '/markets/stocks' },
     ],
     Platforms: [
-        { label: 'MetaTrader 4', href: '/platforms/mt4' },
-        { label: 'MetaTrader 5', href: '/platforms/mt5' },
+        { label: 'Advanced Web Terminal', href: '/platforms/web-terminal' },
+        { label: 'TradingView Integration', href: '/platforms/tradingview' },
         { label: 'WebTrader', href: '/platforms/webtrader' },
         { label: 'Mobile App', href: '/platforms/mobile' },
         { label: 'Copy Trading', href: '/platforms/copy-trading' },

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
     title: 'Trading Platforms — Institutional Grade Infrastructure',
     description:
-        'Access global markets from any device with APFX’s suite of trading platforms. Featuring WebTrader, Mobile Apps, FIX API, and MetaTrader 5 integration.',
+        'Access global markets from any device with APFX’s suite of trading platforms. Featuring Advanced Web Terminal, TradingView Integration, WebTrader, and Mobile Apps.',
 }
 
 export default function PlatformsLayout({

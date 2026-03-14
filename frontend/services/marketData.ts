@@ -14,11 +14,11 @@ export const DEFAULT_SYMBOLS = [
     'SPY', 'S&P500', 'NASDAQ', 'DOW'
 ];
 
-// Central Cache
+// Central Cache inside browser to prevent layout tearing on interval overlap
 let cachedQuotes: Record<string, MarketQuote> = {};
 let lastFetchTime = 0;
 let pendingRequest: Promise<MarketQuote[]> | null = null;
-const CACHE_DURATION = 60 * 1000; // 60 seconds
+const BROWSER_CACHE_DURATION = 2000; // 2 seconds UI debounce, actual caching is on server
 
 /**
  * Fetches market data from the centralized internal API.
@@ -27,8 +27,8 @@ const CACHE_DURATION = 60 * 1000; // 60 seconds
 export async function fetchMarketData(): Promise<MarketQuote[]> {
     const now = Date.now();
 
-    // 1. Return cache if valid
-    if (Object.keys(cachedQuotes).length > 0 && (now - lastFetchTime) < CACHE_DURATION) {
+    // 1. Return cache if valid (deduplication essentially)
+    if (Object.keys(cachedQuotes).length > 0 && (now - lastFetchTime) < BROWSER_CACHE_DURATION) {
         return Object.values(cachedQuotes);
     }
 
@@ -40,8 +40,8 @@ export async function fetchMarketData(): Promise<MarketQuote[]> {
     // 3. New Fetch
     pendingRequest = (async () => {
         try {
-            console.log("[MarketData] Fetching consolidated data from /api/market");
-            const response = await fetch('/api/market');
+            console.log("[MarketData] Fetching consolidated data from /api/markets");
+            const response = await fetch('/api/markets');
 
             if (!response.ok) {
                 throw new Error('Fallback to static data due to API error');
