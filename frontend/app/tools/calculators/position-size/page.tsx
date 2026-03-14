@@ -212,7 +212,7 @@ export default function PositionSizeCalculatorPage() {
                                 {units.toLocaleString()}
                             </span>
                         </div>
-                        <div className={posStyles.resultItem}>
+                        <div className={`${posStyles.resultItem} ${posStyles.resultItemHighlight}`}>
                             <span className={posStyles.resultItemLabel}>
                                 Money at risk
                             </span>

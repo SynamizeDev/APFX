@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import { CALCULATORS } from './calculators'
@@ -17,7 +16,6 @@ export default function CalculatorsLayout({
 
     return (
         <div className={styles.wrapper}>
-            <Header />
             <main className={styles.main}>
                 <aside className={styles.sidebar} aria-label="Calculators">
                     <nav className={styles.sidebarNav}>

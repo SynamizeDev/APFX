@@ -1,8 +1,8 @@
-/* Forex Rebate Calculator layout: two-column inputs, read-only, button, result */
+/* Forex Rebate Calculator — form grid, read-only, CTA, result */
 .formGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.25rem 1.5rem;
+    gap: 1.5rem 2rem;
 }
 
 .rebatePerLotRow {
@@ -14,7 +14,7 @@
 .rebateInput {
     flex: 1;
     min-width: 5rem;
-    width: 0; /* allow flex to shrink from content; min-width keeps it usable */
+    width: 0;
 }
 
 .rebateUnit {
@@ -23,61 +23,88 @@
 }
 
 .readOnlyRow {
-    margin-top: 1.25rem;
-    padding-top: 1.25rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .readOnlyField {
     width: 100%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: var(--radius-sm);
-    padding: 0.7rem 1rem;
-    color: var(--color-text-2);
+    background: rgba(0, 200, 150, 0.04);
+    border: 1px solid rgba(0, 200, 150, 0.12);
+    border-radius: var(--radius-md);
+    padding: 0.8rem 1.1rem;
+    color: var(--color-accent);
     font-family: var(--font-mono);
     font-size: 0.9375rem;
     pointer-events: none;
 }
 
 .buttonRow {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     display: flex;
     justify-content: center;
 }
 
 .calculateBtn {
-    padding: 0.75rem 2rem;
+    position: relative;
+    padding: 0.9rem 2.5rem;
     border-radius: var(--radius-full);
-    background: var(--color-accent);
+    background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
     color: #020617;
-    font-size: 0.9375rem;
-    font-weight: var(--fw-semibold);
+    font-size: 1rem;
+    font-weight: var(--fw-bold);
     border: none;
     cursor: pointer;
-    transition: background var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
+    box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+    transition:
+        transform var(--duration-fast) var(--ease-out),
+        box-shadow var(--duration-normal) var(--ease-out);
 }
 
 .calculateBtn:hover {
-    background: var(--color-accent-hover);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+}
+
+.calculateBtn:active {
+    transform: translateY(0);
 }
 
 .resultRow {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     text-align: center;
+    padding: 2rem 1.5rem;
+    background: linear-gradient(180deg, rgba(0, 200, 150, 0.06) 0%, transparent 100%);
+    border: 1px solid rgba(0, 200, 150, 0.12);
+    border-radius: var(--radius-lg);
+    position: relative;
+}
+
+.resultRow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    opacity: 0.5;
 }
 
 .resultAmount {
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: var(--fw-bold);
-    color: var(--color-text-1);
+    color: var(--color-accent);
     font-family: var(--font-mono);
     letter-spacing: -0.02em;
+    text-shadow: 0 0 40px rgba(0, 200, 150, 0.2);
 }
 
 @media (max-width: 600px) {
     .formGrid {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
     }
 }

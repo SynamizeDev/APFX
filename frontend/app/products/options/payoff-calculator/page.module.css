@@ -1,0 +1,153 @@
+.container {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    min-height: 100vh;
+    background: var(--color-bg);
+}
+
+.header {
+    margin-bottom: 1rem;
+}
+
+.backLink {
+    display: inline-block;
+    font-size: var(--text-sm);
+    color: var(--color-text-2);
+    text-decoration: none;
+    margin-bottom: 0.75rem;
+    transition: color var(--duration-fast) var(--ease-out);
+}
+
+.backLink:hover {
+    color: var(--color-accent);
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: var(--fw-extrabold);
+    color: var(--color-text-1);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-2);
+    margin: 0;
+}
+
+.section {
+    margin-top: 2rem;
+}
+
+.sectionTitle {
+    font-size: var(--text-lg);
+    font-weight: var(--fw-bold);
+    color: var(--color-text-1);
+    margin-bottom: 1rem;
+}
+
+.muted {
+    color: var(--color-text-3);
+    font-style: italic;
+}
+
+.link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: var(--text-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.legList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.legItem {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+    color: var(--color-text-1);
+}
+
+.chartWrap {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+}
+
+.chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 200px;
+    margin-bottom: 0.5rem;
+}
+
+.bar {
+    flex: 1;
+    min-width: 4px;
+    border-radius: 2px 2px 0 0;
+    transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.bar:hover {
+    opacity: 0.85;
+}
+
+.xAxis {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-xs);
+    color: var(--color-text-3);
+}
+
+.stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    font-size: var(--text-sm);
+    color: var(--color-text-1);
+}
+
+.tableWrap {
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+}
+
+.table th,
+.table td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.table th {
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-2);
+}
+
+.green {
+    color: var(--color-success);
+}
+
+.red {
+    color: var(--color-error);
+}
