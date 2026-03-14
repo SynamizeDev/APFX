@@ -1,19 +1,22 @@
 /* ── Hero Section ────────────────────────────────────────────── */
 .hero {
     position: relative;
-    min-height: 80vh;
+    min-height: auto;
     display: flex;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     overflow: hidden;
-    background: var(--color-bg);
+    /* Right side fades so wrapper’s curvy shape shows through */
+    background: linear-gradient(to right, var(--color-bg) 0%, var(--color-bg) 50%, transparent 56%);
 }
 
-/* Three.js canvas backdrop */
+/* Three.js canvas backdrop; masked on right so curve shows */
 .canvas {
     position: absolute;
     inset: 0;
     z-index: 0;
+    mask-image: linear-gradient(to right, black 52%, transparent 58%);
+    -webkit-mask-image: linear-gradient(to right, black 52%, transparent 58%);
 }
 
 /* Abstract Floating Orbs */
@@ -55,7 +58,7 @@
     }
 }
 
-/* Dark radial vignette over canvas */
+/* Dark radial vignette over canvas; masked on right so curve shows */
 .vignette {
     position: absolute;
     inset: 0;
@@ -64,6 +67,8 @@
             rgba(3, 5, 10, 0.2) 0%,
             rgba(3, 5, 10, 0.7) 60%,
             rgba(3, 5, 10, 0.95) 100%);
+    mask-image: linear-gradient(to right, black 52%, transparent 58%);
+    -webkit-mask-image: linear-gradient(to right, black 52%, transparent 58%);
 }
 
 /* Bottom fade */
@@ -77,15 +82,89 @@
     z-index: 2;
 }
 
+/* Content: left copy (unchanged) + right mockup — wider container */
 .content {
     position: relative;
     z-index: 3;
-    max-width: 1200px;
-    margin-inline: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2.5rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
     padding-inline: var(--container-px);
-    padding-top: 15vh;
-    padding-bottom: 0.5rem;
-    text-align: center;
+    padding-top: 5vh;
+    padding-bottom: 1rem;
+    text-align: left;
+    min-height: auto;
+}
+
+.contentLeft {
+    flex: 0 1 auto;
+    max-width: 720px;
+    margin-left: 2.5rem;
+    margin-top: 12vh;
+}
+
+/* Right: phone mockup — large; visible “transparent” bg so blend shows through */
+.mockupWrap {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    min-width: 0;
+    margin-top: -4vh;
+    animation: mockupFloat 6s ease-in-out infinite;
+    background: transparent;
+}
+
+.heroMockup {
+    width: 100%;
+    max-width: min(380px, 36vw);
+    height: auto;
+    object-fit: contain;
+    object-position: center right;
+    filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.35));
+    mix-blend-mode: screen;
+}
+
+@keyframes mockupFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mockupWrap {
+        animation: none;
+    }
+}
+
+@media (max-width: 1024px) {
+    .content {
+        flex-direction: column;
+        align-items: flex-start;
+        min-height: auto;
+        padding-top: 6vh;
+    }
+
+    .mockupWrap {
+        width: 100%;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .heroMockup {
+        max-width: 300px;
+        margin-inline: auto;
+        object-position: center;
+    }
+}
+
+@media (max-width: 640px) {
+    .heroMockup {
+        max-width: 240px;
+    }
 }
 
 /* Label chip */
@@ -126,19 +205,19 @@
     }
 }
 
-/* Headline */
+/* Headline — "Trade Global Markets / With Absolute Precision" */
 .headline {
     font-family: var(--font-display);
-    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
     font-weight: var(--fw-extrabold);
     color: var(--color-text-1);
     line-height: var(--lh-tight);
     letter-spacing: var(--ls-tight);
     max-width: 900px;
-    margin-inline: auto;
-    text-align: center;
+    margin-inline: 0;
+    text-align: left;
     margin-bottom: 1.5rem;
-    opacity: 0;
+    opacity: 1;
 }
 
 .accentLine {
@@ -180,7 +259,7 @@
 /* CTA row */
 .ctas {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 1.25rem;
     flex-wrap: wrap;
@@ -193,11 +272,11 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 1rem 2.5rem;
+    padding: 0.75rem 2rem;
     background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
     color: #000;
     font-weight: var(--fw-bold);
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     border-radius: var(--radius-full);
     text-decoration: none;
     transition: all var(--duration-fast) var(--ease-out);
@@ -226,13 +305,13 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.95rem 2.5rem;
+    padding: 0.75rem 2rem;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
     color: var(--color-text-1);
     font-weight: var(--fw-semibold);
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     border-radius: var(--radius-full);
     text-decoration: none;
     transition: all var(--duration-normal) var(--ease-out);

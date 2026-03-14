@@ -1,0 +1,83 @@
+/* Forex Rebate Calculator layout: two-column inputs, read-only, button, result */
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 1.5rem;
+}
+
+.rebatePerLotRow {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.rebateInput {
+    flex: 1;
+    min-width: 5rem;
+    width: 0; /* allow flex to shrink from content; min-width keeps it usable */
+}
+
+.rebateUnit {
+    flex-shrink: 0;
+    width: 6rem;
+}
+
+.readOnlyRow {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.readOnlyField {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 1rem;
+    color: var(--color-text-2);
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    pointer-events: none;
+}
+
+.buttonRow {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.calculateBtn {
+    padding: 0.75rem 2rem;
+    border-radius: var(--radius-full);
+    background: var(--color-accent);
+    color: #020617;
+    font-size: 0.9375rem;
+    font-weight: var(--fw-semibold);
+    border: none;
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
+}
+
+.calculateBtn:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+}
+
+.resultRow {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.resultAmount {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: var(--fw-bold);
+    color: var(--color-text-1);
+    font-family: var(--font-mono);
+    letter-spacing: -0.02em;
+}
+
+@media (max-width: 600px) {
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { Sparkles } from 'lucide-react'
+import { Sparkles, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './Header.module.css'
 
@@ -11,7 +11,7 @@ const NAV_LINKS = [
     { label: 'Tools', href: '/tools', hasMegaMenu: true },
     { label: 'Learn', href: '/academy', hasMegaMenu: true },
     { label: 'Company', href: '/about', hasMegaMenu: true },
-    { label: 'Trade Calculators', href: '/tools/calculators', hasMegaMenu: true },
+    { label: 'Become a Partner', href: '/partners', hasMegaMenu: false },
 ]
 
 const MEGA_MENU_DATA = {
@@ -53,17 +53,6 @@ const MEGA_MENU_DATA = {
             links: [
                 { label: 'About Us', href: '/about/about-us' },
                 { label: 'Press', href: '/about/press' },
-            ],
-        },
-    ],
-    'Trade Calculators': [
-        {
-            title: '',
-            links: [
-                { label: 'Pip Calculator', href: '/tools/calculators/pip' },
-                { label: 'Forex Margin Calculator', href: '/tools/calculators/margin' },
-                { label: 'Position Size Calculator', href: '/tools/calculators/position-size' },
-                { label: 'Forex Rebate Calculator', href: '/tools/calculators/rebate' },
             ],
         },
     ],
@@ -165,6 +154,12 @@ export default function Header() {
                                         className={activeDropdown === link.label ? styles.navActive : undefined}
                                     >
                                         {link.label}
+                                        {link.hasMegaMenu && (
+                                            <ChevronDown
+                                                className={styles.navChevron}
+                                                aria-hidden
+                                            />
+                                        )}
                                     </Link>
 
                                     <AnimatePresence>
@@ -172,11 +167,11 @@ export default function Header() {
                                             <motion.div
                                                 className={styles.megaMenu}
                                                 onMouseEnter={() => handleMouseEnter(link.label)}
-                                                initial={{ opacity: 0, y: -20, scaleY: 0.95 }}
+                                                initial={{ opacity: 0, y: -8, scaleY: 0.98 }}
                                                 animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                                                exit={{ opacity: 0, y: -12, scaleY: 0.97 }}
+                                                exit={{ opacity: 0, y: -4, scaleY: 0.98 }}
                                                 transition={{
-                                                    duration: 0.4,
+                                                    duration: 0.2,
                                                     ease: [0.16, 1, 0.3, 1],
                                                 }}
                                                 style={{ transformOrigin: 'top center' }}
@@ -184,10 +179,7 @@ export default function Header() {
                                                 {(() => {
                                                     const columns = MEGA_MENU_DATA[link.label as keyof typeof MEGA_MENU_DATA] ?? []
                                                     return (
-                                                        <div
-                                                            className={styles.megaMenuInner}
-                                                            style={{ gridTemplateColumns: `repeat(${columns.length}, 1fr)` }}
-                                                        >
+                                                        <div className={styles.megaMenuInner}>
                                                             {columns.map((col, i) => (
                                                                 <div key={col.title || `col-${i}`} className={styles.megaMenuColumn}>
                                                                     {col.title && <h3 className={styles.megaMenuTitle}>{col.title}</h3>}

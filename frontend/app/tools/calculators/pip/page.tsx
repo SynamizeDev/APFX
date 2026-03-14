@@ -1,124 +1,162 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
+import Select from '@/components/ui/Select'
 import styles from '@/components/ui/CalculatorLayout.module.css'
+import pipStyles from './PipCalculator.module.css'
+
+const INSTRUMENTS = [
+    'EUR/USD',
+    'GBP/USD',
+    'USD/JPY',
+    'USD/CHF',
+    'AUD/USD',
+    'USD/CAD',
+] as const
+
+const DEPOSIT_CURRENCIES = [
+    { value: 'USD', label: 'US Dollar' },
+    { value: 'EUR', label: 'Euro' },
+    { value: 'GBP', label: 'British Pound' },
+    { value: 'AUD', label: 'Australian Dollar' },
+] as const
+
+const UNITS_PER_LOT = 100_000
+
+const mockRates: Record<string, number> = {
+    'EUR/USD': 1.1000,
+    'GBP/USD': 1.3000,
+    'USD/JPY': 150.0,
+    'USD/CHF': 0.88,
+    'AUD/USD': 0.66,
+    'USD/CAD': 1.36,
+}
 
 export default function PipCalculatorPage() {
-    const [accountCurrency, setAccountCurrency] = useState('USD')
-    const [pair, setPair] = useState('EUR/USD')
-    const [tradeSize, setTradeSize] = useState<number>(100000) // 1 Standard Lot defaults to 100,000
+    const [pips, setPips] = useState(1)
+    const [lots, setLots] = useState(1)
+    const [instrument, setInstrument] = useState('EUR/USD')
+    const [depositCurrency, setDepositCurrency] = useState('USD')
 
-    // Typical exchange rates for mock calculation (In a real app, you'd fetch live rates)
-    const mockRates: Record<string, number> = {
-        'EUR/USD': 1.1000,
-        'GBP/USD': 1.3000,
-        'USD/JPY': 150.00,
-        'USD/CHF': 0.8800,
-        'AUD/USD': 0.6600,
-        'USD/CAD': 1.3600
-    }
+    const pipSize = useMemo(() => {
+        return instrument.includes('JPY') ? 0.01 : 0.0001
+    }, [instrument])
 
     const pipValue = useMemo(() => {
-        let pipSize = 0.0001
-        if (pair.includes('JPY')) {
-            pipSize = 0.01
-        }
+        const quoteCurrency = instrument.split('/')[1]
+        const units = lots * UNITS_PER_LOT
+        let valueInQuote = pipSize * pips * units
 
-        // Calculation: Pip Size * Trade Size
-        let valueInQuoteCurrency = pipSize * tradeSize
-
-        // Convert quote currency to account currency if they differ
-        let quoteCurrency = pair.split('/')[1]
-        let finalValue = valueInQuoteCurrency
-
-        if (quoteCurrency !== accountCurrency) {
-            // Very simplified conversion using mock rates or inverse
-            const conversionPair = `${quoteCurrency}/${accountCurrency}`
-            const inversePair = `${accountCurrency}/${quoteCurrency}`
-            
+        if (quoteCurrency !== depositCurrency) {
+            const conversionPair = `${quoteCurrency}/${depositCurrency}`
+            const inversePair = `${depositCurrency}/${quoteCurrency}`
             if (mockRates[conversionPair]) {
-                finalValue = valueInQuoteCurrency * mockRates[conversionPair]
+                valueInQuote *= mockRates[conversionPair]
             } else if (mockRates[inversePair]) {
-                finalValue = valueInQuoteCurrency / mockRates[inversePair]
-            } else if (accountCurrency === 'USD') {
-                // If quote is e.g. CAD and account is USD, divide by USD/CAD
-                if (quoteCurrency === 'CAD') finalValue = valueInQuoteCurrency / mockRates['USD/CAD']
-                if (quoteCurrency === 'CHF') finalValue = valueInQuoteCurrency / mockRates['USD/CHF']
-                if (quoteCurrency === 'JPY') finalValue = valueInQuoteCurrency / mockRates['USD/JPY']
+                valueInQuote /= mockRates[inversePair]
+            } else if (depositCurrency === 'USD') {
+                if (quoteCurrency === 'CAD') valueInQuote /= mockRates['USD/CAD']
+                if (quoteCurrency === 'CHF') valueInQuote /= mockRates['USD/CHF']
+                if (quoteCurrency === 'JPY') valueInQuote /= mockRates['USD/JPY']
             }
         }
-
-        return finalValue
-    }, [accountCurrency, pair, tradeSize])
+        return valueInQuote
+    }, [pipSize, pips, lots, instrument, depositCurrency])
 
     return (
-        <>
-            <Header />
-            <main className={styles.container}>
-                <header className={styles.header}>
-                    <h1 className={styles.title}>Pip Calculator</h1>
-                    <p className={styles.subtitle}>
-                        Quickly calculate the exact value of a pip for any trade size
-                        and currency pair before executing your position.
-                    </p>
-                </header>
+        <main className={styles.container}>
+            <header className={styles.header}>
+                <h1 className={styles.title}>Pip Calculator</h1>
+                <p className={styles.subtitle}>
+                    Quickly calculate the exact value of a pip for any trade size
+                    and currency pair before executing your position.
+                </p>
+            </header>
 
-                <div className={styles.grid}>
-                    {/* INPUT PANEL */}
-                    <div className={styles.inputPanel}>
-                        <div className={styles.formGroup}>
-                            <label className={styles.label}>Account Currency</label>
-                            <select 
-                                className={styles.select}
-                                value={accountCurrency}
-                                onChange={(e) => setAccountCurrency(e.target.value)}
-                            >
-                                <option value="USD">USD</option>
-                                <option value="EUR">EUR</option>
-                                <option value="GBP">GBP</option>
-                                <option value="AUD">AUD</option>
-                            </select>
-                        </div>
-                        
-                        <div className={styles.formGroup}>
-                            <label className={styles.label}>Currency Pair</label>
-                            <select 
-                                className={styles.select}
-                                value={pair}
-                                onChange={(e) => setPair(e.target.value)}
-                            >
-                                {Object.keys(mockRates).map(p => (
-                                    <option key={p} value={p}>{p}</option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label className={styles.label}>Trade Size (Units)</label>
-                            <input 
-                                type="number" 
-                                className={styles.input}
-                                value={tradeSize}
-                                onChange={(e) => setTradeSize(Number(e.target.value))}
-                                min="1000"
-                                step="1000"
-                            />
-                        </div>
+            <div className={styles.inputPanel}>
+                <div className={pipStyles.formGrid}>
+                    <div className={styles.formGroup}>
+                        <label className={styles.label} htmlFor="pip-pips">
+                            Pips
+                        </label>
+                        <input
+                            id="pip-pips"
+                            type="number"
+                            className={styles.input}
+                            value={pips}
+                            onChange={(e) => setPips(Number(e.target.value) || 0)}
+                            min={0}
+                            step={1}
+                        />
                     </div>
-
-                    {/* RESULT PANEL */}
-                    <div className={styles.resultPanel}>
-                        <div className={styles.resultTitle}>Pip Value</div>
-                        <div className={styles.resultValue}>
-                            {pipValue.toLocaleString('en-US', { style: 'currency', currency: accountCurrency })}
-                        </div>
+                    <div className={styles.formGroup}>
+                        <label className={styles.label} htmlFor="pip-instrument">
+                            Instrument
+                        </label>
+                        <Select
+                            id="pip-instrument"
+                            value={instrument}
+                            onChange={setInstrument}
+                            options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
+                        />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label className={styles.label} htmlFor="pip-lots">
+                            Lots (trade size)
+                        </label>
+                        <input
+                            id="pip-lots"
+                            type="number"
+                            className={styles.input}
+                            value={lots}
+                            onChange={(e) => setLots(Number(e.target.value) || 0)}
+                            min={0.01}
+                            step={0.01}
+                        />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label className={styles.label} htmlFor="pip-deposit">
+                            Deposit currency
+                        </label>
+                        <Select
+                            id="pip-deposit"
+                            value={depositCurrency}
+                            onChange={setDepositCurrency}
+                            options={DEPOSIT_CURRENCIES.map((c) => ({ value: c.value, label: c.label }))}
+                        />
                     </div>
                 </div>
-            </main>
-            <BottomBar />
-        </>
+
+                <div className={pipStyles.readOnlyRow}>
+                    <div className={styles.formGroup}>
+                        <label className={styles.label}>
+                            {instrument} 1 Pip Size
+                        </label>
+                        <input
+                            type="text"
+                            className={pipStyles.readOnlyField}
+                            value={pipSize}
+                            readOnly
+                            aria-readonly
+                        />
+                    </div>
+                </div>
+
+                <div className={pipStyles.buttonRow}>
+                    <button type="button" className={pipStyles.calculateBtn}>
+                        Calculate
+                    </button>
+                </div>
+
+                <div className={pipStyles.resultRow}>
+                    <div className={styles.resultValue}>
+                        {pipValue.toLocaleString('en-US', {
+                            style: 'currency',
+                            currency: depositCurrency,
+                        })}
+                    </div>
+                </div>
+            </div>
+        </main>
     )
 }

@@ -43,6 +43,7 @@ const GlobalScale = dynamic(
    Static Sections
    ========================================================= */
 
+import HeroWithStatsWrapper from '@/components/sections/HeroWithStatsWrapper'
 import StatsBar from '@/components/sections/StatsBar'
 import MarketsSection from '@/components/sections/MarketsSection'
 import WhyAPFX from '@/components/sections/WhyAPFX'
@@ -116,10 +117,12 @@ export default function HomePage() {
           animate="visible"
           variants={pageFade}
         >
-          <HeroSection />
-          <AnimatedSection className="bg-alternate-1">
-            <StatsBar />
-          </AnimatedSection>
+          <HeroWithStatsWrapper>
+            <HeroSection />
+            <AnimatedSection className="bg-alternate-1">
+              <StatsBar />
+            </AnimatedSection>
+          </HeroWithStatsWrapper>
 
           <AnimatedSection>
             <MarketsSection />

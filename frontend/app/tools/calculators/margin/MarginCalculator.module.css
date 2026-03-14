@@ -1,0 +1,54 @@
+/* Forex Margin Calculator layout: two-column inputs, button, result */
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 1.5rem;
+}
+
+.buttonRow {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.calculateBtn {
+    padding: 0.75rem 2rem;
+    border-radius: var(--radius-full);
+    background: var(--color-accent);
+    color: #020617;
+    font-size: 0.9375rem;
+    font-weight: var(--fw-semibold);
+    border: none;
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
+}
+
+.calculateBtn:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+}
+
+.resultRow {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.resultLabel {
+    font-size: 0.875rem;
+    color: var(--color-text-3);
+    margin-bottom: 0.5rem;
+}
+
+.resultAmount {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: var(--fw-bold);
+    color: var(--color-text-1);
+    font-family: var(--font-mono);
+    letter-spacing: -0.02em;
+}
+
+@media (max-width: 600px) {
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+}
