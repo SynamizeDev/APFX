@@ -1,0 +1,118 @@
+.section {
+    margin-bottom: 2.5rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--fw-bold);
+    color: var(--color-text-1);
+}
+
+.viewAll {
+    font-size: var(--text-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.viewAll:hover {
+    opacity: 0.85;
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.tabBtn {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--fw-semibold);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-2);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.tabBtn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-text-1);
+}
+
+.tabBtnActive {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #000;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    transition: transform var(--duration-fast) var(--ease-out),
+        border-color var(--duration-fast) var(--ease-out);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.cardName {
+    font-size: var(--text-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-1);
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cardPrice {
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    font-weight: var(--fw-bold);
+    color: var(--color-text-1);
+    margin-bottom: 0.2rem;
+}
+
+.cardChange {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: var(--fw-medium);
+    padding: 0.15rem 0.4rem;
+    border-radius: var(--radius-sm);
+    display: inline-block;
+}
+
+.cardChangeUp {
+    color: var(--color-success);
+    background: rgba(16, 185, 129, 0.15);
+}
+
+.cardChangeDown {
+    color: var(--color-error);
+    background: rgba(239, 68, 68, 0.15);
+}

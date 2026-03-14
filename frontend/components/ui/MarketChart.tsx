@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react';
-import { createChart, ColorType, IChartApi, ISeriesApi } from 'lightweight-charts';
+import { createChart, ColorType, CandlestickSeries } from 'lightweight-charts';
+import type { IChartApi, ISeriesApi } from 'lightweight-charts';
 import styles from './MarketChart.module.css';
 
 interface MarketChartProps {
@@ -43,14 +44,14 @@ export default function MarketChart({ symbol, timeframe = '1D' }: MarketChartPro
 
         chartRef.current = chart;
 
-        const candlestickSeries = chart.addCandlestickSeries({
-            upColor: '#00c896', // APFX Acccent Green
+        const candlestickSeries = chart.addSeries(CandlestickSeries, {
+            upColor: '#00c896', // APFX Accent Green
             downColor: '#ff4757', // Associated Red
             borderVisible: false,
             wickUpColor: '#00c896',
             wickDownColor: '#ff4757',
-        });
-        
+        }) as ISeriesApi<'Candlestick'>;
+
         seriesRef.current = candlestickSeries;
 
         const handleResize = () => {

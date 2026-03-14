@@ -27,11 +27,37 @@ export default function HeroSection() {
             )
 
             if (mockupRef.current) {
+                gsap.set(mockupRef.current, {
+                    transformOrigin: '70% 70%',
+                    transformPerspective: 900,
+                })
                 tl.fromTo(
                     mockupRef.current,
-                    { opacity: 0, x: 48, scale: 0.92 },
-                    { opacity: 1, x: 0, scale: 1, duration: 1, ease: 'power3.out' },
-                    '-=0.4'
+                    { opacity: 0, x: 220, y: 24, rotateZ: -14, rotateY: -18, scale: 0.88 },
+                    { opacity: 1, x: 0, y: 0, rotateZ: 2, rotateY: 0, scale: 1, duration: 5.5, ease: 'power2.out' },
+                    '-=0.35'
+                )
+                    .to(
+                        mockupRef.current,
+                        { rotateZ: 3, duration: 0.25, ease: 'power2.inOut' },
+                        '-=0.15'
+                    )
+                    .to(
+                        mockupRef.current,
+                        { rotateZ: 0, duration: 1.2, ease: 'back.out(1.4)' },
+                        '-=0.1'
+                    )
+                tl.to(
+                    mockupRef.current,
+                    {
+                        y: -14,
+                        rotateZ: -2,
+                        duration: 2.8,
+                        ease: 'sine.inOut',
+                        yoyo: true,
+                        repeat: -1,
+                    },
+                    '+=0.15'
                 )
             }
         }, rootRef)

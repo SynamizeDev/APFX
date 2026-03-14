@@ -34,12 +34,32 @@ function generateMockCandles(symbol: string, timeframe: string) {
         currentPrice = symbol.startsWith('BTC') ? 63000 : symbol.startsWith('ETH') ? 3400 : 1.10;
     }
 
-    const count = 100; // Generate 100 candles
-
-    // Time increments based on timeframe
+    // Candle count and time step by timeframe
+    let count = 100;
     let timeStepMs = 24 * 60 * 60 * 1000; // 1D default
-    if (timeframe === '1H') timeStepMs = 60 * 60 * 1000;
-    if (timeframe === '15M') timeStepMs = 15 * 60 * 1000;
+    if (timeframe === '15M') {
+        timeStepMs = 15 * 60 * 1000;
+    } else if (timeframe === '1H') {
+        timeStepMs = 60 * 60 * 1000;
+    } else if (timeframe === '1W') {
+        count = 52;
+        timeStepMs = 7 * 24 * 60 * 60 * 1000;
+    } else if (timeframe === '1M') {
+        count = 60;
+        timeStepMs = 30 * 24 * 60 * 60 * 1000;
+    } else if (timeframe === '3M') {
+        count = 90;
+        timeStepMs = 24 * 60 * 60 * 1000;
+    } else if (timeframe === '6M') {
+        count = 120;
+        timeStepMs = 24 * 60 * 60 * 1000;
+    } else if (timeframe === '1Y') {
+        count = 252;
+        timeStepMs = 24 * 60 * 60 * 1000;
+    } else if (timeframe === 'ALL') {
+        count = 365;
+        timeStepMs = 24 * 60 * 60 * 1000;
+    }
 
     // Start time in the past
     let currentTime = now.getTime() - (count * timeStepMs);

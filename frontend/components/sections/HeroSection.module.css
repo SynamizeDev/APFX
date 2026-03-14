@@ -115,8 +115,8 @@
     justify-content: flex-end;
     min-width: 0;
     margin-top: -4vh;
-    animation: mockupFloat 6s ease-in-out infinite;
     background: transparent;
+    will-change: transform;
 }
 
 .heroMockup {
@@ -129,14 +129,9 @@
     mix-blend-mode: screen;
 }
 
-@keyframes mockupFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-}
-
 @media (prefers-reduced-motion: reduce) {
     .mockupWrap {
-        animation: none;
+        will-change: auto;
     }
 }
 

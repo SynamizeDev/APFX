@@ -58,6 +58,9 @@ export const SYMBOL_MAPPINGS = {
         { display: 'Nifty 50', finnhub: '', polygon: '', twelvedata: 'NIFTY' },
         { display: 'Sensex', finnhub: '', polygon: '', twelvedata: 'SENSEX' },
         { display: 'Dubai Financial Market Index', finnhub: '', polygon: '', twelvedata: 'DFMGI' },
+        { display: 'BNK NIFTY', finnhub: '', polygon: '', twelvedata: 'NIFTYBANK' },
+        { display: 'FINNIFTY', finnhub: '', polygon: '', twelvedata: 'NIFTYFIN' },
+        { display: 'MIDCAP', finnhub: '', polygon: '', twelvedata: 'NIFTYMIDCAP' },
     ],
     stocks: [
         { display: 'Apple', finnhub: 'AAPL', polygon: 'AAPL', twelvedata: 'AAPL' },
