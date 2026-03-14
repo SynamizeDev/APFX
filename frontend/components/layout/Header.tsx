@@ -34,7 +34,7 @@ const MEGA_MENU_DATA = {
             links: [
                 { label: 'Calculators', href: '/tools/calculators' },
                 { label: 'Copy Trade', href: '/tools/copy-trading' },
-                { label: 'Risk Management tools', href: '/tools/mutual-funds-compare' },
+                { label: 'Risk Management tools', href: '/tools/risk-management' },
             ],
         },
     ],

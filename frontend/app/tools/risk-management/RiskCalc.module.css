@@ -1,0 +1,151 @@
+/* Shared risk management calculator UI — form grid, result, button */
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2rem;
+}
+
+.buttonRow {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.calculateBtn {
+  padding: 0.9rem 2.5rem;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  color: #020617;
+  font-size: 1rem;
+  font-weight: var(--fw-bold);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.calculateBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+}
+
+.resultRow {
+  margin-top: 2rem;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(180deg, rgba(0, 200, 150, 0.06) 0%, transparent 100%);
+  border: 1px solid rgba(0, 200, 150, 0.12);
+  border-radius: var(--radius-lg);
+  position: relative;
+}
+
+.resultRow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  opacity: 0.5;
+}
+
+.resultLabel {
+  font-size: 0.75rem;
+  color: var(--color-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+
+.resultValue {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: var(--fw-bold);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+}
+
+.resultGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.resultGridItem .resultValue {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.indicator {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: var(--fw-semibold);
+}
+
+.indicatorPoor {
+  background: rgba(248, 113, 113, 0.2);
+  color: #f87171;
+}
+
+.indicatorModerate {
+  background: rgba(234, 179, 8, 0.2);
+  color: #eab308;
+}
+
+.indicatorGood {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+.indicatorLow {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+.indicatorHigh {
+  background: rgba(248, 113, 113, 0.2);
+  color: #f87171;
+}
+
+.recoveryTable {
+  width: 100%;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.recoveryTable th,
+.recoveryTable td {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.recoveryTable th {
+  color: var(--color-text-3);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.recoveryTable td {
+  color: var(--color-text-2);
+}
+
+.num {
+  font-family: var(--font-mono);
+  color: var(--color-text-1);
+}
+
+@media (max-width: 600px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
