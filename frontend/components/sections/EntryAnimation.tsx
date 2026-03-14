@@ -6,140 +6,130 @@ import styles from './EntryAnimation.module.css'
 
 export default function EntryAnimation({
     onComplete,
+    onReadyToReveal,
 }: {
     onComplete: () => void
+    onReadyToReveal?: () => void
 }) {
-    const overlayRef = useRef<HTMLDivElement>(null)
-    const logoRef = useRef<HTMLDivElement>(null)
-    const tagRef = useRef<HTMLParagraphElement>(null)
-    const lineRef = useRef<HTMLDivElement>(null)
-    const markRef = useRef<HTMLSpanElement>(null)
+    const flashRef = useRef<HTMLDivElement>(null)
+    const glassRef = useRef<HTMLDivElement>(null)
+    const logoContainerRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const prefersReduced = window.matchMedia(
             '(prefers-reduced-motion: reduce)'
         ).matches
 
-        // Respect reduced motion immediately
         if (prefersReduced) {
+            if (onReadyToReveal) onReadyToReveal()
             onComplete()
             return
         }
 
         const tl = gsap.timeline({
-            defaults: {
-                ease: 'power3.out',
-            },
             onComplete: () => {
-                // Clean exit: fade overlay, then release app
-                gsap.to(overlayRef.current, {
-                    opacity: 0,
-                    duration: 0.55,
-                    ease: 'power2.inOut',
-                    onComplete,
-                })
+                onComplete()
             },
         })
 
+        // Ensure GSAP initializes properly
+        gsap.set(flashRef.current, { opacity: 0 })
+        gsap.set(glassRef.current, { opacity: 0 })
+        gsap.set(logoContainerRef.current, { opacity: 0, scale: 0.95 })
+
+        // Target:
+        // 0ms -> green flash
+        // 250ms -> dark glass overlay
+        // 500ms -> APFX logo fades in
+        // 1100ms -> logo fades out
+        // 1700ms -> overlay fades out
+
         tl
-            /* ── Signal: line draws attention ───────────── */
-            .to(lineRef.current, {
-                width: 120,
-                duration: 0.7,
-            })
-
-            /* ── Reveal: logo rises in ──────────────────── */
-            .to(
-                logoRef.current,
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.85,
-                    ease: 'power4.out',
-                },
-                '-=0.25'
-            )
-
-            /* ── Energy: mark glow intensifies ─────────── */
-            .to(
-                markRef.current,
-                {
-                    boxShadow: '0 0 70px rgba(0, 200, 150, 0.55)',
-                    duration: 0.6,
-                    ease: 'power2.out',
-                },
-                '-=0.45'
-            )
-
-            /* ── Confirmation: tagline appears ─────────── */
-            .to(
-                tagRef.current,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.5,
-                    ease: 'power2.out',
-                },
-                '-=0.25'
-            )
-
-            /* ── Hold: allow brand to register ─────────── */
-            .to({}, { duration: 1 })
-
-            /* ── Resolve: tagline fades ────────────────── */
-            .to(
-                tagRef.current,
-                {
-                    opacity: 0,
-                    duration: 0.3,
-                    ease: 'power2.in',
-                },
-                '-=0.05'
-            )
-
-            /* ── Exit signal: line retracts ────────────── */
-            .to(
-                lineRef.current,
-                {
-                    width: 0,
-                    duration: 0.4,
-                    ease: 'power2.in',
-                },
-                '-=0.15'
-            )
+            /* 1. Green Flash */
+            .to(flashRef.current, { opacity: 1, duration: 0.1, ease: 'power1.out' }, 0)
+            .to(flashRef.current, { opacity: 0, duration: 0.15, ease: 'power1.in' }, 0.1)
+            
+            /* 2. Glass Overlay Appears (250ms mark) */
+            .to(glassRef.current, { opacity: 1, duration: 0.2, ease: 'power2.out' }, 0.25)
+            
+            /* Trigger background render behind the glass */
+            .call(() => {
+                if (onReadyToReveal) onReadyToReveal()
+            }, undefined, 0.4)
+            
+            /* 3. Reveal APFX Logo (500ms mark, 600ms duration) */
+            .to(logoContainerRef.current, { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out' }, 0.5)
+            
+            /* 4. Logo Exit (1100ms mark) */
+            .to(logoContainerRef.current, { opacity: 0, scale: 0.95, duration: 0.5, ease: 'power2.inOut' }, 1.1)
+            
+            /* 5. Overlay Exit (1700ms mark, 600-800ms duration) */
+            .to(glassRef.current, { opacity: 0, duration: 0.7, ease: 'power2.inOut' }, 1.7)
 
         return () => {
             tl.kill()
         }
-    }, [onComplete])
+    }, [onComplete, onReadyToReveal])
 
     return (
-        <div
-            ref={overlayRef}
-            className={styles.overlay}
-            role="status"
-            aria-label="Loading APFX"
-        >
-            <div ref={lineRef} className={styles.line} />
+        <>
+            {/* Initial Green Flash Overlay (z-60) */}
+            <div
+                ref={flashRef}
+                style={{
+                    position: 'fixed',
+                    inset: 0,
+                    zIndex: 60,
+                    background: 'rgba(16, 185, 129, 0.15)',
+                    pointerEvents: 'none',
+                    opacity: 0 // Crucial: prevents early pop during SSR
+                }}
+            />
 
-            <div ref={logoRef} className={styles.logoWrap}>
-                <span
-                    ref={markRef}
-                    className={styles.mark}
-                    aria-hidden="true"
-                >
-                    AP
-                </span>
-                <span className={styles.wordmark}>APFX</span>
-            </div>
+            {/* Dark Glass Overlay (z-40) */}
+            <div
+                ref={glassRef}
+                style={{
+                    position: 'fixed',
+                    inset: 0,
+                    zIndex: 40,
+                    background: 'rgba(3, 5, 10, 0.8)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    pointerEvents: 'none',
+                    opacity: 0 // Crucial
+                }}
+            />
 
-            <p
-                ref={tagRef}
-                className={styles.tagline}
-                aria-hidden="true"
+            {/* Logo Container Layer (z-50) */}
+            <div
+                style={{
+                    position: 'fixed',
+                    inset: 0,
+                    zIndex: 50,
+                    pointerEvents: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
             >
-                Institutional Trading Infrastructure
-            </p>
-        </div>
+                <div 
+                    ref={logoContainerRef} 
+                    style={{ 
+                        pointerEvents: 'none', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center',
+                        opacity: 0, // Crucial
+                        transform: 'scale(0.95)' // Match GSAP start state
+                    }}
+                >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        <span className={styles.mark} aria-hidden="true">AP</span>
+                        <span className={styles.wordmark}>APFX</span>
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }

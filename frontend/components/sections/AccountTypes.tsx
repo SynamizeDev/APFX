@@ -19,7 +19,7 @@ const ACCOUNTS = [
         featured: false,
     },
     {
-        name: 'Raw Spread',
+        name: 'Premium',
         price: '3.5',
         suffix: 'per lot',
         features: [
@@ -27,10 +27,10 @@ const ACCOUNTS = [
             'Institutional liquidity',
             'Leverage up to 1:500',
             'Deep liquidity pool',
-            'Min. deposit: $200',
+            'Min. deposit: $500',
         ],
         badge: 'Most Popular',
-        cta: 'Open Raw Account',
+        cta: 'Open Premium',
         featured: true,
     },
     {

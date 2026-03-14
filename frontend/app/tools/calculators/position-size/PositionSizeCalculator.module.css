@@ -1,0 +1,106 @@
+/* Position Size Calculator layout: two-column inputs, button, multi-result */
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 1.5rem;
+}
+
+.readOnlyField {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 1rem;
+    color: var(--color-text-2);
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    pointer-events: none;
+}
+
+.riskRow {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.riskInput {
+    flex: 1;
+    min-width: 0;
+}
+
+.riskUnit {
+    flex-shrink: 0;
+    width: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-2);
+    font-size: 0.875rem;
+}
+
+.buttonRow {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.calculateBtn {
+    padding: 0.75rem 2rem;
+    border-radius: var(--radius-full);
+    background: var(--color-accent);
+    color: #020617;
+    font-size: 0.9375rem;
+    font-weight: var(--fw-semibold);
+    border: none;
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
+}
+
+.calculateBtn:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+}
+
+.resultRow {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.resultGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1.25rem 2rem;
+}
+
+.resultItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.resultItemLabel {
+    font-size: 0.8125rem;
+    color: var(--color-text-3);
+}
+
+.resultItemValue {
+    font-size: 1.5rem;
+    font-weight: var(--fw-bold);
+    color: var(--color-text-1);
+    font-family: var(--font-mono);
+}
+
+.resultItemValue.highlight {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    color: var(--color-accent);
+}
+
+@media (max-width: 600px) {
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+}

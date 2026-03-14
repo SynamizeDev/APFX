@@ -86,19 +86,4 @@
     transform: translateY(6px);
     will-change: transform, opacity;
 }
-
-/* ── Accent Line ─────────────────────────────────────────── */
-.line {
-    width: 0;
-    height: 1px;
-
-    background: linear-gradient(
-        90deg,
-        transparent,
-        var(--color-accent),
-        transparent
-    );
-
-    opacity: 0.8;
-    will-change: width;
-}
+

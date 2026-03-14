@@ -6,23 +6,23 @@ import styles from './TradingPlatforms.module.css'
 const PLATFORMS = [
     {
         icon: <BarChart3 size={24} />,
-        name: 'MetaTrader 4',
-        desc: 'The world\'s most popular platform for forex traders. Advanced charting, indicators, and EAs.',
+        name: 'Advanced Web Terminal',
+        desc: 'Institution-grade browser platform with advanced charting, one-click trading, and deep liquidity access.',
     },
     {
         icon: <TrendingUp size={24} />,
-        name: 'MetaTrader 5',
-        desc: 'The powerful successor to MT4. More timeframes, more order types, and multi-asset trading.',
+        name: 'TradingView Integration',
+        desc: 'Trade directly from TradingView charts with powerful technical analysis and social trading tools.',
     },
     {
         icon: <Globe size={24} />,
         name: 'WebTrader',
-        desc: 'Access the markets directly from any web browser without downloading any software.',
+        desc: 'Access the markets instantly from any modern browser with no installation required.',
     },
     {
         icon: <Smartphone size={24} />,
-        name: 'Mobile App',
-        desc: 'Full trading functionality on the go. Available for iOS and Android with real-time sync.',
+        name: 'Mobile Trading App',
+        desc: 'Full trading functionality on iOS and Android with real-time synchronization across devices.',
     },
 ]
 
@@ -54,30 +54,69 @@ export default function TradingPlatforms() {
                 </div>
 
                 <div className={styles.visual} aria-hidden="true">
-                    <div className={styles.mockupContainer}>
-                        {/* Desktop Mockup */}
-                        <div className={`${styles.mockup} ${styles.mockupDesktop}`}>
-                            <div style={{ padding: '0.75rem', background: '#1A2235', borderBottom: '1px solid #2A3245', display: 'flex', gap: '0.4rem' }}>
-                                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ff5f56' }}></div>
-                                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ffbd2e' }}></div>
-                                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#27c93f' }}></div>
+                    <div className={styles.mockupContainer} style={{ position: 'relative', width: '100%', height: '100%', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        
+                        {/* Desktop Monitor */}
+                        <div style={{ position: 'absolute', width: '80%', height: '60%', background: '#0B0F1A', border: '2px solid #2A3245', borderRadius: '8px', zIndex: 1, top: '10%', left: '10%', boxShadow: '0 20px 50px rgba(0,0,0,0.5)', overflow: 'hidden' }}>
+                            <div style={{ padding: '0.4rem', background: '#1A2235', borderBottom: '1px solid #2A3245', display: 'flex', gap: '0.3rem' }}>
+                                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ff5f56' }}></div>
+                                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ffbd2e' }}></div>
+                                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#27c93f' }}></div>
                             </div>
-                            <div style={{ height: '300px', background: '#0B0F1A', padding: '1.5rem' }}>
-                                <div style={{ width: '40%', height: '12px', background: '#1A2235', marginBottom: '1rem' }}></div>
-                                <div style={{ display: 'flex', gap: '1rem', height: '100px' }}>
-                                    <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
-                                    <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
+                            <div style={{ padding: '1rem', height: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                <div style={{ display: 'flex', gap: '8px', height: '60%' }}>
+                                    <div style={{ flex: 2, background: 'rgba(0, 200, 150, 0.05)', border: '1px solid rgba(0, 200, 150, 0.2)', borderRadius: '4px', position: 'relative', overflow: 'hidden' }}>
+                                        {/* Simple CSS Candlesticks representation */}
+                                        <div style={{ position: 'absolute', bottom: '20%', left: '10%', width: '4px', height: '30%', background: '#00C896' }}></div>
+                                        <div style={{ position: 'absolute', bottom: '40%', left: '30%', width: '4px', height: '40%', background: '#00C896' }}></div>
+                                        <div style={{ position: 'absolute', bottom: '30%', left: '50%', width: '4px', height: '25%', background: '#ff4757' }}></div>
+                                        <div style={{ position: 'absolute', bottom: '45%', left: '70%', width: '4px', height: '35%', background: '#00C896' }}></div>
+                                    </div>
+                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                        <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
+                                        <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
+                                    </div>
                                 </div>
-                                <div style={{ marginTop: '1.5rem', width: '100%', height: '80px', background: 'rgba(0,200,150,0.05)', border: '1px solid rgba(0,200,150,0.1)', borderRadius: '4px' }}></div>
+                                <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
                             </div>
                         </div>
 
-                        {/* Mobile Mockup */}
-                        <div className={`${styles.mockup} ${styles.mockupMobile}`} style={{ background: '#03050A', borderColor: '#2A3245' }}>
-                            <div style={{ height: '200px', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                                <div style={{ width: '60%', height: '8px', background: '#1A2235', borderRadius: '4px' }}></div>
-                                <div style={{ width: '100%', height: '120px', background: 'rgba(0,200,150,0.1)', borderRadius: '8px', border: '1px solid rgba(0,200,150,0.2)' }}></div>
-                                <div style={{ width: '40%', height: '8px', background: '#1A2235', borderRadius: '4px' }}></div>
+                        {/* Tablet View */}
+                        <div style={{ position: 'absolute', width: '45%', height: '55%', background: '#03050A', border: '2px solid #2A3245', borderRadius: '12px', zIndex: 2, bottom: '5%', left: '5%', boxShadow: '0 15px 40px rgba(0,0,0,0.6)', overflow: 'hidden' }}>
+                            <div style={{ height: '100%', padding: '0.8rem', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                <div style={{ width: '40%', height: '6px', background: '#1A2235', borderRadius: '3px' }}></div>
+                                <div style={{ flex: 1, background: 'rgba(0, 200, 150, 0.08)', borderRadius: '6px', border: '1px solid rgba(0, 200, 150, 0.15)', display: 'flex', alignItems: 'flex-end', padding: '8px', gap: '4px' }}>
+                                    {/* Line chart mock */}
+                                    <div style={{ width: '20%', height: '30%', background: '#00C896', borderRadius: '2px 2px 0 0' }}></div>
+                                    <div style={{ width: '20%', height: '50%', background: '#00C896', borderRadius: '2px 2px 0 0' }}></div>
+                                    <div style={{ width: '20%', height: '40%', background: '#00C896', borderRadius: '2px 2px 0 0' }}></div>
+                                    <div style={{ width: '20%', height: '70%', background: '#00C896', borderRadius: '2px 2px 0 0' }}></div>
+                                </div>
+                                <div style={{ height: '20%', display: 'flex', gap: '8px' }}>
+                                    <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
+                                    <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Mobile Phone */}
+                        <div style={{ position: 'absolute', width: '25%', height: '60%', background: '#000', border: '3px solid #3A4255', borderRadius: '24px', zIndex: 3, bottom: '10%', right: '10%', boxShadow: '0 25px 50px rgba(0,0,0,0.8)', overflow: 'hidden' }}>
+                            <div style={{ position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%)', width: '40%', height: '12px', background: '#3A4255', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px', zIndex: 4 }}></div>
+                            <div style={{ padding: '1.2rem 0.8rem 0.8rem', height: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <div style={{ width: '40%', height: '16px', background: '#00C896', borderRadius: '4px', opacity: 0.8 }}></div>
+                                    <div style={{ width: '20%', height: '16px', background: '#ff4757', borderRadius: '4px', opacity: 0.8 }}></div>
+                                </div>
+                                <div style={{ flex: 1, background: 'rgba(255, 255, 255, 0.03)', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.05)', display: 'flex', flexDirection: 'column', gap: '4px', padding: '6px' }}>
+                                    <div style={{ width: '100%', height: '12px', background: '#1A2235', borderRadius: '2px' }}></div>
+                                    <div style={{ width: '100%', height: '12px', background: '#1A2235', borderRadius: '2px' }}></div>
+                                    <div style={{ width: '100%', height: '12px', background: '#1A2235', borderRadius: '2px' }}></div>
+                                    <div style={{ width: '100%', height: '12px', background: '#1A2235', borderRadius: '2px' }}></div>
+                                </div>
+                                <div style={{ display: 'flex', gap: '6px', marginTop: 'auto' }}>
+                                    <div style={{ flex: 1, height: '24px', background: '#00C896', borderRadius: '12px' }}></div>
+                                    <div style={{ flex: 1, height: '24px', background: '#ff4757', borderRadius: '12px' }}></div>
+                                </div>
                             </div>
                         </div>
                     </div>

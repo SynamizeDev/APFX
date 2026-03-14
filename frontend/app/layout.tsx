@@ -68,6 +68,7 @@ export const metadata: Metadata = {
 }
 
 import PageTransition from '@/components/animations/PageTransition'
+import ChatWidget from '@/components/ui/ChatWidget'
 
 export default function RootLayout({
   children,
@@ -130,6 +131,7 @@ export default function RootLayout({
             }}
           >
             <PageTransition>{children}</PageTransition>
+            <ChatWidget />
           </main>
         </SmoothScrollProvider>
       </body>

@@ -1,0 +1,63 @@
+/* Three-column zero-fees block — same alignment as hero / Invest */
+.section {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    padding-inline: var(--container-px);
+}
+
+.section.embedded {
+    padding-top: 2.5rem;
+    padding-bottom: 0;
+    padding-inline: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    max-width: 720px;
+    margin-inline: 0 auto;
+}
+
+.item {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-inline-end: 1px solid var(--color-border);
+}
+
+.item:last-child {
+    border-inline-end: none;
+}
+
+.value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: var(--fw-extrabold);
+    color: var(--color-accent);
+    line-height: 1.1;
+    margin-bottom: 0.35rem;
+}
+
+.label {
+    font-size: 0.875rem;
+    font-weight: var(--fw-medium);
+    color: var(--color-text-3);
+    line-height: 1.4;
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .item {
+        border-inline: none;
+        border-block-start: 1px solid var(--color-border);
+    }
+
+    .item:first-child {
+        border-block-start: none;
+    }
+}

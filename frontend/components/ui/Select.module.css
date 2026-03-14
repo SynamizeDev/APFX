@@ -1,0 +1,88 @@
+/* Dark-themed custom select – matches calculator UI */
+.wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.trigger {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 2.25rem 0.7rem 1rem;
+    color: var(--color-text-1);
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    text-align: left;
+    cursor: pointer;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    transition: border-color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
+}
+
+.trigger:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.wrapper[data-open='true'] .trigger {
+    border-color: var(--color-accent);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.chevron {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    opacity: 0.6;
+    transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.wrapper[data-open='true'] .chevron {
+    transform: rotate(180deg);
+}
+
+.dropdown {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 4px);
+    z-index: 10;
+    background: rgba(12, 18, 28, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    max-height: 240px;
+    overflow-y: auto;
+    padding: 0.25rem;
+}
+
+.option {
+    display: block;
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    color: var(--color-text-1);
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    text-align: left;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease-out);
+}
+
+.option:hover {
+    background: rgba(0, 200, 150, 0.12);
+}
+
+.option[data-selected='true'] {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--color-text-1);
+}
+
+.option[data-selected='true']:hover {
+    background: rgba(0, 200, 150, 0.12);
+}

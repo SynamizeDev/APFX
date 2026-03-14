@@ -59,17 +59,19 @@
     letter-spacing: var(--ls-tight);
 }
 
-/* ── 5-Column Grid ─────────────────────────────────────── */
+/* ── 3-Column Grid Base (Desktop) ───────────────────────── */
 .grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 2.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
 }
 
 .item {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    height: 100%;
+    flex-grow: 1;
 }
 
 .accentBar {
@@ -97,19 +99,13 @@
 }
 
 /* ── Responsive ──────────────────────────────────────────── */
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
     .grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 3rem;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-    }
-
     .header {
         text-align: center;
     }
@@ -117,5 +113,11 @@
     .item {
         align-items: center;
         text-align: center;
+    }
+}
+
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
     }
 }

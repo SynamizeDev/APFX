@@ -1,0 +1,120 @@
+/* Two-column layout: sidebar + content */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 2rem var(--container-px, 1.5rem) 6rem;
+}
+
+.sidebar {
+    flex-shrink: 0;
+    width: 220px;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 10rem;
+}
+
+.sidebarNav {
+    position: sticky;
+    top: 9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.sidebarTitle {
+    font-size: 0.6875rem;
+    font-weight: var(--fw-semibold);
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.75rem;
+    padding-inline: 0.75rem;
+}
+
+.sidebarLink {
+    display: block;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: var(--fw-medium);
+    color: var(--color-text-2);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    border-left: 2px solid transparent;
+    transition:
+        color var(--duration-normal) var(--ease-out),
+        background var(--duration-normal) var(--ease-out),
+        border-color var(--duration-normal) var(--ease-out);
+}
+
+.sidebarLink:hover {
+    color: var(--color-text-1);
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.sidebarLinkActive {
+    color: var(--color-text-1);
+    background: rgba(255, 255, 255, 0.04);
+    border-left-color: var(--color-accent);
+    padding-left: calc(0.75rem - 2px);
+}
+
+.sidebarLinkActive:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Left-align calculator header when in sidebar layout */
+.content header {
+    text-align: left;
+}
+
+.content header p {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+@media (max-width: 768px) {
+    .main {
+        flex-direction: column;
+        padding-top: 1.5rem;
+    }
+
+    .sidebar {
+        width: 100%;
+        position: static;
+    }
+
+    .sidebarNav {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .sidebarTitle {
+        width: 100%;
+        margin-bottom: 0.25rem;
+    }
+
+    .sidebarLinkActive {
+        border-left: none;
+        border-bottom: 2px solid var(--color-accent);
+        padding-left: 0.75rem;
+        padding-bottom: calc(0.5rem - 2px);
+    }
+}

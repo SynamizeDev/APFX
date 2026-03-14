@@ -1,13 +1,15 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import Link from 'next/link'
 import { gsap } from 'gsap'
 import HeroCanvas from '@/components/canvas/HeroCanvas'
+import InvestWithAPFX from '@/components/sections/InvestWithAPFX'
+import ZeroFeesBlock from '@/components/sections/ZeroFeesBlock'
 import styles from './HeroSection.module.css'
 
 export default function HeroSection() {
     const rootRef = useRef<HTMLDivElement>(null)
+    const mockupRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -15,39 +17,23 @@ export default function HeroSection() {
 
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({
-                defaults: {
-                    ease: 'power3.out',
-                },
+                defaults: { ease: 'power3.out' },
             })
 
-            tl
-                .to(
-                    `.${styles.headline}`,
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.8,
-                    },
-                    '-=0.3'
-                )
-                .to(
-                    `.${styles.sub}`,
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.6,
-                    },
+            tl.to(
+                `.${styles.headline}`,
+                { opacity: 1, y: 0, duration: 0.8 },
+                '-=0.3'
+            )
+
+            if (mockupRef.current) {
+                tl.fromTo(
+                    mockupRef.current,
+                    { opacity: 0, x: 48, scale: 0.92 },
+                    { opacity: 1, x: 0, scale: 1, duration: 1, ease: 'power3.out' },
                     '-=0.4'
                 )
-                .to(
-                    `.${styles.ctas}`,
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.6,
-                    },
-                    '-=0.3'
-                )
+            }
         }, rootRef)
 
         return () => ctx.revert()
@@ -55,41 +41,31 @@ export default function HeroSection() {
 
     return (
         <section ref={rootRef} className={styles.hero}>
-            {/* Three.js background */}
             <div className={styles.canvas}>
                 <HeroCanvas />
             </div>
-
-            {/* Abstract Floating Orbs */}
             <div className={styles.orb1} />
             <div className={styles.orb2} />
-
-            {/* Dark vignette */}
             <div className={styles.vignette} />
 
-            {/* Content */}
             <div className={styles.content}>
-                <h1 className={styles.headline}>
-                    Trade Global Markets
-                    <span className={styles.accentLine}>With Absolute Precision</span>
-                </h1>
-
-                <p className={styles.sub}>
-                    Deep liquidity, ultra-low latency execution, and infrastructure
-                    built to support professional trading at scale.
-                </p>
-
-                <div className={styles.ctas}>
-                    <Link href="/register" className={styles.ctaPrimary}>
-                        Start Trading
-                    </Link>
-                    <Link href="/platforms" className={styles.ctaSecondary}>
-                        View Platforms
-                    </Link>
+                <div className={styles.contentLeft}>
+                    <h1 className={styles.headline}>
+                        Trade Global Markets
+                        <span className={styles.accentLine}>With Absolute Precision</span>
+                    </h1>
+                    <InvestWithAPFX embedded />
+                    <ZeroFeesBlock embedded />
+                </div>
+                <div ref={mockupRef} className={styles.mockupWrap} aria-hidden="true">
+                    <img
+                        src="/hero-mockup.svg"
+                        alt=""
+                        className={styles.heroMockup}
+                    />
                 </div>
             </div>
 
-            {/* Bottom fade */}
             <div className={styles.heroFade} />
         </section>
     )

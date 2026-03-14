@@ -90,7 +90,7 @@
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 /* Premium Glass Card */
@@ -98,6 +98,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    flex-grow: 1;
     gap: 1.5rem;
     padding: 3rem 2.5rem;
     background: var(--color-bg);
@@ -279,7 +281,7 @@
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 1024px) {
     .grid {
-        gap: 1.5rem;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .card {
@@ -288,11 +290,6 @@
 }
 
 @media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
     .card {
         text-align: center;
         align-items: center;
@@ -301,5 +298,11 @@
     .bgWatermark {
         opacity: 0.3;
         /* Subtle on mobile */
+    }
+}
+
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
     }
 }

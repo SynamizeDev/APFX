@@ -60,7 +60,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto auto;
-    gap: 1.25rem;
+    gap: 1.5rem;
 }
 
 .bentoItem {
@@ -70,6 +70,10 @@
     padding: 2rem;
     position: relative;
     overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     transition: border-color var(--duration-normal) var(--ease-out),
         transform var(--duration-normal) var(--ease-out),
         box-shadow var(--duration-normal) var(--ease-out);
@@ -178,6 +182,12 @@
     }
 }
 
+@media (max-width: 768px) {
+    .bentoLarge {
+        flex-direction: column;
+    }
+}
+
 @media (max-width: 640px) {
     .bento {
         grid-template-columns: 1fr;
@@ -185,6 +195,5 @@
 
     .bentoLarge {
         grid-column: span 1;
-        flex-direction: column;
     }
 }

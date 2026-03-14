@@ -43,6 +43,7 @@ const GlobalScale = dynamic(
    Static Sections
    ========================================================= */
 
+import HeroWithStatsWrapper from '@/components/sections/HeroWithStatsWrapper'
 import StatsBar from '@/components/sections/StatsBar'
 import MarketsSection from '@/components/sections/MarketsSection'
 import WhyAPFX from '@/components/sections/WhyAPFX'
@@ -76,21 +77,20 @@ const pageFade: Variants = {
    ========================================================= */
 
 export default function HomePage() {
-  const [showAnimation, setShowAnimation] = useState(false)
+  const [showAnimation, setShowAnimation] = useState(true)
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    /**
-     * As requested:
-     * Always show entry animation on load / refresh.
-     * This ensures a controlled, cinematic first impression.
-     */
-    setShowAnimation(true)
+    // Animation triggers immediately on mount because of initial state.
   }, [])
+
+  const handleReadyToReveal = () => {
+    setReady(true)
+  }
 
   const handleAnimationComplete = () => {
     setShowAnimation(false)
-    setReady(true)
+    if (!ready) setReady(true) // Fallback just in case
   }
 
   return (
@@ -98,7 +98,10 @@ export default function HomePage() {
       {/* ── Entry Animation ───────────────────────────── */}
       <AnimatePresence>
         {showAnimation && (
-          <EntryAnimation onComplete={handleAnimationComplete} />
+          <EntryAnimation 
+            onComplete={handleAnimationComplete} 
+            onReadyToReveal={handleReadyToReveal}
+          />
         )}
       </AnimatePresence>
 
@@ -114,10 +117,12 @@ export default function HomePage() {
           animate="visible"
           variants={pageFade}
         >
-          <HeroSection />
-          <AnimatedSection className="bg-alternate-1">
-            <StatsBar />
-          </AnimatedSection>
+          <HeroWithStatsWrapper>
+            <HeroSection />
+            <AnimatedSection className="bg-alternate-1">
+              <StatsBar />
+            </AnimatedSection>
+          </HeroWithStatsWrapper>
 
           <AnimatedSection>
             <MarketsSection />
