@@ -58,21 +58,23 @@ export default function Select({
                     className={styles.dropdown}
                     aria-activedescendant={value}
                 >
-                    {options.map((opt) => (
-                        <li key={opt.value} role="option" aria-selected={opt.value === value}>
-                            <button
-                                type="button"
-                                className={styles.option}
-                                data-selected={opt.value === value}
-                                onClick={() => {
-                                    onChange(opt.value)
-                                    setOpen(false)
-                                }}
-                            >
-                                {opt.label}
-                            </button>
-                        </li>
-                    ))}
+                    {options
+                        .filter((opt) => opt.value !== '')
+                        .map((opt) => (
+                            <li key={opt.value} role="option" aria-selected={opt.value === value}>
+                                <button
+                                    type="button"
+                                    className={styles.option}
+                                    data-selected={opt.value === value}
+                                    onClick={() => {
+                                        onChange(opt.value)
+                                        setOpen(false)
+                                    }}
+                                >
+                                    {opt.label}
+                                </button>
+                            </li>
+                        ))}
                 </ul>
             )}
         </div>

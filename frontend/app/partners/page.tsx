@@ -15,6 +15,7 @@ import {
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
+import Select from '@/components/ui/Select'
 import styles from './Partners.module.css'
 
 const BENEFITS = [
@@ -84,14 +85,17 @@ const PARTNER_TYPE_OPTIONS = [
 
 export default function PartnersPage() {
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [partnershipType, setPartnershipType] = useState('')
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    if (!partnershipType) return
     setFormStatus('loading')
     // Simulate submit; replace with actual API call when ready
     setTimeout(() => {
       setFormStatus('success')
       ;(e.target as HTMLFormElement).reset()
+      setPartnershipType('')
     }, 800)
   }
 
@@ -276,11 +280,19 @@ export default function PartnersPage() {
                 </div>
                 <div className={styles.formGroup}>
                   <label htmlFor="partner-type">Partnership type</label>
-                  <select id="partner-type" name="partnershipType" required>
-                    {PARTNER_TYPE_OPTIONS.map((o) => (
-                      <option key={o.value || 'default'} value={o.value}>{o.label}</option>
-                    ))}
-                  </select>
+                  <input
+                    type="hidden"
+                    name="partnershipType"
+                    value={partnershipType}
+                    required
+                    aria-hidden
+                  />
+                  <Select
+                    id="partner-type"
+                    value={partnershipType}
+                    onChange={setPartnershipType}
+                    options={PARTNER_TYPE_OPTIONS}
+                  />
                 </div>
                 <button type="submit" className={styles.submitBtn} disabled={formStatus === 'loading'}>
                   {formStatus === 'loading' ? 'Sending…' : 'Submit Application'}

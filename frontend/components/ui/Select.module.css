@@ -54,17 +54,17 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-sm);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-    max-height: 240px;
+    max-height: 260px;
     overflow-y: auto;
-    padding: 0.25rem;
+    padding: 0.35rem 0.25rem 0.5rem;
 }
 
 .option {
     display: block;
     width: 100%;
-    padding: 0.55rem 0.75rem;
+    padding: 0.6rem 0.85rem;
     color: var(--color-text-1);
-    font-family: var(--font-mono);
+    font-family: inherit;
     font-size: 0.9375rem;
     text-align: left;
     background: none;
