@@ -1,0 +1,10 @@
+export { default as MFHero } from './MFHero';
+export { default as WhatAreMF } from './WhatAreMF';
+export { default as TypesOfMF } from './TypesOfMF';
+export { default as BenefitsMF } from './BenefitsMF';
+export { default as SIPSection } from './SIPSection';
+export { default as FeaturedFunds } from './FeaturedFunds';
+export { default as InvestmentProcess } from './InvestmentProcess';
+export { default as WhyInvestWithUs } from './WhyInvestWithUs';
+export { default as EducationalMF } from './EducationalMF';
+export { default as MFCTASection } from './MFCTASection';

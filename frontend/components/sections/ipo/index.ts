@@ -1,0 +1,10 @@
+export { default as IPOHero } from './IPOHero';
+export { default as WhatIsIPO } from './WhatIsIPO';
+export { default as UpcomingIPOs } from './UpcomingIPOs';
+export { default as BenefitsIPOs } from './BenefitsIPOs';
+export { default as RisksIPOs } from './RisksIPOs';
+export { default as HowToApply } from './HowToApply';
+export { default as PastPerformance } from './PastPerformance';
+export { default as WhyApplyWithUs } from './WhyApplyWithUs';
+export { default as IPOCTASection } from './IPOCTASection';
+export { default as IPODetailContent } from './IPODetailContent';
