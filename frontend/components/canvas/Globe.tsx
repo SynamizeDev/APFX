@@ -1,15 +1,17 @@
 'use client'
 
-import { useRef, useMemo } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useRef, useMemo, Suspense, useState } from 'react'
+import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import {
     Sphere,
     Float,
-    Stars,
     QuadraticBezierLine,
     Html,
 } from '@react-three/drei'
 import * as THREE from 'three'
+
+/* Equirectangular Earth texture (public domain / CC). 2K for balance of quality and load. */
+const EARTH_TEXTURE_URL = 'https://cdn.jsdelivr.net/npm/artastra@1.0.8/textures/earth.jpg'
 
 /* =========================================================
    APFX Global Network Globe
@@ -128,7 +130,7 @@ function ParticleFlow({ arcs }: { arcs: { start: any, mid: any, end: any }[] }) 
     )
 }
 
-function RotatingGlobe() {
+function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null }) {
     const globeRef = useRef<THREE.Group>(null!)
     const activeSession = getActiveSession()
     const radius = 2
@@ -172,31 +174,56 @@ function RotatingGlobe() {
 
     const arcsRef = useRef<(any)[]>([])
     const glowRefs = useRef<(THREE.Mesh)[]>([])
+    const nodeGroupRefs = useRef<(THREE.Group | null)[]>([])
+    const [nodeLabelVisible, setNodeLabelVisible] = useState<boolean[]>(() => Array(HUBS.length).fill(true))
+    const prevLabelVisibleRef = useRef<boolean[]>(Array(HUBS.length).fill(true))
+    const centerVec = useMemo(() => new THREE.Vector3(), [])
+    const nodeWorldVec = useMemo(() => new THREE.Vector3(), [])
+    const cameraVec = useMemo(() => new THREE.Vector3(), [])
 
-    useFrame(({ clock }) => {
+    useFrame((state, _delta) => {
+        const { camera } = state
         if (globeRef.current) {
             globeRef.current.rotation.y += 0.0018
         }
         
-        const time = clock.elapsedTime
+        const time = state.clock.elapsedTime
+        
+        // Depth-check: only show labels when node is on the camera-facing side of the globe
+        const globeCenter = globeRef.current
+        if (globeCenter) {
+            globeCenter.getWorldPosition(centerVec)
+            cameraVec.copy(camera.position)
+            let anyChange = false
+            for (let i = 0; i < nodeGroupRefs.current.length; i++) {
+                const group = nodeGroupRefs.current[i]
+                if (!group) continue
+                group.getWorldPosition(nodeWorldVec)
+                const toNode = nodeWorldVec.clone().sub(centerVec)
+                const toCamera = cameraVec.clone().sub(centerVec)
+                const facingCamera = toNode.dot(toCamera) > 0
+                if (prevLabelVisibleRef.current[i] !== facingCamera) {
+                    anyChange = true
+                }
+                prevLabelVisibleRef.current[i] = facingCamera
+            }
+            if (anyChange) {
+                setNodeLabelVisible([...prevLabelVisibleRef.current])
+            }
+        }
         
         // Pulse active nodes
         glowRefs.current.forEach((mesh, i) => {
             if (mesh && nodes[i].isActive) {
-                // Base scale 1.8, pulse slightly using sine wave
                 const ds = 1.8 + Math.sin(time * 3) * 0.2
                 mesh.scale.set(ds, ds, ds)
-                
-                // Pulse opacity slightly
                 const mat = mesh.material as THREE.MeshBasicMaterial
                 mat.opacity = 0.4 + Math.sin(time * 3) * 0.1
             }
         })
         
-        // Animate line dashes
         arcsRef.current.forEach(line => {
             if (line && line.material) {
-                // Line material property for flowing light
                 line.material.dashOffset -= 0.005
             }
         })
@@ -204,24 +231,35 @@ function RotatingGlobe() {
 
     return (
         <group ref={globeRef}>
-            {/* ── Base Globe ─────────────────────────────── */}
+            {/* ── Base Globe: real earth texture when loaded, else solid dark ─ */}
             <Sphere args={[radius, 64, 64]}>
-                <meshStandardMaterial
-                    color="#0B1020"
-                    roughness={0.65}
-                    metalness={0.35}
-                    emissive="#00C896"
-                    emissiveIntensity={0.045}
-                />
+                {earthMap ? (
+                    <meshStandardMaterial
+                        map={earthMap}
+                        roughness={0.85}
+                        metalness={0.08}
+                        emissive="#0a1628"
+                        emissiveIntensity={0.04}
+                        envMapIntensity={0.6}
+                    />
+                ) : (
+                    <meshStandardMaterial
+                        color="#0B1020"
+                        roughness={0.65}
+                        metalness={0.35}
+                        emissive="#00C896"
+                        emissiveIntensity={0.045}
+                    />
+                )}
             </Sphere>
 
-            {/* ── Subtle Wireframe Overlay ───────────────── */}
-            <Sphere args={[radius + 0.02, 32, 32]}>
+            {/* ── Very subtle wireframe (optional tech accent, barely visible) ─ */}
+            <Sphere args={[radius + 0.015, 32, 32]}>
                 <meshBasicMaterial
                     color="#00C896"
                     wireframe
                     transparent
-                    opacity={0.045}
+                    opacity={earthMap ? 0.03 : 0.045}
                 />
             </Sphere>
 
@@ -245,7 +283,11 @@ function RotatingGlobe() {
 
             {/* ── Network Nodes ──────────────────────────── */}
             {nodes.map((node, i) => (
-                <group key={i} position={node.pos as any}>
+                <group
+                    key={i}
+                    position={node.pos as any}
+                    ref={el => { if (el) nodeGroupRefs.current[i] = el }}
+                >
                     {/* Core point */}
                     <mesh>
                         <sphereGeometry args={[0.045, 18, 18]} />
@@ -265,8 +307,8 @@ function RotatingGlobe() {
                         />
                     </mesh>
                     
-                    {/* Node Label (Very subtle, only visible close) */}
-                    {node.isActive && (
+                    {/* Node label: only when active and on camera-facing side of globe */}
+                    {node.isActive && nodeLabelVisible[i] && (
                         <Html position={[0.1, 0.1, 0.1]} center style={{ pointerEvents: 'none' }}>
                             <div style={{
                                 color: 'rgba(0, 200, 150, 0.8)',
@@ -313,6 +355,16 @@ function RotatingGlobe() {
     )
 }
 
+/* Loads earth texture and renders globe with it; suspends until loaded. */
+function GlobeWithTexture() {
+    const earthMap = useLoader(THREE.TextureLoader, EARTH_TEXTURE_URL)
+    useMemo(() => {
+        earthMap.colorSpace = THREE.SRGBColorSpace
+        earthMap.anisotropy = 4
+    }, [earthMap])
+    return <RotatingGlobe earthMap={earthMap} />
+}
+
 export default function Globe() {
     return (
         <Canvas
@@ -326,29 +378,44 @@ export default function Globe() {
             dpr={[1, 2]}
         >
             {/* ── Lighting ──────────────────────────────── */}
-            <ambientLight intensity={0.45} />
+            <ambientLight intensity={0.5} />
 
-            {/* Primary accent light */}
+            {/* Primary key light (sun-like, for realistic shading) */}
             <pointLight
                 position={[10, 8, 10]}
-                intensity={1}
+                intensity={1.2}
+                color="#ffffff"
+            />
+
+            {/* Accent fill (brand tint on dark side) */}
+            <pointLight
+                position={[-6, -4, -8]}
+                intensity={0.35}
                 color="#00C896"
             />
 
             {/* Soft fill for depth */}
             <pointLight
                 position={[-8, -6, -10]}
-                intensity={0.45}
+                intensity={0.4}
             />
 
-            {/* ── Motion Wrapper ────────────────────────── */}
-            <Float
-                speed={1.4}
-                rotationIntensity={0.4}
-                floatIntensity={0.45}
+            {/* ── Motion Wrapper (Suspense: show solid globe until texture loads) ─ */}
+            <Suspense
+                fallback={
+                    <Float speed={1.4} rotationIntensity={0.4} floatIntensity={0.45}>
+                        <RotatingGlobe />
+                    </Float>
+                }
             >
-                <RotatingGlobe />
-            </Float>
+                <Float
+                    speed={1.4}
+                    rotationIntensity={0.4}
+                    floatIntensity={0.45}
+                >
+                    <GlobeWithTexture />
+                </Float>
+            </Suspense>
 
             {/* ── Floating Global Stats ───────────────────── */}
             <Html position={[-3.5, 2, 0]} center style={{ pointerEvents: 'none' }}>

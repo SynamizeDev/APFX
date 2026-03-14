@@ -1,0 +1,592 @@
+/* Copy Trading — matches calculators dark theme + card layout */
+
+/* ── Section spacing ─────────────────────────────────────────── */
+.section {
+  padding: 3rem 0;
+}
+
+.sectionTitle {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 0.5rem;
+}
+
+.sectionSubtitle {
+  color: var(--color-text-2);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 560px;
+}
+
+/* ── Hero ───────────────────────────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 4rem var(--container-px, 1.5rem) 5rem;
+  background: linear-gradient(180deg, rgba(0, 200, 150, 0.04) 0%, transparent 50%);
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 1rem;
+  letter-spacing: var(--ls-snug);
+}
+
+.heroTitle::after {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent), transparent);
+  border-radius: var(--radius-full);
+  margin: 0.75rem auto 0;
+}
+
+.heroDesc {
+  color: var(--color-text-2);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  max-width: 520px;
+  margin: 0 auto 2rem;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.heroCtaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.75rem;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  color: #020617;
+  font-weight: var(--fw-bold);
+  font-size: 1rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.heroCtaPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+}
+
+.heroCtaSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.9rem 1.75rem;
+  background: transparent;
+  color: var(--color-accent);
+  font-weight: var(--fw-semibold);
+  font-size: 1rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  border: 1px solid rgba(0, 200, 150, 0.4);
+  transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.heroCtaSecondary:hover {
+  background: rgba(0, 200, 150, 0.08);
+  border-color: var(--color-accent);
+}
+
+/* ── Container (shared) ─────────────────────────────────────── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--container-px, 1.5rem);
+}
+
+/* ── Calculator form grid (same as Pip/Margin) ────────────────── */
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2rem;
+}
+
+.buttonRow {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.calculateBtn {
+  padding: 0.9rem 2.5rem;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  color: #020617;
+  font-size: 1rem;
+  font-weight: var(--fw-bold);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.calculateBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+}
+
+.resultRow {
+  margin-top: 2rem;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(180deg, rgba(0, 200, 150, 0.06) 0%, transparent 100%);
+  border: 1px solid rgba(0, 200, 150, 0.12);
+  border-radius: var(--radius-lg);
+  position: relative;
+}
+
+.resultRow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  opacity: 0.5;
+}
+
+.resultLabel {
+  font-size: 0.875rem;
+  color: var(--color-text-3);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.resultValue {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: var(--fw-bold);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+}
+
+.resultGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.resultGridItem {
+  padding: 0.75rem;
+}
+
+.resultGridItem .resultLabel {
+  margin-bottom: 0.25rem;
+}
+
+/* Risk simulator — warning tone for loss ─────────────────────── */
+.riskResultLoss {
+  color: #f87171;
+}
+
+.riskResultRemain {
+  color: var(--color-text-1);
+}
+
+/* ── Leaderboard ─────────────────────────────────────────────── */
+.leaderboardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.traderCard {
+  background: linear-gradient(165deg, rgba(11, 15, 26, 0.7) 0%, rgba(6, 10, 18, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  transition: border-color var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.traderCard:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.traderHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.traderAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-accent), #00a078);
+  color: #020617;
+  font-weight: var(--fw-bold);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.traderName {
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  font-size: 1.0625rem;
+}
+
+.traderStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.traderStat {
+  color: var(--color-text-2);
+}
+
+.traderStat strong {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+}
+
+.riskPill {
+  font-size: 0.75rem;
+  font-weight: var(--fw-semibold);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-full);
+  display: inline-block;
+}
+
+.riskLow {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+.riskMedium {
+  background: rgba(234, 179, 8, 0.2);
+  color: #eab308;
+}
+
+.riskHigh {
+  background: rgba(248, 113, 113, 0.2);
+  color: #f87171;
+}
+
+.traderCardCta {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  margin-top: 0.75rem;
+  text-align: center;
+  background: rgba(0, 200, 150, 0.15);
+  color: var(--color-accent);
+  font-weight: var(--fw-semibold);
+  font-size: 0.875rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0, 200, 150, 0.25);
+  text-decoration: none;
+  transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.traderCardCta:hover {
+  background: rgba(0, 200, 150, 0.25);
+  border-color: var(--color-accent);
+}
+
+/* ── How it works ────────────────────────────────────────────── */
+.stepsWrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  position: relative;
+}
+
+.stepCard {
+  flex: 1 1 200px;
+  min-width: 0;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(165deg, rgba(11, 15, 26, 0.6) 0%, rgba(6, 10, 18, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  position: relative;
+}
+
+.stepIcon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  border-radius: var(--radius-full);
+  background: rgba(0, 200, 150, 0.15);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stepNum {
+  font-size: 0.75rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
+}
+
+.stepTitle {
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.stepDesc {
+  font-size: 0.875rem;
+  color: var(--color-text-2);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Performance insights ────────────────────────────────────── */
+.insightsCard {
+  background: linear-gradient(165deg, rgba(11, 15, 26, 0.7) 0%, rgba(6, 10, 18, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+}
+
+.chartTitle {
+  font-size: 0.875rem;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-2);
+  margin-bottom: 1rem;
+}
+
+.barsWrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  height: 120px;
+  margin-bottom: 1.5rem;
+}
+
+.barItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bar {
+  width: 100%;
+  min-height: 4px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: linear-gradient(180deg, var(--color-accent), #00a078);
+  transition: height var(--duration-normal) var(--ease-out);
+}
+
+.barNegative {
+  background: linear-gradient(180deg, #f87171, #dc2626);
+}
+
+.barLabel {
+  font-size: 0.6875rem;
+  color: var(--color-text-3);
+  text-transform: uppercase;
+}
+
+.equityCurve {
+  height: 80px;
+  background: rgba(0, 200, 150, 0.06);
+  border: 1px solid rgba(0, 200, 150, 0.12);
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.equityLine {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--color-accent);
+}
+
+.riskScoreWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.riskScoreBadge {
+  font-size: 0.875rem;
+  font-weight: var(--fw-bold);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+/* ── Benefits ────────────────────────────────────────────────── */
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.benefitCard {
+  background: linear-gradient(165deg, rgba(11, 15, 26, 0.6) 0%, rgba(6, 10, 18, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.benefitIcon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 1rem;
+  border-radius: var(--radius-md);
+  background: rgba(0, 200, 150, 0.12);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefitTitle {
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.benefitDesc {
+  font-size: 0.875rem;
+  color: var(--color-text-2);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── CTA section ─────────────────────────────────────────────── */
+.ctaSection {
+  text-align: center;
+  padding: 4rem var(--container-px, 1.5rem);
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 200, 150, 0.06) 50%, transparent 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ctaTitle {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 0.5rem;
+}
+
+.ctaSubtitle {
+  color: var(--color-text-2);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.ctaButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.ctaBtnPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  color: #020617;
+  font-weight: var(--fw-bold);
+  font-size: 1.0625rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  box-shadow: 0 4px 24px -4px rgba(0, 200, 150, 0.5);
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.ctaBtnPrimary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px -4px rgba(0, 200, 150, 0.5);
+}
+
+.ctaBtnSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-text-1);
+  font-weight: var(--fw-semibold);
+  font-size: 1.0625rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.ctaBtnSecondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Input panel (calculator card) ────────────────────────────── */
+.inputPanel {
+  position: relative;
+  background: linear-gradient(165deg, rgba(11, 15, 26, 0.7) 0%, rgba(6, 10, 18, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl);
+  padding: 2rem 2.25rem;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.inputPanel::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(145deg, rgba(0, 200, 150, 0.15), rgba(255, 255, 255, 0.04), transparent 50%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .stepsWrap {
+    flex-direction: column;
+  }
+}
