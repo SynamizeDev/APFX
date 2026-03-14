@@ -119,8 +119,6 @@ export default function RootLayout({
             and scroll integrity with smooth scrolling.
             ───────────────────────────────────────────────
           */}
-          <Header />
-
           <main
             id="main-content"
             style={{

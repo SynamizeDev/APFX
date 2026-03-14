@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { motion, AnimatePresence, Variants } from 'framer-motion'
 import EntryAnimation from '@/components/sections/EntryAnimation'
+import Header from '@/components/layout/Header'
 
 /* =========================================================
    Dynamic Imports — SEO-safe & performance-aware
@@ -43,7 +44,6 @@ const GlobalScale = dynamic(
    Static Sections
    ========================================================= */
 
-import HeroWithStatsWrapper from '@/components/sections/HeroWithStatsWrapper'
 import StatsBar from '@/components/sections/StatsBar'
 import MarketsSection from '@/components/sections/MarketsSection'
 import WhyAPFX from '@/components/sections/WhyAPFX'
@@ -79,18 +79,20 @@ const pageFade: Variants = {
 export default function HomePage() {
   const [showAnimation, setShowAnimation] = useState(true)
   const [ready, setReady] = useState(false)
-
-  useEffect(() => {
-    // Animation triggers immediately on mount because of initial state.
-  }, [])
+  const [hideHeaderLogo, setHideHeaderLogo] = useState(true)
 
   const handleReadyToReveal = () => {
     setReady(true)
   }
 
+  const handleMergeStart = () => {
+    setHideHeaderLogo(false)
+  }
+
   const handleAnimationComplete = () => {
     setShowAnimation(false)
     if (!ready) setReady(true) // Fallback just in case
+    setHideHeaderLogo(false) // Final safety
   }
 
   return (
@@ -101,67 +103,64 @@ export default function HomePage() {
           <EntryAnimation 
             onComplete={handleAnimationComplete} 
             onReadyToReveal={handleReadyToReveal}
+            onMergeStart={handleMergeStart}
           />
         )}
       </AnimatePresence>
 
-      {/* ── Main Experience ─────────────────────────────
-          Rendered only after animation completes to:
-          • avoid layout shift
-          • preserve visual authority
-          • ensure intentional reveal
-      --------------------------------------------------- */}
+      {/* ── Main Experience ───────────────────────────── */}
       {ready && (
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={pageFade}
-        >
-          <HeroWithStatsWrapper>
+        <>
+          <Header hideLogo={hideHeaderLogo} />
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={pageFade}
+          >
             <HeroSection />
             <AnimatedSection className="bg-alternate-1">
               <StatsBar />
             </AnimatedSection>
-          </HeroWithStatsWrapper>
 
-          <AnimatedSection>
-            <MarketsSection />
-          </AnimatedSection>
+            <AnimatedSection>
+              <MarketsSection />
+            </AnimatedSection>
 
-          <AnimatedSection className="bg-alternate-2">
-            <WhyAPFX />
-          </AnimatedSection>
+            <AnimatedSection className="bg-alternate-2">
+              <WhyAPFX />
+            </AnimatedSection>
 
-          <AnimatedSection>
-            <TradingPlatforms />
-          </AnimatedSection>
+            <AnimatedSection>
+              <TradingPlatforms />
+            </AnimatedSection>
 
-          <AnimatedSection className="bg-alternate-1">
-            <AccountTypes />
-          </AnimatedSection>
+            <AnimatedSection className="bg-alternate-1">
+              <AccountTypes />
+            </AnimatedSection>
 
-          <AnimatedSection>
-            <GlobalScale />
-          </AnimatedSection>
+            <AnimatedSection>
+              <GlobalScale />
+            </AnimatedSection>
 
-          <AnimatedSection className="bg-alternate-2">
-            <TradingAcademy />
-          </AnimatedSection>
+            <AnimatedSection className="bg-alternate-2">
+              <TradingAcademy />
+            </AnimatedSection>
 
-          <AnimatedSection>
-            <DifferenceSection />
-          </AnimatedSection>
+            <AnimatedSection>
+              <DifferenceSection />
+            </AnimatedSection>
 
-          <AnimatedSection className="bg-alternate-1">
-            <Testimonials />
-          </AnimatedSection>
+            <AnimatedSection className="bg-alternate-1">
+              <Testimonials />
+            </AnimatedSection>
 
-          <AnimatedSection>
-            <CTABanner />
-          </AnimatedSection>
-          <Footer />
-          <BottomBar />
-        </motion.div>
+            <AnimatedSection>
+              <CTABanner />
+            </AnimatedSection>
+            <Footer />
+            <BottomBar />
+          </motion.div>
+        </>
       )}
     </>
   )

@@ -1,0 +1,61 @@
+/* ============================================================
+   APFX Unified Logo Styles
+   Ensures brand consistency across Intro & Header
+   ============================================================ */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    color: var(--color-text-1);
+    font-family: var(--font-display);
+    font-weight: var(--fw-extrabold);
+    font-size: var(--text-xl);
+    letter-spacing: -0.08em;
+    user-select: none;
+}
+
+/* Scaling */
+.sm { transform: scale(1); }
+.md { transform: scale(1.5); }
+.lg { transform: scale(1.8); }
+
+.logoMark {
+    width: 34px;
+    height: 34px;
+    background: radial-gradient(circle at 20% 0%,
+            #ffffff 0%,
+            #b4ffe5 12%,
+            var(--color-accent) 45%,
+            #008f67 100%);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 0 34px rgba(0, 200, 150, 0.45);
+    flex-shrink: 0;
+}
+
+.logoIcon {
+    width: 16px;
+    height: 16px;
+    color: #020617;
+}
+
+.logoWordmark {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.1rem;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+}
+
+.logoFx {
+    background: linear-gradient(135deg,
+            var(--color-accent),
+            #00e5b0,
+            var(--color-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
