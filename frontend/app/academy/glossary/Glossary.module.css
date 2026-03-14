@@ -1,0 +1,476 @@
+/* Glossary — dark theme, search, A–Z nav, expandable term cards */
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--container-px, 1.5rem) 4rem;
+}
+
+/* ── Hero ───────────────────────────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 4rem var(--container-px, 1.5rem) 3rem;
+  background: linear-gradient(180deg, rgba(0, 200, 150, 0.04) 0%, transparent 50%);
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 1rem;
+  letter-spacing: var(--ls-snug);
+}
+
+.heroTitle::after {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent), transparent);
+  border-radius: var(--radius-full);
+  margin: 0.75rem auto 0;
+}
+
+.heroDesc {
+  color: var(--color-text-2);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  max-width: 560px;
+  margin: 0 auto 2rem;
+}
+
+.searchWrap {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.9rem 1.25rem 0.9rem 2.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  color: var(--color-text-1);
+  font-size: 1rem;
+  transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-3);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(0, 200, 150, 0.15);
+}
+
+.searchWrapInner {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-3);
+  pointer-events: none;
+}
+
+/* ── Popular terms ───────────────────────────────────────────── */
+.section {
+  padding: 2rem 0;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 1rem;
+}
+
+.popularStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.popularLink {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 200, 150, 0.1);
+  border: 1px solid rgba(0, 200, 150, 0.2);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: var(--fw-semibold);
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: background var(--duration-fast), border-color var(--duration-fast);
+}
+
+.popularLink:hover {
+  background: rgba(0, 200, 150, 0.18);
+  border-color: var(--color-accent);
+}
+
+/* ── Category filter ────────────────────────────────────────── */
+.categoryBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.categoryBtn {
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: var(--fw-medium);
+  color: var(--color-text-2);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: color var(--duration-fast), background var(--duration-fast), border-color var(--duration-fast);
+}
+
+.categoryBtn:hover {
+  color: var(--color-text-1);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.categoryBtnActive {
+  color: var(--color-accent);
+  background: rgba(0, 200, 150, 0.12);
+  border-color: rgba(0, 200, 150, 0.3);
+}
+
+/* ── A–Z nav ─────────────────────────────────────────────────── */
+.azNav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.azLetter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.35rem;
+  font-size: 0.875rem;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-2);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color var(--duration-fast), background var(--duration-fast);
+}
+
+.azLetter:hover:not(.azLetterDisabled) {
+  color: var(--color-text-1);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.azLetterActive {
+  color: var(--color-accent);
+  background: rgba(0, 200, 150, 0.15);
+}
+
+.azLetterDisabled {
+  color: var(--color-text-3);
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ── Term cards (expandable) ────────────────────────────────── */
+.termList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.letterGroup {
+  margin-bottom: 1.5rem;
+}
+
+.letterHeading {
+  font-size: 1.5rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.termCard {
+  background: linear-gradient(165deg, rgba(11, 15, 26, 0.6) 0%, rgba(6, 10, 18, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--duration-normal), box-shadow var(--duration-normal);
+}
+
+.termCard:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.termCardExpanded {
+  border-color: rgba(0, 200, 150, 0.2);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.termHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+.termHeader:focus {
+  outline: none;
+}
+
+.termHeader:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.termName {
+  font-size: 1.125rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 0.35rem;
+}
+
+.termCategory {
+  font-size: 0.6875rem;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.termDef {
+  font-size: 0.9375rem;
+  color: var(--color-text-2);
+  line-height: 1.55;
+  margin-top: 0.5rem;
+}
+
+.termExample {
+  font-size: 0.875rem;
+  color: var(--color-text-3);
+  font-style: italic;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.termExpandIcon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--color-text-3);
+  transition: transform var(--duration-normal);
+}
+
+.termCardExpanded .termExpandIcon {
+  transform: rotate(180deg);
+  color: var(--color-accent);
+}
+
+.termBody {
+  padding: 0 1.5rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.termDetail {
+  font-size: 0.9375rem;
+  color: var(--color-text-2);
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.termContextLabel {
+  font-size: 0.8125rem;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.termContext {
+  font-size: 0.9375rem;
+  color: var(--color-text-2);
+  line-height: 1.55;
+}
+
+.relatedTerms {
+  margin-top: 1rem;
+}
+
+.relatedTermsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.relatedTermsList a {
+  font-size: 0.8125rem;
+  font-weight: var(--fw-medium);
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.relatedTermsList a:hover {
+  text-decoration: underline;
+}
+
+.learningLinks {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.learningLinksTitle {
+  font-size: 0.8125rem;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.learningLinksList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.learningLinksList a {
+  font-size: 0.875rem;
+  font-weight: var(--fw-medium);
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.learningLinksList a:hover {
+  text-decoration: underline;
+}
+
+.noResults {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: var(--color-text-2);
+  font-size: 1rem;
+}
+
+/* ── CTA ───────────────────────────────────────────────────── */
+.ctaSection {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  margin-top: 2rem;
+  background: linear-gradient(180deg, rgba(0, 200, 150, 0.06) 0%, transparent 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl);
+}
+
+.ctaTitle {
+  font-size: 1.25rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 0.5rem;
+}
+
+.ctaSubtitle {
+  color: var(--color-text-2);
+  font-size: 0.9375rem;
+  margin-bottom: 1.5rem;
+}
+
+.ctaButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.ctaBtnPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.9rem 1.75rem;
+  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  color: #020617;
+  font-weight: var(--fw-bold);
+  font-size: 1rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  transition: transform var(--duration-fast), box-shadow var(--duration-normal);
+}
+
+.ctaBtnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+}
+
+.ctaBtnSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.9rem 1.75rem;
+  background: transparent;
+  color: var(--color-accent);
+  font-weight: var(--fw-semibold);
+  font-size: 1rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  border: 1px solid rgba(0, 200, 150, 0.4);
+  transition: background var(--duration-fast), border-color var(--duration-fast);
+}
+
+.ctaBtnSecondary:hover {
+  background: rgba(0, 200, 150, 0.08);
+  border-color: var(--color-accent);
+}
+
+@media (max-width: 600px) {
+  .azNav {
+    gap: 0.2rem;
+  }
+
+  .azLetter {
+    min-width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.8125rem;
+  }
+}

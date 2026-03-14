@@ -1,0 +1,254 @@
+'use client'
+
+import { useState, useMemo } from 'react'
+import Link from 'next/link'
+import {
+  GLOSSARY_ENTRIES,
+  CATEGORY_LABELS,
+  POPULAR_TERM_IDS,
+  type GlossaryEntry,
+  type GlossaryCategory,
+} from './glossaryData'
+import styles from './Glossary.module.css'
+
+const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+const ALL_CATEGORIES: GlossaryCategory[] = ['forex', 'technical', 'risk', 'investment', 'market']
+
+function getFirstLetter(term: string): string {
+  const t = term.trim().toUpperCase()
+  return t.length ? t[0] : ''
+}
+
+function getTermsByLetter(entries: GlossaryEntry[]): Map<string, GlossaryEntry[]> {
+  const map = new Map<string, GlossaryEntry[]>()
+  for (const e of entries) {
+    const letter = getFirstLetter(e.term)
+    if (!map.has(letter)) map.set(letter, [])
+    map.get(letter)!.push(e)
+  }
+  return map
+}
+
+export default function GlossaryPage() {
+  const [search, setSearch] = useState('')
+  const [category, setCategory] = useState<GlossaryCategory | 'all'>('all')
+  const [letter, setLetter] = useState<string | 'all'>('all')
+  const [expandedId, setExpandedId] = useState<string | null>(null)
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase()
+    return GLOSSARY_ENTRIES.filter((e) => {
+      const matchSearch = !q || e.term.toLowerCase().includes(q) || e.definition.toLowerCase().includes(q)
+      const matchCategory = category === 'all' || e.category === category
+      const first = getFirstLetter(e.term)
+      const matchLetter = letter === 'all' || first === letter
+      return matchSearch && matchCategory && matchLetter
+    })
+  }, [search, category, letter])
+
+  const byLetter = useMemo(() => getTermsByLetter(filtered), [filtered])
+  const lettersWithTerms = useMemo(() => new Set(byLetter.keys()), [byLetter])
+
+  const popularTerms = useMemo(
+    () => POPULAR_TERM_IDS.map((id) => GLOSSARY_ENTRIES.find((e) => e.id === id)).filter(Boolean) as GlossaryEntry[],
+    []
+  )
+
+  return (
+    <>
+      <header className={styles.hero}>
+        <h1 className={styles.heroTitle}>Trading & Investing Glossary</h1>
+        <p className={styles.heroDesc}>
+          Definitions of key trading and financial terms used in Forex, investing, and financial markets.
+        </p>
+        <div className={styles.searchWrap}>
+          <div className={styles.searchWrapInner}>
+            <span className={styles.searchIcon} aria-hidden>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+              </svg>
+            </span>
+            <input
+              type="search"
+              className={styles.searchInput}
+              placeholder="Search terms..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              aria-label="Search glossary terms"
+            />
+          </div>
+        </div>
+      </header>
+
+      <div className={styles.container}>
+        {/* Popular terms */}
+        <section className={styles.section} aria-labelledby="popular-terms">
+          <h2 id="popular-terms" className={styles.sectionTitle}>Popular Terms</h2>
+          <div className={styles.popularStrip}>
+            {popularTerms.map((e) => (
+              <a key={e.id} href={`#${e.id}`} className={styles.popularLink}>
+                {e.term}
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* Category filter */}
+        <nav className={styles.categoryBar} aria-label="Filter by category">
+          <button
+            type="button"
+            className={`${styles.categoryBtn} ${category === 'all' ? styles.categoryBtnActive : ''}`}
+            onClick={() => setCategory('all')}
+            aria-pressed={category === 'all'}
+          >
+            All
+          </button>
+          {ALL_CATEGORIES.map((c) => (
+            <button
+              key={c}
+              type="button"
+              className={`${styles.categoryBtn} ${category === c ? styles.categoryBtnActive : ''}`}
+              onClick={() => setCategory(c)}
+              aria-pressed={category === c}
+            >
+              {CATEGORY_LABELS[c]}
+            </button>
+          ))}
+        </nav>
+
+        {/* A–Z */}
+        <nav className={styles.azNav} aria-label="Jump to letter">
+          {LETTERS.map((L) => {
+            const hasTerms = lettersWithTerms.has(L)
+            const isActive = letter === L
+            return (
+              <button
+                key={L}
+                type="button"
+                className={`${styles.azLetter} ${isActive ? styles.azLetterActive : ''} ${!hasTerms ? styles.azLetterDisabled : ''}`}
+                onClick={() => setLetter(hasTerms ? L : 'all')}
+                disabled={!hasTerms}
+                aria-pressed={isActive}
+                aria-label={`Terms starting with ${L}`}
+              >
+                {L}
+              </button>
+            )
+          })}
+          <button
+            type="button"
+            className={`${styles.azLetter} ${letter === 'all' ? styles.azLetterActive : ''}`}
+            onClick={() => setLetter('all')}
+            aria-pressed={letter === 'all'}
+            aria-label="Show all letters"
+          >
+            All
+          </button>
+        </nav>
+
+        {/* Term list */}
+        <section className={styles.section} aria-labelledby="glossary-list">
+          <h2 id="glossary-list" className={styles.visuallyHidden}>Glossary terms</h2>
+          {filtered.length === 0 ? (
+            <p className={styles.noResults}>No terms match your search or filters. Try a different letter or category.</p>
+          ) : (
+            Array.from(byLetter.keys())
+              .sort()
+              .map((L) => (
+                <div key={L} id={`letter-${L}`} className={styles.letterGroup}>
+                  <h3 className={styles.letterHeading}>{L}</h3>
+                  <div className={styles.termList}>
+                    {byLetter.get(L)!.map((entry) => {
+                      const isExpanded = expandedId === entry.id
+                      const related = (entry.relatedTermIds || [])
+                        .map((id) => GLOSSARY_ENTRIES.find((e) => e.id === id))
+                        .filter(Boolean) as GlossaryEntry[]
+                      return (
+                        <article
+                          key={entry.id}
+                          id={entry.id}
+                          className={`${styles.termCard} ${isExpanded ? styles.termCardExpanded : ''}`}
+                        >
+                          <button
+                            type="button"
+                            className={styles.termHeader}
+                            onClick={() => setExpandedId(isExpanded ? null : entry.id)}
+                            aria-expanded={isExpanded}
+                            aria-controls={`glossary-detail-${entry.id}`}
+                          >
+                            <div>
+                              <div className={styles.termCategory}>{CATEGORY_LABELS[entry.category]}</div>
+                              <div className={styles.termName}>{entry.term}</div>
+                              <p className={styles.termDef}>{entry.definition}</p>
+                              {entry.example && <p className={styles.termExample}>{entry.example}</p>}
+                            </div>
+                            <svg className={styles.termExpandIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </button>
+                          <div
+                            id={`glossary-detail-${entry.id}`}
+                            role="region"
+                            aria-hidden={!isExpanded}
+                            className={styles.termBody}
+                            hidden={!isExpanded}
+                          >
+                            {entry.detailedExplanation && <p className={styles.termDetail}>{entry.detailedExplanation}</p>}
+                            {entry.exampleInContext && (
+                              <>
+                                <p className={styles.termContextLabel}>Example in context</p>
+                                <p className={styles.termContext}>{entry.exampleInContext}</p>
+                              </>
+                            )}
+                            {related.length > 0 && (
+                              <div className={styles.relatedTerms}>
+                                <p className={styles.termContextLabel}>Related terms</p>
+                                <div className={styles.relatedTermsList}>
+                                  {related.map((r) => (
+                                    <a key={r.id} href={`#${r.id}`} onClick={() => setExpandedId(r.id)}>
+                                      {r.term}
+                                    </a>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {(entry.toolLinks?.length || entry.blogLinks?.length) ? (
+                              <div className={styles.learningLinks}>
+                                <p className={styles.learningLinksTitle}>Related learning</p>
+                                <div className={styles.learningLinksList}>
+                                  {entry.toolLinks?.map((l) => (
+                                    <Link key={l.href} href={l.href}>{l.label}</Link>
+                                  ))}
+                                  {entry.blogLinks?.map((l) => (
+                                    <Link key={l.href} href={l.href}>{l.label}</Link>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : null}
+                          </div>
+                        </article>
+                      )
+                    })}
+                  </div>
+                </div>
+              ))
+          )}
+        </section>
+
+        {/* CTA */}
+        <section className={styles.ctaSection} aria-labelledby="glossary-cta">
+          <h2 id="glossary-cta" className={styles.ctaTitle}>Keep learning and trading</h2>
+          <p className={styles.ctaSubtitle}>
+            Explore guides, try our calculators, and open an account to put your knowledge into practice.
+          </p>
+          <div className={styles.ctaButtons}>
+            <Link href="/academy/blog" className={styles.ctaBtnPrimary}>Explore Trading Guides</Link>
+            <Link href="/tools/calculators" className={styles.ctaBtnSecondary}>Try Our Trading Calculators</Link>
+            <Link href="/register" className={styles.ctaBtnSecondary}>Start Trading</Link>
+          </div>
+        </section>
+      </div>
+    </>
+  )
+}
