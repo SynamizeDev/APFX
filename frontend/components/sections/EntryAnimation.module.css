@@ -1,5 +1,3 @@
-
-
 /* ── Overlay ─────────────────────────────────────────────── */
 .overlay {
     position: fixed;
@@ -87,3 +85,42 @@
     will-change: transform, opacity;
 }
 
+/* ── New V3 Elements ─────────────────────────────────────── */
+.linePulseContainer {
+    position: relative;
+    width: 100%;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.line {
+    width: 0%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--color-accent),
+        transparent
+    );
+    opacity: 0.8;
+}
+
+.pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        var(--color-accent-glow) 0%,
+        transparent 70%
+    );
+    pointer-events: none;
+    opacity: 0;
+    z-index: -1;
+}

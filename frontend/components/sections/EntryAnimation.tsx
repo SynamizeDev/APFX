@@ -4,16 +4,22 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import styles from './EntryAnimation.module.css'
 
+import Logo from '@/components/ui/Logo'
+
 export default function EntryAnimation({
     onComplete,
     onReadyToReveal,
+    onMergeStart,
 }: {
     onComplete: () => void
     onReadyToReveal?: () => void
+    onMergeStart?: () => void
 }) {
     const flashRef = useRef<HTMLDivElement>(null)
     const glassRef = useRef<HTMLDivElement>(null)
     const logoContainerRef = useRef<HTMLDivElement>(null)
+    const lineRef = useRef<HTMLDivElement>(null)
+    const pulseRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const prefersReduced = window.matchMedia(
@@ -26,91 +32,144 @@ export default function EntryAnimation({
             return
         }
 
-        const tl = gsap.timeline({
-            onComplete: () => {
-                onComplete()
-            },
-        })
+        const tl = gsap.timeline()
 
-        // Ensure GSAP initializes properly
-        gsap.set(flashRef.current, { opacity: 0 })
+        // Initial State - cleaner, no abrupt flash
         gsap.set(glassRef.current, { opacity: 0 })
-        gsap.set(logoContainerRef.current, { opacity: 0, scale: 0.95 })
+        gsap.set(logoContainerRef.current, { opacity: 0, scale: 0.95, y: 10 })
+        gsap.set(lineRef.current, { width: 0, opacity: 0 })
+        gsap.set(pulseRef.current, { scale: 1, opacity: 0 })
 
-        // Target:
-        // 0ms -> green flash
-        // 250ms -> dark glass overlay
-        // 500ms -> APFX logo fades in
-        // 1100ms -> logo fades out
-        // 1700ms -> overlay fades out
-
+        // Sequence - Institutional & Smooth
         tl
-            /* 1. Green Flash */
-            .to(flashRef.current, { opacity: 1, duration: 0.1, ease: 'power1.out' }, 0)
-            .to(flashRef.current, { opacity: 0, duration: 0.15, ease: 'power1.in' }, 0.1)
+            /* 1. Dark Glass Overlay (0ms) */
+            .to(glassRef.current, { opacity: 1, duration: 0.4, ease: 'power2.inOut' }, 0)
             
-            /* 2. Glass Overlay Appears (250ms mark) */
-            .to(glassRef.current, { opacity: 1, duration: 0.2, ease: 'power2.out' }, 0.25)
-            
-            /* Trigger background render behind the glass */
+            /* Background ready (200ms) */
             .call(() => {
                 if (onReadyToReveal) onReadyToReveal()
-            }, undefined, 0.4)
+            }, undefined, 0.2)
             
-            /* 3. Reveal APFX Logo (500ms mark, 600ms duration) */
-            .to(logoContainerRef.current, { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out' }, 0.5)
+            /* 2. Smooth Logo Entry (400ms) */
+            .to(logoContainerRef.current, { 
+                opacity: 1, 
+                scale: 1, 
+                y: 0, 
+                duration: 0.8, 
+                ease: 'expo.out' 
+            }, 0.4)
             
-            /* 4. Logo Exit (1100ms mark) */
-            .to(logoContainerRef.current, { opacity: 0, scale: 0.95, duration: 0.5, ease: 'power2.inOut' }, 1.1)
+            /* 3. Subtle Line Expansion (600ms) */
+            .to(lineRef.current, { 
+                width: '120px', 
+                opacity: 0.5, 
+                duration: 1.0, 
+                ease: 'power3.inOut' 
+            }, 0.6)
             
-            /* 5. Overlay Exit (1700ms mark, 600-800ms duration) */
-            .to(glassRef.current, { opacity: 0, duration: 0.7, ease: 'power2.inOut' }, 1.7)
+            /* 4. Logo Slide-Merge Transition (1800ms) */
+            .call(() => {
+                const headerLogo = document.getElementById('header-logo');
+                if (headerLogo && logoContainerRef.current) {
+                    const hRect = headerLogo.getBoundingClientRect();
+                    const lRect = logoContainerRef.current.getBoundingClientRect();
+                    
+                    // Calculate deltas to move from current center to header position
+                    const dx = hRect.left - lRect.left;
+                    const dy = hRect.top - lRect.top;
+                    const targetScale = hRect.width / lRect.width;
+                    
+                    // The "Creamy Merge" - slightly longer, better easing, motion blur
+                    gsap.to(logoContainerRef.current, { 
+                        x: dx,
+                        y: dy,
+                        scale: targetScale,
+                        opacity: 0.9, // Higher opacity during flight
+                        duration: 1.1, // Slightly slower for grace
+                        ease: 'power4.inOut', // Institutional, heavy-weight easing
+                        force3D: true, // Hardware acceleration
+                        onStart: () => {
+                           // Subtle motion blur start
+                           gsap.to(logoContainerRef.current, { filter: 'blur(2px)', duration: 0.3 });
+                        },
+                        onComplete: () => {
+                            // Instant hand-off to Header logo
+                            if (onMergeStart) onMergeStart();
+                            gsap.to(logoContainerRef.current, { 
+                                opacity: 0, 
+                                filter: 'blur(0px)',
+                                duration: 0.15 
+                            });
+                            onComplete(); // Finish the sequence
+                        }
+                    });
+
+                    // Fade out secondary elements with corresponding grace
+                    gsap.to([lineRef.current, pulseRef.current], { 
+                        opacity: 0, 
+                        duration: 0.6,
+                        ease: 'power2.inOut'
+                    });
+                    
+                    // Fade out glass transitionally to match logo flight
+                    gsap.to(glassRef.current, { 
+                        opacity: 0, 
+                        duration: 1.2, 
+                        ease: 'power3.inOut' 
+                    });
+                } else {
+                    // Fallback if header logo not found
+                    if (onMergeStart) onMergeStart();
+                    onComplete();
+                }
+            }, undefined, 1.8)
 
         return () => {
             tl.kill()
         }
-    }, [onComplete, onReadyToReveal])
+    }, [onComplete, onReadyToReveal, onMergeStart])
 
     return (
         <>
-            {/* Initial Green Flash Overlay (z-60) */}
+            {/* Initial Green Flash Overlay */}
             <div
                 ref={flashRef}
                 style={{
                     position: 'fixed',
                     inset: 0,
-                    zIndex: 60,
+                    zIndex: 9999,
                     background: 'rgba(16, 185, 129, 0.15)',
                     pointerEvents: 'none',
-                    opacity: 0 // Crucial: prevents early pop during SSR
+                    opacity: 0
                 }}
             />
 
-            {/* Dark Glass Overlay (z-40) */}
+            {/* Dark Glass Overlay */}
             <div
                 ref={glassRef}
                 style={{
                     position: 'fixed',
                     inset: 0,
-                    zIndex: 40,
-                    background: 'rgba(3, 5, 10, 0.8)',
+                    zIndex: 9997, 
+                    background: 'rgba(3, 5, 10, 0.75)',
                     backdropFilter: 'blur(12px)',
                     WebkitBackdropFilter: 'blur(12px)',
                     pointerEvents: 'none',
-                    opacity: 0 // Crucial
+                    opacity: 0
                 }}
             />
 
-            {/* Logo Container Layer (z-50) */}
+            {/* Logo Container Layer */}
             <div
                 style={{
                     position: 'fixed',
                     inset: 0,
-                    zIndex: 50,
+                    zIndex: 9998,
                     pointerEvents: 'none',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    perspective: '1000px'
                 }}
             >
                 <div 
@@ -120,13 +179,15 @@ export default function EntryAnimation({
                         display: 'flex', 
                         flexDirection: 'column', 
                         alignItems: 'center',
-                        opacity: 0, // Crucial
-                        transform: 'scale(0.95)' // Match GSAP start state
+                        position: 'relative'
                     }}
                 >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <span className={styles.mark} aria-hidden="true">AP</span>
-                        <span className={styles.wordmark}>APFX</span>
+                    <div className={styles.pulse} ref={pulseRef} />
+                    
+                    <Logo size="lg" />
+
+                    <div className={styles.linePulseContainer}>
+                        <div className={styles.line} ref={lineRef} />
                     </div>
                 </div>
             </div>

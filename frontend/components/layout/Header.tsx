@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { Sparkles, ChevronDown } from 'lucide-react'
+import Logo from '@/components/ui/Logo'
+import { ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './Header.module.css'
 
@@ -58,7 +59,7 @@ const MEGA_MENU_DATA = {
     ],
 }
 
-export default function Header() {
+export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
     const [scrolled, setScrolled] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
@@ -131,14 +132,14 @@ export default function Header() {
                 <div className={styles.inner}>
 
                     {/* ── Logo ──────────────────────────────────────────── */}
-                    <Link href="/" className={styles.logo} aria-label="APFX Home" onClick={closeMenu}>
-                        <span className={styles.logoMark} aria-hidden="true">
-                            <Sparkles className={styles.logoIcon} />
-                        </span>
-                        <span className={styles.logoWordmark}>
-                            <span className={styles.logoPrefix}>AP</span>
-                            <span className={styles.logoFx}>FX</span>
-                        </span>
+                    <Link 
+                        href="/" 
+                        className={styles.logo} 
+                        aria-label="APFX Home" 
+                        onClick={closeMenu}
+                        style={{ opacity: hideLogo ? 0 : 1, transition: 'opacity 0.1s ease' }}
+                    >
+                        <Logo id="header-logo" size="sm" />
                     </Link>
 
                     {/* ── Desktop Navigation ────────────────────────────── */}
