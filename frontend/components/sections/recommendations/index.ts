@@ -1,0 +1,10 @@
+export { default as RecHero } from './RecHero';
+export { default as LatestRecommendations } from './LatestRecommendations';
+export { default as MarketInsights } from './MarketInsights';
+export { default as TopPicks } from './TopPicks';
+export { default as ResearchReports } from './ResearchReports';
+export { default as PerformanceTracking } from './PerformanceTracking';
+export { default as RiskDisclosure } from './RiskDisclosure';
+export { default as WhyTrustOurResearch } from './WhyTrustOurResearch';
+export { default as RecCTASection } from './RecCTASection';
+export { default as RecommendationDetailContent } from './RecommendationDetailContent';

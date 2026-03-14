@@ -1,0 +1,76 @@
+.section {
+  padding-block: 4rem;
+  background: var(--color-bg);
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-px);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: var(--text-base);
+  color: var(--color-text-2);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+}
+
+.icon {
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.cardTitle {
+  font-size: var(--text-base);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin-bottom: 0.35rem;
+}
+
+.type {
+  font-size: var(--text-xs);
+  color: var(--color-text-3);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.date {
+  font-size: var(--text-xs);
+  color: var(--color-text-3);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.link {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
