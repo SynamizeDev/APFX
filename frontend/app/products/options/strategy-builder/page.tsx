@@ -23,14 +23,22 @@ export default function StrategyBuilderPage() {
     const [newLeg, setNewLeg] = useState<Partial<StrategyLeg>>({ type: 'CE', strike: 23500, qty: 50, action: 'buy', premium: 0 });
 
     const addLeg = () => {
-        if (!newLeg.type || !newLeg.strike || !newLeg.qty || newLeg.action === undefined) return;
+        // Use explicit `=== undefined` checks so TS narrows `Partial<StrategyLeg>` fields correctly.
+        if (newLeg.type === undefined || newLeg.strike === undefined || newLeg.qty === undefined || newLeg.action === undefined) return;
+
+        const type = newLeg.type
+        const strike = newLeg.strike
+        const qty = newLeg.qty
+        const action = newLeg.action
+        const premium = newLeg.premium ?? 0
+
         setLegs((prev) => [...prev, {
             id: `leg-${Date.now()}`,
-            type: newLeg.type as 'CE' | 'PE',
-            strike: newLeg.strike,
-            qty: newLeg.qty,
-            action: newLeg.action as 'buy' | 'sell',
-            premium: newLeg.premium ?? 0,
+            type,
+            strike,
+            qty,
+            action,
+            premium,
         }]);
         setNewLeg({ type: 'CE', strike: 23500, qty: 50, action: 'buy', premium: 0 });
     };

@@ -25,7 +25,7 @@ export const CATEGORY_LABELS: Record<GlossaryCategory, string> = {
   market: 'Market Terminology',
 }
 
-export const GLOSSARY_ENTRIES: GlossaryEntry[] = [
+const UNSORTED_GLOSSARY_ENTRIES: GlossaryEntry[] = [
   {
     id: 'ask',
     term: 'Ask',
@@ -176,6 +176,11 @@ export const GLOSSARY_ENTRIES: GlossaryEntry[] = [
     toolLinks: [{ label: 'Risk-Reward Ratio Calculator', href: '/tools/risk-management/risk-reward' }],
     blogLinks: [{ label: 'How Stop Loss Works', href: '/academy/blog/how-stop-loss-works' }],
   },
-].sort((a, b) => a.term.localeCompare(b.term, 'en'))
+]
+
+// Keep entries sorted for UI rendering, while preserving correct `GlossaryCategory` typing.
+export const GLOSSARY_ENTRIES: GlossaryEntry[] = [...UNSORTED_GLOSSARY_ENTRIES].sort((a, b) =>
+  a.term.localeCompare(b.term, 'en')
+)
 
 export const POPULAR_TERM_IDS = ['pip', 'leverage', 'margin', 'stop-loss', 'take-profit']

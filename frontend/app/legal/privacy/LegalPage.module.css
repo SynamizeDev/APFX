@@ -1,3 +1,32 @@
+.page {
+  padding: 96px 24px 40px;
+}
+
+.main {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.section {
+  margin-top: 24px;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.content {
+  display: block;
+}
+
+.warningBox {
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  background: rgba(248, 113, 113, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
 /* =========================================================
    APFX — Legal / Content Pages (Risk, Terms, Disclosures)
    Premium Fintech UI Refinement

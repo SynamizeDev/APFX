@@ -6,6 +6,8 @@ export interface MarketQuote {
     change: number;
     percent_change: number;
     up: boolean;
+    // Used internally to mark fallback/mock quotes when provider APIs fail.
+    mock?: boolean;
 }
 
 export const DEFAULT_SYMBOLS = [
