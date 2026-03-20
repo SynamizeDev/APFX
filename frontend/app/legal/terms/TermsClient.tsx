@@ -36,10 +36,7 @@ export default function TermsPage() {
                 title="Terms of"
                 accentLine="Service"
                 subtitle="These terms and conditions govern your access to and use of APFX’s services, platforms, and trading infrastructure."
-                breadcrumbs={[
-                    { label: 'Legal', href: '/legal' },
-                    { label: 'Terms of Service' },
-                ]}
+                breadcrumbs={[]}
             />
 
             <main className={styles.main}>

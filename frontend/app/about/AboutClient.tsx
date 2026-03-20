@@ -37,7 +37,7 @@ export default function AboutPage() {
                 title="Institutional by Design"
                 accentLine="Accessible to Serious Traders"
                 subtitle="Since 2012, APFX has been focused on one thing: giving sophisticated retail and professional traders access to the same depth of liquidity, speed, and transparency that institutional desks expect."
-                breadcrumbs={[{ label: 'About Us' }]}
+                breadcrumbs={[]}
             />
 
             <main className={styles.main}>

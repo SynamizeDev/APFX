@@ -11,7 +11,7 @@ import '@/styles/globals.css'
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://apfx.com'),
   title: {
-    default: 'APFX — Trade Global Markets with Confidence',
+    default: 'APFX',
     template: '%s | APFX',
   },
   description:
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: process.env.NEXT_PUBLIC_SITE_URL || 'https://apfx.com',
     siteName: 'APFX',
-    title: 'APFX — Trade Global Markets with Confidence',
+    title: 'APFX',
     description:
       'Premium global trading platform with deep liquidity, tight spreads, and institutional-grade execution.',
     images: [
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'APFX — Trade Global Markets with Confidence',
+    title: 'APFX',
     description:
       'Premium global trading platform with institutional-grade execution.',
     images: ['/og-image.jpg'],
@@ -69,6 +69,7 @@ export const metadata: Metadata = {
 
 import PageTransition from '@/components/animations/PageTransition'
 import ChatWidget from '@/components/ui/ChatWidget'
+import RouteBreadcrumbs from '@/components/layout/RouteBreadcrumbs'
 
 export default function RootLayout({
   children,
@@ -130,6 +131,7 @@ export default function RootLayout({
               isolation: 'isolate',
             }}
           >
+            <RouteBreadcrumbs />
             <PageTransition>{children}</PageTransition>
             <ChatWidget />
           </main>

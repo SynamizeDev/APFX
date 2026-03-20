@@ -64,7 +64,7 @@ export default function AboutUsPage() {
       <InnerPageHero
         title="About Our Company"
         subtitle="We are a trading and investing platform built to empower retail traders and investors with professional-grade tools, market insights, and education. Our vision is to make sophisticated trading and risk management accessible to everyone."
-        breadcrumbs={[{ label: 'Company', href: '/about' }, { label: 'About Us' }]}
+        breadcrumbs={[]}
       />
 
       <main className={styles.main}>

@@ -64,7 +64,7 @@ export default function AccountsPage() {
                 title="Account Structures for"
                 accentLine="Every Trading Mandate"
                 subtitle="From simple all-in pricing to raw spread and institutional tiers, our accounts are engineered to support how you trade today — and how you plan to scale tomorrow."
-                breadcrumbs={[{ label: 'Accounts' }]}
+                breadcrumbs={[]}
             />
 
             <main className={styles.main}>

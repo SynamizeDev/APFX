@@ -31,6 +31,36 @@ export default function EntryAnimation({
             return
         }
 
+        // Hide the fixed header during branding entry animation.
+        // Some pages/stacking contexts can still momentarily show it while the entry
+        // overlays are animating, so we explicitly hide the header.
+        const headerEl = document.querySelector('header[role="banner"]') as HTMLElement | null
+        const prevHeaderStyles = headerEl
+            ? {
+                opacity: headerEl.style.opacity,
+                visibility: headerEl.style.visibility,
+                pointerEvents: headerEl.style.pointerEvents,
+              }
+            : null
+
+        if (headerEl) {
+            headerEl.style.opacity = '0'
+            headerEl.style.visibility = 'hidden'
+            headerEl.style.pointerEvents = 'none'
+        }
+
+        let finished = false
+        const finish = () => {
+            if (finished) return
+            finished = true
+            if (headerEl && prevHeaderStyles) {
+                headerEl.style.opacity = prevHeaderStyles.opacity
+                headerEl.style.visibility = prevHeaderStyles.visibility
+                headerEl.style.pointerEvents = prevHeaderStyles.pointerEvents
+            }
+            onComplete()
+        }
+
         const tl = gsap.timeline()
 
         // Initial state: dark overlay visible from start, logo hidden
@@ -74,7 +104,7 @@ export default function EntryAnimation({
                     const lRect = logoContainerRef.current.getBoundingClientRect();
                     if (lRect.width <= 0 || lRect.height <= 0) {
                         if (onMergeStart) onMergeStart();
-                        onComplete();
+                        finish();
                         return;
                     }
                     const dx = hRect.left - lRect.left;
@@ -101,7 +131,7 @@ export default function EntryAnimation({
                                 filter: 'blur(0px)',
                                 duration: 0.15 
                             });
-                            onComplete(); // Finish the sequence
+                            finish(); // Finish the sequence
                         }
                     });
 
@@ -121,12 +151,18 @@ export default function EntryAnimation({
                 } else {
                     // Fallback if header logo not found
                     if (onMergeStart) onMergeStart();
-                    onComplete();
+                    finish();
                 }
             }, undefined, LOGO_FADE_DURATION + 0.5)
 
         return () => {
             tl.kill()
+            // Ensure header isn't left hidden if the animation is interrupted
+            if (headerEl && prevHeaderStyles) {
+                headerEl.style.opacity = prevHeaderStyles.opacity
+                headerEl.style.visibility = prevHeaderStyles.visibility
+                headerEl.style.pointerEvents = prevHeaderStyles.pointerEvents
+            }
         }
     }, [onComplete, onReadyToReveal, onMergeStart])
 

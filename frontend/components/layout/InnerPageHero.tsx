@@ -23,36 +23,39 @@ export default function InnerPageHero({
     accentLine,
 }: InnerPageHeroProps) {
     const prefersReducedMotion = useReducedMotion()
+    const shouldRenderBreadcrumbs = breadcrumbs.length > 0
 
     return (
         <section className={styles.hero}>
             <div className={styles.container}>
                 {/* Breadcrumbs */}
-                <motion.nav
-                    className={styles.breadcrumbs}
-                    aria-label="Breadcrumb"
-                    initial={prefersReducedMotion ? false : { opacity: 0, y: -6 }}
-                    animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, ease: 'easeOut' }}
-                >
-                    <ol role="list">
-                        <li>
-                            <Link href="/">Home</Link>
-                        </li>
-                        {breadcrumbs.map((crumb, i) => (
-                            <li key={i}>
-                                <span className={styles.separator} aria-hidden="true">
-                                    /
-                                </span>
-                                {crumb.href ? (
-                                    <Link href={crumb.href}>{crumb.label}</Link>
-                                ) : (
-                                    <span className={styles.current}>{crumb.label}</span>
-                                )}
+                {shouldRenderBreadcrumbs && (
+                    <motion.nav
+                        className={styles.breadcrumbs}
+                        aria-label="Breadcrumb"
+                        initial={prefersReducedMotion ? false : { opacity: 0, y: -6 }}
+                        animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, ease: 'easeOut' }}
+                    >
+                        <ol role="list">
+                            <li>
+                                <Link href="/">Home</Link>
                             </li>
-                        ))}
-                    </ol>
-                </motion.nav>
+                            {breadcrumbs.map((crumb, i) => (
+                                <li key={i}>
+                                    <span className={styles.separator} aria-hidden="true">
+                                        /
+                                    </span>
+                                    {crumb.href ? (
+                                        <Link href={crumb.href}>{crumb.label}</Link>
+                                    ) : (
+                                        <span className={styles.current}>{crumb.label}</span>
+                                    )}
+                                </li>
+                            ))}
+                        </ol>
+                    </motion.nav>
+                )}
 
                 {/* Content */}
                 <motion.div

@@ -56,7 +56,7 @@ export default function PressPage() {
       <InnerPageHero
         title="Press & Media"
         subtitle="Official announcements, media coverage, and press resources. Find press releases, company facts, and materials for journalists and partners."
-        breadcrumbs={[{ label: 'Company', href: '/about' }, { label: 'Press' }]}
+        breadcrumbs={[]}
       />
 
       <main className={styles.main}>

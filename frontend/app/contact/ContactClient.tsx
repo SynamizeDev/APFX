@@ -38,7 +38,7 @@ export default function ContactPage() {
                 title="Talk to a Team"
                 accentLine="That Understands Your Flow"
                 subtitle="Whether you need help with onboarding, execution routing, or institutional-grade liquidity, our desks and support teams are available 24/5."
-                breadcrumbs={[{ label: 'Contact' }]}
+                breadcrumbs={[]}
             />
 
             <main className={styles.main}>

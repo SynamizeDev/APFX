@@ -104,7 +104,7 @@ export default function PartnersPage() {
       <InnerPageHero
         title="Become Our Partner"
         subtitle="Earn commissions by referring traders and promoting our platform. Join affiliates, introducing brokers, content creators, and business partners who grow with us."
-        breadcrumbs={[{ label: 'Become a Partner' }]}
+        breadcrumbs={[]}
       />
 
       <main className={styles.main}>

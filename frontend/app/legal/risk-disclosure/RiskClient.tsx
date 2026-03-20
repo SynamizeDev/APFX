@@ -36,10 +36,7 @@ export default function RiskPage() {
                 title="Risk"
                 accentLine="Disclosure"
                 subtitle="Trading in financial markets involves a substantial risk of loss and is not suitable for all investors."
-                breadcrumbs={[
-                    { label: 'Legal', href: '/legal' },
-                    { label: 'Risk Disclosure' },
-                ]}
+                breadcrumbs={[]}
             />
 
             <main className={styles.main}>

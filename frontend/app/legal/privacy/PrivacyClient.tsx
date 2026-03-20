@@ -36,10 +36,7 @@ export default function PrivacyPage() {
                 title="Privacy"
                 accentLine="Policy"
                 subtitle="Your privacy is fundamental to how we operate. This policy explains how APFX collects, uses, and safeguards your personal information across our global operations."
-                breadcrumbs={[
-                    { label: 'Legal', href: '/legal' },
-                    { label: 'Privacy Policy' },
-                ]}
+                breadcrumbs={[]}
             />
 
             <main className={styles.main}>
