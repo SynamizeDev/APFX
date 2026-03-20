@@ -225,28 +225,26 @@ function MarketRow({ inst, liveData }: { inst: Instrument, liveData: MarketQuote
     const changePositive = liveData && liveData.up !== undefined ? liveData.up : inst.changePositive
 
     return (
-        <motion.div
-            key={inst.symbol}
-            className={`${styles.tableRow} ${flashClass}`}
-            variants={rowVariants}
-        >
-            <div className={styles.tdSymbol}>
+        <motion.tr className={`${styles.tableRow} ${flashClass}`} variants={rowVariants}>
+            <td className={styles.tdSymbol}>
                 <span className={styles.symbolName}>{inst.symbol}</span>
                 <span className={styles.symbolCode}>{inst.code}</span>
-            </div>
-            <span className={styles.tdNum}>{bid}</span>
-            <span className={styles.tdNum}>{high}</span>
-            <span className={styles.tdNum}>{low}</span>
-            <span className={`${styles.tdNum} ${changePositive ? styles.changeUp : styles.changeDown}`}>
+            </td>
+            <td className={styles.tdNum}>{bid}</td>
+            <td className={styles.tdNum}>{high}</td>
+            <td className={styles.tdNum}>{low}</td>
+            <td className={`${styles.tdNum} ${changePositive ? styles.changeUp : styles.changeDown}`}>
                 {change}
-            </span>
-            <div className={styles.tdTrend}>
+            </td>
+            <td className={styles.tdTrend}>
                 <Sparkline data={inst.trend} positive={changePositive} />
-            </div>
-            <Link href="https://portal.apfx.com/register" className={styles.tradeBtn}>
-                Trade now
-            </Link>
-        </motion.div>
+            </td>
+            <td className={styles.thAction}>
+                <Link href="https://portal.apfx.com/register" className={styles.tradeBtn}>
+                    Trade now
+                </Link>
+            </td>
+        </motion.tr>
     )
 }
 
@@ -344,30 +342,42 @@ export default function MarketsSection() {
 
                     {/* ── Right: Instruments Table ────────────────────── */}
                     <div className={styles.tableWrap}>
-                        <div className={styles.tableHeader}>
-                            <span className={styles.thSymbol}>Symbol</span>
-                            <span className={styles.thNum}>Bid</span>
-                            <span className={styles.thNum}>High</span>
-                            <span className={styles.thNum}>Low</span>
-                            <span className={styles.thNum}>Daily Change</span>
-                            <span className={styles.thTrend}>Trend</span>
-                            <span className={styles.thAction}></span>
-                        </div>
+                        <table className={styles.table}>
+                            <colgroup>
+                                <col style={{ width: '22%' }} />
+                                <col style={{ width: '12%' }} />
+                                <col style={{ width: '11%' }} />
+                                <col style={{ width: '11%' }} />
+                                <col style={{ width: '14%' }} />
+                                <col style={{ width: '19%' }} />
+                                <col style={{ width: '11%' }} />
+                            </colgroup>
+                            <thead>
+                                <tr className={styles.tableHeader}>
+                                    <th className={styles.thSymbol}>Symbol</th>
+                                    <th className={styles.thNum}>Bid</th>
+                                    <th className={styles.thNum}>High</th>
+                                    <th className={styles.thNum}>Low</th>
+                                    <th className={styles.thNum}>Daily Change</th>
+                                    <th className={styles.thTrend}>Trend</th>
+                                    <th className={styles.thAction}></th>
+                                </tr>
+                            </thead>
 
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeCategory}
-                                className={styles.tableBody}
-                                variants={tableVariants}
-                                initial="hidden"
-                                animate="visible"
-                                exit="exit"
-                            >
-                                {instruments.map((inst) => {
-                                    return <MarketRow key={inst.symbol} inst={inst} liveData={marketData[inst.symbol]} />;
-                                })}
-                            </motion.div>
-                        </AnimatePresence>
+                            <AnimatePresence mode="wait">
+                                <motion.tbody
+                                    key={activeCategory}
+                                    variants={tableVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="exit"
+                                >
+                                    {instruments.map((inst) => {
+                                        return <MarketRow key={inst.symbol} inst={inst} liveData={marketData[inst.symbol]} />;
+                                    })}
+                                </motion.tbody>
+                            </AnimatePresence>
+                        </table>
                     </div>
                 </div>
 
