@@ -70,9 +70,9 @@ function getCrumbs(pathnameRaw: string): Crumb[] {
     }
 
     // ── Trade & Invest ──────────────────────────────────────────
-    if (root === 'products') {
-        crumbs.push({ label: 'Trade & Invest', href: '/products/stocks' })
-
+    if (root === 'products' || root === 'trade&invest') {
+        // Public UI route is `/trade&invest/*`; internal pages live under `/products/*`.
+        crumbs.push({ label: 'Trade & Invest', href: '/trade&invest' })
         const category = segments[1]
         const categoryLabel = category ? productsMap[category] ?? titleize(category) : ''
         if (categoryLabel) crumbs.push({ label: categoryLabel })
@@ -95,7 +95,7 @@ function getCrumbs(pathnameRaw: string): Crumb[] {
             if (segments[2]) crumbs.push({ label: 'Detail' })
         }
     } else if (root === 'markets') {
-        crumbs.push({ label: 'Trade & Invest', href: '/products/stocks' })
+        crumbs.push({ label: 'Trade & Invest', href: '/trade&invest' })
         crumbs.push({ label: 'Markets' })
     }
 
@@ -124,10 +124,13 @@ function getCrumbs(pathnameRaw: string): Crumb[] {
 
     // ── Learn ───────────────────────────────────────────────────
     else if (root === 'academy' || root === 'learn') {
-        // UI request: treat Learn pages as part of Company navigation.
-        crumbs.push({ label: 'Company', href: '/company' })
+        // User-facing URL is `/learn/*`, so breadcrumbs should reflect that.
+        // Keep `/academy/*` mapping compatible with older labels.
+        const learnCrumbLabel = root === 'learn' ? 'Learn' : 'Company'
+        const learnCrumbHref = root === 'learn' ? '/learn' : '/company'
+        crumbs.push({ label: learnCrumbLabel, href: learnCrumbHref })
         const sub = segments[1]
-        if (!sub) crumbs.push({ label: 'Company' })
+        if (!sub) crumbs.push({ label: learnCrumbLabel })
         else if (sub === 'blog') {
             crumbs.push({ label: 'Blog' })
             if (segments[2]) crumbs.push({ label: 'Article' })
