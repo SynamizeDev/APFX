@@ -64,6 +64,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
     const [scrolled, setScrolled] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+    const [mobileExpandedDropdown, setMobileExpandedDropdown] = useState<string | null>(null)
     const pathname = usePathname()
     const headerRef = useRef<HTMLElement>(null)
     const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -99,6 +100,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
     useEffect(() => {
         setMenuOpen(false)
         setActiveDropdown(null)
+        setMobileExpandedDropdown(null)
     }, [pathname])
 
     // ── Click outside to close dropdown ─────────────────────────
@@ -116,6 +118,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
     const closeMenu = () => {
         setMenuOpen(false)
         setActiveDropdown(null)
+        setMobileExpandedDropdown(null)
     }
 
     const handleMouseEnter = (label: string) => {
@@ -273,11 +276,65 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                 >
                     <X size={20} aria-hidden="true" />
                 </button>
-                {NAV_LINKS.map((link) => (
-                    <Link key={link.href} href={link.href} onClick={closeMenu}>
-                        {link.label}
-                    </Link>
-                ))}
+                {NAV_LINKS.map((link) => {
+                    const mobileColumns = MEGA_MENU_DATA[link.label as keyof typeof MEGA_MENU_DATA] ?? []
+                    const mobileSubLinks = mobileColumns.flatMap((col) => col.links)
+                    const isExpanded = mobileExpandedDropdown === link.label
+                    const submenuId = `mobile-submenu-${link.label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+
+                    if (!link.hasMegaMenu || mobileSubLinks.length === 0) {
+                        return (
+                            <Link key={link.href} href={link.href} onClick={closeMenu}>
+                                {link.label}
+                            </Link>
+                        )
+                    }
+
+                    return (
+                        <div key={link.href} className={styles.mobileMenuGroup}>
+                            <button
+                                type="button"
+                                className={styles.mobileMenuTrigger}
+                                onClick={() =>
+                                    setMobileExpandedDropdown((prev) =>
+                                        prev === link.label ? null : link.label
+                                    )
+                                }
+                                aria-expanded={isExpanded}
+                                aria-controls={submenuId}
+                            >
+                                <span>{link.label}</span>
+                                <ChevronDown
+                                    size={18}
+                                    className={`${styles.mobileChevron} ${isExpanded ? styles.mobileChevronOpen : ''}`}
+                                    aria-hidden="true"
+                                />
+                            </button>
+
+                            <AnimatePresence initial={false}>
+                                {isExpanded && (
+                                    <motion.div
+                                        id={submenuId}
+                                        className={styles.mobileSubmenu}
+                                        initial={{ height: 0, opacity: 0, y: -8 }}
+                                        animate={{ height: 'auto', opacity: 1, y: 0 }}
+                                        exit={{ height: 0, opacity: 0, y: -8 }}
+                                        transition={{
+                                            duration: 0.32,
+                                            ease: [0.22, 1, 0.36, 1],
+                                        }}
+                                    >
+                                        {mobileSubLinks.map((subLink) => (
+                                            <Link key={subLink.href} href={subLink.href} onClick={closeMenu}>
+                                                {subLink.label}
+                                            </Link>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+                    )
+                })}
             </nav>
         </>
     )
