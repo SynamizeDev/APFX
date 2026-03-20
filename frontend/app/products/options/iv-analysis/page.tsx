@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Header from '@/components/layout/Header';
 import BottomBar from '@/components/layout/BottomBar';
 import { FODisclaimer } from '@/components/sections/options';
 import styles from './page.module.css';
@@ -9,7 +8,6 @@ import styles from './page.module.css';
 export default function IVAnalysisPage() {
     return (
         <>
-            <Header />
             <main className={styles.container}>
                 <div className="container" style={{ position: 'relative', zIndex: 2 }}>
                     <header className={styles.header}>

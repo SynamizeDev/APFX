@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Header from '@/components/layout/Header';
 import BottomBar from '@/components/layout/BottomBar';
 import { FODisclaimer } from '@/components/sections/options';
 import type { StrategyLeg } from '@/lib/options/types';
@@ -54,7 +53,6 @@ export default function StrategyBuilderPage() {
 
     return (
         <>
-            <Header />
             <main className={styles.container}>
                 <div className="container" style={{ position: 'relative', zIndex: 2 }}>
                     <header className={styles.header}>

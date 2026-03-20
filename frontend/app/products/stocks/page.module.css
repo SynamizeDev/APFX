@@ -1,5 +1,6 @@
 .container {
-    padding-top: 120px;
+    /* Root layout already offsets for the fixed header */
+    padding-top: 0px;
     padding-bottom: 80px;
     min-height: 100vh;
     background: var(--color-bg);

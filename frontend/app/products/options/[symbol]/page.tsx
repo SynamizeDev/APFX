@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import Header from '@/components/layout/Header';
 import BottomBar from '@/components/layout/BottomBar';
 import { FODisclaimer, OptionsChainTable } from '@/components/sections/options';
 import MarketChart from '@/components/ui/MarketChart';
@@ -45,7 +44,6 @@ export default function OptionsChainPage() {
 
     return (
         <>
-            <Header />
             <main className={styles.container}>
                 <div className="container" style={{ position: 'relative', zIndex: 2 }}>
                     <header className={styles.header}>

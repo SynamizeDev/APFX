@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { motion, AnimatePresence, Variants } from 'framer-motion'
 import EntryAnimation from '@/components/sections/EntryAnimation'
-import Header from '@/components/layout/Header'
 
 /* =========================================================
    Dynamic Imports — SEO-safe & performance-aware
@@ -79,20 +78,14 @@ const pageFade: Variants = {
 export default function HomePage() {
   const [showAnimation, setShowAnimation] = useState(true)
   const [ready, setReady] = useState(false)
-  const [hideHeaderLogo, setHideHeaderLogo] = useState(true)
 
   const handleReadyToReveal = () => {
     setReady(true)
   }
 
-  const handleMergeStart = () => {
-    setHideHeaderLogo(false)
-  }
-
   const handleAnimationComplete = () => {
     setShowAnimation(false)
     if (!ready) setReady(true) // Fallback just in case
-    setHideHeaderLogo(false) // Final safety
   }
 
   return (
@@ -103,7 +96,6 @@ export default function HomePage() {
           <EntryAnimation 
             onComplete={handleAnimationComplete} 
             onReadyToReveal={handleReadyToReveal}
-            onMergeStart={handleMergeStart}
           />
         )}
       </AnimatePresence>
@@ -111,7 +103,6 @@ export default function HomePage() {
       {/* ── Main Experience ───────────────────────────── */}
       {ready && (
         <>
-          <Header hideLogo={hideHeaderLogo} />
           <motion.div
             initial="hidden"
             animate="visible"

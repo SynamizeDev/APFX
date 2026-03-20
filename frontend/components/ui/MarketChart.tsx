@@ -20,6 +20,9 @@ export default function MarketChart({ symbol, timeframe = '1D' }: MarketChartPro
     useEffect(() => {
         if (!chartContainerRef.current) return;
 
+        let isCancelled = false;
+        const controller = new AbortController();
+
         // Initialize chart
         const chart = createChart(chartContainerRef.current, {
             layout: {
@@ -64,14 +67,20 @@ export default function MarketChart({ symbol, timeframe = '1D' }: MarketChartPro
 
         // Fetch historical OHLC data
         const fetchData = async () => {
-            setLoading(true);
-            setError(null);
+            if (!isCancelled) {
+                setLoading(true);
+                setError(null);
+            }
             try {
-                const res = await fetch(`/api/candles?symbol=${encodeURIComponent(symbol)}&timeframe=${encodeURIComponent(timeframe)}`);
+                const res = await fetch(
+                    `/api/candles?symbol=${encodeURIComponent(symbol)}&timeframe=${encodeURIComponent(timeframe)}`,
+                    { signal: controller.signal }
+                );
                 if (!res.ok) throw new Error('Failed to fetch data');
                 const json = await res.json();
                 
                 if (json.data && json.data.length > 0) {
+                    if (isCancelled) return;
                     candlestickSeries.setData(json.data);
                     chart.timeScale().fitContent();
                     
@@ -90,19 +99,24 @@ export default function MarketChart({ symbol, timeframe = '1D' }: MarketChartPro
                         },
                     });
                 } else {
-                    setError('No historical data available.');
+                    if (!isCancelled) setError('No historical data available.');
                 }
             } catch (err: any) {
+                if (isCancelled) return;
+                // AbortError is expected during unmount/navigation.
+                if (err?.name === 'AbortError') return;
                 console.error("Failed to fetch candle data", err);
                 setError(err.message || 'Error loading chart.');
             } finally {
-                setLoading(false);
+                if (!isCancelled) setLoading(false);
             }
         };
 
         fetchData();
 
         return () => {
+            isCancelled = true;
+            controller.abort();
             window.removeEventListener('resize', handleResize);
             chart.remove();
         };

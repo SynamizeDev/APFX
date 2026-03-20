@@ -7,7 +7,6 @@ import { fetchMarketData, MarketQuote, DEFAULT_SYMBOLS } from '@/services/market
 import LivePriceWidget from '@/components/ui/LivePriceWidget'
 import MarketChart from '@/components/ui/MarketChart'
 import styles from './page.module.css'
-import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 
@@ -197,7 +196,6 @@ function MarketsContent() {
 export default function MarketsDashboardPage() {
     return (
         <>
-            <Header />
             <Suspense fallback={<div className={styles.loading}>Loading Dashboard...</div>}>
                 <MarketsContent />
             </Suspense>
