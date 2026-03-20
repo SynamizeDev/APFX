@@ -39,3 +39,14 @@
 .rotatingLine .accent {
     color: var(--color-accent);
 }
+
+@media (max-width: 640px) {
+    .heading {
+        font-size: clamp(0.95rem, 3.8vw, 1.35rem);
+        margin-bottom: 0.6rem;
+    }
+
+    .rotatingLine {
+        font-size: clamp(0.72rem, 2.1vw, 0.9rem);
+    }
+}

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Logo from '@/components/ui/Logo'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './Header.module.css'
 import { usePathname } from 'next/navigation'
@@ -140,6 +140,19 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                 role="banner"
             >
                 <div className={styles.inner}>
+                    {/* ── Hamburger (mobile/tablet only) ───────────────── */}
+                    <button
+                        className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
+                        onClick={() => setMenuOpen((v) => !v)}
+                        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+                        aria-expanded={menuOpen}
+                        aria-controls="mobile-menu"
+                        type="button"
+                    >
+                        <span aria-hidden="true" />
+                        <span aria-hidden="true" />
+                        <span aria-hidden="true" />
+                    </button>
 
                     {/* ── Logo ──────────────────────────────────────────── */}
                     <Link 
@@ -241,19 +254,6 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                         <Link href="https://portal.apfx.com/register" className={styles.btnCta}>
                             Open Account
                         </Link>
-
-                        {/* Hamburger */}
-                        <button
-                            className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
-                            onClick={() => setMenuOpen((v) => !v)}
-                            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-                            aria-expanded={menuOpen}
-                            aria-controls="mobile-menu"
-                        >
-                            <span aria-hidden="true" />
-                            <span aria-hidden="true" />
-                            <span aria-hidden="true" />
-                        </button>
                     </div>
                 </div>
             </header>
@@ -265,14 +265,19 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                 aria-label="Mobile navigation"
                 aria-hidden={!menuOpen}
             >
+                <button
+                    type="button"
+                    className={styles.mobileClose}
+                    onClick={closeMenu}
+                    aria-label="Close menu"
+                >
+                    <X size={20} aria-hidden="true" />
+                </button>
                 {NAV_LINKS.map((link) => (
                     <Link key={link.href} href={link.href} onClick={closeMenu}>
                         {link.label}
                     </Link>
                 ))}
-                <Link href="https://portal.apfx.com/register" className={styles.mobileCta} onClick={closeMenu}>
-                    Open Account
-                </Link>
             </nav>
         </>
     )

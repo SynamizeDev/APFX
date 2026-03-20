@@ -49,15 +49,37 @@
 
 @media (max-width: 640px) {
     .grid {
-        grid-template-columns: 1fr;
+        /* Keep values in a single row: "0 0 0" */
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+        max-width: 100%;
+        padding-inline: 0;
+        margin-inline: 0;
     }
 
     .item {
-        border-inline: none;
-        border-block-start: 1px solid var(--color-border);
+        /* Occupy full width within the grid columns */
+        padding: 0.75rem 0.5rem;
+        border-block-start: none;
+        border-inline-end: 1px solid var(--color-border);
     }
 
     .item:first-child {
-        border-block-start: none;
+        padding-left: 0;
+    }
+
+    .item:last-child {
+        border-inline-end: none;
+        padding-right: 0;
+    }
+
+    .value {
+        font-size: clamp(1.2rem, 3.6vw, 1.65rem);
+        margin-bottom: 0.15rem;
+    }
+
+    .label {
+        font-size: 0.7rem;
+        line-height: 1.25;
     }
 }

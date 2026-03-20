@@ -82,7 +82,9 @@ export default function HeroSection() {
                         <span className={styles.accentLine}>With Absolute Precision</span>
                     </h1>
                     <InvestWithAPFX embedded />
-                    <ZeroFeesBlock embedded />
+                    <div className={styles.zeroFeesDesktop}>
+                        <ZeroFeesBlock embedded />
+                    </div>
                 </div>
                 <div ref={mockupRef} className={styles.mockupWrap} aria-hidden="true">
                     <img
@@ -90,6 +92,9 @@ export default function HeroSection() {
                         alt=""
                         className={styles.heroMockup}
                     />
+                </div>
+                <div className={styles.zeroFeesMobile}>
+                    <ZeroFeesBlock embedded />
                 </div>
             </div>
 
