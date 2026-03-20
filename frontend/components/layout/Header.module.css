@@ -296,6 +296,7 @@
     align-items: center;
     gap: 0.4rem;
     padding: 0.55rem 1.35rem;
+    white-space: nowrap;
     border-radius: var(--radius-full);
     background: var(--color-accent);
     color: #000;
@@ -510,5 +511,34 @@
         margin-top: 1.25rem;
         padding: 0.8rem 2rem;
         font-size: var(--text-base) !important;
+    }
+}
+
+/* Ultra-small phones (e.g. 344px width) */
+@media (max-width: 380px) {
+    .inner {
+        gap: 0.55rem;
+    }
+
+    .logo {
+        gap: 0.5rem;
+    }
+
+    .logoWordmark {
+        font-size: 1.45rem;
+    }
+
+    /* Keep CTA visible without clipping */
+    .actions {
+        gap: 0.25rem;
+    }
+
+    .btnLogin {
+        display: none;
+    }
+
+    .btnCta {
+        font-size: 0.72rem !important;
+        padding: 0.34rem 0.72rem;
     }
 }

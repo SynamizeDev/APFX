@@ -301,8 +301,35 @@
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     .grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 1rem;
+        padding-bottom: 0.45rem;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .grid::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .grid::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .grid::-webkit-scrollbar-thumb {
+        background: var(--color-border-2);
+        border-radius: var(--radius-full);
+    }
+
+    .card {
+        flex: 0 0 92%;
+        min-width: 92%;
+        min-height: 380px;
+        scroll-snap-align: start;
     }
 }

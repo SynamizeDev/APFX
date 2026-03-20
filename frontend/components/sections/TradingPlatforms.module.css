@@ -157,8 +157,75 @@
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+    .inner {
+        padding-inline: max(14px, var(--container-px));
+    }
+
+    .content {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .title {
+        font-size: clamp(2rem, 9vw, 2.35rem);
+        line-height: 1.12;
+        max-width: 100%;
+    }
+
+    .desc {
+        max-width: 100%;
+    }
+
+    .visual {
+        display: none;
+    }
+
     .platformsGrid {
-        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 1rem;
+        padding-bottom: 0.45rem;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .platformsGrid::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .platformsGrid::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .platformsGrid::-webkit-scrollbar-thumb {
+        background: var(--color-border-2);
+        border-radius: var(--radius-full);
+    }
+
+    .platformItem {
+        flex: 0 0 92%;
+        min-width: 92%;
+        height: 220px;
+        scroll-snap-align: start;
+        justify-content: flex-start;
+    }
+
+    .platformName {
+        min-height: 2.4em; /* reserve 2 title lines for consistency */
+        margin-bottom: 0.65rem;
+        line-height: 1.2;
+    }
+
+    .platformDesc {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        line-clamp: 3;
+        overflow: hidden;
     }
 }
