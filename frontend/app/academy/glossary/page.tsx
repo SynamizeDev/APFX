@@ -242,8 +242,8 @@ export default function GlossaryPage() {
           <p className={styles.ctaSubtitle}>
             Explore guides, try our calculators, and open an account to put your knowledge into practice.
           </p>
-          <div className={styles.ctaButtons}>
-            <Link href="/academy/blog" className={styles.ctaBtnPrimary}>Explore Trading Guides</Link>
+            <div className={styles.ctaButtons}>
+            <Link href="/learn/blog" className={styles.ctaBtnPrimary}>Explore Trading Guides</Link>
             <Link href="/tools/calculators" className={styles.ctaBtnSecondary}>Try Our Trading Calculators</Link>
             <Link href="/register" className={styles.ctaBtnSecondary}>Start Trading</Link>
           </div>

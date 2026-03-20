@@ -223,7 +223,7 @@ export default function AboutUsPage() {
             <div className={styles.ctaButtons}>
               <Link href="/register" className={styles.ctaBtnPrimary}>Start Trading</Link>
               <Link href="/tools/calculators" className={styles.ctaBtnSecondary}>Explore Our Tools</Link>
-              <Link href="/academy/blog" className={styles.ctaBtnSecondary}>Learn More</Link>
+              <Link href="/learn/blog" className={styles.ctaBtnSecondary}>Learn More</Link>
             </div>
           </div>
         </section>

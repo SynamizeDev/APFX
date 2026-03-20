@@ -33,6 +33,20 @@ const nextConfig: NextConfig = {
     ]
   },
 
+  // ── Route aliases for top navigation ──────────────────────────
+  // The UI label is "Trade & Invest", but the underlying pages live under
+  // /products. These rewrites let URLs match the label.
+  async rewrites() {
+    return [
+      { source: '/trade&invest', destination: '/products' },
+      { source: '/trade&invest/:path*', destination: '/products/:path*' },
+      { source: '/company', destination: '/about' },
+      { source: '/company/:path*', destination: '/about/:path*' },
+      { source: '/learn', destination: '/academy' },
+      { source: '/learn/:path*', destination: '/academy/:path*' },
+    ]
+  },
+
   // ── Experimental ─────────────────────────────────────────────
   experimental: {
     optimizeCss: false,

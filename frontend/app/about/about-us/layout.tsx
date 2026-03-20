@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'About Us',
+  title: 'Company',
   description:
     'Learn about our mission, values, and what we offer. We empower traders and investors with professional tools, market insights, and education.',
 }

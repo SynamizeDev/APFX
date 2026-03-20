@@ -109,12 +109,12 @@ export default function BlogPage() {
                     <time dateTime={a.date}>{formatDate(a.date)}</time>
                   </div>
                   <h2>
-                    <Link href={`/academy/blog/${a.slug}`} className={styles.featuredLink}>
+                    <Link href={`/learn/blog/${a.slug}`} className={styles.featuredLink}>
                       {a.title}
                     </Link>
                   </h2>
                   <p>{a.description}</p>
-                  <Link href={`/academy/blog/${a.slug}`} className={styles.featuredLink}>
+                  <Link href={`/learn/blog/${a.slug}`} className={styles.featuredLink}>
                     Read More →
                   </Link>
                 </div>
@@ -150,11 +150,11 @@ export default function BlogPage() {
                   <div className={styles.articleBody}>
                     <span className={styles.categoryTag}>{CATEGORIES.find((c) => c.id === a.category)?.label ?? a.category}</span>
                     <h3>
-                      <Link href={`/academy/blog/${a.slug}`}>{a.title}</Link>
+                      <Link href={`/learn/blog/${a.slug}`}>{a.title}</Link>
                     </h3>
                     <p className={styles.articleSummary}>{a.description}</p>
                     <p className={styles.articleMeta}>{a.readTime} · {formatDate(a.date)}</p>
-                    <Link href={`/academy/blog/${a.slug}`} className={styles.articleLink}>
+                    <Link href={`/learn/blog/${a.slug}`} className={styles.articleLink}>
                       Read Article →
                     </Link>
                   </div>
@@ -173,10 +173,10 @@ export default function BlogPage() {
               <div key={g.slug} className={styles.guideCard}>
                 <span className={styles.guideBadge}>Guide</span>
                 <h3>
-                  <Link href={`/academy/blog/${g.slug}`}>{g.title}</Link>
+                  <Link href={`/learn/blog/${g.slug}`}>{g.title}</Link>
                 </h3>
                 <p className={styles.guideDesc}>{g.description}</p>
-                <Link href={`/academy/blog/${g.slug}`} className={styles.guideLink}>
+                <Link href={`/learn/blog/${g.slug}`} className={styles.guideLink}>
                   Read Guide →
                 </Link>
               </div>
@@ -193,7 +193,7 @@ export default function BlogPage() {
               {MARKET_INSIGHTS.map((i) => (
                 <div key={i.slug} className={styles.insightCard}>
                   <h4>
-                    <Link href={`/academy/blog/${i.slug}`}>{i.title}</Link>
+                    <Link href={`/learn/blog/${i.slug}`}>{i.title}</Link>
                   </h4>
                   <p>{i.description}</p>
                 </div>
@@ -206,7 +206,7 @@ export default function BlogPage() {
             <ul className={styles.popularList}>
               {POPULAR.map((p) => (
                 <li key={p.slug}>
-                  <Link href={`/academy/blog/${p.slug}`}>{p.title}</Link>
+                  <Link href={`/learn/blog/${p.slug}`}>{p.title}</Link>
                 </li>
               ))}
             </ul>

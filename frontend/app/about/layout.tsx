@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'About APFX — Pioneering Institutional Trading',
+    title: 'Company — Pioneering Institutional Trading',
     description:
         'Discover the mission, technology, and global infrastructure behind APFX. We are dedicated to providing traders with institutional-grade liquidity and advanced trading tools.',
 }

@@ -21,9 +21,9 @@ const FOOTER_LINKS = {
         { label: 'Copy Trading', href: '/platforms/copy-trading' },
     ],
     Company: [
-        { label: 'About APFX', href: '/about' },
-        { label: 'Regulation', href: '/about/regulation' },
-        { label: 'Careers', href: '/about/careers' },
+        { label: 'About APFX', href: '/company' },
+        { label: 'Regulation', href: '/company/regulation' },
+        { label: 'Careers', href: '/company/careers' },
         { label: 'News', href: '/news' },
         { label: 'Contact', href: '/contact' },
     ],

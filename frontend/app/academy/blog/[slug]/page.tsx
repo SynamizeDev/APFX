@@ -59,7 +59,7 @@ export default function BlogArticlePage() {
 
   return (
     <article className={styles.wrapper}>
-      <Link href="/academy/blog" className={styles.backLink}>
+      <Link href="/learn/blog" className={styles.backLink}>
         ← Back to Blog
       </Link>
       <header className={styles.articleHeader}>

@@ -123,10 +123,11 @@ function getCrumbs(pathnameRaw: string): Crumb[] {
     }
 
     // ── Learn ───────────────────────────────────────────────────
-    else if (root === 'academy') {
-        crumbs.push({ label: 'Learn', href: '/academy' })
+    else if (root === 'academy' || root === 'learn') {
+        // UI request: treat Learn pages as part of Company navigation.
+        crumbs.push({ label: 'Company', href: '/company' })
         const sub = segments[1]
-        if (!sub) crumbs.push({ label: 'Academy' })
+        if (!sub) crumbs.push({ label: 'Company' })
         else if (sub === 'blog') {
             crumbs.push({ label: 'Blog' })
             if (segments[2]) crumbs.push({ label: 'Article' })
@@ -138,17 +139,17 @@ function getCrumbs(pathnameRaw: string): Crumb[] {
     }
 
     // ── Company ─────────────────────────────────────────────────
-    else if (root === 'about') {
-        crumbs.push({ label: 'Company', href: '/about' })
+    else if (root === 'about' || root === 'company') {
+        crumbs.push({ label: 'Company', href: '/company' })
         const sub = segments[1]
-        if (!sub) crumbs.push({ label: 'About APFX' })
+        if (!sub) crumbs.push({ label: 'Company' })
         else if (sub === 'about-us') crumbs.push({ label: 'About Us' })
         else if (sub === 'press') crumbs.push({ label: 'Press' })
         else crumbs.push({ label: titleize(sub) })
     } else if (root === 'partners') {
         crumbs.push({ label: 'Become a Partner', href: '/partners' })
     } else if (root === 'contact') {
-        crumbs.push({ label: 'Company', href: '/about' })
+        crumbs.push({ label: 'Company', href: '/company' })
         crumbs.push({ label: 'Contact' })
     } else if (root === 'accounts') {
         crumbs.push({ label: 'Accounts', href: '/accounts' })

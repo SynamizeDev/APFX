@@ -27,7 +27,7 @@ const FEATURED = [
 const ANNOUNCEMENTS = [
   { title: 'New Risk Management Tools Section Launched', description: 'We’ve added a dedicated suite of risk calculators: risk per trade, risk-reward ratio, drawdown recovery, and more.', date: '2025-03-01', url: '/tools/risk-management' },
   { title: 'Copy Trading Tools and Education Hub', description: 'New resources and calculators for copy trading, plus guides on how to get started.', date: '2025-02-15', url: '/tools/copy-trading' },
-  { title: 'Expanded Educational Content', description: 'New blog series and glossary entries to support traders at every level.', date: '2025-02-01', url: '/academy/blog' },
+  { title: 'Expanded Educational Content', description: 'New blog series and glossary entries to support traders at every level.', date: '2025-02-01', url: '/learn/blog' },
 ]
 
 const RELEASES = [
@@ -191,7 +191,7 @@ export default function PressPage() {
             <p className={styles.ctaSubtitle}>Interested in interviews, collaborations, or more information? Get in touch.</p>
             <div className={styles.ctaButtons}>
               <a href="mailto:press@apfx.com" className={styles.ctaBtnPrimary}>Contact Media Team</a>
-              <Link href="/about/about-us" className={styles.ctaBtnSecondary}>About Us</Link>
+              <Link href="/company/about-us" className={styles.ctaBtnSecondary}>About Us</Link>
               <Link href="/contact" className={styles.ctaBtnSecondary}>General Contact</Link>
             </div>
           </div>

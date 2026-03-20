@@ -12,7 +12,7 @@ const ACADEMY_ITEMS = [
         title: 'Trading\nAcademy',
         desc: 'Learn with APFX Academy for clear, structured lessons. Easy steps to build trading skills. No experience needed.',
         link: 'Explore Courses',
-        href: '/academy'
+        href: '/learn'
     },
     {
         id: 'education',

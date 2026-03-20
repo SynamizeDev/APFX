@@ -6,12 +6,13 @@ import Logo from '@/components/ui/Logo'
 import { ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './Header.module.css'
+import { usePathname } from 'next/navigation'
 
 const NAV_LINKS = [
-    { label: 'Trade & Invest', href: '/products', hasMegaMenu: true },
+    { label: 'Trade & Invest', href: '/trade&invest', hasMegaMenu: true },
     { label: 'Tools', href: '/tools', hasMegaMenu: true },
-    { label: 'Learn', href: '/academy', hasMegaMenu: true },
-    { label: 'Company', href: '/about', hasMegaMenu: true },
+    { label: 'Learn', href: '/learn', hasMegaMenu: true },
+    { label: 'Company', href: '/company', hasMegaMenu: true },
     { label: 'Become a Partner', href: '/partners', hasMegaMenu: false },
 ]
 
@@ -20,12 +21,12 @@ const MEGA_MENU_DATA = {
         {
             title: '',
             links: [
-                { label: 'Stocks', href: '/products/stocks' },
-                { label: 'F&O', href: '/products/options' },
-                { label: 'Mutual Funds', href: '/products/mutual-funds' },
-                { label: 'IPO', href: '/products/ipo' },
-                { label: 'MTF', href: '/products/mtf' },
-                { label: 'Recommendation', href: '/products/recommendation' },
+                { label: 'Stocks', href: '/trade&invest/stocks' },
+                { label: 'F&O', href: '/trade&invest/options' },
+                { label: 'Mutual Funds', href: '/trade&invest/mutual-funds' },
+                { label: 'IPO', href: '/trade&invest/ipo' },
+                { label: 'MTF', href: '/trade&invest/mtf' },
+                { label: 'Recommendation', href: '/trade&invest/recommendation' },
             ],
         },
     ],
@@ -43,8 +44,8 @@ const MEGA_MENU_DATA = {
         {
             title: '',
             links: [
-                { label: 'Blog', href: '/academy/blog' },
-                { label: 'Glossary', href: '/academy/glossary' },
+                { label: 'Blog', href: '/learn/blog' },
+                { label: 'Glossary', href: '/learn/glossary' },
             ],
         },
     ],
@@ -52,8 +53,8 @@ const MEGA_MENU_DATA = {
         {
             title: '',
             links: [
-                { label: 'About Us', href: '/about/about-us' },
-                { label: 'Press', href: '/about/press' },
+                { label: 'About Us', href: '/company/about-us' },
+                { label: 'Press', href: '/company/press' },
             ],
         },
     ],
@@ -63,6 +64,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
     const [scrolled, setScrolled] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+    const pathname = usePathname()
     const headerRef = useRef<HTMLElement>(null)
     const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -90,6 +92,14 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
         window.addEventListener('keydown', onKey)
         return () => window.removeEventListener('keydown', onKey)
     }, [])
+
+    // ── Route change: close any open dropdown/menu ─────────────
+    // Prevents the mega menu from staying open after navigation (e.g. when
+    // clicking Trade & Invest → Stocks).
+    useEffect(() => {
+        setMenuOpen(false)
+        setActiveDropdown(null)
+    }, [pathname])
 
     // ── Click outside to close dropdown ─────────────────────────
     useEffect(() => {

@@ -43,7 +43,7 @@ const UNSORTED_GLOSSARY_ENTRIES: GlossaryEntry[] = [
     category: 'technical',
     relatedTermIds: ['pip'],
     detailedExplanation: 'Candlestick charts are widely used in technical analysis. Each candle represents one time period; the body shows the range between open and close, and the wicks show the high and low. Green (or white) often means close above open; red (or black) means close below open.',
-    blogLinks: [{ label: 'Introduction to Technical Analysis', href: '/academy/blog/technical-analysis-intro' }],
+    blogLinks: [{ label: 'Introduction to Technical Analysis', href: '/learn/blog/technical-analysis-intro' }],
   },
   {
     id: 'bid',
@@ -62,7 +62,7 @@ const UNSORTED_GLOSSARY_ENTRIES: GlossaryEntry[] = [
     category: 'market',
     relatedTermIds: ['leverage', 'margin'],
     detailedExplanation: 'With a CFD, you agree to exchange the difference in the asset’s price between when you open and close the trade. CFDs are leveraged products: you can gain or lose more than your initial deposit. They are popular in Forex and indices trading.',
-    blogLinks: [{ label: 'Beginner\'s Guide to Forex Trading', href: '/academy/blog/beginners-guide-forex' }],
+    blogLinks: [{ label: 'Beginner\'s Guide to Forex Trading', href: '/learn/blog/beginners-guide-forex' }],
   },
   {
     id: 'dividend',
@@ -80,7 +80,7 @@ const UNSORTED_GLOSSARY_ENTRIES: GlossaryEntry[] = [
     relatedTermIds: ['margin', 'risk-reward'],
     detailedExplanation: 'Drawdown measures how much you lose from a previous high. A 20% drawdown means you need a 25% return to get back to the starting balance. Managing drawdown is central to risk management.',
     toolLinks: [{ label: 'Drawdown Recovery Calculator', href: '/tools/risk-management/drawdown-recovery' }, { label: 'Risk Management Tools', href: '/tools/risk-management' }],
-    blogLinks: [{ label: 'Risk Management Strategies', href: '/academy/blog/risk-management-strategies' }],
+    blogLinks: [{ label: 'Risk Management Strategies', href: '/learn/blog/risk-management-strategies' }],
   },
   {
     id: 'leverage',
@@ -91,7 +91,7 @@ const UNSORTED_GLOSSARY_ENTRIES: GlossaryEntry[] = [
     relatedTermIds: ['margin', 'lot'],
     detailedExplanation: 'Leverage allows you to open positions larger than your deposit. For example, 100:1 leverage means you need only 1% of the position size as margin. While this can increase profits, it also increases the risk of losing your capital quickly.',
     toolLinks: [{ label: 'Margin Calculator', href: '/tools/calculators/margin' }, { label: 'Position Size Calculator', href: '/tools/calculators/position-size' }],
-    blogLinks: [{ label: 'Understanding Leverage', href: '/academy/blog/understanding-leverage' }],
+    blogLinks: [{ label: 'Understanding Leverage', href: '/learn/blog/understanding-leverage' }],
   },
   {
     id: 'lot',
@@ -112,7 +112,7 @@ const UNSORTED_GLOSSARY_ENTRIES: GlossaryEntry[] = [
     relatedTermIds: ['leverage', 'margin-call'],
     detailedExplanation: 'Margin is the portion of your account that is “locked” when you open a trade. If your losses approach your margin, you may receive a margin call and need to add funds or close positions. Free margin is the amount left available to open new trades.',
     toolLinks: [{ label: 'Forex Margin Calculator', href: '/tools/calculators/margin' }, { label: 'Risk Per Trade Calculator', href: '/tools/risk-management/risk-per-trade' }],
-    blogLinks: [{ label: 'Understanding Leverage', href: '/academy/blog/understanding-leverage' }],
+    blogLinks: [{ label: 'Understanding Leverage', href: '/learn/blog/understanding-leverage' }],
   },
   {
     id: 'margin-call',
@@ -132,7 +132,7 @@ const UNSORTED_GLOSSARY_ENTRIES: GlossaryEntry[] = [
     relatedTermIds: ['lot', 'spread'],
     detailedExplanation: 'Pip stands for “percentage in point.” It’s the standard unit for measuring change in a currency pair. Pip value depends on lot size and the pair: for a standard lot in EUR/USD, one pip is usually worth about $10.',
     toolLinks: [{ label: 'Pip Calculator', href: '/tools/calculators/pip' }],
-    blogLinks: [{ label: 'How to Use the Pip Calculator', href: '/academy/blog/pip-calculator-guide' }],
+    blogLinks: [{ label: 'How to Use the Pip Calculator', href: '/learn/blog/pip-calculator-guide' }],
   },
   {
     id: 'risk-reward',
@@ -142,7 +142,7 @@ const UNSORTED_GLOSSARY_ENTRIES: GlossaryEntry[] = [
     relatedTermIds: ['stop-loss', 'take-profit'],
     detailedExplanation: 'Risk-reward ratio helps you decide if a trade is worth taking. For example, with 1:2 you can be wrong half the time and still break even. Many traders aim for at least 1:2 by placing take-profit farther than stop-loss.',
     toolLinks: [{ label: 'Risk-Reward Ratio Calculator', href: '/tools/risk-management/risk-reward' }, { label: 'Risk Management Tools', href: '/tools/risk-management' }],
-    blogLinks: [{ label: 'Risk Management Strategies', href: '/academy/blog/risk-management-strategies' }],
+    blogLinks: [{ label: 'Risk Management Strategies', href: '/learn/blog/risk-management-strategies' }],
   },
   {
     id: 'spread',
@@ -163,7 +163,7 @@ const UNSORTED_GLOSSARY_ENTRIES: GlossaryEntry[] = [
     relatedTermIds: ['take-profit', 'risk-reward', 'margin'],
     detailedExplanation: 'A stop loss (SL) is a risk management tool. Once the market reaches your SL price, your trade is closed at the best available price. It helps prevent emotional decisions and limits damage from a single trade.',
     toolLinks: [{ label: 'Position Size Calculator', href: '/tools/calculators/position-size' }, { label: 'Risk Per Trade Calculator', href: '/tools/risk-management/risk-per-trade' }],
-    blogLinks: [{ label: 'How Stop Loss Works', href: '/academy/blog/how-stop-loss-works' }],
+    blogLinks: [{ label: 'How Stop Loss Works', href: '/learn/blog/how-stop-loss-works' }],
   },
   {
     id: 'take-profit',
@@ -174,7 +174,7 @@ const UNSORTED_GLOSSARY_ENTRIES: GlossaryEntry[] = [
     relatedTermIds: ['stop-loss', 'risk-reward'],
     detailedExplanation: 'A take profit (TP) order closes your trade when price reaches your target. Using both stop loss and take profit helps you stick to your plan and avoid closing too early or too late.',
     toolLinks: [{ label: 'Risk-Reward Ratio Calculator', href: '/tools/risk-management/risk-reward' }],
-    blogLinks: [{ label: 'How Stop Loss Works', href: '/academy/blog/how-stop-loss-works' }],
+    blogLinks: [{ label: 'How Stop Loss Works', href: '/learn/blog/how-stop-loss-works' }],
   },
 ]
 
