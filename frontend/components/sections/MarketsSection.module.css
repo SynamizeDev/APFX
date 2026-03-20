@@ -134,6 +134,10 @@
     opacity: 1;
 }
 
+.categoryCard:hover .categoryBg {
+    opacity: 1;
+}
+
 /* Subtle inner glow for active card */
 .categoryCard::after {
     content: '';
@@ -147,6 +151,11 @@
 }
 
 .categoryActive::after {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.categoryCard:hover::after {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15),
         inset 0 -1px 0 rgba(0, 0, 0, 0.2);
 }
@@ -166,6 +175,12 @@
 
 .categoryActive {
     border-color: rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.5),
+        0 0 60px var(--cat-shadow, rgba(232, 144, 68, 0.08));
+}
+
+.categoryCard:hover {
     box-shadow:
         0 12px 40px rgba(0, 0, 0, 0.5),
         0 0 60px var(--cat-shadow, rgba(232, 144, 68, 0.08));
@@ -193,6 +208,11 @@
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
 }
 
+.categoryCard:hover .categoryName {
+    color: #fff;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
 .categoryArrow {
     opacity: 0;
     transform: translateX(-6px);
@@ -202,6 +222,13 @@
 }
 
 .categoryActive .categoryArrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: #fff;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+}
+
+.categoryCard:hover .categoryArrow {
     opacity: 1;
     transform: translateX(0);
     color: #fff;
@@ -225,6 +252,10 @@
     color: rgba(255, 255, 255, 0.75);
 }
 
+.categoryCard:hover .categoryDesc {
+    color: rgba(255, 255, 255, 0.75);
+}
+
 /* Emoji illustration */
 .categoryEmoji {
     position: relative;
@@ -239,6 +270,11 @@
 }
 
 .categoryActive .categoryEmoji {
+    filter: grayscale(0) brightness(1.1) saturate(1.2);
+    transform: scale(1.2) rotate(-3deg);
+}
+
+.categoryCard:hover .categoryEmoji {
     filter: grayscale(0) brightness(1.1) saturate(1.2);
     transform: scale(1.2) rotate(-3deg);
 }

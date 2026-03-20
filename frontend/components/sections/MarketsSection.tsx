@@ -313,14 +313,10 @@ export default function MarketsSection() {
                                 key={cat.id}
                                 className={`${styles.categoryCard} ${activeCategory === cat.id ? styles.categoryActive : ''}`}
                                 onClick={() => setActiveCategory(cat.id)}
-                                style={
-                                    activeCategory === cat.id
-                                        ? {
-                                            '--cat-gradient': cat.gradient,
-                                            '--cat-shadow': cat.shadow,
-                                        } as React.CSSProperties
-                                        : undefined
-                                }
+                                style={{
+                                    '--cat-gradient': cat.gradient,
+                                    '--cat-shadow': cat.shadow,
+                                } as React.CSSProperties}
                             >
                                 {/* Gradient background layer for active card */}
                                 <div className={styles.categoryBg} />
