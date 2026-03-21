@@ -7,23 +7,23 @@ import styles from './TypesOfStocks.module.css'
 const TYPES = [
     {
         icon: Coins,
-        title: 'Large-cap',
-        text: 'Established companies with relative stability and liquidity.',
+        title: 'Blue-Chip & Large-Cap',
+        text: 'Institutional industry leaders with multibillion-dollar valuations, proven resilience, and high-volume liquidity across global sessions.',
     },
     {
         icon: Grid3X3,
-        title: 'Mid-cap',
-        text: 'Companies in a growth phase, balancing growth and risk.',
+        title: 'Mid-Cap Growth',
+        text: 'Agile companies transitioning into market-dominant roles, offering an optimized balance of volatility and expansion potential.',
     },
     {
         icon: TrendingDown,
-        title: 'Small-cap',
-        text: 'Higher growth potential with typically higher volatility.',
+        title: 'Small-Cap & Emerging',
+        text: 'High-alpha opportunities in developing sectors, characterized by accelerated growth trajectories and higher risk-reward asymmetries.',
     },
     {
         icon: BadgeDollarSign,
-        title: 'Dividend-led',
-        text: 'Focus on income potential from companies that distribute dividends.',
+        title: 'Defensive & Income',
+        text: 'Mature corporations focused on shareholder value through consistent yield distributions and stable cash flow generation.',
     },
 ]
 

@@ -78,7 +78,7 @@ export default function PlatformsPage() {
             <InnerPageHero
                 title="Platforms That Scale"
                 accentLine="From Desktop to Mobile"
-                subtitle="Run your trading the way institutional desks do. MT4, MT5, WebTrader, and mobile are all connected to the same low-latency, fibre-backed infrastructure."
+                subtitle="Run your trading the way institutional desks do. Desktop, WebTrader, and mobile are all connected to the same low-latency, fibre-backed infrastructure."
                 breadcrumbs={[]}
             />
 

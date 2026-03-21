@@ -53,6 +53,22 @@
     color: var(--color-accent);
 }
 
+.glowAccent {
+    color: var(--color-accent);
+    text-shadow: 0 0 20px rgba(0, 200, 150, 0.4);
+    position: relative;
+}
+
+.glowAccent::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+}
+
 .subtitle {
     font-size: clamp(1rem, 2vw, 1.25rem);
     color: var(--color-text-2);

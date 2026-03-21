@@ -165,6 +165,13 @@
     --glass-border: rgba(255, 255, 255, 0.06);
     --glass-blur: blur(20px);
 
+    /* Navbar context-aware */
+    --color-nav-bg: transparent;
+    --color-nav-scrolled-bg: #03050A;
+    --color-nav-text: var(--color-text-2);
+    --color-nav-text-active: var(--color-text-1);
+    --color-nav-hover-bg: rgba(255, 255, 255, 0.035);
+
     --section-divider: linear-gradient(90deg,
             transparent,
             rgba(255, 255, 255, 0.06),
@@ -179,6 +186,42 @@
     --section-edge-fade: linear-gradient(to bottom,
             rgba(3, 5, 10, 0.92),
             rgba(3, 5, 10, 0));
+}
+
+/* ============================================================
+     LIGHT MODE OVERRIDES
+     ============================================================ */
+:root.light-mode {
+    --color-bg: #FFFFFF;
+    --color-surface: #F8F9FA;
+    --color-surface-2: #F3F4F6;
+    --color-border: #E5E7EB;
+    --color-border-2: #D1D5DB;
+
+    --color-text-1: #000000;
+    --color-text-2: #333333;
+    --color-text-3: #555555;
+
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(0, 0, 0, 0.08);
+
+    --color-nav-bg: #FFFFFF;
+    --color-nav-scrolled-bg: #FFFFFF;
+    --color-nav-text: #000000;
+    --color-nav-text-active: #000000;
+    --color-nav-hover-bg: #F3F4F6;
+
+    --section-ambient: radial-gradient(ellipse 70% 45% at 50% 0%,
+            rgba(0, 200, 150, 0.08),
+            transparent 70%);
+
+    --section-edge-fade: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0.95),
+            rgba(255, 255, 255, 0));
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 /* ============================================================

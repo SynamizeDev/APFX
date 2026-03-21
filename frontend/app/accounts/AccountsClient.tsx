@@ -157,9 +157,9 @@ export default function AccountsPage() {
                                 <tbody>
                                     <tr>
                                         <td>Trading Platforms</td>
-                                        <td>MT4, MT5, Web</td>
-                                        <td>MT4, MT5, Web</td>
-                                        <td>MT4, MT5, API</td>
+                                        <td>Desktop, Mobile, Web</td>
+                                        <td>Desktop, Mobile, Web</td>
+                                        <td>Desktop, Mobile, API</td>
                                     </tr>
                                     <tr>
                                         <td>Execution Type</td>

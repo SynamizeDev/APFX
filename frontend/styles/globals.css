@@ -45,6 +45,60 @@ body {
 }
 
 /* ============================================================
+      Theme & Preference Overrides
+      ============================================================ */
+
+/* Light Mode — Pure, Sharp, Clinical */
+:root.light-mode {
+    --color-bg: #FFFFFF;
+    --color-surface: #F8F9FA;
+    --color-text-1: #000000;
+    --color-text-2: #333333;
+    --color-text-3: #555555;
+    --color-border: #E5E7EB;
+    --color-border-2: #D1D5DB;
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(0, 0, 0, 0.08);
+}
+
+.light-mode body {
+    background-image: none; /* Pure white canvas */
+}
+
+/* KPI (Focus) Mode */
+:root.kpi-mode {
+    --section-py: 3rem; /* Tighter spacing */
+}
+
+/* Hide decorative elements in KPI mode */
+.kpi-mode .glow,
+.kpi-mode .glow-accent,
+.kpi-mode .noise::after,
+.kpi-mode [class*="orb"],
+.kpi-mode [class*="Glow"],
+.kpi-mode [class*="visual"]::after {
+    display: none !important;
+}
+
+.kpi-mode .card-premium,
+.kpi-mode [class*="Card"] {
+    backdrop-filter: none !important;
+    background: var(--color-surface) !important;
+    box-shadow: none !important;
+    border: 1px solid var(--color-border) !important;
+}
+
+/* Animation Disabling */
+:root.no-animations *,
+:root.no-animations *::before,
+:root.no-animations *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+}
+
+/* ============================================================
       Section Segregation (APFX Signature)
       ============================================================ */
 .apfx-section {
@@ -261,8 +315,8 @@ textarea::placeholder {
 .input-modern {
     width: 100%;
     padding: 1rem 1.25rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     color: var(--color-text-1);
     font-family: inherit;
@@ -279,10 +333,10 @@ textarea::placeholder {
 
 /* Glass Card Premium */
 .card-premium {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--color-surface);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-xl);
     padding: 2.5rem;
     transition: all var(--duration-normal) var(--ease-out);

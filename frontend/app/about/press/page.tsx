@@ -53,11 +53,10 @@ function formatDate(iso: string) {
 export default function PressPage() {
   return (
     <div className={styles.page}>
-      <InnerPageHero
-        title="Press & Media"
-        subtitle="Official announcements, media coverage, and press resources. Find press releases, company facts, and materials for journalists and partners."
-        breadcrumbs={[]}
-      />
+      <header className={styles.hero}>
+        <h1 className={styles.title}>Company Newsroom & Corporate Relations</h1>
+        <p className={styles.subtitle}>The latest corporate announcements, infrastructure updates, and media resources from APFX Global.</p>
+      </header>
 
       <main className={styles.main}>
         {/* Hero CTAs */}
@@ -71,10 +70,10 @@ export default function PressPage() {
         </section>
 
         {/* Featured press */}
-        <section className={styles.section} aria-labelledby="featured-heading">
+        <section className={styles.section} aria-labelledby="news-title">
           <div className={styles.container}>
-            <h2 id="featured-heading" className={styles.sectionTitle}>Featured Press Coverage</h2>
-            <p className={styles.sectionSubtitle}>Recent media mentions and articles about our platform and industry.</p>
+            <h2 id="news-title" className={styles.sectionTitle}>Media Briefs & Institutional Coverage</h2>
+            <p className={styles.sectionSubtitle}>Recent media mentions and industry analysis of our trading infrastructure.</p>
             <div className={styles.featuredGrid}>
               {FEATURED.map((item) => (
                 <article key={item.headline} className={styles.featuredCard}>
@@ -126,10 +125,10 @@ export default function PressPage() {
         </section>
 
         {/* Media assets / Press kit */}
-        <section className={styles.section} id="press-kit" aria-labelledby="assets-heading">
+        <section className={styles.section} id="press-kit" aria-labelledby="assets-title">
           <div className={styles.container}>
-            <h2 id="assets-heading" className={styles.sectionTitle}>Media Assets / Press Kit</h2>
-            <p className={styles.sectionSubtitle}>Download logos, brand guidelines, and images for media use.</p>
+            <h2 id="assets-title" className={styles.sectionTitle}>Corporate Identity & Media Assets</h2>
+            <p className={styles.sectionSubtitle}>Approved visual assets and brand guidelines for institutional and media use.</p>
             <div className={styles.assetsGrid}>
               {ASSETS.map((a) => (
                 <div key={a.label} className={styles.assetCard}>
@@ -144,26 +143,25 @@ export default function PressPage() {
         </section>
 
         {/* Company facts */}
-        <section className={styles.section} aria-labelledby="facts-heading">
+        <section className={styles.section} aria-labelledby="facts-title">
           <div className={styles.container}>
-            <h2 id="facts-heading" className={styles.sectionTitle}>Company Facts</h2>
-            <p className={styles.sectionSubtitle}>Quick reference for journalists and partners.</p>
+            <h2 id="facts-title" className={styles.sectionTitle}>Corporate Fact Sheet</h2>
             <div className={styles.factsGrid}>
-              <div className={styles.factCard}>
-                <p className={styles.factLabel}>Year founded</p>
-                <p className={styles.factValue}>2012</p>
-              </div>
               <div className={styles.factCard}>
                 <p className={styles.factLabel}>Headquarters</p>
                 <p className={styles.factValue}>London, United Kingdom</p>
               </div>
               <div className={styles.factCard}>
-                <p className={styles.factLabel}>Industry focus</p>
-                <p className={styles.factValue}>Forex, CFD trading, investment tools, financial education</p>
+                <p className={styles.factLabel}>Established</p>
+                <p className={styles.factValue}>2012</p>
               </div>
               <div className={styles.factCard}>
-                <p className={styles.factLabel}>Key products & services</p>
-                <p className={styles.factValue}>Trading calculators, risk management tools, market insights, educational content, copy trading resources</p>
+                <p className={styles.factLabel}>Core Focus</p>
+                <p className={styles.factValue}>Institutional Infrastructure</p>
+              </div>
+              <div className={styles.factCard}>
+                <p className={styles.factLabel}>Global Presence</p>
+                <p className={styles.factValue}>Direct Connectivity Hubs Worldwide</p>
               </div>
             </div>
           </div>

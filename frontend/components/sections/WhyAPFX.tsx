@@ -59,7 +59,7 @@ const FEATURES = [
         icon: <Smartphone size={24} />,
         label: 'Platform',
         title: 'Trade Anywhere, Any Device',
-        desc: 'MT4, MT5, WebTrader, and native mobile apps for iOS and Android. Seamless across all your devices.',
+        desc: 'Advanced Desktop, WebTrader, and native mobile apps for iOS and Android. Seamless across all your devices.',
         large: false,
         iconBg: 'rgba(59,130,246,0.1)',
         iconBorder: 'rgba(59,130,246,0.2)',

@@ -2,6 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { usePreferences } from '@/context/PreferencesContext'
 
 interface AnimatedSectionProps {
     children: React.ReactNode;
@@ -20,6 +21,15 @@ export default function AnimatedSection({
 }: AnimatedSectionProps) {
     const ref = useRef(null)
     const isInView = useInView(ref, { once: true, margin: "-100px 0px" })
+    const { animationsEnabled } = usePreferences()
+
+    if (!animationsEnabled) {
+        return (
+            <div id={id} className={className} ref={ref}>
+                {children}
+            </div>
+        )
+    }
 
     return (
         <motion.div

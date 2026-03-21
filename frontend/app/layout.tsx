@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { SmoothScrollProvider } from '@/components/animations/SmoothScrollProvider'
 import Header from '@/components/layout/Header'
 import '@/styles/globals.css'
+import { PreferencesProvider } from '@/context/PreferencesContext'
 
 /* =========================================================
    APFX — Root Layout
@@ -69,6 +70,7 @@ export const metadata: Metadata = {
 
 import PageTransition from '@/components/animations/PageTransition'
 import ChatWidget from '@/components/ui/ChatWidget'
+import PreferencesPanel from '@/components/ui/PreferencesPanel'
 import RouteBreadcrumbs from '@/components/layout/RouteBreadcrumbs'
 
 export default function RootLayout({
@@ -111,7 +113,8 @@ export default function RootLayout({
       </head>
 
       <body>
-        <SmoothScrollProvider>
+        <PreferencesProvider>
+          <SmoothScrollProvider>
           {/*
             ───────────────────────────────────────────────
             Global Layout Notes
@@ -134,8 +137,10 @@ export default function RootLayout({
             <RouteBreadcrumbs />
             <PageTransition>{children}</PageTransition>
             <ChatWidget />
+            <PreferencesPanel />
           </main>
-        </SmoothScrollProvider>
+          </SmoothScrollProvider>
+        </PreferencesProvider>
       </body>
     </html>
   )

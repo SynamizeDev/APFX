@@ -236,19 +236,20 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
                 {earthMap ? (
                     <meshStandardMaterial
                         map={earthMap}
-                        roughness={0.85}
-                        metalness={0.08}
-                        emissive="#0a1628"
-                        emissiveIntensity={0.04}
-                        envMapIntensity={0.6}
+                        roughness={0.9} // More matte
+                        metalness={0.15}
+                        color="#05080A" // Dark base for oceans
+                        emissive="#00C896" // Neon land
+                        emissiveMap={earthMap}
+                        emissiveIntensity={0.65}
                     />
                 ) : (
                     <meshStandardMaterial
-                        color="#0B1020"
-                        roughness={0.65}
-                        metalness={0.35}
+                        color="#05080A"
+                        roughness={0.8}
+                        metalness={0.2}
                         emissive="#00C896"
-                        emissiveIntensity={0.045}
+                        emissiveIntensity={0.2}
                     />
                 )}
             </Sphere>
@@ -264,11 +265,11 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
             </Sphere>
 
             {/* ── Atmospheric Halo ───────────────────────── */}
-            <Sphere args={[radius + 0.12, 32, 32]}>
+            <Sphere args={[radius + 0.25, 32, 32]}>
                 <meshBasicMaterial
                     color="#00C896"
                     transparent
-                    opacity={0.018}
+                    opacity={0.012}
                     side={THREE.BackSide}
                 />
             </Sphere>
@@ -383,8 +384,8 @@ export default function Globe() {
             {/* Primary key light (sun-like, for realistic shading) */}
             <pointLight
                 position={[10, 8, 10]}
-                intensity={1.2}
-                color="#ffffff"
+                intensity={0.8}
+                color="#e0fff5" // Very subtle teal tint
             />
 
             {/* Accent fill (brand tint on dark side) */}

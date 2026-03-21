@@ -1,30 +1,36 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { 
+  User, Wallet, Copy, BarChart3, UserCheck, Zap, Layers, TrendingUp, 
+  ShieldCheck, Clock, Target, Info, AlertTriangle, Users, 
+  Briefcase, TrendingDown, CheckCircle2, ChevronRight, Sliders
+} from 'lucide-react'
 import Link from 'next/link'
 import calcLayout from '@/components/ui/CalculatorLayout.module.css'
 import styles from './CopyTrading.module.css'
 
 /* ─── Mock data ───────────────────────────────────────────────── */
 const TRADERS = [
-  { id: '1', name: 'Alex Rivera', initials: 'AR', averageRoiPct: 12.4, winRatePct: 68, followersCount: 2847, riskLevel: 'Low' as const },
-  { id: '2', name: 'Jordan Lee', initials: 'JL', averageRoiPct: 18.2, winRatePct: 62, followersCount: 1923, riskLevel: 'Medium' as const },
-  { id: '3', name: 'Sam Chen', initials: 'SC', averageRoiPct: 9.8, winRatePct: 74, followersCount: 4102, riskLevel: 'Low' as const },
-  { id: '4', name: 'Morgan Blake', initials: 'MB', averageRoiPct: 22.1, winRatePct: 58, followersCount: 1204, riskLevel: 'High' as const },
+  { id: '1', name: 'Alex Rivera', initials: 'AR', averageRoiPct: 12.4, winRatePct: 68, followersCount: 2847, riskLevel: 'Low' as const, style: 'Diversified Alpha', maxDrawdown: 5.2 },
+  { id: '2', name: 'Jordan Lee', initials: 'JL', averageRoiPct: 18.2, winRatePct: 62, followersCount: 1923, riskLevel: 'Medium' as const, style: 'Momentum Scalper', maxDrawdown: 12.8 },
+  { id: '3', name: 'Sam Chen', initials: 'SC', averageRoiPct: 9.8, winRatePct: 74, followersCount: 4102, riskLevel: 'Low' as const, style: 'Conservative Trend', maxDrawdown: 3.5 },
+  { id: '4', name: 'Morgan Blake', initials: 'MB', averageRoiPct: 22.1, winRatePct: 58, followersCount: 1204, riskLevel: 'High' as const, style: 'Aggressive Aggregator', maxDrawdown: 18.4 },
 ]
 
 const STEPS = [
-  { step: 1, title: 'Choose a trader to copy', description: 'Browse performance, risk level, and strategy to pick a trader that fits your goals.', icon: 'User' },
-  { step: 2, title: 'Allocate funds to copy trading', description: 'Set the amount you want to allocate; you stay in control of your capital.', icon: 'Wallet' },
-  { step: 3, title: 'Trades are automatically replicated', description: 'Every qualifying trade from your chosen trader is copied into your account in real time.', icon: 'Copy' },
-  { step: 4, title: 'Monitor and manage performance', description: 'Track results, adjust allocation, or switch traders anytime from your dashboard.', icon: 'Chart' },
+  { step: 1, title: 'Strategy Screening', description: 'Analyze vetted performance profiles and historical metrics to find providers that match your ROI goals.', icon: User },
+  { step: 2, title: 'Capital Allocation', description: 'Choose your deployment amount while maintaining 24/7 control over your account equity.', icon: Wallet },
+  { step: 3, title: 'Instant Replication', description: 'Every trade is mirrored in real-time using our ultra-low latency bridging infrastructure.', icon: Copy },
+  { step: 4, title: 'Performance Oversight', description: 'Monitor your portfolio live, adjust risk settings, or rotate providers with a single click.', icon: BarChart3 },
 ]
 
 const BENEFITS = [
-  { title: 'Follow experienced traders', shortDescription: 'Copy strategies from verified traders with proven track records.', icon: 'UserCheck' },
-  { title: 'Automated trading strategies', shortDescription: 'Trades execute automatically—no need to watch the markets 24/7.', icon: 'Zap' },
-  { title: 'Diversification of strategies', shortDescription: 'Spread risk by copying multiple traders with different styles.', icon: 'Layers' },
-  { title: 'Passive investing opportunity', shortDescription: 'Potential to grow your capital while you focus on other priorities.', icon: 'TrendingUp' },
+  { title: 'Systematic Replication', shortDescription: 'Replicate complex strategies with high-fidelity across all market conditions automatically.', icon: Zap },
+  { title: 'Multi-Strategy Diversification', shortDescription: 'Allocate across different providers to mitigate concentration risk and smooth your equity curve.', icon: Layers },
+  { title: 'Time-Efficient Management', shortDescription: 'Let professional systems manage the minutiae while you focus on high-level portfolio oversight.', icon: Clock },
+  { title: 'Data-Driven Decision Making', shortDescription: 'Base your allocations on audited performance data and institutional-grade risk metrics.', icon: Target },
 ]
 
 const MONTHLY_RETURNS = [
@@ -48,22 +54,12 @@ const RISK_LEVELS = [
   { value: 'High', label: 'High' },
 ]
 
-function StepIcon({ name }: { name: string }) {
-  const size = 24
-  if (name === 'User') return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
-  if (name === 'Wallet') return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2" /><line x1="1" y1="10" x2="23" y2="10" /></svg>
-  if (name === 'Copy') return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
-  if (name === 'Chart') return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>
-  return null
+function StepIcon({ Icon }: { Icon: any }) {
+  return <Icon size={24} />
 }
 
-function BenefitIcon({ name }: { name: string }) {
-  const size = 22
-  if (name === 'UserCheck') return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><polyline points="16 11 18 13 22 9" /></svg>
-  if (name === 'Zap') return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
-  if (name === 'Layers') return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /></svg>
-  if (name === 'TrendingUp') return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" /></svg>
-  return null
+function BenefitIcon({ Icon }: { Icon: any }) {
+  return <Icon size={22} />
 }
 
 function riskPillClass(risk: string) {
@@ -105,22 +101,55 @@ export default function CopyTradingPage() {
   return (
     <>
       <section className={styles.hero}>
-        <h1 className={styles.heroTitle}>Copy Trading Tools</h1>
-        <p className={styles.heroDesc}>
-          Follow experienced traders and automatically copy their trades into your account. Use the tools below to explore potential returns, risk, and top performers.
-        </p>
-        <div className={styles.heroActions}>
-          <Link href="/register" className={styles.heroCtaPrimary}>Start Copy Trading</Link>
-          <a href="#top-traders" className={styles.heroCtaSecondary}>Explore Top Traders</a>
-        </div>
+        <motion.h1 
+          className={styles.heroTitle}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          Copy Proven Trading Strategies with Precision
+        </motion.h1>
+        <motion.p 
+          className={styles.heroDesc}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+        >
+          Leverage the expertise of vetted strategy providers through high-fidelity trade synchronization. 
+          Our professional infrastructure ensures sub-millisecond execution for seamless portfolio growth.
+        </motion.p>
+        
+        <motion.div 
+          className={styles.heroTrustLine}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <span>Fully automated</span>
+          <div className={styles.trustSeparator} />
+          <span>Real-time execution</span>
+          <div className={styles.trustSeparator} />
+          <span>Full control of funds</span>
+        </motion.div>
+
+        <motion.div 
+          className={styles.heroActions}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <Link href="/register" className={styles.heroCtaPrimary}>
+            Start Copy Trading <ChevronRight size={18} />
+          </Link>
+          <a href="#top-traders" className={styles.heroCtaSecondary}>View Top Traders</a>
+        </motion.div>
       </section>
 
       <div className={styles.container}>
         {/* Profit Calculator */}
         <section className={styles.section} aria-labelledby="profit-calc-title">
-          <h2 id="profit-calc-title" className={styles.sectionTitle}>Copy Trading Profit Calculator</h2>
+          <h2 id="profit-calc-title" className={styles.sectionTitle}>Yield Projection Modeling</h2>
           <p className={styles.sectionSubtitle}>
-            Estimate how your portfolio could grow based on an average monthly return and time horizon.
+            Forecast potential portfolio growth based on historical performance metrics.
           </p>
           <div className={styles.inputPanel}>
             <div className={styles.formGrid}>
@@ -137,7 +166,7 @@ export default function CopyTradingPage() {
                 />
               </div>
               <div className={calcLayout.formGroup}>
-                <label className={calcLayout.label} htmlFor="ct-monthly">Average monthly return (%)</label>
+                <label className={calcLayout.label} htmlFor="ct-monthly">Avg. monthly return (%)</label>
                 <input
                   id="ct-monthly"
                   type="number"
@@ -163,73 +192,101 @@ export default function CopyTradingPage() {
             </div>
             <div className={styles.resultRow}>
               <p className={styles.resultLabel}>Estimated portfolio value</p>
-              <p className={styles.resultValue}>
+              <motion.p 
+                key={profitResults.portfolioValue} 
+                initial={{ opacity: 0, scale: 0.95 }} 
+                animate={{ opacity: 1, scale: 1 }}
+                className={styles.resultValue}
+              >
                 {profitResults.portfolioValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </p>
+              </motion.p>
               <div className={styles.resultGrid}>
                 <div className={styles.resultGridItem}>
                   <p className={styles.resultLabel}>Total profit</p>
-                  <p className={styles.resultValue}>{profitResults.totalProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                  <motion.p className={`${styles.resultValue} ${styles.profitPositive}`}>
+                    {profitResults.totalProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </motion.p>
                 </div>
                 <div className={styles.resultGridItem}>
                   <p className={styles.resultLabel}>Growth</p>
                   <p className={styles.resultValue}>{profitResults.growthPct.toFixed(1)}%</p>
                 </div>
               </div>
+              
+              <p className={styles.howThisWorks}>
+                <Info size={14} style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                Calculated using compound interest based on average monthly returns. Yields are indicative of potential performance scenarios and are not guarantees of future results.
+              </p>
+              <p className={styles.microDisclaimer}>Returns are indicative and not guaranteed.</p>
             </div>
           </div>
         </section>
 
         {/* Top Traders */}
         <section className={styles.section} id="top-traders" aria-labelledby="leaderboard-title">
-          <h2 id="leaderboard-title" className={styles.sectionTitle}>Top Traders Leaderboard</h2>
+          <h2 id="leaderboard-title" className={styles.sectionTitle}>Strategic Performance Hub</h2>
           <p className={styles.sectionSubtitle}>
-            Example traders you can copy. Performance and risk vary; always do your own research.
+            Compare strategy providers based on performance, consistency, and risk profiles.
           </p>
           <div className={styles.leaderboardGrid}>
             {TRADERS.map((t) => (
-              <article key={t.id} className={styles.traderCard}>
+              <motion.article 
+                key={t.id} 
+                className={styles.traderCard}
+                whileHover={{ scale: 1.02, translateY: -5 }}
+              >
                 <div className={styles.traderHeader}>
                   <div className={styles.traderAvatar}>{t.initials}</div>
                   <div>
                     <div className={styles.traderName}>{t.name}</div>
-                    <span className={`${styles.riskPill} ${riskPillClass(t.riskLevel)}`}>{t.riskLevel}</span>
+                    <span className={styles.traderStyle}>{t.style}</span>
+                    <span className={`${styles.riskPill} ${riskPillClass(t.riskLevel)}`}>{t.riskLevel} Risk</span>
                   </div>
                 </div>
                 <div className={styles.traderStats}>
                   <span className={styles.traderStat}>ROI <strong>{t.averageRoiPct}%</strong></span>
                   <span className={styles.traderStat}>Win rate <strong>{t.winRatePct}%</strong></span>
-                  <span className={styles.traderStat}>Followers <strong>{t.followersCount.toLocaleString()}</strong></span>
+                </div>
+                <div className={styles.traderSecondaryStats}>
+                   <span className={styles.traderStat}>Max DD <strong>{t.maxDrawdown}%</strong></span>
+                   <span className={styles.traderStat}>Followers <strong>{t.followersCount.toLocaleString()}</strong></span>
                 </div>
                 <Link href="/register" className={styles.traderCardCta}>Copy Trader</Link>
-              </article>
+              </motion.article>
             ))}
           </div>
         </section>
 
         {/* How it works */}
         <section className={styles.section} aria-labelledby="how-title">
-          <h2 id="how-title" className={styles.sectionTitle}>How Copy Trading Works</h2>
+          <h2 id="how-title" className={styles.sectionTitle}>Operational Workflow</h2>
           <p className={styles.sectionSubtitle}>
-            Four simple steps to start copying trades from experienced traders.
+            Four structured steps to synchronize your portfolio with professional trade signals. You stay in control at every step.
           </p>
           <div className={styles.stepsWrap}>
-            {STEPS.map((s) => (
-              <div key={s.step} className={styles.stepCard}>
-                <div className={styles.stepIcon}><StepIcon name={s.icon} /></div>
+            {STEPS.map((s, idx) => (
+              <motion.div 
+                key={s.step} 
+                className={styles.stepCard}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className={styles.stepIcon}><StepIcon Icon={s.icon} /></div>
                 <p className={styles.stepNum}>Step {s.step}</p>
                 <h3 className={styles.stepTitle}>{s.title}</h3>
                 <p className={styles.stepDesc}>{s.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
 
         {/* Risk Simulator */}
         <section className={styles.section} aria-labelledby="risk-title">
-          <h2 id="risk-title" className={styles.sectionTitle}>Risk Simulator Tool</h2>
+          <h2 id="risk-title" className={styles.sectionTitle}>Exposure & Drawdown Simulator</h2>
           <p className={styles.sectionSubtitle}>
-            See a worst-case scenario based on maximum drawdown so you can size your copy-trading allocation responsibly.
+            Model worst-case scenarios based on maximum drawdown parameters to size your capital allocations responsibly.
           </p>
           <div className={styles.inputPanel}>
             <div className={styles.formGrid}>
@@ -274,13 +331,27 @@ export default function CopyTradingPage() {
             </div>
             <div className={styles.resultRow}>
               <p className={styles.resultLabel}>Worst-case loss (at max drawdown)</p>
-              <p className={`${styles.resultValue} ${styles.riskResultLoss}`}>
+              <motion.p 
+                key={riskResults.worstCaseLoss}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`${styles.resultValue} ${styles.riskResultLoss}`}
+              >
                 {riskResults.worstCaseLoss.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </p>
+              </motion.p>
               <p className={styles.resultLabel} style={{ marginTop: '1rem' }}>Remaining capital after loss</p>
-              <p className={`${styles.resultValue} ${styles.riskResultRemain}`}>
+              <motion.p 
+                key={riskResults.remainingCapital}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`${styles.resultValue} ${styles.riskResultRemain}`}
+              >
                 {riskResults.remainingCapital.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </p>
+              </motion.p>
+
+              <div className={styles.insightCard}>
+                 <p><strong><AlertTriangle size={14} style={{ verticalAlign: 'middle', marginRight: '4px' }} /> What this means for your capital:</strong> Even top-tier professional strategies experience drawdowns. This simulator helps you visualize the necessary "capital cushion" required to survive volatility cycles without compromising your long-term tactical edge.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -289,9 +360,12 @@ export default function CopyTradingPage() {
         <section className={styles.section} aria-labelledby="insights-title">
           <h2 id="insights-title" className={styles.sectionTitle}>Trader Performance Insights</h2>
           <p className={styles.sectionSubtitle}>
-            Example analytics to show the kind of transparency you get when evaluating copy traders.
+            Audited transparency is the foundation of institutional copy trading. Learn how to interpret performance data beyond simple ROI.
           </p>
           <div className={styles.insightsCard}>
+             <div className={styles.insightCard} style={{ marginBottom: '2rem', background: 'rgba(0, 200, 150, 0.05)', borderLeft: '3px solid var(--color-accent)' }}>
+                <p><strong><Info size={14} style={{ verticalAlign: 'middle', marginRight: '4px' }} /> How to Read This Data:</strong> While monthly returns fluctuate, consistency and capital preservation are the true indicators of a professional edge. Prioritize providers with stable equity curves and managed drawdown history over those with isolated "ROI spikes."</p>
+             </div>
             <p className={styles.chartTitle}>Monthly returns (example)</p>
             <div className={styles.barsWrap}>
               {MONTHLY_RETURNS.map((r) => (
@@ -315,34 +389,69 @@ export default function CopyTradingPage() {
               <span className={styles.riskScoreBadge}>Risk score: Low</span>
               <span className={styles.stepDesc}>Based on volatility and drawdown history.</span>
             </div>
+            
+            <p className={styles.microDisclaimer} style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+               Example analytics. Past performance is not indicative of future results.
+            </p>
           </div>
         </section>
 
         {/* Benefits */}
         <section className={styles.section} aria-labelledby="benefits-title">
-          <h2 id="benefits-title" className={styles.sectionTitle}>Benefits of Copy Trading</h2>
+          <h2 id="benefits-title" className={styles.sectionTitle}>Capital Efficiency & Diversification</h2>
           <p className={styles.sectionSubtitle}>
-            Why many traders use copy trading to diversify and automate their approach.
+             Advanced strategy replication provides a systematic edge for institutional and retail portfolios.
           </p>
           <div className={styles.benefitsGrid}>
             {BENEFITS.map((b) => (
               <div key={b.title} className={styles.benefitCard}>
-                <div className={styles.benefitIcon}><BenefitIcon name={b.icon} /></div>
+                <div className={styles.benefitIcon}><BenefitIcon Icon={b.icon} /></div>
                 <h3 className={styles.benefitTitle}>{b.title}</h3>
                 <p className={styles.benefitDesc}>{b.shortDescription}</p>
               </div>
             ))}
           </div>
         </section>
+
+        {/* Who is it for */}
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Who is Copy Trading For?</h2>
+          <p className={styles.sectionSubtitle}>Tailored solutions for every stage of the trading journey.</p>
+          <div className={styles.personaGrid}>
+             <div className={styles.personaCard}>
+                <div className={styles.personaIcon}><Users size={24} /></div>
+                <h3 className={styles.personaTitle}>Beginners</h3>
+                <p className={styles.personaDesc}>Accelerate your learning curve by observing and replicating the trade logic of experienced market professionals in real-time.</p>
+             </div>
+             <div className={styles.personaCard}>
+                <div className={styles.personaIcon}><Briefcase size={24} /></div>
+                <h3 className={styles.personaTitle}>Busy Professionals</h3>
+                <p className={styles.personaDesc}>Access global markets without the time commitment of manual analysis. Let proven systems manage your capital while you focus on your career.</p>
+             </div>
+             <div className={styles.personaCard}>
+                <div className={styles.personaIcon}><Layers size={24} /></div>
+                <h3 className={styles.personaTitle}>Advanced Investors</h3>
+                <p className={styles.personaDesc}>Diversify your portfolio across multiple asset classes and non-correlated strategies to smooth your returns and reduce systemic risk.</p>
+             </div>
+          </div>
+        </section>
+
+        {/* Risk Disclosure */}
+        <section className={styles.riskDisclosureWrapper}>
+           <p className={styles.riskDisclosureText}>
+              <AlertTriangle size={14} style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              <strong>Institutional Risk Disclosure:</strong> Copy trading involve significant risk to your capital. Performance data presented is historical and not a guarantee of future returns. You should only allocate capital that you can afford to lose. We recommend diversifying across multiple strategy providers to mitigate individual manager risk.
+           </p>
+        </section>
       </div>
 
       {/* CTA */}
       <section className={styles.ctaSection} aria-labelledby="cta-title">
-        <h2 id="cta-title" className={styles.ctaTitle}>Ready to Start Copy Trading?</h2>
-        <p className={styles.ctaSubtitle}>Open an account and begin copying top traders in minutes.</p>
+        <h2 id="cta-title" className={styles.ctaTitle}>Start Building a Smarter Trading Portfolio</h2>
+        <p className={styles.ctaSubtitle}>Experience the power of professional automation with full transparency and control.</p>
         <div className={styles.ctaButtons}>
           <Link href="/register" className={styles.ctaBtnPrimary}>Open Trading Account</Link>
-          <Link href="/register" className={styles.ctaBtnSecondary}>Start Copy Trading</Link>
+          <Link href="/register" className={styles.ctaBtnSecondary}>Start Copy Trading Now</Link>
         </div>
       </section>
     </>
