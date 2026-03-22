@@ -82,17 +82,6 @@
     z-index: 2;
 }
 
-/* Zero-fees placement: desktop keeps it inside the left column.
-   On small screens we render a second copy and let it span full width
-   (under both text + phone) using CSS grid. */
-.zeroFeesDesktop {
-    display: block;
-}
-
-.zeroFeesMobile {
-    display: none;
-}
-
 /* Content: left copy (unchanged) + right mockup — wider container */
 .content {
     position: relative;
@@ -169,8 +158,7 @@
 }
 
 @media (max-width: 640px) {
-    /* Mobile grid: keep text on the left, phone on the right.
-       Fees row spans full width across both columns. */
+    /* Mobile grid: keep text on the left, phone on the right. */
     .content {
         display: grid;
         grid-template-columns: 1fr 0.42fr;
@@ -194,16 +182,6 @@
         justify-content: flex-end;
         /* Move mockup slightly down while keeping the left text unchanged */
         margin-top: -2.2vh;
-    }
-
-    .zeroFeesDesktop {
-        display: none;
-    }
-
-    .zeroFeesMobile {
-        display: block;
-        grid-column: 1 / -1;
-        margin-top: -0.25rem;
     }
 
     .heroMockup {

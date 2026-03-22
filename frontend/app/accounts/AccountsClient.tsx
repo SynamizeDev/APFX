@@ -14,7 +14,7 @@ const ACCOUNTS = [
         desc: 'Perfect for retail traders seeking a simple, all-inclusive pricing model with no commissions.',
         spreads: 'from 1.0 pips',
         commission: '$0',
-        deposit: '$100',
+        deposit: '$50',
         bestFor: 'Beginners & Swing Traders',
     },
     {
@@ -22,7 +22,7 @@ const ACCOUNTS = [
         desc: 'Institutional-grade spreads paired with a transparent commission structure.',
         spreads: 'from 0.0 pips',
         commission: '$3.50 per side',
-        deposit: '$500',
+        deposit: '$1,000',
         bestFor: 'Scalpers & Day Traders',
         featured: true,
     },
@@ -31,7 +31,7 @@ const ACCOUNTS = [
         desc: 'Custom execution, pricing, and liquidity solutions for high-volume and corporate clients.',
         spreads: 'from 0.0 pips',
         commission: 'Custom / Tiered',
-        deposit: '$25,000+',
+        deposit: '$5,000+',
         bestFor: 'Professional Traders',
     },
 ]

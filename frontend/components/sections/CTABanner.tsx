@@ -31,7 +31,7 @@ export default function CTABanner() {
                                 <HeadphonesIcon size={24} />
                             </div>
                             <div className={styles.statInfo}>
-                                <h6>24/5 Support</h6>
+                                <h6>24/7 Support</h6>
                                 <p>Multilingual Experts</p>
                             </div>
                         </div>

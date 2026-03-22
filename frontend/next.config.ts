@@ -38,8 +38,21 @@ const nextConfig: NextConfig = {
   // /products. These rewrites let URLs match the label.
   async rewrites() {
     return [
+      // Legacy /markets/* → same five hubs only
+      { source: '/markets/commodities', destination: '/products/commodities' },
+      { source: '/markets/indices', destination: '/products/indices' },
+      { source: '/markets/cryptocurrencies', destination: '/products/cryptocurrencies' },
+      { source: '/markets/futures', destination: '/products/futures' },
+      { source: '/markets/stocks', destination: '/products/stocks' },
+      { source: '/markets', destination: '/products/commodities' },
+      { source: '/markets/:path*', destination: '/products/commodities' },
+      // Trade & Invest — only these public routes (no wildcard)
       { source: '/trade&invest', destination: '/products' },
-      { source: '/trade&invest/:path*', destination: '/products/:path*' },
+      { source: '/trade&invest/commodities', destination: '/products/commodities' },
+      { source: '/trade&invest/indices', destination: '/products/indices' },
+      { source: '/trade&invest/stocks', destination: '/products/stocks' },
+      { source: '/trade&invest/cryptocurrencies', destination: '/products/cryptocurrencies' },
+      { source: '/trade&invest/futures', destination: '/products/futures' },
       { source: '/company', destination: '/about' },
       { source: '/company/:path*', destination: '/about/:path*' },
       { source: '/learn', destination: '/academy' },

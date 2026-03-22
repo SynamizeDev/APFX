@@ -6,7 +6,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const routes = [
         '',
         '/company',
-        '/markets',
+        '/trade&invest/commodities',
+        '/trade&invest/indices',
+        '/trade&invest/cryptocurrencies',
+        '/trade&invest/futures',
         '/platforms',
         '/accounts',
         '/contact',

@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { gsap } from 'gsap'
 import HeroCanvas from '@/components/canvas/HeroCanvas'
 import InvestWithAPFX from '@/components/sections/InvestWithAPFX'
-import ZeroFeesBlock from '@/components/sections/ZeroFeesBlock'
 import styles from './HeroSection.module.css'
 
 export default function HeroSection() {
@@ -83,9 +82,6 @@ export default function HeroSection() {
                         <span className={styles.accentLine}>With Absolute Precision</span>
                     </h1>
                     <InvestWithAPFX embedded />
-                    <div className={styles.zeroFeesDesktop}>
-                        <ZeroFeesBlock embedded />
-                    </div>
                 </div>
                 <div ref={mockupRef} className={styles.mockupWrap} aria-hidden="true">
                     <Image
@@ -96,9 +92,6 @@ export default function HeroSection() {
                         height={600}
                         priority
                     />
-                </div>
-                <div className={styles.zeroFeesMobile}>
-                    <ZeroFeesBlock embedded />
                 </div>
             </div>
 

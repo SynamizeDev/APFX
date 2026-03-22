@@ -50,16 +50,16 @@ const latLongToVector3 = (lat: number, lon: number, radius: number): [number, nu
 const HUBS = [
     { name: 'London', lat: 51.5074, lon: -0.1278, region: 'Europe' },
     { name: 'New York', lat: 40.7128, lon: -74.0060, region: 'Americas' },
-    { name: 'Dubai', lat: 25.2048, lon: 55.2708, region: 'Middle East' },
+    { name: 'Tel Aviv', lat: 32.0853, lon: 34.7818, region: 'Middle East' },
     { name: 'Singapore', lat: 1.3521, lon: 103.8198, region: 'Asia' },
     { name: 'Tokyo', lat: 35.6762, lon: 139.6503, region: 'Asia' },
-    { name: 'Mumbai', lat: 19.0760, lon: 72.8777, region: 'Asia' },
+    { name: 'Melbourne', lat: -37.8136, lon: 144.9631, region: 'Asia' },
     { name: 'Frankfurt', lat: 50.1109, lon: 8.6821, region: 'Europe' },
     { name: 'Hong Kong', lat: 22.3193, lon: 114.1694, region: 'Asia' },
     { name: 'Chicago', lat: 41.8781, lon: -87.6298, region: 'Americas' },
     { name: 'Toronto', lat: 43.6510, lon: -79.3470, region: 'Americas' },
     { name: 'Zurich', lat: 47.3769, lon: 8.5417, region: 'Europe' },
-    { name: 'Abu Dhabi', lat: 24.4539, lon: 54.3773, region: 'Middle East' },
+    { name: 'Madrid', lat: 40.4168, lon: -3.7038, region: 'Europe' },
     { name: 'Shanghai', lat: 31.2304, lon: 121.4737, region: 'Asia' },
     { name: 'Sydney', lat: -33.8688, lon: 151.2093, region: 'Asia' },
     { name: 'Johannesburg', lat: -26.2041, lon: 28.0473, region: 'Europe' },
@@ -72,7 +72,7 @@ const HUBS = [
 ]
 
 const MINOR_NODES = [
-    { name: 'Madrid', lat: 40.4168, lon: -3.7038 },
+    { name: 'Lisbon', lat: 38.7223, lon: -9.1393 },
     { name: 'Rome', lat: 41.9028, lon: 12.4964 },
     { name: 'Athens', lat: 37.9838, lon: 23.7275 },
     { name: 'Jakarta', lat: -6.2088, lon: 106.8456 },

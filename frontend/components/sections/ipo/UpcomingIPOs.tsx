@@ -69,7 +69,7 @@ export default function UpcomingIPOs() {
               </dl>
               <div className={styles.cardFooter}>
                 <StatusBadge status={ipo.status} />
-                <Link href={`/products/ipo/${ipo.slug}`} className={styles.viewDetails}>
+                <Link href="/" className={styles.viewDetails}>
                   View Details <ArrowUpRight size={14} />
                 </Link>
               </div>

@@ -29,14 +29,13 @@ function getCrumbs(pathnameRaw: string): Crumb[] {
     // Home crumb is always rendered in UI, so we only return the rest.
     const root = segments[0]
 
-    const productsMap: Record<string, string> = {
-        forex: 'Forex',
-        stocks: 'Stocks',
-        options: 'F&O',
-        'mutual-funds': 'Mutual Funds',
-        ipo: 'IPO',
-        mtf: 'MTF',
-        recommendation: 'Recommendation',
+    /** Only five hubs exist under /trade&invest/ */
+    const tradeInvestHubs: Record<string, string> = {
+        commodities: 'Commodities',
+        indices: 'Indices',
+        stocks: 'Stocks (CFDs)',
+        cryptocurrencies: 'Cryptocurrencies',
+        futures: 'Futures',
     }
 
     const calculatorsMap: Record<string, string> = {
@@ -69,34 +68,21 @@ function getCrumbs(pathnameRaw: string): Crumb[] {
         'risk-disclosure': 'Risk Disclosure',
     }
 
-    // ── Trade & Invest ──────────────────────────────────────────
+    // ── Trade & Invest (five hubs only) ─────────────────────────
     if (root === 'products' || root === 'trade&invest') {
-        // Public UI route is `/trade&invest/*`; internal pages live under `/products/*`.
-        crumbs.push({ label: 'Trade & Invest', href: '/trade&invest' })
-        const category = segments[1]
-        const categoryLabel = category ? productsMap[category] ?? titleize(category) : ''
-        if (categoryLabel) crumbs.push({ label: categoryLabel })
-
-        // Deeper levels
-        if (category === 'options') {
-            const sub = segments[2]
-            if (sub) {
-                const optionsSubMap: Record<string, string> = {
-                    'strategy-builder': 'Strategy Builder',
-                    'iv-analysis': 'IV Analysis',
-                    'payoff-calculator': 'Payoff Calculator',
-                }
-                if (optionsSubMap[sub]) crumbs.push({ label: optionsSubMap[sub] })
-                else crumbs.push({ label: sub })
-            }
-        } else if (category === 'ipo') {
-            if (segments[2]) crumbs.push({ label: 'Detail' })
-        } else if (category === 'recommendation') {
-            if (segments[2]) crumbs.push({ label: 'Detail' })
+        crumbs.push({ label: 'Trade & Invest', href: '/trade&invest/commodities' })
+        const hub = segments[1]
+        if (hub && tradeInvestHubs[hub]) {
+            crumbs.push({ label: tradeInvestHubs[hub] })
         }
     } else if (root === 'markets') {
-        crumbs.push({ label: 'Trade & Invest', href: '/trade&invest' })
-        crumbs.push({ label: 'Markets' })
+        crumbs.push({ label: 'Trade & Invest', href: '/trade&invest/commodities' })
+        const seg = segments[1]
+        if (seg && tradeInvestHubs[seg]) {
+            crumbs.push({ label: tradeInvestHubs[seg] })
+        } else {
+            crumbs.push({ label: 'Commodities', href: '/trade&invest/commodities' })
+        }
     }
 
     // ── Tools ───────────────────────────────────────────────────

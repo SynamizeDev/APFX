@@ -68,8 +68,8 @@ const FEATURES = [
     {
         icon: <Headphones size={24} />,
         label: 'Support',
-        title: 'Expert 24/5 Local Support',
-        desc: 'Dedicated institutional-grade support desks localized for UAE and India regions via chat, phone and email.',
+        title: 'Expert 24/7 Local Support',
+        desc: 'Dedicated institutional-grade support via chat, phone, and email—aligned to major trading sessions worldwide.',
         large: true,
         iconBg: 'rgba(59,130,246,0.1)',
         iconBorder: 'rgba(59,130,246,0.2)',

@@ -14,6 +14,8 @@ interface InnerPageHeroProps {
     subtitle?: string
     breadcrumbs: Breadcrumb[]
     accentLine?: string
+    /** When true, removes the default bottom border (e.g. when CTAs sit directly below the hero). */
+    omitBottomBorder?: boolean
 }
 
 export default function InnerPageHero({
@@ -21,12 +23,15 @@ export default function InnerPageHero({
     subtitle,
     breadcrumbs,
     accentLine,
+    omitBottomBorder = false,
 }: InnerPageHeroProps) {
     const prefersReducedMotion = useReducedMotion()
     const shouldRenderBreadcrumbs = breadcrumbs.length > 0
 
     return (
-        <section className={styles.hero}>
+        <section
+            className={`${styles.hero} ${omitBottomBorder ? styles.heroNoBottomBorder : ''}`}
+        >
             <div className={styles.container}>
                 {/* Breadcrumbs */}
                 {shouldRenderBreadcrumbs && (

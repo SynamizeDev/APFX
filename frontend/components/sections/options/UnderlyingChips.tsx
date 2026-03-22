@@ -14,7 +14,7 @@ export default function UnderlyingChips({ underlyings }: UnderlyingChipsProps) {
             {underlyings.map((u) => (
                 <Link
                     key={u.symbol}
-                    href={`/products/options/${u.symbol}`}
+                    href="/tools/calculators"
                     className={styles.chip}
                 >
                     <span className={styles.name}>{u.name}</span>

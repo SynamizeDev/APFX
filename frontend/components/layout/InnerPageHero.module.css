@@ -9,6 +9,10 @@
     isolation: isolate;
 }
 
+.heroNoBottomBorder {
+    border-bottom: none;
+}
+
 .container {
     max-width: var(--container-max);
     margin-inline: auto;

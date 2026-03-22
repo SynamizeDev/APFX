@@ -5,7 +5,7 @@ import styles from './ComparisonStrip.module.css'
 
 const DATA = [
     { asset: 'Stocks', leverage: 'Up to 1:20', hours: 'Market Specific', ownership: 'Direct / Fractional' },
-    { asset: 'Forex', leverage: 'Up to 1:500', hours: '24/5', ownership: 'Contractual' },
+    { asset: 'Forex', leverage: 'Up to 1:500', hours: '24/7', ownership: 'Contractual' },
     { asset: 'Crypto', leverage: 'Up to 1:50', hours: '24/7', ownership: 'Digital Wallet' },
 ]
 

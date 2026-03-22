@@ -37,7 +37,7 @@ export default function ContactPage() {
             <InnerPageHero
                 title="Talk to a Team"
                 accentLine="That Understands Your Flow"
-                subtitle="Whether you need help with onboarding, execution routing, or institutional-grade liquidity, our desks and support teams are available 24/5."
+                subtitle="Whether you need help with onboarding, execution routing, or institutional-grade liquidity, our desks and support teams are available 24/7."
                 breadcrumbs={[]}
             />
 
@@ -110,10 +110,10 @@ export default function ContactPage() {
                                         className={styles.office}
                                         variants={fadeUp}
                                     >
-                                        <h5>Dubai</h5>
+                                        <h5>Frankfurt</h5>
                                         <p>
-                                            Level 45, Emirates Towers, Sheikh Zayed
-                                            Road, Dubai, UAE
+                                            Taunusanlage 12, 60325 Frankfurt am Main,
+                                            Germany
                                         </p>
                                     </motion.div>
 

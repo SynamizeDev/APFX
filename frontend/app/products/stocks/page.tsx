@@ -1,6 +1,5 @@
 'use client';
 
-import InvestWithAPFX from '@/components/sections/InvestWithAPFX';
 import CTABanner from '@/components/sections/CTABanner';
 import StocksHero from '@/components/sections/stocks/StocksHero';
 import WhatAreStocks from '@/components/sections/stocks/WhatAreStocks';
@@ -12,12 +11,13 @@ import TradingStrategies from '@/components/sections/stocks/TradingStrategies';
 import ComparisonStrip from '@/components/sections/stocks/ComparisonStrip';
 import StickyCTA from '@/components/sections/stocks/StickyCTA';
 import StocksRiskDisclosure from '@/components/sections/stocks/StocksRiskDisclosure';
+import Footer from '@/components/layout/Footer';
+import BottomBar from '@/components/layout/BottomBar';
 
 export default function StocksPage() {
     return (
         <div style={{ backgroundColor: 'var(--color-bg)', minHeight: '100vh' }}>
             <StocksHero />
-            <InvestWithAPFX embedded />
             <WhyTradeStocks />
             <WhatAreStocks />
             <GlobalMarketCoverage />
@@ -30,6 +30,8 @@ export default function StocksPage() {
             <StocksRiskDisclosure />
             <CTABanner />
             <StickyCTA />
+            <Footer />
+            <BottomBar />
         </div>
     );
 }

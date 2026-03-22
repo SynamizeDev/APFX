@@ -131,13 +131,13 @@ export default function ChatWidget() {
             /* ── Sub Menu Responses ── */
             // Account Types Sub
             case 'Standard Account':
-                appendBotMessage("Standard\n\n- Spreads from 1.0 pips\n- No commissions\n- Minimum deposit $100", ['Back to Menu'])
+                appendBotMessage("Standard\n\n- Spreads from 1.0 pips\n- No commissions\n- Minimum deposit $50", ['Back to Menu'])
                 break
             case 'Premium Account':
-                appendBotMessage("Premium\n\n- Spreads from 0.0 pips\n- Commission $3.5 per lot\n- Minimum deposit $500\n- Institutional liquidity access", ['Back to Menu'])
+                appendBotMessage("Premium\n\n- Spreads from 0.0 pips\n- Commission $3.5 per lot\n- Minimum deposit $1,000\n- Institutional liquidity access", ['Back to Menu'])
                 break
             case 'Elite Account':
-                appendBotMessage("Elite\n\n- Custom liquidity solutions\n- Dedicated account manager\n- Volume rebates\n- Minimum deposit $25,000", ['Back to Menu'])
+                appendBotMessage("Elite\n\n- Custom liquidity solutions\n- Dedicated account manager\n- Volume rebates\n- Minimum deposit $5,000", ['Back to Menu'])
                 break
             
             // Platforms Sub

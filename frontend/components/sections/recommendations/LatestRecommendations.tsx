@@ -65,7 +65,7 @@ export default function LatestRecommendations() {
                 </div>
               </dl>
               <p className={styles.date}>{formatDate(r.publishedAt)}</p>
-              <Link href={`/products/recommendation/${r.slug}`} className={styles.viewAnalysis}>
+              <Link href="/" className={styles.viewAnalysis}>
                 View Analysis <ArrowUpRight size={14} />
               </Link>
             </motion.article>

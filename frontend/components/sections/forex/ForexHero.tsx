@@ -31,7 +31,7 @@ export default function ForexHero() {
                         </div>
                         <div className={styles.statDivider} />
                         <div className={styles.statItem}>
-                            <span className={styles.statValue}>24/5</span>
+                            <span className={styles.statValue}>24/7</span>
                             <span className={styles.statLabel}>Market Access</span>
                         </div>
                         <div className={styles.statDivider} />

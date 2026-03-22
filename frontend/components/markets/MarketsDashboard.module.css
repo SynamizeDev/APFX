@@ -51,6 +51,9 @@
     color: var(--color-text-2);
     cursor: pointer;
     transition: all var(--duration-fast) var(--ease-out);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
 }
 
 .tabBtn:hover {

@@ -9,7 +9,7 @@ import styles from './Header.module.css'
 import { usePathname } from 'next/navigation'
 
 const NAV_LINKS = [
-    { label: 'Trade & Invest', href: '/trade&invest', hasMegaMenu: true },
+    { label: 'Trade & Invest', href: '/trade&invest/commodities', hasMegaMenu: true },
     { label: 'Tools', href: '/tools', hasMegaMenu: true },
     { label: 'Learn', href: '/learn', hasMegaMenu: true },
     { label: 'Company', href: '/company', hasMegaMenu: true },
@@ -21,12 +21,11 @@ const MEGA_MENU_DATA = {
         {
             title: '',
             links: [
-                { label: 'Stocks', href: '/trade&invest/stocks' },
-                { label: 'F&O', href: '/trade&invest/options' },
-                { label: 'Mutual Funds', href: '/trade&invest/mutual-funds' },
-                { label: 'IPO', href: '/trade&invest/ipo' },
-                { label: 'MTF', href: '/trade&invest/mtf' },
-                { label: 'Recommendation', href: '/trade&invest/recommendation' },
+                { label: 'Commodities', href: '/trade&invest/commodities' },
+                { label: 'Indices', href: '/trade&invest/indices' },
+                { label: 'Stocks (CFDs)', href: '/trade&invest/stocks' },
+                { label: 'Cryptocurrencies', href: '/trade&invest/cryptocurrencies' },
+                { label: 'Futures', href: '/trade&invest/futures' },
             ],
         },
     ],

@@ -26,7 +26,7 @@ export default function TopPicks() {
             <ul className={styles.list}>
               {MOCK_TOP_PICKS_SHORT.map((p) => (
                 <li key={p.slug}>
-                  <Link href={`/products/recommendation/${p.slug}`} className={styles.link}>
+                  <Link href="/" className={styles.link}>
                     <span className={styles.name}>{p.stockName}</span>
                     <span className={styles.sector}>{p.sector}</span>
                     <span className={styles.reason}>{p.reason}</span>
@@ -49,7 +49,7 @@ export default function TopPicks() {
             <ul className={styles.list}>
               {MOCK_TOP_PICKS_LONG.map((p) => (
                 <li key={p.slug}>
-                  <Link href={`/products/recommendation/${p.slug}`} className={styles.link}>
+                  <Link href="/" className={styles.link}>
                     <span className={styles.name}>{p.stockName}</span>
                     <span className={styles.sector}>{p.sector}</span>
                     <span className={styles.reason}>{p.reason}</span>

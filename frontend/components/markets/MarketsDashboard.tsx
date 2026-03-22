@@ -1,30 +1,70 @@
 'use client'
 
 import { useState, useEffect, Suspense } from 'react'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useSearchParams } from 'next/navigation'
-import { fetchMarketData, MarketQuote, DEFAULT_SYMBOLS } from '@/services/marketData'
+import { fetchMarketData, MarketQuote } from '@/services/marketData'
 import LivePriceWidget from '@/components/ui/LivePriceWidget'
 import MarketChart from '@/components/ui/MarketChart'
-import styles from './page.module.css'
-import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
+import styles from './MarketsDashboard.module.css'
 
-// Map categories to their symbols
-const CATEGORY_MAP: Record<string, string[]> = {
-    'All': ['EUR/USD', 'GBP/USD', 'BTC/USD', 'ETH/USD', 'XAU/USD', 'Apple', 'S&P 500'],
-    'Forex': ['EUR/USD', 'GBP/USD', 'USD/JPY', 'USD/CHF', 'AUD/USD', 'NZD/USD'],
-    'Crypto': ['BTC/USD', 'ETH/USD', 'BNB/USD', 'SOL/USD', 'XRP/USD', 'ADA/USD'],
-    'Commodities': ['XAU/USD', 'XAG/USD', 'WTI Oil', 'Natural Gas', 'Copper'],
-    'Stocks': ['Apple', 'Tesla', 'Microsoft', 'Nvidia', 'Amazon', 'Meta'],
-    'Indices': ['S&P 500', 'NASDAQ', 'Dow Jones', 'FTSE 100', 'DAX']
+const TRADE_INVEST = '/trade&invest'
+
+/** Only these five hubs exist under /trade&invest/ */
+const CATEGORY_MAP = {
+    Commodities: ['XAU/USD', 'XAG/USD', 'WTI Oil', 'Natural Gas', 'Copper'],
+    Indices: ['S&P 500', 'NASDAQ', 'Dow Jones', 'FTSE 100', 'DAX'],
+    Stocks: ['Apple', 'Tesla', 'Microsoft', 'Nvidia', 'Amazon', 'Meta'],
+    Crypto: ['BTC/USD', 'ETH/USD', 'BNB/USD', 'SOL/USD', 'XRP/USD', 'ADA/USD'],
+    Futures: ['E-mini S&P', 'E-mini Nasdaq', 'Crude Future', 'Gold Future', '30Y T-Bond'],
+} as const
+
+type TabKey = keyof typeof CATEGORY_MAP
+
+const TAB_ORDER: TabKey[] = ['Commodities', 'Indices', 'Stocks', 'Crypto', 'Futures']
+
+/** UI labels (Crypto → “Cryptocurrencies”) */
+const TAB_LABEL: Record<TabKey, string> = {
+    Commodities: 'Commodities',
+    Indices: 'Indices',
+    Stocks: 'Stocks (CFDs)',
+    Crypto: 'Cryptocurrencies',
+    Futures: 'Futures',
+}
+
+function tabHref(tab: TabKey): string {
+    const paths: Record<TabKey, string> = {
+        Commodities: `${TRADE_INVEST}/commodities`,
+        Indices: `${TRADE_INVEST}/indices`,
+        Stocks: `${TRADE_INVEST}/stocks`,
+        Crypto: `${TRADE_INVEST}/cryptocurrencies`,
+        Futures: `${TRADE_INVEST}/futures`,
+    }
+    return paths[tab]
+}
+
+const SLUG_TO_TAB: Record<string, TabKey> = {
+    commodities: 'Commodities',
+    indices: 'Indices',
+    stocks: 'Stocks',
+    cryptocurrencies: 'Crypto',
+    cryptocurrency: 'Crypto',
+    crypto: 'Crypto',
+    futures: 'Futures',
 }
 
 function getCategoryForSymbol(symbol: string): string {
     for (const [cat, symbols] of Object.entries(CATEGORY_MAP)) {
-        if (cat !== 'All' && symbols.includes(symbol)) return cat;
+        if (symbols.includes(symbol as never)) return cat
     }
-    return 'Other';
+    return 'Other'
+}
+
+function tabFromSlug(slug: string | undefined): TabKey {
+    if (!slug) return 'Commodities'
+    const key = slug.toLowerCase()
+    return SLUG_TO_TAB[key] ?? 'Commodities'
 }
 
 function MarketCard({ quote }: { quote: MarketQuote }) {
@@ -57,19 +97,19 @@ function MarketCard({ quote }: { quote: MarketQuote }) {
                         downClassName={styles.down}
                     />
                 </div>
-                <button 
+                <button
+                    type="button"
                     onClick={() => setShowChart(!showChart)}
-                    className={styles.chartToggleBtn}
-                    style={{ 
-                        background: 'transparent', 
-                        border: '1px solid rgba(0, 200, 150, 0.4)', 
-                        color: 'var(--color-accent)', 
-                        padding: '0.4rem 0.8rem', 
-                        borderRadius: '8px', 
+                    style={{
+                        background: 'transparent',
+                        border: '1px solid rgba(0, 200, 150, 0.4)',
+                        color: 'var(--color-accent)',
+                        padding: '0.4rem 0.8rem',
+                        borderRadius: '8px',
                         cursor: 'pointer',
                         fontSize: '0.75rem',
                         alignSelf: 'flex-end',
-                        marginBottom: '0.5rem'
+                        marginBottom: '0.5rem',
                     }}
                 >
                     {showChart ? 'Hide Chart' : 'View Chart'}
@@ -79,8 +119,9 @@ function MarketCard({ quote }: { quote: MarketQuote }) {
             {showChart && (
                 <div style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
                     <div style={{ display: 'flex', gap: '8px', marginBottom: '1rem' }}>
-                        {['15M', '1H', '1D'].map(tf => (
-                            <button 
+                        {['15M', '1H', '1D'].map((tf) => (
+                            <button
+                                type="button"
                                 key={tf}
                                 onClick={() => setTimeframe(tf)}
                                 style={{
@@ -90,7 +131,7 @@ function MarketCard({ quote }: { quote: MarketQuote }) {
                                     padding: '2px 8px',
                                     borderRadius: '4px',
                                     fontSize: '12px',
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
                                 }}
                             >
                                 {tf}
@@ -104,75 +145,71 @@ function MarketCard({ quote }: { quote: MarketQuote }) {
     )
 }
 
-function MarketsContent() {
-    const searchParams = useSearchParams()
-    const initialFilter = searchParams.get('filter') || 'All'
+function MarketsContentInner({ categorySlug }: { categorySlug?: string }) {
+    const [activeTab, setActiveTab] = useState<TabKey>(() => tabFromSlug(categorySlug))
 
-    // Capitalize filter to match tab keys
-    const startTab = Object.keys(CATEGORY_MAP).find(k => k.toLowerCase() === initialFilter.toLowerCase()) || 'All'
+    useEffect(() => {
+        setActiveTab(tabFromSlug(categorySlug))
+    }, [categorySlug])
 
-    const [activeTab, setActiveTab] = useState(startTab)
     const [quotes, setQuotes] = useState<MarketQuote[]>([])
     const [loading, setLoading] = useState(true)
     const [lastUpdated, setLastUpdated] = useState<string>('')
 
     useEffect(() => {
-        let isMounted = true;
+        let isMounted = true
 
         async function load() {
             try {
-                // Use centralized fetcher
-                const data = await fetchMarketData();
+                const data = await fetchMarketData()
                 if (isMounted && data) {
-                    setQuotes(data);
-                    setLoading(false);
-                    setLastUpdated(new Date().toLocaleTimeString());
+                    setQuotes(data)
+                    setLoading(false)
+                    setLastUpdated(new Date().toLocaleTimeString())
                 }
             } catch (err) {
-                console.error(err);
+                console.error(err)
             }
         }
 
-        load();
-        const interval = setInterval(load, 10000); // 10s polling
+        load()
+        const interval = setInterval(load, 10000)
         return () => {
-            isMounted = false;
-            clearInterval(interval);
+            isMounted = false
+            clearInterval(interval)
         }
     }, [])
 
-    const displayedSymbols = CATEGORY_MAP[activeTab] || DEFAULT_SYMBOLS;
-    const displayedQuotes = quotes.filter(q => displayedSymbols.includes(q.symbol))
-
-    const tabs = Object.keys(CATEGORY_MAP)
+    const displayedSymbols = [...CATEGORY_MAP[activeTab]]
+    const displayedQuotes = quotes.filter((q) =>
+        displayedSymbols.some((sym) => sym === q.symbol)
+    )
 
     return (
         <main className={styles.container}>
             <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-
                 <header className={styles.header}>
                     <h1 className={styles.title}>Global Markets Dashboard</h1>
                     <p className={styles.subtitle}>
                         Real-time pricing data across major asset classes. Powered by institutional liquidity.
                     </p>
                     {lastUpdated && (
-                        <div className={styles.lastUpdated}>
-                            Last updated: {lastUpdated}
-                        </div>
+                        <div className={styles.lastUpdated}>Last updated: {lastUpdated}</div>
                     )}
                 </header>
 
                 <div className={styles.tabs} role="tablist">
-                    {tabs.map(tab => (
-                        <button
+                    {TAB_ORDER.map((tab) => (
+                        <Link
                             key={tab}
+                            href={tabHref(tab)}
                             role="tab"
                             aria-selected={activeTab === tab}
+                            scroll={false}
                             className={`${styles.tabBtn} ${activeTab === tab ? styles.tabBtnActive : ''}`}
-                            onClick={() => setActiveTab(tab)}
                         >
-                            {tab}
-                        </button>
+                            {TAB_LABEL[tab]}
+                        </Link>
                     ))}
                 </div>
 
@@ -187,17 +224,16 @@ function MarketsContent() {
                         </AnimatePresence>
                     </motion.div>
                 )}
-
             </div>
         </main>
     )
 }
 
-export default function MarketsDashboardPage() {
+export default function MarketsDashboard({ categorySlug }: { categorySlug?: string }) {
     return (
         <>
             <Suspense fallback={<div className={styles.loading}>Loading Dashboard...</div>}>
-                <MarketsContent />
+                <MarketsContentInner categorySlug={categorySlug} />
             </Suspense>
             <BottomBar />
         </>

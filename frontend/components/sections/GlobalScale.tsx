@@ -22,29 +22,29 @@ const Globe = dynamic(() => import('@/components/canvas/Globe'), {
     ),
 })
 
-const REGULATORS = [
+/** Value props beside the globe — institutional, non-location-specific */
+const TRUST_HIGHLIGHTS = [
     {
-        id: 'adgm',
-        code: 'ADGM / FSRA',
-        name: 'Abu Dhabi Global Markets Financial Services Regulatory Authority',
-        desc: 'Direct regulatory oversight for UAE and MENA regional operations.',
-        icon: '🇦🇪'
+        id: 'safeguarding',
+        code: 'Safeguarding',
+        name: 'Segregated client funds',
+        desc: 'Client assets held with tier-one banking partners and handled in line with institutional safeguarding standards.',
+        icon: '🔐',
     },
     {
-        id: 'mumbai',
-        code: 'Strategic Hub',
-        name: 'Mumbai Market Intelligence',
-        desc: 'Localized liquidity and deep market insight for the Indian subcontinent.',
-        icon: '🇮🇳'
+        id: 'liquidity',
+        code: 'Liquidity',
+        name: 'Multi-venue pricing',
+        desc: 'Aggregated depth across major venues so you see consistent pricing and execution quality worldwide.',
+        icon: '🌐',
     },
     {
         id: 'support',
-        code: '24/5 Desk',
-        name: 'Dedicated Support',
-        customLabel: 'Dedicated Dubai/Mumbai Desk',
-        desc: 'Expert support teams localized to your time zone and market needs.',
-        icon: '📞'
-    }
+        code: '24/7 Desk',
+        name: 'Global coverage',
+        desc: 'Specialist desks aligned to major trading sessions—chat, phone, and email when markets move.',
+        icon: '🎧',
+    },
 ]
 
 export default function GlobalScale() {
@@ -71,8 +71,8 @@ export default function GlobalScale() {
                         </h2>
                         <p className={styles.description}>
                             Serve and support clients in more than 150 jurisdictions with a single,
-                            institutionally engineered infrastructure and specialized focus on the
-                            <strong> UAE and India</strong> growth markets.
+                            institutionally engineered stack—deep liquidity routes across established
+                            and <strong>emerging markets worldwide</strong>.
                         </p>
 
                         <div className={styles.miniStats}>
@@ -81,7 +81,7 @@ export default function GlobalScale() {
                                 <span className={styles.statLab}>Avg Execution</span>
                             </div>
                             <div className={styles.miniStat}>
-                                <span className={styles.statVal}>24/5</span>
+                                <span className={styles.statVal}>24/7</span>
                                 <span className={styles.statLab}>Live Support</span>
                             </div>
                         </div>
@@ -101,11 +101,11 @@ export default function GlobalScale() {
                         </div>
                     </motion.div>
 
-                    {/* ── Right: Regulators/Presence ──────────────── */}
+                    {/* ── Right: Trust highlights (counterweighted to globe) ──────────────── */}
                     <div className={styles.regulators}>
-                        {REGULATORS.map((reg, idx) => (
+                        {TRUST_HIGHLIGHTS.map((item, idx) => (
                             <motion.div
-                                key={reg.id}
+                                key={item.id}
                                 className={styles.regItem}
                                 initial={prefersReducedMotion ? false : { opacity: 0, x: 30 }}
                                 whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
@@ -116,11 +116,11 @@ export default function GlobalScale() {
                                     ease: [0.16, 1, 0.3, 1]
                                 }}
                             >
-                                <div className={styles.regIcon}>{reg.icon}</div>
+                                <div className={styles.regIcon}>{item.icon}</div>
                                 <div className={styles.regContent}>
-                                    <span className={styles.regCode}>{reg.code}</span>
-                                    <h3 className={styles.regName}>{reg.name}</h3>
-                                    <p className={styles.regDesc}>{reg.desc}</p>
+                                    <span className={styles.regCode}>{item.code}</span>
+                                    <h3 className={styles.regName}>{item.name}</h3>
+                                    <p className={styles.regDesc}>{item.desc}</p>
                                 </div>
                                 <div className={styles.connector} />
                             </motion.div>

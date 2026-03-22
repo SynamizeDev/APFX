@@ -22,7 +22,7 @@ export default function IPODetailContent({ ipo }: { ipo: IPODetail }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <Link href="/products/ipo" className={styles.back}>
+      <Link href="/" className={styles.back}>
         <ArrowLeft size={18} /> Back to IPOs
       </Link>
 

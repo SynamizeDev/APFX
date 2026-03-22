@@ -8,19 +8,19 @@ const REVIEWS = [
     {
         quote: "APFX has transformed my trading. The execution speed is incredible — no slippage, no requotes. I moved my entire portfolio here within a month.",
         name: 'Rahul M.',
-        role: 'Forex Trader · Dubai',
+        role: 'Forex Trader · London',
         initials: 'RM',
         stars: 5,
     },
     {
         quote: "The spreads are genuinely tight. I trade gold daily and the difference versus my old broker is measurable. Customer support is also very responsive.",
         name: 'Priya S.',
-        role: 'Scalper · Mumbai',
+        role: 'Scalper · Singapore',
         initials: 'PS',
         stars: 5,
     },
     {
-        quote: "Finally a platform that feels institutional. The MT5 integration is seamless and their VPS service keeps my EAs running 24/5 without issues.",
+        quote: "Finally a platform that feels institutional. The MT5 integration is seamless and their VPS service keeps my EAs running 24/7 without issues.",
         name: 'James T.',
         role: 'Algo Trader · London',
         initials: 'JT',

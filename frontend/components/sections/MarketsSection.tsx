@@ -10,19 +10,10 @@ import styles from './MarketsSection.module.css'
 /* ── Category Data ─────────────────────────────────────────── */
 const CATEGORIES = [
     {
-        id: 'forex',
-        name: 'Forex',
-        desc: 'Trade major and minor currency pairs like EUR/USD and USD/JPY with speed and confidence.',
-        href: '/markets/forex',
-        gradient: 'linear-gradient(135deg, #e89044 0%, #d4752a 100%)',
-        shadow: 'rgba(232, 144, 68, 0.15)',
-        emoji: '💱',
-    },
-    {
         id: 'commodities',
         name: 'Commodities',
         desc: 'Speculate on market moves in gold, crude oil, silver, and more.',
-        href: '/markets/commodities',
+        href: '/trade&invest/commodities',
         gradient: 'linear-gradient(135deg, #444 0%, #111 100%)',
         shadow: 'rgba(255, 255, 255, 0.05)',
         emoji: '🛢️',
@@ -31,7 +22,7 @@ const CATEGORIES = [
         id: 'indices',
         name: 'Indices',
         desc: 'Trade leading global indices like the S&P 500, NASDAQ, and FTSE 100.',
-        href: '/markets/indices',
+        href: '/trade&invest/indices',
         gradient: 'linear-gradient(135deg, #c9a84c 0%, #9a7b30 100%)',
         shadow: 'rgba(201, 168, 76, 0.15)',
         emoji: '📈',
@@ -40,16 +31,25 @@ const CATEGORIES = [
         id: 'stocks',
         name: 'Stock CFDs',
         desc: 'Trade global stocks with leverage and profit from price movements.',
-        href: '/markets/stocks',
+        href: '/trade&invest/stocks',
         gradient: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
         shadow: 'rgba(59, 130, 246, 0.15)',
         emoji: '🍎',
     },
     {
+        id: 'crypto',
+        name: 'Cryptocurrencies',
+        desc: 'Trade major crypto pairs with deep liquidity and transparent pricing.',
+        href: '/trade&invest/cryptocurrencies',
+        gradient: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+        shadow: 'rgba(99, 102, 241, 0.2)',
+        emoji: '₿',
+    },
+    {
         id: 'futures',
         name: 'Futures',
         desc: 'Access global markets with flexible, low-cost futures trading.',
-        href: '/markets/futures',
+        href: '/trade&invest/futures',
         gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
         shadow: 'rgba(16, 185, 129, 0.15)',
         emoji: '🌐',
@@ -108,20 +108,6 @@ const Sparkline = ({ data, positive }: { data: number[], positive: boolean }) =>
 }
 
 const INSTRUMENTS: Record<string, Instrument[]> = {
-    forex: [
-        { symbol: 'EUR/USD', code: 'EUR/USD', bid: '1.1020', high: '1.1100', low: '1.1000', change: '+0.01%', changePositive: true, trend: [10, 15, 12, 18, 14, 20, 18, 25, 22] },
-        { symbol: 'GBP/USD', code: 'GBP/USD', bid: '1.3050', high: '1.3100', low: '1.3000', change: '+0.01%', changePositive: true, trend: [20, 18, 25, 22, 28, 24, 30, 28, 32] },
-        { symbol: 'USD/JPY', code: 'USD/JPY', bid: '150.37', high: '151.00', low: '150.00', change: '+0.01%', changePositive: true, trend: [15, 12, 18, 14, 20, 15, 22, 18, 25] },
-        { symbol: 'AUD/USD', code: 'AUD/USD', bid: '0.6640', high: '0.6700', low: '0.6600', change: '-0.02%', changePositive: false, trend: [30, 28, 25, 20, 22, 18, 15, 12, 10] },
-        { symbol: 'USD/CAD', code: 'USD/CAD', bid: '1.3670', high: '1.3700', low: '1.3600', change: '+0.01%', changePositive: true, trend: [25, 22, 28, 24, 20, 22, 25, 28, 30] },
-        { symbol: 'USD/CHF', code: 'USD/CHF', bid: '0.8800', high: '0.8900', low: '0.8750', change: '+0.05%', changePositive: true, trend: [10, 12, 14, 16, 18, 20, 22, 24, 26] },
-        { symbol: 'NZD/USD', code: 'NZD/USD', bid: '0.5910', high: '0.6000', low: '0.5800', change: '+0.06%', changePositive: true, trend: [12, 15, 18, 20, 22, 24, 26, 28, 30] },
-        { symbol: 'USD/INR', code: 'USD/INR', bid: '83.50', high: '83.80', low: '83.20', change: '+0.05%', changePositive: true, trend: [18, 16, 20, 18, 22, 20, 24, 22, 26] },
-        { symbol: 'USD/AED', code: 'USD/AED', bid: '3.6725', high: '3.6730', low: '3.6720', change: '+0.00%', changePositive: true, trend: [20, 20, 20, 20, 20, 20, 20, 20, 20] },
-        { symbol: 'USD/SGD', code: 'USD/SGD', bid: '1.3500', high: '1.3600', low: '1.3400', change: '+0.03%', changePositive: true, trend: [20, 22, 24, 26, 28, 30, 32, 34, 36] },
-        { symbol: 'USD/HKD', code: 'USD/HKD', bid: '7.8100', high: '7.8200', low: '7.8000', change: '-0.01%', changePositive: false, trend: [30, 28, 25, 20, 22, 18, 15, 12, 10] },
-        { symbol: 'USD/CNY', code: 'USD/CNY', bid: '7.2100', high: '7.2300', low: '7.2000', change: '+0.02%', changePositive: true, trend: [10, 12, 15, 12, 18, 20, 25, 30, 35] },
-    ],
     commodities: [
         { symbol: 'XAU/USD', code: 'Gold', bid: '2341.50', high: '2365.00', low: '2320.00', change: '+0.45%', changePositive: true, trend: [10, 15, 12, 18, 20, 22, 25, 28, 30] },
         { symbol: 'XAG/USD', code: 'Silver', bid: '29.48', high: '30.12', low: '28.90', change: '+0.32%', changePositive: true, trend: [15, 12, 18, 14, 20, 22, 20, 25, 28] },
@@ -253,7 +239,7 @@ function MarketRow({ inst, liveData }: { inst: Instrument, liveData: MarketQuote
 export default function MarketsSection() {
     const [marketData, setMarketData] = useState<Record<string, MarketQuote>>({})
     const [lastUpdated, setLastUpdated] = useState<string>('')
-    const [activeCategory, setActiveCategory] = useState('forex')
+    const [activeCategory, setActiveCategory] = useState('commodities')
     const instruments = INSTRUMENTS[activeCategory] || []
 
     useEffect(() => {
@@ -295,7 +281,7 @@ export default function MarketsSection() {
                         Trade Every Major Market in One Place
                     </h2>
                     <p className={styles.subtitle}>
-                        Access forex, indices, commodities, metals, stocks, and crypto CFDs from a single,
+                        Access commodities, indices, stocks, crypto, and futures CFDs from a single,
                         institutional-grade trading stack.
                     </p>
                     {lastUpdated && (

@@ -2,15 +2,16 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { Twitter, Linkedin, Send, Youtube, Sparkles } from 'lucide-react'
+import { Linkedin, Send, Youtube, Sparkles } from 'lucide-react'
 import styles from './Footer.module.css'
 
 const FOOTER_LINKS = {
     Trading: [
-        { label: 'Forex', href: '/markets/forex' },
-        { label: 'Commodities', href: '/markets/commodities' },
-        { label: 'Indices', href: '/markets/indices' },
-        { label: 'Stocks', href: '/markets/stocks' },
+        { label: 'Commodities', href: '/trade&invest/commodities' },
+        { label: 'Indices', href: '/trade&invest/indices' },
+        { label: 'Stocks (CFDs)', href: '/trade&invest/stocks' },
+        { label: 'Cryptocurrencies', href: '/trade&invest/cryptocurrencies' },
+        { label: 'Futures', href: '/trade&invest/futures' },
     ],
     Platforms: [
         { label: 'Web Terminal', href: '/platforms/web-terminal' },
@@ -36,7 +37,6 @@ const FOOTER_LINKS = {
 }
 
 const SOCIAL = [
-    { label: 'X', href: 'https://twitter.com/apfx', icon: <Twitter size={18} /> },
     { label: 'LinkedIn', href: 'https://linkedin.com/company/apfx', icon: <Linkedin size={18} /> },
     { label: 'Telegram', href: 'https://t.me/apfx', icon: <Send size={18} /> },
     { label: 'YouTube', href: 'https://youtube.com/@apfx', icon: <Youtube size={18} /> },
