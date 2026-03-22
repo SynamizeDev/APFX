@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ShieldCheck, Zap, BarChart3, Globe2, Layers } from 'lucide-react'
+import { ShieldCheck, Zap, BarChart3, Globe2 } from 'lucide-react'
 import styles from './WhyTradeStocks.module.css'
 
 const BENEFITS = [
@@ -24,11 +24,6 @@ const BENEFITS = [
         icon: Globe2,
         title: 'Global Market Access',
         text: 'Trade 10,000+ equities across US, European, and Asian exchanges from a single, unified trading terminal.',
-    },
-    {
-        icon: Layers,
-        title: 'Systemic Diversification',
-        text: 'Build a resilient portfolio by allocating across sectors, industries, and geographic regions with ease.',
     },
 ]
 

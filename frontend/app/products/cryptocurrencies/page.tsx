@@ -4,7 +4,7 @@ import CryptocurrenciesPage from './CryptocurrenciesPage'
 export const metadata: Metadata = {
   title: 'Cryptocurrency Trading',
   description:
-    'Learn how digital assets and crypto trading work—basics, risks, and risk management. Educational content only; no live prices.',
+    'Ledgers, liquidity, and rules—crypto education with tech context, custody, and scenarios. APFX; educational only.',
 }
 
 export default function CryptocurrenciesProductPage() {

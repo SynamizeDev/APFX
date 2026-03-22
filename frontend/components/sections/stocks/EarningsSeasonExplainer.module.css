@@ -1,0 +1,74 @@
+.section {
+  padding: clamp(3rem, 5vw, 4rem) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.container {
+  max-width: var(--container-max, 1200px);
+  margin-inline: auto;
+  padding-inline: var(--container-px, 1.5rem);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  font-size: var(--text-base);
+  color: var(--color-text-2);
+  line-height: var(--lh-relaxed);
+  max-width: 720px;
+  margin: 0 0 1.5rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  padding: 1.25rem 1.35rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: linear-gradient(
+    165deg,
+    rgba(0, 200, 150, 0.06) 0%,
+    rgba(6, 10, 18, 0.75) 100%
+  );
+}
+
+.card h3 {
+  font-size: 0.9375rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-accent);
+  margin: 0 0 0.5rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-text-2);
+  line-height: 1.55;
+}
+
+.note {
+  margin-top: 1.5rem;
+  padding: 1rem 1.15rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-3);
+  line-height: 1.55;
+  border-radius: var(--radius-md);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}

@@ -14,85 +14,146 @@ import {
   Calculator,
   GraduationCap,
   Target,
+  CloudSun,
+  Package,
+  Landmark,
 } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import styles from './CommoditiesPage.module.css'
 
+/** Angle: real-world assets & global demand — flow starts with “why it matters”, not definitions. */
 const BENEFITS = [
   {
-    icon: Scale,
-    title: 'Diversification beyond stocks and forex',
-    body: 'Commodity markets can follow different drivers than equities or currency pairs, which some traders use to broaden what they follow.',
+    icon: Globe2,
+    title: 'A different map of the world',
+    body: 'Commodity curves often react to shipping lanes, weather, and inventories—useful when you want stories beyond quarterly earnings.',
   },
   {
-    icon: Globe2,
-    title: 'Trade global macro themes',
-    body: 'Energy use, weather, and large-scale economic stories are often part of how people learn commodity markets.',
+    icon: Scale,
+    title: 'Exposure without picking one mine or one field',
+    body: 'Derivatives can track broad themes in energy or metals, though concentration and leverage still need a plan.',
   },
   {
     icon: TrendingUp,
-    title: 'Liquidity in major names',
-    body: 'Widely discussed commodities are often actively traded, though liquidity varies by product and session.',
+    title: 'Liquid names, uneven sessions',
+    body: 'Major contracts are widely discussed, but depth changes by time zone and headline risk.',
   },
   {
     icon: ShieldAlert,
-    title: 'A lens on inflation and costs',
-    body: 'Some traders study commodities when they think about how prices for goods and energy change over time—not as a guarantee of protection.',
+    title: 'Inflation language, not inflation insurance',
+    body: 'People study commodities when costs of living make headlines—markets can still move against any thesis.',
   },
 ]
 
 const RISKS = [
   {
     icon: Zap,
-    title: 'Price volatility',
-    body: 'News and shifting expectations can move prices quickly.',
+    title: 'Shock-driven gaps',
+    body: 'Weather, geopolitics, or inventory surprises can reprice expectations faster than some equity stories.',
   },
   {
     icon: ArrowLeftRight,
-    title: 'Leverage magnifies losses',
-    body: 'Using leverage can increase both gains and losses; it needs to fit your plan.',
+    title: 'Leverage cuts both ways',
+    body: 'The same tool that magnifies a correct view magnifies mistakes—size is a decision, not a default.',
   },
   {
     icon: LineChart,
-    title: 'Market unpredictability',
-    body: 'Even careful preparation cannot remove uncertainty.',
+    title: 'Correlation is not a promise',
+    body: 'Commodities do not always diversify your portfolio the way spreadsheets suggest.',
   },
   {
     icon: Target,
-    title: 'Discipline and risk management',
-    body: 'Sustainable participation usually depends on rules you set before you trade.',
+    title: 'Discipline beats conviction',
+    body: 'A plan written in calm hours survives volatile ones better than a gut feeling.',
   },
 ]
 
 const RISK_PRACTICES = [
-  'Use stop-loss orders when they fit your plan and you understand how they work on your platform.',
-  'Avoid over-leveraging—smaller size can mean less stress when the market moves against you.',
-  'Risk only a small percentage of your account on a single idea, within limits you decide in advance.',
-  'Diversify thoughtfully across ideas; spreading out does not remove risk entirely.',
+  'Cap risk per idea before you enter—then treat that cap as part of the strategy, not a suggestion.',
+  'Re-read how stops work on your platform; fast markets can fill away from the level you had in mind.',
+  'Separate “news interest” from “trade size”; excitement is not a position-sizing method.',
+  'Journal one line per trade: thesis, invalidation, actual exit—boring data beats memory.',
+]
+
+const MACRO_DRIVERS = [
+  {
+    icon: CloudSun,
+    title: 'Weather & growing conditions',
+    body: 'Harvest outlooks and weather patterns can shift expectations for crops and some energy demand.',
+  },
+  {
+    icon: Package,
+    title: 'Inventories & stockpiles',
+    body: 'Storage levels and supply reports are common themes when people discuss whether a market feels tight or ample.',
+  },
+  {
+    icon: Landmark,
+    title: 'Policy & producer groups',
+    body: 'Export rules, production targets, and coordinated supply decisions can appear in educational discussions.',
+  },
+  {
+    icon: Globe2,
+    title: 'Macro & currency',
+    body: 'Dollar strength, growth expectations, and cross-border demand can all influence how commodity prices are discussed.',
+  },
+]
+
+const CATEGORY_EXPLORER = [
+  {
+    title: 'Metals',
+    body: 'Gold and silver often come up when people talk about uncertainty, inflation themes, and industrial demand. Supply from mining and recycling also matters over longer horizons.',
+  },
+  {
+    title: 'Energy',
+    body: 'Oil and gas prices are frequently linked to global demand, geopolitical headlines, and seasonal heating or cooling needs.',
+  },
+  {
+    title: 'Agriculture',
+    body: 'Grains and softs can be sensitive to planting progress, weather during the growing season, and harvest yields in major producing regions.',
+  },
+]
+
+const SEASONAL_NOTES = [
+  {
+    label: 'Q1',
+    text: 'Northern-hemisphere winter demand for heating fuels; start-of-year positioning after holidays.',
+  },
+  {
+    label: 'Q2',
+    text: 'Spring planting updates for crops; maintenance and refinery schedules can matter for refined products.',
+  },
+  {
+    label: 'Q3',
+    text: 'Growing-season weather and hurricane-season headlines for energy and logistics.',
+  },
+  {
+    label: 'Q4',
+    text: 'Harvest supply for many crops; year-end portfolio and tax-related flows in broader markets.',
+  },
 ]
 
 const WHY_US = [
   {
     icon: LayoutDashboard,
-    title: 'Easy-to-use trading platform',
-    body: 'An interface designed so you can focus on your workflow—not fighting the tools.',
+    title: 'Workspace that stays out of your way',
+    body: 'Clear controls so you spend attention on the story in the market—not on hunting buttons.',
   },
   {
     icon: Calculator,
-    title: 'Advanced tools and calculators',
-    body: 'Plan position size, margin, and risk with calculators built for clarity.',
+    title: 'Sizing and margin tools',
+    body: 'Turn “how much could this move me?” into numbers before you commit.',
   },
   {
     icon: GraduationCap,
-    title: 'Educational resources for beginners',
-    body: 'Structured content so you are not learning commodity basics alone.',
+    title: 'Structured primers',
+    body: 'Commodity vocabulary in order—so you are not piecing blogs together alone.',
   },
   {
     icon: SlidersHorizontal,
-    title: 'Focus on risk management',
-    body: 'We emphasize responsible habits alongside market access.',
+    title: 'Risk-first onboarding',
+    body: 'We pair access with reminders that markets owe nobody a smooth ride.',
   },
 ]
 
@@ -101,22 +162,93 @@ export default function CommoditiesPage() {
     <div className={styles.page}>
       <div className={styles.heroWrap}>
         <InnerPageHero
-          title="Trade Commodities with Confidence"
-          subtitle="Learn how commodities like gold, oil, and agricultural products are traded in global markets and how you can get started."
+          title="Real Assets, Global Demand"
+          subtitle="Commodities are where weather, logistics, and policy meet a price. Learn how derivative markets translate that world into trades you can actually manage."
           breadcrumbs={[]}
           omitBottomBorder
         />
+        <p className={styles.heroTagline}>
+          Curiosity hook: every commodity chart is downstream of something physical—start by asking what had to happen in the real economy first.
+        </p>
         <div className={styles.heroActions}>
           <Link href="/register" className={styles.ctaBtnPrimary}>
             Start Trading
           </Link>
-          <a href="#what-are-commodities" className={styles.ctaBtnSecondary}>
-            Learn More
+          <a href="#why-world" className={styles.ctaBtnSecondary}>
+            Why it matters
           </a>
         </div>
       </div>
 
       <main className={styles.main}>
+        <section id="why-world" className={styles.section} aria-labelledby="why-heading">
+          <div className={styles.container}>
+            <span className={styles.sectionEyebrow}>Start here</span>
+            <h2 id="why-heading" className={styles.sectionTitle}>
+              Why the physical world still sets the table
+            </h2>
+            <p className={styles.lead}>
+              Long before a derivative prints on your screen, someone mined, drilled, planted, or stored something.
+              Commodity markets are one of the few places where a storm, a pipeline outage, or a harvest report can
+              dominate the day&apos;s narrative—often without a single CEO on a conference call.
+            </p>
+            <p className={styles.lead}>
+              That does not make commodities “better” than stocks. It means your prep work sounds different: less
+              guidance, more supply chains.
+            </p>
+          </div>
+        </section>
+
+        <section className={styles.section} aria-labelledby="story-heading">
+          <div className={styles.container}>
+            <span className={styles.sectionEyebrow}>Real-world vignette</span>
+            <h2 id="story-heading" className={styles.sectionTitle}>
+              A story most spreadsheets skip
+            </h2>
+            <div className={styles.storyCard}>
+              <h3>Grain on the water</h3>
+              <p>
+                Imagine export inspections run lighter than traders expected. The headline might be one sentence, but
+                the underlying story is ships, ports, and competing harvests half a world away. In education, people use
+                vignettes like this to remember: commodity prices often embed a whole logistics chain—not just “bullish
+                or bearish.”
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.section} aria-labelledby="how-heading">
+          <div className={styles.container}>
+            <span className={styles.sectionEyebrow}>How it works</span>
+            <h2 id="how-heading" className={styles.sectionTitle}>
+              From warehouse headlines to the price on your platform
+            </h2>
+            <p className={styles.lead}>
+              Most retail participants access commodities through <strong>derivatives</strong> whose value tracks an
+              underlying—commonly <strong>futures</strong> or <strong>CFDs</strong>. You are usually expressing a view on{' '}
+              <strong>price change</strong>, not taking delivery of barrels in your garage.
+            </p>
+            <ol className={styles.stepsList}>
+              <li>
+                <strong>Pick the story you are testing</strong> — supply tightness, demand rebound, currency shift, or
+                something else.
+              </li>
+              <li>
+                <strong>Match it to a product</strong> — contract specs decide tick size, hours, and margin; read the
+                sheet.
+              </li>
+              <li>
+                <strong>Define wrong</strong> — decide in advance what evidence would invalidate the trade, not just
+                what would confirm it.
+              </li>
+            </ol>
+            <p className={styles.note}>
+              Educational note: availability, leverage, and fees depend on your region and broker—always read the
+              disclosure before trading.
+            </p>
+          </div>
+        </section>
+
         <section
           id="what-are-commodities"
           className={styles.section}
@@ -124,14 +256,11 @@ export default function CommoditiesPage() {
         >
           <div className={styles.container}>
             <h2 id="what-heading" className={styles.sectionTitle}>
-              What Are Commodities
+              What counts as a commodity (in plain terms)
             </h2>
             <p className={styles.lead}>
-              Commodities are basic raw materials or primary goods that are bought and sold around the world. They
-              include natural resources and farm products that people and businesses use every day.
-            </p>
-            <p className={styles.lead}>
-              Commodities are often grouped into categories such as:
+              Commodities are raw or primary goods traded in bulk—metals, energy, agricultural products, and more. They
+              are often interchangeable within a grade, which is why global benchmarks exist.
             </p>
             <ul className={styles.categoryList}>
               <li className={styles.categoryCard}>
@@ -147,81 +276,116 @@ export default function CommoditiesPage() {
                 <span>Wheat, corn, coffee</span>
               </li>
             </ul>
-            <p className={styles.lead} style={{ marginTop: '1.75rem' }}>
-              These markets matter because commodities touch many parts of the global economy—from manufacturing and
-              transport to food and energy.
-            </p>
           </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="how-heading">
+        <section className={styles.section} aria-labelledby="contrast-heading">
           <div className={styles.container}>
-            <h2 id="how-heading" className={styles.sectionTitle}>
-              How Commodities Trading Works
+            <h2 id="contrast-heading" className={styles.sectionTitle}>
+              Commodities vs equities: different questions
             </h2>
-            <p className={styles.lead}>
-              Many people trade commodities using <strong>derivatives</strong>—instruments whose price follows the
-              underlying commodity. Common examples include <strong>futures</strong> and{' '}
-              <strong>contracts for difference (CFDs)</strong>. In these cases, the focus is usually on{' '}
-              <strong>price movement</strong>, not on storing or delivering the physical goods yourself.
+            <div className={styles.contrastCard}>
+              <h3>Same broker, different interview</h3>
+              <p>
+                Equities often invite you to ask about management and margins. Commodities invite you to ask about tons,
+                barrels, bushels, and miles. Neither question list is safer—just different failure modes.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.section} aria-labelledby="drivers-heading">
+          <div className={styles.container}>
+            <h2 id="drivers-heading" className={styles.sectionTitle}>
+              Forces that show up in commodity conversations
+            </h2>
+            <p className={styles.sectionSubtitle}>
+              Themes people study—not a forecast. Overlap is normal.
             </p>
-            <p className={styles.sectionSubtitle} style={{ marginBottom: '1rem' }}>
-              Key ideas to understand:
+            <div className={styles.driverStrip}>
+              {MACRO_DRIVERS.map(({ icon: Icon, title, body }) => (
+                <div key={title} className={styles.driverChip}>
+                  <Icon size={22} strokeWidth={1.75} aria-hidden />
+                  <div>
+                    <strong>{title}</strong>
+                    <span>{body}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.section} aria-labelledby="explorer-heading">
+          <div className={styles.container}>
+            <h2 id="explorer-heading" className={styles.sectionTitle}>
+              Pick a lane—then read what usually matters there
+            </h2>
+            <p className={styles.sectionSubtitle}>
+              Expand a bucket to see typical talking points in courses and research—not trade instructions.
             </p>
-            <ul className={styles.bulletList}>
-              <li>
-                <strong>Supply and demand</strong> — When supply is tight or demand rises, prices may move up; the
-                opposite can push prices down.
-              </li>
-              <li>
-                <strong>Global events</strong> — Weather, policy, and major economic stories can change how traders
-                view future supply and demand.
-              </li>
-              <li>
-                <strong>Buying and selling</strong> — Traders may look for opportunities when they expect prices to
-                rise (a <strong>long</strong> view) or when they expect prices to fall (a <strong>short</strong> view).
-              </li>
-            </ul>
-            <p className={styles.note}>
-              Educational note: How these products work—including fees, rules, and whether they are available to you—depends
-              on your region and your broker. Always read the product information before you trade.
+            <div className={styles.explorer}>
+              {CATEGORY_EXPLORER.map(({ title, body }) => (
+                <details key={title}>
+                  <summary>{title}</summary>
+                  <div className={styles.detailBody}>{body}</div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.section} aria-labelledby="season-heading">
+          <div className={styles.container}>
+            <h2 id="season-heading" className={styles.sectionTitle}>
+              Rhythms on the calendar (illustrative)
+            </h2>
+            <p className={styles.sectionSubtitle}>
+              Traders sometimes frame quarters as story arcs—real weather and policy still surprise every year.
             </p>
+            <div className={styles.seasonGrid}>
+              {SEASONAL_NOTES.map(({ label, text }) => (
+                <div key={label} className={styles.seasonCard}>
+                  <h3>{label}</h3>
+                  <p>{text}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
         <section className={styles.section} aria-labelledby="popular-heading">
           <div className={styles.container}>
             <h2 id="popular-heading" className={styles.sectionTitle}>
-              Popular Commodities to Trade
+              Names that show up early in coursework
             </h2>
             <p className={styles.sectionSubtitle}>
-              Below are commonly discussed names in educational materials. This is general information only—not a
-              recommendation to buy or sell any instrument.
+              Familiar examples for vocabulary—not a buy list.
             </p>
             <div className={styles.tableWrap}>
               <table className={styles.table}>
                 <thead>
                   <tr>
                     <th scope="col">Commodity</th>
-                    <th scope="col">Why it often comes up</th>
+                    <th scope="col">Why it enters the conversation</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td className={styles.tableName}>Gold</td>
-                    <td>Often discussed when people talk about uncertainty or long-term store-of-value themes.</td>
+                    <td>Often tied to discussions of uncertainty and long-horizon store-of-value themes.</td>
                   </tr>
                   <tr>
                     <td className={styles.tableName}>Crude oil</td>
-                    <td>Closely tied to global energy demand and frequently in the news when conditions shift.</td>
+                    <td>Linked to global energy use and frequent macro headlines.</td>
                   </tr>
                   <tr>
                     <td className={styles.tableName}>Silver</td>
-                    <td>Talked about both as a traded metal and for industrial uses.</td>
+                    <td>Discussed as both a precious metal and an industrial input.</td>
                   </tr>
                   <tr>
                     <td className={styles.tableName}>Natural gas</td>
-                    <td>Often linked to seasonal demand and regional weather-related stories.</td>
+                    <td>Seasonal heating and regional infrastructure stories.</td>
                   </tr>
                 </tbody>
               </table>
@@ -232,7 +396,7 @@ export default function CommoditiesPage() {
         <section className={styles.section} aria-labelledby="benefits-heading">
           <div className={styles.container}>
             <h2 id="benefits-heading" className={styles.sectionTitle}>
-              Benefits of Trading Commodities
+              What draws people to commodity markets
             </h2>
             <div className={styles.grid2}>
               {BENEFITS.map(({ icon: Icon, title, body }) => (
@@ -250,13 +414,30 @@ export default function CommoditiesPage() {
           </div>
         </section>
 
+        <section className={styles.section} aria-labelledby="scenario-heading">
+          <div className={styles.container}>
+            <span className={styles.sectionEyebrow}>Hypothetical</span>
+            <h2 id="scenario-heading" className={styles.sectionTitle}>
+              What if tomorrow&apos;s inventory print surprises everyone?
+            </h2>
+            <div className={styles.scenarioBlock}>
+              <p className={styles.scenarioQ}>Think it through before you size up.</p>
+              <p>
+                Suppose a weekly report shows stockpiles far from consensus. Price might gap. Liquidity can thin. Your
+                stop might execute away from the level you pictured. None of that tells you whether to trade—it reminds
+                you that fast prints reward plans written in advance, not adrenaline.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className={styles.section} aria-labelledby="risks-heading">
           <div className={styles.container}>
             <h2 id="risks-heading" className={styles.sectionTitle}>
-              Risks of Commodities Trading
+              What experienced participants still respect
             </h2>
             <p className={styles.sectionSubtitle}>
-              Commodity prices can move quickly. It helps to understand risks clearly before you put real money at risk.
+              Fear hook: the market does not care that you “almost” had the thesis right.
             </p>
             <div className={styles.grid2}>
               {RISKS.map(({ icon: Icon, title, body }) => (
@@ -274,36 +455,26 @@ export default function CommoditiesPage() {
           </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="strategies-heading">
+        <section className={styles.section} aria-labelledby="lenses-heading">
           <div className={styles.container}>
-            <h2 id="strategies-heading" className={styles.sectionTitle}>
-              Basic Commodities Trading Strategies
+            <h2 id="lenses-heading" className={styles.sectionTitle}>
+              Three lenses—not three guarantees
             </h2>
             <p className={styles.sectionSubtitle}>
-              Simple frameworks people learn about in courses and guides—not promises of results. Always pair any
-              approach with position sizing and a plan for when the market moves against you.
+              Simple frameworks educators use. Pair with size limits every time.
             </p>
-            <div className={styles.strategyGrid}>
-              <div className={styles.strategyCard}>
-                <h3>Trend following</h3>
-                <p>
-                  Some traders try to trade in the same general direction as a market that has been moving with momentum,
-                  while managing risk along the way.
-                </p>
+            <div className={styles.lensGrid}>
+              <div className={styles.lensCard}>
+                <h3>Flow story</h3>
+                <p>Who needs the commodity now, who can wait, and what could change either side next week?</p>
               </div>
-              <div className={styles.strategyCard}>
-                <h3>Breakout trading</h3>
-                <p>
-                  Some traders watch when price moves beyond a level they were tracking, then decide whether to act—with
-                  a plan for being wrong.
-                </p>
+              <div className={styles.lensCard}>
+                <h3>Stock story</h3>
+                <p>Is inventory tight, ample, or uncertain—and how fast could that flip on new data?</p>
               </div>
-              <div className={styles.strategyCard}>
-                <h3>News-based trading</h3>
-                <p>
-                  Some traders follow economic calendars and major headlines, then rely on a personal process for fast
-                  markets.
-                </p>
+              <div className={styles.lensCard}>
+                <h3>Macro overlay</h3>
+                <p>Does the dollar, rates, or risk appetite dominate the tape even when the micro story feels clear?</p>
               </div>
             </div>
           </div>
@@ -312,9 +483,9 @@ export default function CommoditiesPage() {
         <section className={styles.section} aria-labelledby="risk-mgmt-heading">
           <div className={styles.container}>
             <h2 id="risk-mgmt-heading" className={styles.sectionTitle}>
-              Risk Management in Commodities
+              Habits that survive noisy headlines
             </h2>
-            <p className={styles.sectionSubtitle}>Sound habits matter more than any single trade.</p>
+            <p className={styles.sectionSubtitle}>Opportunity lives in preparation; improvisation taxes accounts.</p>
             <ul className={styles.bulletList}>
               {RISK_PRACTICES.map((line) => (
                 <li key={line}>{line}</li>
@@ -326,10 +497,10 @@ export default function CommoditiesPage() {
         <section className={styles.section} aria-labelledby="why-heading">
           <div className={styles.container}>
             <h2 id="why-heading" className={styles.sectionTitle}>
-              Why Trade Commodities with Us
+              Learn commodity markets with APFX
             </h2>
             <p className={styles.sectionSubtitle}>
-              We aim to make your learning path clear and your tools easy to find.
+              Tools and education for people who want the story and the risk plan in the same place.
             </p>
             <div className={styles.whyGrid}>
               {WHY_US.map(({ icon: Icon, title, body }) => (
@@ -350,14 +521,26 @@ export default function CommoditiesPage() {
           </div>
         </section>
 
+        <section className={styles.relatedSection} aria-labelledby="related-heading">
+          <div className={styles.container}>
+            <h2 id="related-heading" className={styles.relatedTitle}>
+              Keep exploring
+            </h2>
+            <div className={styles.relatedLinks}>
+              <Link href="/trade&invest/futures">Futures hub</Link>
+              <Link href="/tools/calculators/margin">Margin calculator</Link>
+              <Link href="/learn/glossary">Glossary</Link>
+            </div>
+          </div>
+        </section>
+
         <section className={styles.ctaSection} aria-labelledby="final-cta-heading">
           <div className={styles.container}>
             <h2 id="final-cta-heading" className={styles.ctaTitle}>
-              Start your commodities trading journey today.
+              Ready when you are—not before.
             </h2>
             <p className={styles.ctaSubtitle}>
-              When you are ready, open an account, explore our tools, and keep learning—trade only with money you can
-              afford to lose.
+              Open an account only with capital you can lose. Use paper logic first, live size second.
             </p>
             <div className={styles.ctaButtons}>
               <Link href="/register" className={styles.ctaBtnPrimary}>

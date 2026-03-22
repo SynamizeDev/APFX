@@ -4,7 +4,7 @@ import IndicesPage from './IndicesPage'
 export const metadata: Metadata = {
   title: 'Indices Trading',
   description:
-    'Learn how market indices work and how traders approach index CFDs and futures—benefits, risks, and risk management. Educational content only.',
+    'Benchmarks, macro behavior, and index products—methodology, sessions, and risk habits. APFX; educational only.',
 }
 
 export default function IndicesProductPage() {

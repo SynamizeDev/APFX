@@ -4,7 +4,7 @@ import CommoditiesPage from './CommoditiesPage'
 export const metadata: Metadata = {
   title: 'Commodities Trading',
   description:
-    'Learn how commodities like gold, oil, and agricultural products are traded—basics, risks, and how to get started with APFX. Educational content only.',
+    'Real-world demand, derivatives, and risk—commodity education with scenarios, drivers, and habits. APFX; educational only.',
 }
 
 export default function CommoditiesProductPage() {

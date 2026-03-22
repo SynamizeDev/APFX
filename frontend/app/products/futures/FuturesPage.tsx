@@ -20,6 +20,8 @@ import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import styles from './FuturesPage.module.css'
 
+/** Angle: professional trading & contract discipline — mechanics before benefits. */
+
 const FUTURES_TYPES: { title: string; description: string }[] = [
   {
     title: 'Commodity futures',
@@ -46,76 +48,76 @@ const FUTURES_TYPES: { title: string; description: string }[] = [
 const BENEFITS = [
   {
     icon: TrendingUp,
-    title: 'Trade both directions',
-    body: 'Futures are often used to express a view that prices will rise or fall, subject to product rules and access.',
+    title: 'Express direction with rules',
+    body: 'Standardized contracts mean everyone references the same spec sheet—clarity if you read it.',
   },
   {
     icon: BarChart3,
-    title: 'Leverage and margin',
-    body: 'Margin can allow larger notional exposure than posting the full value upfront. That increases both potential reward and risk.',
+    title: 'Capital efficiency—with strings',
+    body: 'Margin can enlarge notional exposure; strings include maintenance calls and gap risk.',
   },
   {
     icon: LineChart,
-    title: 'Liquidity in major contracts',
-    body: 'Widely traded futures can be active, though liquidity varies by contract, session, and market conditions.',
+    title: 'Transparent depth in big contracts',
+    body: 'Active markets can show tight depth; thin contracts punish urgency.',
   },
   {
     icon: Scale,
-    title: 'Hedging use cases',
-    body: 'Some participants use futures to offset risk elsewhere; others focus on price speculation—goals and risks differ.',
+    title: 'Hedging or speculation—same ticket, different job',
+    body: 'Know which job you are doing before you argue about P&amp;L.',
   },
 ]
 
 const RISKS = [
   {
     icon: ArrowLeftRight,
-    title: 'Leverage magnifies losses',
-    body: 'Small moves in the underlying can mean large percentage changes in your margin and profit or loss.',
+    title: 'Leverage does not negotiate',
+    body: 'Moves against you can trigger margin calls faster than spot equity habits prepare you for.',
   },
   {
     icon: Zap,
-    title: 'Volatility and fast markets',
-    body: 'Prices can gap or move quickly; stops may not fill at the exact level you expect.',
+    title: 'Gaps love illiquid hours',
+    body: 'Overnight headlines can print through levels you thought were safe on a chart.',
   },
   {
     icon: Wallet,
-    title: 'Margin can change',
-    body: 'Exchanges or brokers may adjust margin requirements, which can affect how much capital you need to hold positions.',
+    title: 'Margin is a moving target',
+    body: 'Exchanges and brokers can raise requirements when volatility rises.',
   },
   {
     icon: CalendarClock,
-    title: 'Expiration and rolls',
-    body: 'Contracts have expiry dates; managing or rolling positions takes planning and may involve extra costs.',
+    title: 'Expiry is a deadline, not a suggestion',
+    body: 'Roll or exit deliberately; forgetting is expensive.',
   },
 ]
 
 const RISK_PRACTICES = [
-  'Use stop-loss orders when they fit your plan and you understand how they work in fast or gapping markets.',
-  'Monitor margin requirements and free margin so you are not surprised by a margin call.',
-  'Avoid over-leveraging—keep position size consistent with your risk limits.',
-  'Stay disciplined: define risk per trade and review your rules regularly.',
+  'Before entry: write contract symbol, tick value, and point value of your stop in dollars—not just “points.”',
+  'Track roll dates like meetings; surprises belong in movies, not margin accounts.',
+  'Assume the worst fill on stops in fast markets—if you cannot afford it, shrink size.',
+  'Reconcile daily: open interest, margin, and unrealized P&amp;L should never be mysterious.',
 ]
 
 const WHY_US = [
   {
     icon: LayoutDashboard,
-    title: 'Easy-to-use trading platform',
-    body: 'Straightforward workflows so you can focus on the contract and the plan—not the clutter.',
+    title: 'Contract-first workflows',
+    body: 'Specs surfaced where you trade—not buried three clicks deep.',
   },
   {
     icon: Calculator,
-    title: 'Advanced trading tools and calculators',
-    body: 'Support for sizing, margin awareness, and scenario thinking before you place a trade.',
+    title: 'Margin and scenario tools',
+    body: 'Model rolls, not just entries.',
   },
   {
     icon: GraduationCap,
-    title: 'Educational resources for traders',
-    body: 'Clear explanations for beginners and refreshers for experienced users.',
+    title: 'Professional vocabulary, plain English',
+    body: 'Contango, backwardation, and variation margin—defined in context.',
   },
   {
     icon: ShieldAlert,
-    title: 'Focus on responsible trading',
-    body: 'We emphasize risk habits alongside access to futures markets.',
+    title: 'Risk as a prerequisite',
+    body: 'We would rather you skip a trade than misunderstand a spec.',
   },
 ]
 
@@ -124,84 +126,143 @@ export default function FuturesPage() {
     <div className={styles.page}>
       <div className={styles.heroWrap}>
         <InnerPageHero
-          title="Trade Futures with Confidence"
-          subtitle="Learn how futures contracts work and how you can trade price movements across different markets."
+          title="Contracts, Deadlines, Discipline"
+          subtitle="Futures are where market opinion meets an expiry date. Learn the spec first—strategies come after."
           breadcrumbs={[]}
           omitBottomBorder
         />
+        <p className={styles.heroTagline}>
+          Fear hook: the market will not wait while you re-read margin terms during a gap.
+        </p>
         <div className={styles.heroActions}>
           <Link href="/register" className={styles.ctaBtnPrimary}>
             Start Trading
           </Link>
-          <a href="#what-are-futures" className={styles.ctaBtnSecondary}>
-            Learn More
+          <a href="#desk-lens" className={styles.ctaBtnSecondary}>
+            Start at the desk lens
           </a>
         </div>
       </div>
 
       <main className={styles.main}>
-        <section id="what-are-futures" className={styles.section} aria-labelledby="what-heading">
+        <section id="desk-lens" className={styles.section} aria-labelledby="desk-heading">
           <div className={styles.container}>
-            <h2 id="what-heading" className={styles.sectionTitle}>
-              What Are Futures
+            <span className={styles.sectionEyebrow}>Professional frame</span>
+            <h2 id="desk-heading" className={styles.sectionTitle}>
+              What a futures contract actually is
             </h2>
             <p className={styles.lead}>
-              Futures are standardized agreements where two sides commit to buy or sell an underlying at an agreed price
-              for delivery or cash settlement on a specified date—according to the contract terms published by the
-              exchange or clearing arrangement.
+              A futures contract is a standardized agreement to buy or sell an underlying at a defined specification on a
+              defined timeline. Two sides meet through the exchange’s rules—not through a handshake. Your P&amp;L comes
+              from price movement relative to your entry, fees, and whether you navigate rolls and expiry cleanly.
             </p>
             <p className={styles.lead}>
-              People use futures for different reasons: some aim to speculate on price direction, others seek to offset
-              risk tied to production, portfolios, or business needs. The right use depends on your goals, experience,
-              and the rules that apply to you.
+              People use futures to speculate, hedge business risk, or express relative-value ideas between contracts.
+              The use case changes the checklist; the margin math does not care about your story.
             </p>
+          </div>
+        </section>
+
+        <section className={styles.section} aria-labelledby="ladder-heading">
+          <div className={styles.container}>
+            <h2 id="ladder-heading" className={styles.sectionTitle}>
+              Time structure: the contract ladder
+            </h2>
+            <p className={styles.sectionSubtitle}>
+              Illustration only—verify symbols, ticks, and last trade dates in the spec.
+            </p>
+            <div className={styles.ladder}>
+              <div className={styles.ladderStep}>
+                <div className={styles.ladderMonth}>Front month</div>
+                <div className={styles.ladderNote}>Usually the most active liquidity near the present.</div>
+              </div>
+              <span className={styles.ladderArrow} aria-hidden>
+                →
+              </span>
+              <div className={styles.ladderStep}>
+                <div className={styles.ladderMonth}>Next month</div>
+                <div className={styles.ladderNote}>Where rolls begin to matter for holders.</div>
+              </div>
+              <span className={styles.ladderArrow} aria-hidden>
+                →
+              </span>
+              <div className={styles.ladderStep}>
+                <div className={styles.ladderMonth}>Deferred</div>
+                <div className={styles.ladderNote}>Different liquidity; different curve shape.</div>
+              </div>
+            </div>
           </div>
         </section>
 
         <section className={styles.section} aria-labelledby="how-heading">
           <div className={styles.container}>
+            <span className={styles.sectionEyebrow}>Mechanics</span>
             <h2 id="how-heading" className={styles.sectionTitle}>
-              How Futures Trading Works
+              How P&amp;L builds in futures
             </h2>
             <p className={styles.lead}>
-              Futures trading lets you express a view on the future price of an underlying without holding the physical
-              asset in many cases—your outcomes come from price changes relative to your entry, minus costs and fees.
-            </p>
-            <p className={styles.sectionSubtitle} style={{ marginBottom: '1rem' }}>
-              Key concepts:
+              You post margin to open and maintain positions. Mark-to-market means your account reflects gains and
+              losses as prices move—even before you flatten.
             </p>
             <ul className={styles.bulletList}>
               <li>
-                <strong>Expiry</strong> — Each contract has a last trading day and settlement process defined by the
-                contract specifications.
+                <strong>Expiry</strong> — last trading day and settlement follow the contract spec.
               </li>
               <li>
-                <strong>Long and short</strong> — A <strong>long</strong> position typically benefits if prices rise; a{' '}
-                <strong>short</strong> position typically benefits if prices fall—subject to product rules.
+                <strong>Long / short</strong> — directional exposure with rules, not opinions.
               </li>
               <li>
-                <strong>Margin</strong> — You post collateral to open and maintain positions; it is not the same as a
-                loan, but it ties up capital and can trigger margin calls.
+                <strong>Margin</strong> — initial and maintenance; breaches can force liquidation.
               </li>
               <li>
-                <strong>Profit and loss</strong> — Outcomes depend on price movement, position size, fees, and whether
-                you hold through events like rolls or expiry.
+                <strong>Rolls</strong> — shifting exposure to a new contract has costs and timing risk.
               </li>
             </ul>
             <p className={styles.note}>
-              Educational note: Contract specs, trading hours, and margin rules depend on the exchange and your broker.
-              Always read the product documentation before trading.
+              Educational note: always read exchange and broker documentation before trading.
             </p>
+          </div>
+        </section>
+
+        <section className={styles.section} aria-labelledby="curve-heading">
+          <div className={styles.container}>
+            <h2 id="curve-heading" className={styles.sectionTitle}>
+              Curve vocabulary: contango &amp; backwardation
+            </h2>
+            <div className={styles.contangoBlock}>
+              <h3>Why desks stare at curves</h3>
+              <p>
+                <strong>Contango</strong>: later contracts trade above front months (simplified).{' '}
+                <strong>Backwardation</strong>: the opposite shape. Neither is a trade signal by itself—storage, carry,
+                and risk premia all feed in.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.section} aria-labelledby="margin-tools-heading">
+          <div className={styles.container}>
+            <h2 id="margin-tools-heading" className={styles.sectionTitle}>
+              Margin math belongs in your prep, not after the fill
+            </h2>
+            <p className={styles.sectionSubtitle}>
+              Use calculators to stress-test—not to predict winners.
+            </p>
+            <div className={styles.marginLinks}>
+              <Link href="/tools/calculators/margin">Margin calculator</Link>
+              <Link href="/tools/calculators/position-size">Position size</Link>
+              <Link href="/tools/risk-management">Risk management hub</Link>
+            </div>
           </div>
         </section>
 
         <section className={styles.section} aria-labelledby="types-heading">
           <div className={styles.container}>
             <h2 id="types-heading" className={styles.sectionTitle}>
-              Types of Futures Contracts
+              Families of contracts
             </h2>
             <p className={styles.sectionSubtitle}>
-              Categories are broad; exact names, sizes, and tick values are defined by each contract’s specification.
+              Broad buckets—open the spec for the exact instrument.
             </p>
             <ul className={styles.typesGrid}>
               {FUTURES_TYPES.map(({ title, description }) => (
@@ -214,10 +275,70 @@ export default function FuturesPage() {
           </div>
         </section>
 
+        <section className={styles.section} aria-labelledby="product-compare-heading">
+          <div className={styles.container}>
+            <h2 id="product-compare-heading" className={styles.sectionTitle}>
+              Futures vs CFDs vs spot: pick the right wrapper
+            </h2>
+            <p className={styles.sectionSubtitle}>
+              Availability varies—this is orientation, not a menu of guarantees.
+            </p>
+            <div className={styles.compareTableWrap}>
+              <table className={styles.compareTable}>
+                <thead>
+                  <tr>
+                    <th scope="col">Dimension</th>
+                    <th scope="col">Futures</th>
+                    <th scope="col">CFDs</th>
+                    <th scope="col">Spot</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Expiry</td>
+                    <td>Defined; rolls required</td>
+                    <td>Often none on product</td>
+                    <td>No expiry on holding asset</td>
+                  </tr>
+                  <tr>
+                    <td>Rules</td>
+                    <td>Exchange + clearing</td>
+                    <td>Broker terms</td>
+                    <td>Custody &amp; settlement vary</td>
+                  </tr>
+                  <tr>
+                    <td>Typical focus</td>
+                    <td>Standard size, transparent depth</td>
+                    <td>Price tracking, financing quirks</td>
+                    <td>Ownership &amp; transfer</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.section} aria-labelledby="roll-scenario-heading">
+          <div className={styles.container}>
+            <span className={styles.sectionEyebrow}>Desk scenario</span>
+            <h2 id="roll-scenario-heading" className={styles.sectionTitle}>
+              Roll week: when “the same trade” is not the same contract
+            </h2>
+            <div className={styles.deskScenario}>
+              <h3>Hypothetical, not a playbook</h3>
+              <p>
+                You are long the front month and liquidity starts migrating. Spreads between months can widen. If you
+                roll late, you pay the spread; if you forget, you face delivery or cash settlement realities you never
+                intended. The trade does not care that you meant to roll “later.”
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className={styles.section} aria-labelledby="benefits-heading">
           <div className={styles.container}>
             <h2 id="benefits-heading" className={styles.sectionTitle}>
-              Benefits of Trading Futures
+              Why professionals still reach for futures
             </h2>
             <div className={styles.grid2}>
               {BENEFITS.map(({ icon: Icon, title, body }) => (
@@ -238,12 +359,8 @@ export default function FuturesPage() {
         <section className={styles.section} aria-labelledby="risks-heading">
           <div className={styles.container}>
             <h2 id="risks-heading" className={styles.sectionTitle}>
-              Risks of Futures Trading
+              Risks that survive backtests
             </h2>
-            <p className={styles.sectionSubtitle}>
-              Futures combine leverage, deadlines, and fast markets. Losses can exceed the margin you first post in some
-              situations—check your broker’s terms.
-            </p>
             <div className={styles.grid2}>
               {RISKS.map(({ icon: Icon, title, body }) => (
                 <div key={title} className={styles.featureCard}>
@@ -260,36 +377,26 @@ export default function FuturesPage() {
           </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="strategies-heading">
+        <section className={styles.section} aria-labelledby="structures-heading">
           <div className={styles.container}>
-            <h2 id="strategies-heading" className={styles.sectionTitle}>
-              Basic Futures Trading Strategies
+            <h2 id="structures-heading" className={styles.sectionTitle}>
+              Three structures desks rehearse
             </h2>
             <p className={styles.sectionSubtitle}>
-              Simple ideas taught in many courses—not guarantees. Always align strategy with contract specs and your
-              risk plan.
+              Names vary; the idea is to separate hypothesis from execution risk.
             </p>
-            <div className={styles.strategyGrid}>
-              <div className={styles.strategyCard}>
-                <h3>Trend following</h3>
-                <p>
-                  Some traders try to trade in the direction of sustained momentum, using rules for exits when the
-                  trend weakens.
-                </p>
+            <div className={styles.proGrid}>
+              <div className={styles.proCard}>
+                <h3>Calendar spread</h3>
+                <p>Long one expiry, short another—betting on the shape of the curve, not only level.</p>
               </div>
-              <div className={styles.strategyCard}>
-                <h3>Spread trading</h3>
-                <p>
-                  Some traders work with price differences between related contracts (for example, different expiries or
-                  related underlyings), aiming for relative-value moves.
-                </p>
+              <div className={styles.proCard}>
+                <h3>Inter-market</h3>
+                <p>Related underlyings (e.g., crude vs refined) when you have a view on processing margins.</p>
               </div>
-              <div className={styles.strategyCard}>
-                <h3>Breakout trading</h3>
-                <p>
-                  Some traders enter when price moves beyond a level they were watching, with a plan for failed
-                  breakouts.
-                </p>
+              <div className={styles.proCard}>
+                <h3>Hedge replacement</h3>
+                <p>Adjust hedge ratio as your physical exposure changes—discipline, not set-and-forget.</p>
               </div>
             </div>
           </div>
@@ -298,9 +405,8 @@ export default function FuturesPage() {
         <section className={styles.section} aria-labelledby="risk-mgmt-heading">
           <div className={styles.container}>
             <h2 id="risk-mgmt-heading" className={styles.sectionTitle}>
-              Risk Management in Futures Trading
+              Risk checklist for leveraged deadlines
             </h2>
-            <p className={styles.sectionSubtitle}>Practical habits reduce surprises.</p>
             <ul className={styles.bulletList}>
               {RISK_PRACTICES.map((line) => (
                 <li key={line}>{line}</li>
@@ -312,10 +418,10 @@ export default function FuturesPage() {
         <section className={styles.section} aria-labelledby="why-heading">
           <div className={styles.container}>
             <h2 id="why-heading" className={styles.sectionTitle}>
-              Why Trade Futures with Us
+              Trade futures with APFX
             </h2>
             <p className={styles.sectionSubtitle}>
-              We aim to pair access with education and clear risk thinking.
+              Infrastructure and education for people who respect the spec sheet.
             </p>
             <div className={styles.whyGrid}>
               {WHY_US.map(({ icon: Icon, title, body }) => (
@@ -329,21 +435,33 @@ export default function FuturesPage() {
               ))}
             </div>
             <p className={styles.disclaimer}>
-              Futures trading involves substantial risk and is not suitable for all investors. You can lose more than
-              your initial margin in some cases. Past performance does not guarantee future results. This page is for
-              general education only and does not constitute investment, tax, or legal advice.
+              Futures trading involves substantial risk and is not suitable for all investors. You can lose more than your
+              initial margin in some cases. Past performance does not guarantee future results. This page is for general
+              education only and does not constitute investment, tax, or legal advice.
             </p>
+          </div>
+        </section>
+
+        <section className={styles.relatedSection} aria-labelledby="related-heading">
+          <div className={styles.container}>
+            <h2 id="related-heading" className={styles.relatedTitle}>
+              Cross-links
+            </h2>
+            <div className={styles.relatedLinks}>
+              <Link href="/trade&invest/commodities">Commodities</Link>
+              <Link href="/trade&invest/indices">Indices</Link>
+              <Link href="/learn/glossary">Glossary</Link>
+            </div>
           </div>
         </section>
 
         <section className={styles.ctaSection} aria-labelledby="final-cta-heading">
           <div className={styles.container}>
             <h2 id="final-cta-heading" className={styles.ctaTitle}>
-              Start your futures trading journey today.
+              Read the spec. Size the trade. Keep the date.
             </h2>
             <p className={styles.ctaSubtitle}>
-              Open an account when you are ready, explore our tools, and keep learning—trade only with capital you can
-              afford to lose.
+              Open an account when you are ready—use capital you can afford to lose.
             </p>
             <div className={styles.ctaButtons}>
               <Link href="/register" className={styles.ctaBtnPrimary}>
