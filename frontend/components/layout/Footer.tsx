@@ -10,29 +10,28 @@ const FOOTER_LINKS = {
         { label: 'Forex', href: '/markets/forex' },
         { label: 'Commodities', href: '/markets/commodities' },
         { label: 'Indices', href: '/markets/indices' },
-        { label: 'Metals', href: '/markets/metals' },
         { label: 'Stocks', href: '/markets/stocks' },
     ],
     Platforms: [
-        { label: 'Advanced Web Terminal', href: '/platforms/web-terminal' },
+        { label: 'Web Terminal', href: '/platforms/web-terminal' },
         { label: 'TradingView Integration', href: '/platforms/tradingview' },
-        { label: 'WebTrader', href: '/platforms/webtrader' },
         { label: 'Mobile App', href: '/platforms/mobile' },
         { label: 'Copy Trading', href: '/platforms/copy-trading' },
     ],
     Company: [
-        { label: 'About APFX', href: '/company' },
-        { label: 'Regulation', href: '/company/regulation' },
+        { label: 'About Us', href: '/company/about-us' },
+        { label: 'Press', href: '/company/press' },
         { label: 'Careers', href: '/company/careers' },
-        { label: 'News', href: '/news' },
         { label: 'Contact', href: '/contact' },
     ],
     Support: [
         { label: 'Help Center', href: '/support' },
-        { label: 'Open Account', href: '/register' },
-        { label: 'Login', href: '/login' },
-        { label: 'IB Program', href: '/partners' },
         { label: 'FAQ', href: '/faq' },
+        { label: 'Contact', href: '/contact' },
+    ],
+    Partner: [
+        { label: 'Become a Partner', href: '/partners' },
+        { label: 'IB Program', href: '/partners/ib-program' },
     ],
 }
 
@@ -64,8 +63,8 @@ export default function Footer() {
                         </span>
                     </Link>
                     <p className={styles.tagline}>
-                        Institutional-grade trading for every investor.
-                        Deep liquidity, tight spreads, zero compromise.
+                        Institutional-grade trading for global investors.
+                        Deep liquidity, tight spreads, and advanced technology.
                     </p>
 
                     {/* Newsletter */}
@@ -131,7 +130,7 @@ export default function Footer() {
                         <ul role="list">
                             {links.map((link) => (
                                 <li key={link.href}>
-                                    <Link href={link.href}>{link.label}</Link>
+                                    <Link href={link.href} prefetch={true}>{link.label}</Link>
                                 </li>
                             ))}
                         </ul>
@@ -146,9 +145,9 @@ export default function Footer() {
                         © {new Date().getFullYear()} APFX Limited. All rights reserved.
                     </span>
                     <nav className={styles.legal} aria-label="Legal navigation">
-                        <Link href="/legal/privacy">Privacy Policy</Link>
-                        <Link href="/legal/terms">Terms of Service</Link>
-                        <Link href="/legal/risk-disclosure">Risk Disclosure</Link>
+                        <Link href="/legal/privacy" prefetch={true}>Privacy Policy</Link>
+                        <Link href="/legal/terms" prefetch={true}>Terms of Service</Link>
+                        <Link href="/legal/risk-disclosure" prefetch={true}>Risk Disclosure</Link>
                     </nav>
                 </div>
                 <p className={styles.disclaimer}>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import { motion, AnimatePresence, Variants } from 'framer-motion'
 import EntryAnimation from '@/components/sections/EntryAnimation'
@@ -39,19 +39,20 @@ const GlobalScale = dynamic(
   }
 )
 
+const StatsBar = dynamic(() => import('@/components/sections/StatsBar'), { ssr: true })
+const MarketsSection = dynamic(() => import('@/components/sections/MarketsSection'), { ssr: true })
+const WhyAPFX = dynamic(() => import('@/components/sections/WhyAPFX'), { ssr: true })
+const TradingPlatforms = dynamic(() => import('@/components/sections/TradingPlatforms'), { ssr: true })
+const AccountTypes = dynamic(() => import('@/components/sections/AccountTypes'), { ssr: true })
+const TradingAcademy = dynamic(() => import('@/components/sections/TradingAcademy'), { ssr: true })
+const DifferenceSection = dynamic(() => import('@/components/sections/DifferenceSection'), { ssr: true })
+const Testimonials = dynamic(() => import('@/components/sections/Testimonials'), { ssr: true })
+const CTABanner = dynamic(() => import('@/components/sections/CTABanner'), { ssr: true })
+
 /* =========================================================
-   Static Sections
+   Static Components
    ========================================================= */
 
-import StatsBar from '@/components/sections/StatsBar'
-import MarketsSection from '@/components/sections/MarketsSection'
-import WhyAPFX from '@/components/sections/WhyAPFX'
-import TradingPlatforms from '@/components/sections/TradingPlatforms'
-import AccountTypes from '@/components/sections/AccountTypes'
-import TradingAcademy from '@/components/sections/TradingAcademy'
-import DifferenceSection from '@/components/sections/DifferenceSection'
-import Testimonials from '@/components/sections/Testimonials'
-import CTABanner from '@/components/sections/CTABanner'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import AnimatedSection from '@/components/animations/AnimatedSection'
@@ -79,14 +80,14 @@ export default function HomePage() {
   const [showAnimation, setShowAnimation] = useState(true)
   const [ready, setReady] = useState(false)
 
-  const handleReadyToReveal = () => {
+  const handleReadyToReveal = useCallback(() => {
     setReady(true)
-  }
+  }, [])
 
-  const handleAnimationComplete = () => {
+  const handleAnimationComplete = useCallback(() => {
     setShowAnimation(false)
-    if (!ready) setReady(true) // Fallback just in case
-  }
+    setReady(true) // Ensure ready is true if not already
+  }, [])
 
   return (
     <>

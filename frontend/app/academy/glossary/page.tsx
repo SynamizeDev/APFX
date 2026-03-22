@@ -35,19 +35,33 @@ export default function GlossaryPage() {
   const [letter, setLetter] = useState<string | 'all'>('all')
   const [expandedId, setExpandedId] = useState<string | null>(null)
 
-  const filtered = useMemo(() => {
+  // ── Unified Filtering Logic ───────────────────
+  const baseFiltered = useMemo(() => {
     const q = search.trim().toLowerCase()
     return GLOSSARY_ENTRIES.filter((e) => {
-      const matchSearch = !q || e.term.toLowerCase().includes(q) || e.definition.toLowerCase().includes(q)
+      const matchSearch =
+        !q ||
+        e.term.toLowerCase().includes(q) ||
+        e.definition.toLowerCase().includes(q) ||
+        (e.detailedExplanation && e.detailedExplanation.toLowerCase().includes(q))
+      
       const matchCategory = category === 'all' || e.category === category
-      const first = getFirstLetter(e.term)
-      const matchLetter = letter === 'all' || first === letter
-      return matchSearch && matchCategory && matchLetter
+      return matchSearch && matchCategory
     })
-  }, [search, category, letter])
+  }, [search, category])
+
+  // Letters available based on current search + category
+  const availableLetters = useMemo(() => {
+    return new Set(baseFiltered.map(e => getFirstLetter(e.term)))
+  }, [baseFiltered])
+
+  // Final filtered list (applying A-Z filter)
+  const filtered = useMemo(() => {
+    if (letter === 'all') return baseFiltered
+    return baseFiltered.filter((e) => getFirstLetter(e.term) === letter)
+  }, [baseFiltered, letter])
 
   const byLetter = useMemo(() => getTermsByLetter(filtered), [filtered])
-  const lettersWithTerms = useMemo(() => new Set(byLetter.keys()), [byLetter])
 
   const popularTerms = useMemo(
     () => POPULAR_TERM_IDS.map((id) => GLOSSARY_ENTRIES.find((e) => e.id === id)).filter(Boolean) as GlossaryEntry[],
@@ -57,10 +71,8 @@ export default function GlossaryPage() {
   return (
     <>
       <header className={styles.hero}>
-        <h1 className={styles.heroTitle}>Trading & Investing Glossary</h1>
-        <p className={styles.heroDesc}>
-          Definitions of key trading and financial terms used in Forex, investing, and financial markets.
-        </p>
+            <h1 className={styles.title}>The Institutional Trading Lexicon</h1>
+            <p className={styles.subtitle}>A comprehensive professional reference for financial terminology, liquidity concepts, and execution metrics.</p>
         <div className={styles.searchWrap}>
           <div className={styles.searchWrapInner}>
             <span className={styles.searchIcon} aria-hidden>
@@ -120,7 +132,7 @@ export default function GlossaryPage() {
         {/* A–Z */}
         <nav className={styles.azNav} aria-label="Jump to letter">
           {LETTERS.map((L) => {
-            const hasTerms = lettersWithTerms.has(L)
+            const hasTerms = availableLetters.has(L)
             const isActive = letter === L
             return (
               <button
@@ -146,6 +158,27 @@ export default function GlossaryPage() {
             All
           </button>
         </nav>
+
+        {(search || category !== 'all' || letter !== 'all') && (
+          <div className={styles.filterStatus}>
+            <p>
+              Showing {filtered.length} term{filtered.length !== 1 ? 's' : ''} 
+              {search && <> for "<strong>{search}</strong>"</>}
+              {category !== 'all' && <> in <strong>{CATEGORY_LABELS[category]}</strong></>}
+              {letter !== 'all' && <> starting with <strong>{letter}</strong></>}
+            </p>
+            <button 
+              className={styles.clearBtn}
+              onClick={() => {
+                setSearch('')
+                setCategory('all')
+                setLetter('all')
+              }}
+            >
+              Reset all filters
+            </button>
+          </div>
+        )}
 
         {/* Term list */}
         <section className={styles.section} aria-labelledby="glossary-list">
@@ -187,20 +220,25 @@ export default function GlossaryPage() {
                               <polyline points="6 9 12 15 18 9" />
                             </svg>
                           </button>
-                          <div
-                            id={`glossary-detail-${entry.id}`}
-                            role="region"
-                            aria-hidden={!isExpanded}
-                            className={styles.termBody}
-                            hidden={!isExpanded}
-                          >
-                            {entry.detailedExplanation && <p className={styles.termDetail}>{entry.detailedExplanation}</p>}
-                            {entry.exampleInContext && (
-                              <>
-                                <p className={styles.termContextLabel}>Example in context</p>
-                                <p className={styles.termContext}>{entry.exampleInContext}</p>
-                              </>
-                            )}
+                            <div
+                              id={`glossary-detail-${entry.id}`}
+                              role="region"
+                              aria-hidden={!isExpanded}
+                              className={styles.termBody}
+                              hidden={!isExpanded}
+                            >
+                              {entry.detailedExplanation && (
+                                <>
+                                  <p className={styles.termContextLabel}>Context / Insight</p>
+                                  <p className={styles.termContext}>{entry.detailedExplanation}</p>
+                                </>
+                              )}
+                              {entry.exampleInContext && (
+                                <>
+                                  <p className={styles.termContextLabel}>Example in action</p>
+                                  <p className={styles.termContext}>{entry.exampleInContext}</p>
+                                </>
+                              )}
                             {related.length > 0 && (
                               <div className={styles.relatedTerms}>
                                 <p className={styles.termContextLabel}>Related terms</p>

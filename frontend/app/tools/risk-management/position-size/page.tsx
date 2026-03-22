@@ -76,6 +76,30 @@ export default function RiskPositionSizePage() {
           <p className={calcStyles.resultLabel} style={{ marginTop: '1rem' }}>Recommended position size</p>
           <p className={calcStyles.resultValue}>{lots.toFixed(2)} lots</p>
         </div>
+
+        <div className={styles.infoSection}>
+          <div className={styles.infoCard}>
+            <h3 className={styles.infoTitle}>Why It Matters</h3>
+            <p className={styles.infoText}>
+              This tool bridges the gap between your stop-loss and your lot sizes, 
+              ensuring that every trade remains within your pre-defined risk boundaries.
+            </p>
+          </div>
+          <div className={styles.infoCard}>
+            <h3 className={styles.infoTitle}>Professional Insight</h3>
+            <p className={styles.infoText}>
+              Position sizing is the most powerful tool for "survivability." It is the 
+              only variable you have 100% control over in an uncertain market.
+            </p>
+          </div>
+          <div className={styles.infoCard}>
+            <h3 className={styles.infoTitle}>Common Mistake</h3>
+            <p className={styles.infoText}>
+              Rounding up lot sizes to "make more." Small deviations in position size 
+              can lead to large deviations in expected drawdown.
+            </p>
+          </div>
+        </div>
       </div>
     </main>
   )

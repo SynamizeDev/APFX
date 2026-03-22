@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Info, Target, Shield, Zap, AlertTriangle, Calculator, Globe, Scale, TrendingDown } from 'lucide-react'
 import Select from '@/components/ui/Select'
 import styles from '@/components/ui/CalculatorLayout.module.css'
 import posStyles from './PositionSizeCalculator.module.css'
@@ -79,19 +81,24 @@ export default function PositionSizeCalculatorPage() {
     return (
         <main className={styles.container}>
             <header className={styles.header}>
-                <h1 className={styles.title}>Position Size Calculator</h1>
+                <h1 className={styles.title}>Professional Position Size Calculator</h1>
                 <p className={styles.subtitle}>
-                    Manage your risk effectively. Calculate the exact position size
-                    to trade based on your balance, risk percentage, and stop loss.
+                    Determine the exact lot size for your trade based on your risk tolerance 
+                    and stop-loss distance. The single most important tool for institutional-grade 
+                    capital preservation and longevity.
                 </p>
             </header>
 
             <div className={styles.inputPanel}>
                 <div className={posStyles.formGrid}>
                     <div className={styles.formGroup}>
-                        <label className={styles.label} htmlFor="pos-instrument">
-                            Instrument
-                        </label>
+                        <div className={styles.labelWrapper}>
+                            <label className={styles.label} htmlFor="pos-instrument">Instrument</label>
+                            <div className={styles.tooltipContainer}>
+                                <Globe size={14} />
+                                <span className={styles.tooltipText}>The currency pair you are trading. Pip value varies per pair.</span>
+                            </div>
+                        </div>
                         <Select
                             id="pos-instrument"
                             value={instrument}
@@ -100,9 +107,13 @@ export default function PositionSizeCalculatorPage() {
                         />
                     </div>
                     <div className={styles.formGroup}>
-                        <label className={styles.label} htmlFor="pos-deposit">
-                            Deposit currency
-                        </label>
+                        <div className={styles.labelWrapper}>
+                            <label className={styles.label} htmlFor="pos-deposit">Account Currency</label>
+                            <div className={styles.tooltipContainer}>
+                                <Shield size={14} />
+                                <span className={styles.tooltipText}>The base currency of your trading account.</span>
+                            </div>
+                        </div>
                         <Select
                             id="pos-deposit"
                             value={depositCurrency}
@@ -114,9 +125,13 @@ export default function PositionSizeCalculatorPage() {
                         />
                     </div>
                     <div className={styles.formGroup}>
-                        <label className={styles.label} htmlFor="pos-stoploss">
-                            Stop loss (pips)
-                        </label>
+                        <div className={styles.labelWrapper}>
+                            <label className={styles.label} htmlFor="pos-stoploss">Stop Loss (Pips)</label>
+                            <div className={styles.tooltipContainer}>
+                                <Target size={14} />
+                                <span className={styles.tooltipText}>The distance in pips to your exit point if the trade goes against you.</span>
+                            </div>
+                        </div>
                         <input
                             id="pos-stoploss"
                             type="number"
@@ -129,7 +144,13 @@ export default function PositionSizeCalculatorPage() {
                         />
                     </div>
                     <div className={styles.formGroup}>
-                        <label className={styles.label}>Account Balance</label>
+                        <div className={styles.labelWrapper}>
+                            <label className={styles.label}>Account Balance</label>
+                            <div className={styles.tooltipContainer}>
+                                <Scale size={14} />
+                                <span className={styles.tooltipText}>Your total account equity (capital) used for risk % calculation.</span>
+                            </div>
+                        </div>
                         <input
                             type="number"
                             className={styles.input}
@@ -142,19 +163,13 @@ export default function PositionSizeCalculatorPage() {
                         />
                     </div>
                     <div className={styles.formGroup}>
-                        <label className={styles.label}>
-                            {instrument} 1 Pip Size
-                        </label>
-                        <input
-                            type="text"
-                            className={posStyles.readOnlyField}
-                            value={pipSize}
-                            readOnly
-                            aria-readonly
-                        />
-                    </div>
-                    <div className={styles.formGroup}>
-                        <label className={styles.label}>Risk</label>
+                        <div className={styles.labelWrapper}>
+                            <label className={styles.label}>Risk Preference (%)</label>
+                            <div className={styles.tooltipContainer}>
+                                <TrendingDown size={14} />
+                                <span className={styles.tooltipText}>The percentage of your total balance you are willing to lose on this single trade. Best practice is 1-2%.</span>
+                            </div>
+                        </div>
                         <div className={posStyles.riskRow}>
                             <input
                                 type="number"
@@ -170,61 +185,93 @@ export default function PositionSizeCalculatorPage() {
                             <span className={posStyles.riskUnit}>%</span>
                         </div>
                     </div>
-                    <div className={styles.formGroup}>
-                        <label className={styles.label} htmlFor="pos-contract">
-                            Contract size (Units per Lot)
-                        </label>
-                        <input
-                            id="pos-contract"
-                            type="number"
-                            className={styles.input}
-                            value={contractSize}
-                            onChange={(e) =>
-                                setContractSize(Number(e.target.value) || 0)
-                            }
-                            min={1000}
-                            step={1000}
-                        />
-                    </div>
-                </div>
-
-                <div className={posStyles.buttonRow}>
-                    <button type="button" className={posStyles.calculateBtn}>
-                        Calculate
-                    </button>
                 </div>
 
                 <div className={posStyles.resultRow}>
                     <div className={posStyles.resultGrid}>
                         <div className={posStyles.resultItem}>
-                            <span className={posStyles.resultItemLabel}>
-                                Lots (trade size)
-                            </span>
-                            <span className={posStyles.resultItemValue}>
+                            <motion.span 
+                                key={lots}
+                                initial={{ opacity: 0, y: 5 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className={posStyles.resultItemValue}
+                            >
                                 {lots}
-                            </span>
+                            </motion.span>
+                            <span className={posStyles.resultItemLabel}>Lots (Trade Size)</span>
                         </div>
                         <div className={posStyles.resultItem}>
-                            <span className={posStyles.resultItemLabel}>
-                                Units (trade size)
-                            </span>
-                            <span className={posStyles.resultItemValue}>
+                            <motion.span 
+                                key={units}
+                                initial={{ opacity: 0, y: 5 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className={posStyles.resultItemValue}
+                            >
                                 {units.toLocaleString()}
-                            </span>
+                            </motion.span>
+                            <span className={posStyles.resultItemLabel}>Total Units</span>
                         </div>
                         <div className={`${posStyles.resultItem} ${posStyles.resultItemHighlight}`}>
-                            <span className={posStyles.resultItemLabel}>
-                                Money at risk
-                            </span>
-                            <span
+                            <motion.span 
+                                key={riskAmount}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
                                 className={`${posStyles.resultItemValue} ${posStyles.highlight}`}
                             >
                                 {riskAmount.toLocaleString('en-US', {
                                     style: 'currency',
                                     currency: depositCurrency,
                                 })}
-                            </span>
+                            </motion.span>
+                            <span className={posStyles.resultItemLabel}>Fixed Money At Risk</span>
                         </div>
+                    </div>
+                </div>
+
+                <div className={styles.infoSection}>
+                    <div className={`${styles.infoCard} ${styles.formulaCard}`}>
+                        <h3 className={styles.infoTitle}>
+                            <Calculator size={16} /> How it is Calculated
+                        </h3>
+                        <p className={styles.infoText}>
+                            The formula is: <strong>Risk Amount (Balance × Risk %) / (Stop Loss × Pip Value per Unit)</strong>. This determines the exact mass of your trade so that your predetermined risk is never exceeded, regardless of the pair's volatility.
+                        </p>
+                    </div>
+
+                    <div className={styles.infoCard}>
+                        <h3 className={styles.infoTitle}>
+                            <Target size={16} /> What This Calculator Does
+                        </h3>
+                        <p className={styles.infoText}>
+                            It provides the specific lot size required to turn your <strong>Risk Preference (%)</strong> into a physical trade. It ensures that if your stop-loss is hit, your loss is exactly what you planned—nothing more, nothing less.
+                        </p>
+                    </div>
+                    
+                    <div className={styles.infoCard}>
+                        <h3 className={styles.infoTitle}>
+                            <Shield size={16} /> Why It Matters
+                        </h3>
+                        <p className={styles.infoText}>
+                            Capital preservation is the only goal in institutional trading. By mathematically calculating position size, you prevent <strong>Over-Leverage</strong> and the emotional stress that comes with large, unplanned losses.
+                        </p>
+                    </div>
+
+                    <div className={`${styles.infoCard} ${styles.proTipCard}`}>
+                        <h3 className={styles.infoTitle}>
+                            <Zap size={16} /> Professional Insight
+                        </h3>
+                        <p className={styles.infoText}>
+                            Pro traders don't trade "lots"—they trade "risk units". If you risk 1% per trade, you have 100 "bullets" in your account. Even a losing streak of 10 trades only draws your account down by ~10%, making recovery fast and emotional impact low.
+                        </p>
+                    </div>
+
+                    <div className={`${styles.infoCard} ${styles.mistakeCard}`}>
+                        <h3 className={styles.infoTitle}>
+                            <AlertTriangle size={16} /> Common Mistake
+                        </h3>
+                        <p className={styles.infoText}>
+                            A major error is using a fixed lot size (e.g., always 1.0 lot) for every pair. Because pip values and average ranges differ between EUR/USD and GBP/JPY, a fixed lot size means your actual money at risk changes unpredictably with each trade.
+                        </p>
                     </div>
                 </div>
             </div>

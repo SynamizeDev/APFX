@@ -163,7 +163,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                         className={styles.logo} 
                         aria-label="APFX Home" 
                         onClick={closeMenu}
-                        style={{ opacity: hideLogo ? 0 : 1, transition: 'opacity 0.1s ease' }}
+                        style={{ opacity: hideLogo ? 0 : 1 }}
                     >
                         <Logo id="header-logo" size="sm" />
                     </Link>
@@ -197,6 +197,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                                     ) : (
                                         <Link
                                             href={link.href}
+                                            prefetch={true}
                                         >
                                             {link.label}
                                         </Link>

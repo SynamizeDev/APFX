@@ -13,33 +13,34 @@ export default function StocksHero() {
                     className={styles.content}
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
                     <div className={styles.eyebrow}>
                         <TrendingUp size={14} className={styles.eyebrowIcon} />
-                        <span>Ownership, liquidity, and growth</span>
+                        <span>Direct Market Access & Institutional Liquidity</span>
                     </div>
 
                     <h1 className={styles.title}>
-                        Invest in <span className={styles.accent}>Stocks</span> with Confidence
+                        Global Equity Infrastructure: Invest in the <span className={styles.glowAccent}>World’s Leading Corporations</span>
                     </h1>
-
+ 
                     <p className={styles.subtitle}>
-                        Stocks can help you participate in long-term business growth. Learn the basics,
-                        explore common categories, and understand the risks so you can invest with clarity.
+                        Secure direct ownership of global equities with institutional-grade execution speed. 
+                        Our deep liquidity pools and Tier-1 bank connectivity ensure optimal market 
+                        pricing and minimal slippage on every transaction.
                     </p>
 
                     <div className={styles.actions}>
                         <Link href="/contact" className={styles.ctaPrimary}>
-                            Speak to an Expert <ArrowRight size={18} />
+                            Get Institutional Access <ArrowRight size={18} />
                         </Link>
                         <Link href="#types" className={styles.ctaSecondary}>
-                            Explore Stock Types
+                            View Market Coverage
                         </Link>
                     </div>
 
                     <p className={styles.trust}>
-                        Investments are subject to market risk. Read scheme documents carefully.
+                        Trading involves significant risk. Capital at risk.
                     </p>
                 </motion.div>
             </div>

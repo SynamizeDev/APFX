@@ -9,6 +9,7 @@
     inset: 0 0 auto 0;
     z-index: var(--z-sticky);
     padding-block: 1.35rem;
+    background: var(--color-nav-bg);
     transition:
         padding var(--duration-slower) var(--ease-out),
         background var(--duration-slower) var(--ease-out),
@@ -19,11 +20,11 @@
 .header.scrolled,
 .header.menuActive {
     padding-block: 0.8rem;
-    background: #03050a;
+    background: var(--color-nav-scrolled-bg);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
     border-bottom: 1px solid var(--glass-border);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+    box-shadow: var(--shadow-md);
 }
 
 /* Inner container */
@@ -112,7 +113,7 @@
     padding: 0.55rem 0.5rem;
     font-size: 0.8rem;
     font-weight: var(--fw-medium);
-    color: var(--color-text-2);
+    color: var(--color-nav-text);
     border-radius: var(--radius-sm);
     white-space: nowrap;
     transition:
@@ -141,13 +142,13 @@
 
 .nav a:hover,
 .nav button:hover {
-    color: var(--color-text-1);
-    background: rgba(255, 255, 255, 0.035);
+    color: var(--color-nav-text-active);
+    background: var(--color-nav-hover-bg);
 }
 
 .nav a.navActive,
 .nav button.navActive {
-    color: var(--color-text-1);
+    color: var(--color-nav-text-active);
 }
 
 .nav a:hover::after,
@@ -185,11 +186,11 @@
     min-width: 200px;
     width: max-content;
     max-width: 260px;
-    background: rgba(3, 5, 10, 0.97);
+    background: var(--color-nav-scrolled-bg);
     border: 1px solid var(--glass-border);
     border-top: none;
     border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-lg);
     padding: 0.35rem 0 0.5rem;
     z-index: var(--z-sticky);
     /* visual continuity from the tab */
@@ -261,7 +262,7 @@
 
 .megaMenuLinks a:hover {
     color: var(--color-text-1);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--color-nav-hover-bg);
     text-decoration: none !important;
 }
 
@@ -280,7 +281,7 @@
 .btnLogin {
     font-size: 0.825rem;
     font-weight: var(--fw-medium);
-    color: var(--color-text-2);
+    color: var(--color-nav-text);
     padding: 0.45rem 0.75rem;
     white-space: nowrap;
     transition: color var(--duration-normal) var(--ease-out);
@@ -356,7 +357,7 @@
 .mobileMenu {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.10);
+    background: var(--color-bg);
     backdrop-filter: blur(33px);
     display: flex;
     flex-direction: column;

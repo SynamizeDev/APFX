@@ -5,6 +5,7 @@ import { gsap } from 'gsap'
 import styles from './EntryAnimation.module.css'
 
 import Logo from '@/components/ui/Logo'
+import { usePreferences } from '@/context/PreferencesContext'
 
 export default function EntryAnimation({
     onComplete,
@@ -20,12 +21,24 @@ export default function EntryAnimation({
     const lineRef = useRef<HTMLDivElement>(null)
     const pulseRef = useRef<HTMLDivElement>(null)
 
+    const { animationsEnabled } = usePreferences()
+
+    const onMergeStartRef = useRef(onMergeStart)
+    const onReadyToRevealRef = useRef(onReadyToReveal)
+    const onCompleteRef = useRef(onComplete)
+
+    useEffect(() => {
+        onMergeStartRef.current = onMergeStart
+        onReadyToRevealRef.current = onReadyToReveal
+        onCompleteRef.current = onComplete
+    }, [onMergeStart, onReadyToReveal, onComplete])
+
     useEffect(() => {
         const prefersReduced = window.matchMedia(
             '(prefers-reduced-motion: reduce)'
         ).matches
 
-        if (prefersReduced) {
+        if (prefersReduced || !animationsEnabled) {
             if (onReadyToReveal) onReadyToReveal()
             onComplete()
             return
@@ -58,14 +71,18 @@ export default function EntryAnimation({
                 headerEl.style.visibility = prevHeaderStyles.visibility
                 headerEl.style.pointerEvents = prevHeaderStyles.pointerEvents
             }
-            onComplete()
+            if (onCompleteRef.current) onCompleteRef.current()
         }
 
         const tl = gsap.timeline()
 
         // Initial state: dark overlay visible from start, logo hidden
         gsap.set(glassRef.current, { opacity: 1 })
-        gsap.set(logoContainerRef.current, { opacity: 0, scale: 0.98, y: 8 })
+        gsap.set(logoContainerRef.current, { 
+            opacity: 0, 
+            scale: 2.34, // (1.8 * 1.3 pop)
+            y: 0 
+        })
         gsap.set(lineRef.current, { width: 0, opacity: 0 })
         gsap.set(pulseRef.current, { scale: 1, opacity: 0 })
 
@@ -74,18 +91,16 @@ export default function EntryAnimation({
 
         tl
             /* Dark overlay already at 1 — site stays dark for full 3s+ logo fade-in */
-            /* Background ready so header can mount (hidden behind overlay) */
             .call(() => {
-                if (onReadyToReveal) onReadyToReveal()
+                if (onReadyToRevealRef.current) onReadyToRevealRef.current()
             }, undefined, 0.15)
             
             /* 2. Logo fades in over 3 seconds - branding hold */
             .to(logoContainerRef.current, { 
                 opacity: 1, 
-                scale: 1, 
-                y: 0, 
+                scale: 1.8, // Settle to "LG" visual size
                 duration: LOGO_FADE_DURATION, 
-                ease: 'power2.inOut' 
+                ease: 'power3.out' 
             }, 0.25)
             
             /* 3. Subtle line after logo is visible */
@@ -102,36 +117,52 @@ export default function EntryAnimation({
                 if (headerLogo && logoContainerRef.current) {
                     const hRect = headerLogo.getBoundingClientRect();
                     const lRect = logoContainerRef.current.getBoundingClientRect();
+                    
                     if (lRect.width <= 0 || lRect.height <= 0) {
-                        if (onMergeStart) onMergeStart();
+                        if (onMergeStartRef.current) onMergeStartRef.current();
                         finish();
                         return;
                     }
-                    const dx = hRect.left - lRect.left;
-                    const dy = hRect.top - lRect.top;
-                    const targetScale = hRect.width / lRect.width;
-                    gsap.set(logoContainerRef.current, { transformOrigin: '0 0' });
+
+                    // Get current scale to find base size
+                    const currentScale = gsap.getProperty(logoContainerRef.current, "scale") as number || 1.8;
+                    const unscaledWidth = lRect.width / currentScale;
+
+                    // Precise center-to-center coordinate calculation
+                    const lCenter = {
+                        x: lRect.left + lRect.width / 2,
+                        y: lRect.top + lRect.height / 2
+                    };
+                    const hCenter = {
+                        x: hRect.left + hRect.width / 2,
+                        y: hRect.top + hRect.height / 2
+                    };
+
+                    const dx = hCenter.x - lCenter.x;
+                    const dy = hCenter.y - lCenter.y;
+                    const tScale = hRect.width / unscaledWidth;
+
+                    // Use center origin for symmetrical shrinking
+                    gsap.set(logoContainerRef.current, { transformOrigin: 'center center' });
+
                     gsap.to(logoContainerRef.current, { 
                         x: dx,
                         y: dy,
-                        scale: targetScale,
-                        opacity: 0.9, // Higher opacity during flight
-                        duration: 1.1, // Slightly slower for grace
-                        ease: 'power4.inOut', // Institutional, heavy-weight easing
-                        force3D: true, // Hardware acceleration
-                        onStart: () => {
-                           // Subtle motion blur start
-                           gsap.to(logoContainerRef.current, { filter: 'blur(2px)', duration: 0.3 });
+                        scale: tScale,
+                        opacity: 1,
+                        duration: 2.2, // Ultra-smooth, gradual shrink
+                        ease: 'power2.inOut', 
+                        force3D: true,
+                        onUpdate: function() {
+                            gsap.set(this.targets(), { filter: 'none' });
                         },
                         onComplete: () => {
-                            // Instant hand-off to Header logo
-                            if (onMergeStart) onMergeStart();
-                            gsap.to(logoContainerRef.current, { 
-                                opacity: 0, 
-                                filter: 'blur(0px)',
-                                duration: 0.15 
+                            if (onMergeStartRef.current) onMergeStartRef.current();
+                            // Visual overlap hold for 1 frame to prevent flicker
+                            gsap.delayedCall(0.02, () => {
+                                gsap.set(logoContainerRef.current, { opacity: 0 });
+                                finish();
                             });
-                            finish(); // Finish the sequence
                         }
                     });
 
@@ -150,7 +181,7 @@ export default function EntryAnimation({
                     });
                 } else {
                     // Fallback if header logo not found
-                    if (onMergeStart) onMergeStart();
+                    if (onMergeStartRef.current) onMergeStartRef.current();
                     finish();
                 }
             }, undefined, LOGO_FADE_DURATION + 0.5)
@@ -164,7 +195,7 @@ export default function EntryAnimation({
                 headerEl.style.pointerEvents = prevHeaderStyles.pointerEvents
             }
         }
-    }, [onComplete, onReadyToReveal, onMergeStart])
+    }, [animationsEnabled])
 
     return (
         <>
@@ -205,9 +236,12 @@ export default function EntryAnimation({
                         flexDirection: 'column',
                         alignItems: 'center',
                         position: 'relative',
+                        opacity: 0, // Prevent "double-logo" flash before GSAP init
+                        transform: 'scale(2.34)', // Synchronize with GSAP starting state (1.8 * 1.3)
+                        willChange: 'transform, opacity'
                     }}
                 >
-                    <Logo size="lg" />
+                    <Logo size="sm" />
                 </div>
                 <div className={styles.linePulseContainer}>
                     <div className={styles.line} ref={lineRef} />

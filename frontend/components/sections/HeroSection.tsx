@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import { gsap } from 'gsap'
 import HeroCanvas from '@/components/canvas/HeroCanvas'
 import InvestWithAPFX from '@/components/sections/InvestWithAPFX'
@@ -87,10 +88,13 @@ export default function HeroSection() {
                     </div>
                 </div>
                 <div ref={mockupRef} className={styles.mockupWrap} aria-hidden="true">
-                    <img
+                    <Image
                         src="/hero-mockup.svg"
-                        alt=""
+                        alt="Trading Platform Mockup"
                         className={styles.heroMockup}
+                        width={800}
+                        height={600}
+                        priority
                     />
                 </div>
                 <div className={styles.zeroFeesMobile}>

@@ -84,20 +84,18 @@ export default function BlogPage() {
   return (
     <>
       <header className={styles.hero}>
-        <h1 className={styles.heroTitle}>Trading & Investing Insights</h1>
-        <p className={styles.heroDesc}>
-          Trading education, strategies, market insights, and platform guides to help you trade with confidence.
-        </p>
+        <h1 className={styles.title}>Market Intelligence & Technical Outlook</h1>
+        <p className={styles.subtitle}>Professional-grade technical research, fundamental analysis, and institutional perspectives on global market catalysts.</p>
         <Link href="#featured" className={styles.heroCta}>
-          Explore Articles
+          Access Research
         </Link>
       </header>
 
       <div className={styles.container}>
         {/* Featured */}
         <section className={styles.section} id="featured" aria-labelledby="featured-title">
-          <h2 id="featured-title" className={styles.sectionTitle}>Featured Articles</h2>
-          <p className={styles.sectionSubtitle}>Start with these essential reads.</p>
+          <h2 id="featured-title" className={styles.sectionTitle}>Featured Research</h2>
+          <p className={styles.sectionSubtitle}>Mandatory reading for sophisticated market participants.</p>
           <div className={styles.featuredGrid}>
             {FEATURED.map((a) => (
               <article key={a.slug} className={styles.featuredCard}>
@@ -127,7 +125,7 @@ export default function BlogPage() {
         <section className={styles.section} aria-labelledby="latest-title">
           <h2 id="latest-title" className={styles.sectionTitle}>Latest Articles</h2>
           <p className={styles.sectionSubtitle}>Filter by topic.</p>
-          <nav className={styles.categoryBar} aria-label="Blog categories">
+          <nav className={styles.categoryBar} aria-label="Research categories">
             {CATEGORIES.map((c) => (
               <button
                 key={c.id}
@@ -166,8 +164,8 @@ export default function BlogPage() {
 
         {/* Educational Guides */}
         <section className={styles.section} aria-labelledby="guides-title">
-          <h2 id="guides-title" className={styles.sectionTitle}>Educational Guides</h2>
-          <p className={styles.sectionSubtitle}>Long-form guides to build a strong foundation.</p>
+          <h2 id="guides-title" className={styles.sectionTitle}>Institutional Frameworks</h2>
+          <p className={styles.sectionSubtitle}>Long-form guides designed to build a professional foundation for sustainable growth.</p>
           <div className={styles.guidesGrid}>
             {EDUCATIONAL_GUIDES.map((g) => (
               <div key={g.slug} className={styles.guideCard}>
@@ -216,19 +214,19 @@ export default function BlogPage() {
         {/* Newsletter */}
         <section className={styles.section} aria-labelledby="newsletter-title">
           <div className={styles.newsletterSection}>
-            <h2 id="newsletter-title" className={styles.newsletterTitle}>Weekly Trading Insights</h2>
+            <h2 id="newsletter-title" className={styles.newsletterTitle}>The Weekly Intelligence</h2>
             <p className={styles.newsletterDesc}>
-              Get market outlook, strategy tips, and platform updates in your inbox every week.
+              Curated market briefings, high-signal technical setups, and platform updates. Professional-grade research, delivered weekly.
             </p>
             <form className={styles.newsletterForm} onSubmit={(e) => e.preventDefault()}>
               <input
                 type="email"
                 className={styles.newsletterInput}
-                placeholder="Enter your email"
-                aria-label="Email for newsletter"
+                placeholder="Institutional email address"
+                aria-label="Email for briefing"
               />
               <button type="submit" className={styles.newsletterBtn}>
-                Subscribe
+                Subscribe to Briefing
               </button>
             </form>
           </div>

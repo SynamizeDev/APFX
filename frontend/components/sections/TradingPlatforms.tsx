@@ -134,7 +134,7 @@ export default function TradingPlatforms() {
                     </h2>
                     <p className={styles.desc}>
                         Whether you scalp intraday volatility or run systematic strategies,
-                        our MT4, MT5, WebTrader and mobile apps are tuned for speed, stability, and control.
+                        our desktop, WebTrader and mobile apps are tuned for speed, stability, and control.
                     </p>
 
                     <div className={styles.platformsGrid} ref={sliderRef}>

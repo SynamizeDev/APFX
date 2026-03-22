@@ -19,33 +19,33 @@ import Select from '@/components/ui/Select'
 import styles from './Partners.module.css'
 
 const BENEFITS = [
-  { icon: DollarSign, title: 'Competitive commission structure', description: 'Earn competitive payouts for every referred trader and their trading activity.' },
-  { icon: Shield, title: 'Reliable trading platform', description: 'Promote a platform built for stability, transparency, and long-term trader success.' },
-  { icon: Wrench, title: 'Advanced tools and resources', description: 'Access calculators, risk tools, and educational content to share with your audience.' },
-  { icon: HeadphonesIcon, title: 'Dedicated partner support', description: 'Get help from a dedicated team so you can focus on growing your referrals.' },
-  { icon: BarChart3, title: 'Transparent tracking and payouts', description: 'Track referrals and commissions in real time with clear reporting and timely payouts.' },
+  { icon: DollarSign, title: 'Tiered Remuneration Models', description: 'Access competitive commission structures and volume-based rebates tailored to your business scale.' },
+  { icon: Shield, title: 'Institutional Infrastructure', description: 'Promote a platform built on stability, deep liquidity, and professional-grade execution standards.' },
+  { icon: Wrench, title: 'Strategic Marketing Assets', description: 'Utilize high-conversion creatives, technical analysis tools, and institutional research to engage your audience.' },
+  { icon: HeadphonesIcon, title: 'Dedicated Partnership Desk', description: 'Direct access to institutional account managers to optimize your referral conversion and growth.' },
+  { icon: BarChart3, title: 'Operational Transparency', description: 'Audit your performance with real-time tracking, granular reporting, and automated reconciliation.' },
 ]
 
 const PARTNERSHIP_TYPES = [
   {
-    title: 'Affiliate Partner',
-    description: 'Promote the platform using your referral links and earn commissions when referred users sign up and trade.',
-    benefits: ['Commission per referred trader', 'Revenue share from trading activity', 'Simple link-based tracking'],
+    title: 'Affiliate Program',
+    description: 'Scale your digital reach with precision-tracked referral infrastructure and high-tier conversion assets.',
+    benefits: ['CPA and CPL models', 'Hybrid remuneration options', 'Sub-affiliate tracking capability'],
   },
   {
     title: 'Introducing Broker (IB)',
-    description: 'Refer traders and build a client network. Ideal for financial professionals and community leaders.',
-    benefits: ['Rebates or revenue share', 'Partner dashboard and reporting', 'Support for your clients'],
+    description: 'Build a professional client network backed by institutional support, deep liquidity, and competitive volume rebates.',
+    benefits: ['Multi-level rebate structures', 'Dedicated IB management tools', 'Institutional support for your clients'],
   },
   {
-    title: 'Content Creator / Influencer',
-    description: 'Share educational content and trading insights while promoting the platform to your audience.',
-    benefits: ['Custom commission terms', 'Marketing assets and creatives', 'Collaboration on campaigns'],
+    title: 'Content & Campaign Partners',
+    description: 'Collaborate on high-value market initiatives, educational content, and co-branded technical research.',
+    benefits: ['Custom integration terms', 'Exclusive marketing materials', 'Joint campaign initiatives'],
   },
   {
-    title: 'Business Partner',
-    description: 'Collaborate with the company to expand trading services, white-label solutions, or regional partnerships.',
-    benefits: ['Tailored partnership terms', 'Dedicated account management', 'Growth opportunities'],
+    title: 'Corporate Solutions',
+    description: 'Tailored liquidity and infrastructure for institutional business partners and white-label providers.',
+    benefits: ['API connectivity solutions', 'Bespoke liquidity bridging', 'Regional business development support'],
   },
 ]
 
@@ -102,8 +102,8 @@ export default function PartnersPage() {
   return (
     <div className={styles.page}>
       <InnerPageHero
-        title="Become Our Partner"
-        subtitle="Earn commissions by referring traders and promoting our platform. Join affiliates, introducing brokers, content creators, and business partners who grow with us."
+        title="Institutional Partnership Programs"
+        subtitle="Refer professional market participants to a network built on liquidity, speed, and transparency. Join a global community of partners backed by institutional-grade support."
         breadcrumbs={[]}
       />
 
@@ -119,11 +119,13 @@ export default function PartnersPage() {
         </section>
 
         {/* Why Partner With Us */}
-        <section className={styles.section} aria-labelledby="why-heading">
+        <section className={styles.section} aria-labelledby="why-partner">
           <div className={styles.container}>
-            <h2 id="why-heading" className={styles.sectionTitle}>Why Partner With Us</h2>
-            <p className={styles.sectionSubtitle}>Benefits that help you succeed as a partner.</p>
-            <div className={styles.benefitsGrid}>
+            <h2 id="why-partner" className={styles.sectionTitle}>The APFX Partnership Edge</h2>
+          <p className={styles.sectionSubtitle}>
+            Join an institutional ecosystem where transparency and execution reliability are prioritized for every client referral.
+          </p>
+  <div className={styles.benefitsGrid}>
               {BENEFITS.map((b) => (
                 <div key={b.title} className={styles.benefitCard}>
                   <b.icon className={styles.benefitIcon} size={48} strokeWidth={1.5} aria-hidden />
@@ -135,11 +137,13 @@ export default function PartnersPage() {
           </div>
         </section>
 
-        {/* Types of Partnerships */}
-        <section className={styles.section} aria-labelledby="types-heading">
+        {/* Partnership Types */}
+        <section className={styles.section} id="types" aria-labelledby="types-heading">
           <div className={styles.container}>
-            <h2 id="types-heading" className={styles.sectionTitle}>Types of Partnerships</h2>
-            <p className={styles.sectionSubtitle}>Choose the partnership model that fits you.</p>
+            <h2 id="types-heading" className={styles.sectionTitle}>Global Partnership Models</h2>
+            <p className={styles.sectionSubtitle}>
+              Differentiated models for Affiliates, IBs, Influencers, and Institutional Business Partners.
+            </p>
             <div className={styles.typesGrid}>
               {PARTNERSHIP_TYPES.map((t) => (
                 <div key={t.title} className={styles.typeCard}>
@@ -222,8 +226,8 @@ export default function PartnersPage() {
         {/* Partner Tools */}
         <section className={styles.section} aria-labelledby="tools-heading">
           <div className={styles.container}>
-            <h2 id="tools-heading" className={styles.sectionTitle}>Partner Tools & Resources</h2>
-            <p className={styles.sectionSubtitle}>What you get to help you succeed.</p>
+            <h2 id="tools-heading" className={styles.sectionTitle}>Intelligence & Reporting Ecosystem</h2>
+            <p className={styles.sectionSubtitle}>Operational tools designed to optimize your performance and tracking.</p>
             <div className={styles.toolsGrid}>
               {TOOLS.map((t) => (
                 <div key={t.title} className={styles.toolItem}>

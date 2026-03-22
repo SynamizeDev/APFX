@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Info, Target, Shield, Zap, AlertTriangle, Calculator, Globe, TrendingUp, HandCoins } from 'lucide-react'
 import Select from '@/components/ui/Select'
 import styles from '@/components/ui/CalculatorLayout.module.css'
 import rebateStyles from './RebateCalculator.module.css'
@@ -72,19 +74,24 @@ export default function RebateCalculatorPage() {
     return (
         <main className={styles.container}>
             <header className={styles.header}>
-                <h1 className={styles.title}>Forex Rebate Calculator</h1>
+                <h1 className={styles.title}>Professional Rebate Calculator</h1>
                 <p className={styles.subtitle}>
-                    Estimate the cashback or rebate you will receive based on your
-                    trading volume and your broker&apos;s rebate rate per lot.
+                    Estimate the cashback or rebate yield from your trading volume. 
+                    Institutional strategies often rely on rebates to offset the cost 
+                    of spreads and commissions, improving net profitability.
                 </p>
             </header>
 
             <div className={styles.inputPanel}>
                 <div className={rebateStyles.formGrid}>
                     <div className={styles.formGroup}>
-                        <label className={styles.label} htmlFor="rebate-instrument">
-                            Instrument
-                        </label>
+                        <div className={styles.labelWrapper}>
+                            <label className={styles.label} htmlFor="rebate-instrument">Instrument</label>
+                            <div className={styles.tooltipContainer}>
+                                <Globe size={14} />
+                                <span className={styles.tooltipText}>The currency pair traded. Required if calculating rebate based on pips.</span>
+                            </div>
+                        </div>
                         <Select
                             id="rebate-instrument"
                             value={instrument}
@@ -93,9 +100,13 @@ export default function RebateCalculatorPage() {
                         />
                     </div>
                     <div className={styles.formGroup}>
-                        <label className={styles.label} htmlFor="rebate-deposit">
-                            Deposit currency
-                        </label>
+                        <div className={styles.labelWrapper}>
+                            <label className={styles.label} htmlFor="rebate-deposit">Account Currency</label>
+                            <div className={styles.tooltipContainer}>
+                                <Shield size={14} />
+                                <span className={styles.tooltipText}>The currency in which the rebate will be paid out.</span>
+                            </div>
+                        </div>
                         <Select
                             id="rebate-deposit"
                             value={depositCurrency}
@@ -107,9 +118,13 @@ export default function RebateCalculatorPage() {
                         />
                     </div>
                     <div className={styles.formGroup}>
-                        <label className={styles.label} htmlFor="rebate-per-lot">
-                            Rebate per lot
-                        </label>
+                        <div className={styles.labelWrapper}>
+                            <label className={styles.label} htmlFor="rebate-per-lot">Rebate Rate</label>
+                            <div className={styles.tooltipContainer}>
+                                <TrendingUp size={14} />
+                                <span className={styles.tooltipText}>The amount of cashback per lot traded, either in fixed currency or in pips.</span>
+                            </div>
+                        </div>
                         <div className={rebateStyles.rebatePerLotRow}>
                             <input
                                 id="rebate-per-lot"
@@ -118,17 +133,8 @@ export default function RebateCalculatorPage() {
                                 className={`${styles.input} ${rebateStyles.rebateInput}`}
                                 value={rebatePerLotRaw}
                                 onChange={(e) => setRebatePerLotRaw(e.target.value)}
-                                onBlur={() => {
-                                    const n = parseFloat(rebatePerLotRaw)
-                                    if (rebatePerLotRaw === '' || Number.isNaN(n) || n < 0) {
-                                        setRebatePerLotRaw('0')
-                                    } else {
-                                        setRebatePerLotRaw(String(n))
-                                    }
-                                }}
                                 min={0}
                                 step={0.1}
-                                placeholder="0.7"
                             />
                             <Select
                                 value={rebateUnit}
@@ -142,9 +148,13 @@ export default function RebateCalculatorPage() {
                         </div>
                     </div>
                     <div className={styles.formGroup}>
-                        <label className={styles.label} htmlFor="rebate-lots">
-                            Lots traded
-                        </label>
+                        <div className={styles.labelWrapper}>
+                            <label className={styles.label} htmlFor="rebate-lots">Lots Traded</label>
+                            <div className={styles.tooltipContainer}>
+                                <Zap size={14} />
+                                <span className={styles.tooltipText}>Total trading volume for the period you wish to calculate for.</span>
+                            </div>
+                        </div>
                         <input
                             id="rebate-lots"
                             type="number"
@@ -159,33 +169,67 @@ export default function RebateCalculatorPage() {
                     </div>
                 </div>
 
-                <div className={rebateStyles.readOnlyRow}>
-                    <div className={styles.formGroup}>
-                        <label className={styles.label}>
-                            {instrument} 1 Pip Size
-                        </label>
-                        <input
-                            type="text"
-                            className={rebateStyles.readOnlyField}
-                            value={pipSize}
-                            readOnly
-                            aria-readonly
-                        />
-                    </div>
-                </div>
-
-                <div className={rebateStyles.buttonRow}>
-                    <button type="button" className={rebateStyles.calculateBtn}>
-                        Calculate
-                    </button>
-                </div>
-
                 <div className={rebateStyles.resultRow}>
-                    <div className={rebateStyles.resultAmount}>
-                        {totalRebate.toLocaleString('en-US', {
-                            style: 'currency',
-                            currency: depositCurrency,
-                        })}
+                    <div className={styles.resultTitle}>Estimated Cashback Yield</div>
+                    <AnimatePresence mode="wait">
+                        <motion.div 
+                            key={totalRebate}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className={styles.resultValue}
+                        >
+                            {totalRebate.toLocaleString('en-US', {
+                                style: 'currency',
+                                currency: depositCurrency,
+                            })}
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
+
+                <div className={styles.infoSection}>
+                    <div className={`${styles.infoCard} ${styles.formulaCard}`}>
+                        <h3 className={styles.infoTitle}>
+                            <Calculator size={16} /> How it is Calculated
+                        </h3>
+                        <p className={styles.infoText}>
+                            If paid in USD, it is simply <strong>Rebate Rate × Lots</strong>. If paid in pips, it is <strong>Rebate Rate (Pips) × Pip Value × Lots</strong>. This provides a clear picture of the net cost reduction on every trade entered.
+                        </p>
+                    </div>
+
+                    <div className={styles.infoCard}>
+                        <h3 className={styles.infoTitle}>
+                            <HandCoins size={16} /> What This Calculator Does
+                        </h3>
+                        <p className={styles.infoText}>
+                            It projects the total cashback you can expect from your trading activity. For high-volume traders, rebates are not just "extra"—they are a core component of the total return on investment.
+                        </p>
+                    </div>
+                    
+                    <div className={styles.infoCard}>
+                        <h3 className={styles.infoTitle}>
+                            <TrendingUp size={16} /> Why It Matters
+                        </h3>
+                        <p className={styles.infoText}>
+                            In tight-margin trading environments like scalping, the cost of the spread can eat up to 50% of your gains. Rebates return a portion of that cost to you, effectively widening your profit margins.
+                        </p>
+                    </div>
+
+                    <div className={`${styles.infoCard} ${styles.proTipCard}`}>
+                        <h3 className={styles.infoTitle}>
+                            <Zap size={16} /> Professional Insight
+                        </h3>
+                        <p className={styles.infoText}>
+                            Institutional "Rebate Arbitrage" involves using high-volume, low-volatility strategies where the profit from the rebate itself is the primary target, rather than the price movement of the asset.
+                        </p>
+                    </div>
+
+                    <div className={`${styles.infoCard} ${styles.mistakeCard}`}>
+                        <h3 className={styles.infoTitle}>
+                            <AlertTriangle size={16} /> Common Mistake
+                        </h3>
+                        <p className={styles.infoText}>
+                            Never sacrifice execution quality for high rebates. A broker offering massive cashback often makes up for it with <strong>High Slippage</strong> or <strong>Requotes</strong>, which can cost you more than the rebate is worth.
+                        </p>
                     </div>
                 </div>
             </div>

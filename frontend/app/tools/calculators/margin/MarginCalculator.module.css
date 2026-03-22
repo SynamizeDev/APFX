@@ -38,41 +38,27 @@
 
 .resultRow {
     margin-top: 2rem;
-    text-align: center;
-    padding: 2rem 1.5rem;
-    background: linear-gradient(180deg, rgba(0, 200, 150, 0.06) 0%, transparent 100%);
-    border: 1px solid rgba(0, 200, 150, 0.12);
-    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    background: linear-gradient(180deg, rgba(0, 200, 150, 0.08) 0%, transparent 100%);
+    border: 1px solid rgba(0, 200, 150, 0.15);
+    border-radius: var(--radius-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
     position: relative;
+    overflow: hidden;
 }
 
-.resultRow::before {
+.resultRow::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
-    opacity: 0.5;
-}
-
-.resultLabel {
-    font-size: 0.875rem;
-    color: var(--color-text-3);
-    margin-bottom: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-}
-
-.resultAmount {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: var(--fw-bold);
-    color: var(--color-accent);
-    font-family: var(--font-mono);
-    letter-spacing: -0.02em;
-    text-shadow: 0 0 40px rgba(0, 200, 150, 0.2);
+    opacity: 0.3;
 }
 
 @media (max-width: 600px) {

@@ -7,18 +7,18 @@ import styles from './WhatAreStocks.module.css'
 const POINTS = [
     {
         icon: TrendingUp,
-        title: 'Price growth potential',
-        text: 'Participate in the growth of businesses as stock prices move with performance.',
+        title: 'Capital Appreciation',
+        text: 'Capitalize on corporate expansion as stock valuations move in correlation with business performance and market demand.',
     },
     {
         icon: Droplets,
-        title: 'Dividend possibilities',
-        text: 'Some companies distribute dividends, which can complement capital appreciation.',
+        title: 'Yield Generation',
+        text: 'Institutional-grade dividend-paying corporations provide consistent yield potential, complementing long-term growth.',
     },
     {
         icon: CircleCheck,
-        title: 'Liquidity and transparency',
-        text: 'Stocks trade on exchanges, making pricing and information broadly accessible.',
+        title: 'Market Transparency',
+        text: 'Traded on regulated global exchanges, stocks provide high-fidelity pricing data and deep liquidity for seamless exit strategies.',
     },
 ]
 
@@ -28,8 +28,9 @@ export default function WhatAreStocks() {
             <div className={styles.container}>
                 <h2 className={styles.title}>What are Stocks?</h2>
                 <p className={styles.subtitle}>
-                    Stocks represent ownership in a company. When the company performs well, the value of
-                    your shares may increase.
+                    Stocks represent a fractional ownership in a corporation. As the company expands 
+                    and generates value, shareholders may benefit from capital appreciation and 
+                    potential dividend distributions.
                 </p>
 
                 <div className={styles.grid}>
