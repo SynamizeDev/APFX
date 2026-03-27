@@ -12,8 +12,8 @@ import { PreferencesProvider } from '@/context/PreferencesContext'
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://apfx.com'),
   title: {
-    default: 'APFX',
-    template: '%s | APFX',
+    default: 'APFX - Institutional Global Trading Platform',
+    template: '%s | APFX - Institutional Global Trading',
   },
   description:
     'APFX is a premium global trading platform offering Forex, Commodities, Indices, and Metals with deep liquidity, tight spreads, and institutional-grade execution.',

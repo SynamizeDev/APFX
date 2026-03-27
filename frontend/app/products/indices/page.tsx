@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import IndicesPage from './IndicesPage'
 
 export const metadata: Metadata = {
-  title: 'Indices Trading',
+  title: 'Global Stock Indices Trading - DAX, NASDAQ, S&P 500',
   description:
-    'Benchmarks, macro behavior, and index products—methodology, sessions, and risk habits. APFX; educational only.',
+    'Trade the world\'s leading stock indices with low latency. Access global benchmarks including Dow Jones, FTSE 100, and more with institutional liquidity.',
 }
 
 export default function IndicesProductPage() {

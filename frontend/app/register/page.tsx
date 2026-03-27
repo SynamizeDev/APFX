@@ -77,7 +77,7 @@ export default function RegisterPage() {
                     </button>
 
                     <p style={{ marginTop: '1.5rem', fontSize: '0.75rem', color: 'var(--color-text-3)', textAlign: 'center' }}>
-                        By creating an account, you agree to our <Link href="/legal/terms">Terms of Service</Link> and <Link href="/legal/privacy">Privacy Policy</Link>.
+                        By creating an account, you agree to our <Link href="/terms-of-service">Terms of Service</Link> and <Link href="/privacy-policy">Privacy Policy</Link>.
                     </p>
                 </form>
 

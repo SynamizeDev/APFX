@@ -78,7 +78,7 @@ export default function HeroSection() {
             <div className={styles.content}>
                 <div className={styles.contentLeft}>
                     <h1 className={styles.headline}>
-                        Trade Global Markets
+                        Trade Forex, Commodities & Stocks
                         <span className={styles.accentLine}>With Absolute Precision</span>
                     </h1>
                     <InvestWithAPFX embedded />

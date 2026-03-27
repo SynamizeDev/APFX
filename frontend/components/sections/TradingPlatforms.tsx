@@ -130,7 +130,7 @@ export default function TradingPlatforms() {
                 <div className={styles.content}>
                     <span className={styles.eyebrow}>Award-Winning Tech</span>
                     <h2 id="platforms-heading" className={styles.title}>
-                        Institutional Platforms on Every Device
+                        Institutional-Grade CFD Trading Platforms
                     </h2>
                     <p className={styles.desc}>
                         Whether you scalp intraday volatility or run systematic strategies,
