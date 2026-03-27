@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import AccountsClient from './AccountsClient'
 
 export const metadata: Metadata = {
-    title: 'Account Types — APFX',
+    title: 'Professional Trading Accounts - Raw Spreads & Zero Commission',
     description:
-        'Choose the account that fits your trading style. From commission-free Standard accounts to ultra-low spread Raw accounts for professionals.',
+        'Choose from Standard, Raw Spread, or Institutional account tiers. Engineered for scalpers, day traders, and professional investors looking for deep liquidity.',
 }
 
 export default function AccountsPage() {

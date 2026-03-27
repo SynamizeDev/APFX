@@ -161,6 +161,9 @@
        GLASS & AMBIENCE
        ========================================================= */
 
+    --color-border-subtle: rgba(255, 255, 255, 0.05);
+    --color-surface-subtle: rgba(255, 255, 255, 0.02);
+
     --glass-bg: rgba(11, 15, 26, 0.7);
     --glass-border: rgba(255, 255, 255, 0.06);
     --glass-blur: blur(20px);
@@ -197,6 +200,8 @@
     --color-surface-2: #F3F4F6;
     --color-border: #E5E7EB;
     --color-border-2: #D1D5DB;
+    --color-border-subtle: rgba(0, 0, 0, 0.04);
+    --color-surface-subtle: rgba(0, 0, 0, 0.015);
 
     --color-text-1: #000000;
     --color-text-2: #333333;
@@ -210,6 +215,13 @@
     --color-nav-text: #000000;
     --color-nav-text-active: #000000;
     --color-nav-hover-bg: #F3F4F6;
+
+    --section-divider: linear-gradient(90deg,
+            transparent,
+            rgba(0, 0, 0, 0.06),
+            rgba(0, 200, 150, 0.15),
+            rgba(0, 0, 0, 0.06),
+            transparent);
 
     --section-ambient: radial-gradient(ellipse 70% 45% at 50% 0%,
             rgba(0, 200, 150, 0.08),

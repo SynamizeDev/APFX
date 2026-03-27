@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import PlatformsClient from './PlatformsClient'
 
 export const metadata: Metadata = {
-    title: 'Trading Platforms — APFX',
+    title: 'Institutional Trading Platforms - Desktop, Web & Mobile',
     description:
-        'Experience institutional-grade trading on our advanced desktop and web platforms. Trade seamlessly on desktop, web, or mobile with APFX.',
+        'Access the markets via our Advanced Web Terminal, TradingView integration, and native mobile apps. High-speed, low-latency execution for serious traders.',
 }
 
 export default function PlatformsPage() {

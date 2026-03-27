@@ -14,19 +14,20 @@ const FOOTER_LINKS = {
         { label: 'Futures', href: '/trade&invest/futures' },
     ],
     Platforms: [
-        { label: 'Web Terminal', href: '/platforms/web-terminal' },
-        { label: 'TradingView Integration', href: '/platforms/tradingview' },
-        { label: 'Mobile App', href: '/platforms/mobile' },
-        { label: 'Copy Trading', href: '/platforms/copy-trading' },
+        { label: 'All Platforms', href: '/platforms' },
+        { label: 'Web Terminal', href: '/platforms' },
+        { label: 'TradingView', href: '/platforms' },
+        { label: 'Mobile App', href: '/platforms' },
     ],
     Company: [
         { label: 'About Us', href: '/company/about-us' },
-        { label: 'Press', href: '/company/press' },
+        { label: 'Privacy Policy', href: '/privacy-policy' },
+        { label: 'Terms of Service', href: '/terms-of-service' },
+        { label: 'Risk Disclosure', href: '/risk-disclosure' },
         { label: 'Careers', href: '/company/careers' },
-        { label: 'Contact', href: '/contact' },
     ],
     Support: [
-        { label: 'Help Center', href: '/support' },
+        { label: 'Support Center', href: '/support' },
         { label: 'FAQ', href: '/faq' },
         { label: 'Contact', href: '/contact' },
     ],
@@ -92,7 +93,7 @@ export default function Footer() {
                                         form.reset();
                                     }
                                 } catch (err) {
-                                    console.error('Subscription failed', err);
+                                    // Silent fail or handle UI-side
                                 }
                             }}
                         >
@@ -129,7 +130,7 @@ export default function Footer() {
                         <h4>{heading}</h4>
                         <ul role="list">
                             {links.map((link) => (
-                                <li key={link.href}>
+                                <li key={link.label}>
                                     <Link href={link.href} prefetch={true}>{link.label}</Link>
                                 </li>
                             ))}
@@ -145,9 +146,9 @@ export default function Footer() {
                         © {new Date().getFullYear()} APFX Limited. All rights reserved.
                     </span>
                     <nav className={styles.legal} aria-label="Legal navigation">
-                        <Link href="/legal/privacy" prefetch={true}>Privacy Policy</Link>
-                        <Link href="/legal/terms" prefetch={true}>Terms of Service</Link>
-                        <Link href="/legal/risk-disclosure" prefetch={true}>Risk Disclosure</Link>
+                        <Link href="/privacy-policy" prefetch={true}>Privacy Policy</Link>
+                        <Link href="/terms-of-service" prefetch={true}>Terms of Service</Link>
+                        <Link href="/risk-disclosure" prefetch={true}>Risk Disclosure</Link>
                     </nav>
                 </div>
                 <p className={styles.disclaimer}>

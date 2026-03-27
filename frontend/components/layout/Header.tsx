@@ -53,7 +53,11 @@ const MEGA_MENU_DATA = {
             title: '',
             links: [
                 { label: 'About Us', href: '/company/about-us' },
-                { label: 'Press', href: '/company/press' },
+                { label: 'Account Types', href: '/accounts' },
+                { label: 'Privacy Policy', href: '/privacy-policy' },
+                { label: 'Terms of Service', href: '/terms-of-service' },
+                { label: 'Risk Disclosure', href: '/risk-disclosure' },
+                { label: 'Support', href: '/support' },
             ],
         },
     ],
