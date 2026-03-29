@@ -1,7 +1,7 @@
 /* ── Why APFX — Bento Grid ───────────────────────────────────── */
 .section {
     padding-block: var(--section-py);
-    background-color: var(--color-surface);
+    background-color: var(--color-section-band);
     overflow: hidden;
 }
 

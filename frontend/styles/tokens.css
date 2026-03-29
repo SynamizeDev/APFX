@@ -11,11 +11,13 @@
 
     /* ── Backgrounds & Surfaces ───────────────────────────── */
     --color-bg: #03050A;
-    /* Obsidian base — app background */
-    --color-surface: #0B0F1A;
-    /* Primary card / panel surface */
-    --color-surface-2: #111827;
-    /* Elevated surface (modals, focus) */
+    /* Obsidian base — app background & all cards (WhyAPFX bento parity) */
+    --color-surface: var(--color-bg);
+    /* Primary card / panel fill — same as page base */
+    --color-surface-2: var(--color-bg);
+    /* Elevated chips / hover — same base; use rgba overlays where lift is needed */
+    /* Full-bleed section stripes only (preserves alternating rhythm vs --color-bg) */
+    --color-section-band: #0b0f1a;
     --color-border: #1A2235;
     /* Subtle dividers */
     --color-border-2: #243050;
@@ -196,8 +198,9 @@
      ============================================================ */
 :root.light-mode {
     --color-bg: #FFFFFF;
-    --color-surface: #F8F9FA;
-    --color-surface-2: #F3F4F6;
+    --color-surface: var(--color-bg);
+    --color-surface-2: var(--color-bg);
+    --color-section-band: #f8f9fa;
     --color-border: #E5E7EB;
     --color-border-2: #D1D5DB;
     --color-border-subtle: rgba(0, 0, 0, 0.04);

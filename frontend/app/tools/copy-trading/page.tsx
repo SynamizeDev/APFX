@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef, useLayoutEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   User, Wallet, Copy, BarChart3, UserCheck, Zap, Layers, TrendingUp, 
   ShieldCheck, Clock, Target, Info, AlertTriangle, Users, 
-  Briefcase, TrendingDown, CheckCircle2, ChevronRight, Sliders
+  Briefcase, TrendingDown, CheckCircle2, ChevronRight, Sliders, Plus
 } from 'lucide-react'
 import Link from 'next/link'
 import calcLayout from '@/components/ui/CalculatorLayout.module.css'
@@ -17,7 +17,11 @@ const TRADERS = [
   { id: '2', name: 'Jordan Lee', initials: 'JL', averageRoiPct: 18.2, winRatePct: 62, followersCount: 1923, riskLevel: 'Medium' as const, style: 'Momentum Scalper', maxDrawdown: 12.8 },
   { id: '3', name: 'Sam Chen', initials: 'SC', averageRoiPct: 9.8, winRatePct: 74, followersCount: 4102, riskLevel: 'Low' as const, style: 'Conservative Trend', maxDrawdown: 3.5 },
   { id: '4', name: 'Morgan Blake', initials: 'MB', averageRoiPct: 22.1, winRatePct: 58, followersCount: 1204, riskLevel: 'High' as const, style: 'Aggressive Aggregator', maxDrawdown: 18.4 },
+  { id: '5', name: 'Riley Park', initials: 'RP', averageRoiPct: 14.6, winRatePct: 71, followersCount: 3560, riskLevel: 'Medium' as const, style: 'Swing Macro', maxDrawdown: 9.1 },
 ]
+
+/** Carousel includes an extra “+ more” slide after all traders */
+const LEADERBOARD_CAROUSEL_SLIDE_COUNT = TRADERS.length + 1
 
 const STEPS = [
   { step: 1, title: 'Strategy Screening', description: 'Analyze vetted performance profiles and historical metrics to find providers that match your ROI goals.', icon: User },
@@ -32,6 +36,446 @@ const BENEFITS = [
   { title: 'Time-Efficient Management', shortDescription: 'Let professional systems manage the minutiae while you focus on high-level portfolio oversight.', icon: Clock },
   { title: 'Data-Driven Decision Making', shortDescription: 'Base your allocations on audited performance data and institutional-grade risk metrics.', icon: Target },
 ]
+
+function riskPillClass(risk: string) {
+  if (risk === 'Low') return styles.riskLow
+  if (risk === 'High') return styles.riskHigh
+  return styles.riskMedium
+}
+
+function LeaderboardMoreCard() {
+  return (
+    <motion.article
+      className={`${styles.traderCard} ${styles.traderCardMore}`}
+      whileHover={{ scale: 1.02, translateY: -5 }}
+    >
+      <Link href="/accounts" className={styles.traderCardMoreLink}>
+        <span className={styles.traderCardMorePlus} aria-hidden>
+          <Plus size={36} strokeWidth={2} />
+        </span>
+        <span className={styles.traderCardMoreTitle}>More</span>
+        <span className={styles.traderCardMoreHint}>View all strategy providers</span>
+        <span className={styles.traderCardMoreCta}>
+          Explore accounts <ChevronRight size={16} style={{ verticalAlign: 'middle' }} />
+        </span>
+      </Link>
+    </motion.article>
+  )
+}
+
+/** Must match carousel `gap` in CopyTrading.module.css */
+const CAROUSEL_GAP_PX = 12
+const CAROUSEL_SLIDE_MS = 5500
+const PHONE_MAX_PX = 768
+
+type PhoneSectionLayout = 'desktop' | 'phoneStack' | 'phoneCarousel'
+
+function readPhoneSectionLayout(): PhoneSectionLayout {
+  if (typeof window === 'undefined') return 'desktop'
+  const phone = window.matchMedia(`(max-width: ${PHONE_MAX_PX}px)`).matches
+  if (!phone) return 'desktop'
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return 'phoneStack'
+  return 'phoneCarousel'
+}
+
+function usePhoneSectionLayout(): PhoneSectionLayout {
+  const [layout, setLayout] = useState<PhoneSectionLayout>('desktop')
+
+  useLayoutEffect(() => {
+    const sync = () => setLayout(readPhoneSectionLayout())
+    sync()
+    const mqPhone = window.matchMedia(`(max-width: ${PHONE_MAX_PX}px)`)
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)')
+    mqPhone.addEventListener('change', sync)
+    mqReduce.addEventListener('change', sync)
+    return () => {
+      mqPhone.removeEventListener('change', sync)
+      mqReduce.removeEventListener('change', sync)
+    }
+  }, [])
+
+  return layout
+}
+
+function BenefitsCarousel() {
+  const [carouselIndex, setCarouselIndex] = useState(0)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const indexRef = useRef(0)
+  const scrollSyncTimerRef = useRef<number | undefined>(undefined)
+
+  indexRef.current = carouselIndex
+
+  const scrollStep = useCallback((el: HTMLDivElement) => el.clientWidth + CAROUSEL_GAP_PX, [])
+
+  const syncIndexFromScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const step = scrollStep(el)
+    if (step <= CAROUSEL_GAP_PX) return
+    const i = Math.min(
+      BENEFITS.length - 1,
+      Math.max(0, Math.round(el.scrollLeft / step)),
+    )
+    setCarouselIndex((prev) => (prev === i ? prev : i))
+  }, [scrollStep])
+
+  useLayoutEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const step = scrollStep(el)
+    if (step <= CAROUSEL_GAP_PX) return
+    const target = carouselIndex * step
+    if (Math.abs(el.scrollLeft - target) < 8) return
+    el.scrollTo({ left: target, behavior: 'smooth' })
+  }, [carouselIndex, scrollStep])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    const onScroll = () => {
+      if (scrollSyncTimerRef.current !== undefined) {
+        window.clearTimeout(scrollSyncTimerRef.current)
+      }
+      scrollSyncTimerRef.current = window.setTimeout(() => {
+        scrollSyncTimerRef.current = undefined
+        syncIndexFromScroll()
+      }, 60)
+    }
+
+    const onScrollEnd = () => {
+      if (scrollSyncTimerRef.current !== undefined) {
+        window.clearTimeout(scrollSyncTimerRef.current)
+        scrollSyncTimerRef.current = undefined
+      }
+      syncIndexFromScroll()
+    }
+
+    el.addEventListener('scroll', onScroll, { passive: true })
+    el.addEventListener('scrollend', onScrollEnd)
+    return () => {
+      el.removeEventListener('scroll', onScroll)
+      el.removeEventListener('scrollend', onScrollEnd)
+      if (scrollSyncTimerRef.current !== undefined) {
+        window.clearTimeout(scrollSyncTimerRef.current)
+      }
+    }
+  }, [syncIndexFromScroll])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    const applySize = () => {
+      const w = el.clientWidth
+      if (!w) return
+      el.style.setProperty('--benefits-slide-width', `${w}px`)
+      el.style.setProperty('--benefits-carousel-gap', `${CAROUSEL_GAP_PX}px`)
+      const step = w + CAROUSEL_GAP_PX
+      el.scrollTo({ left: indexRef.current * step, behavior: 'auto' })
+    }
+
+    const ro = new ResizeObserver(applySize)
+    ro.observe(el)
+    applySize()
+    return () => ro.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const mqPhone = window.matchMedia(`(max-width: ${PHONE_MAX_PX}px)`)
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const shouldAuto = () => mqPhone.matches && !mqReduce.matches
+
+    let id: number | undefined
+
+    const arm = () => {
+      if (id !== undefined) {
+        window.clearInterval(id)
+        id = undefined
+      }
+      if (!shouldAuto()) return
+      id = window.setInterval(() => {
+        setCarouselIndex((i) => (i + 1) % BENEFITS.length)
+      }, CAROUSEL_SLIDE_MS)
+    }
+
+    arm()
+    mqPhone.addEventListener('change', arm)
+    mqReduce.addEventListener('change', arm)
+    return () => {
+      if (id !== undefined) window.clearInterval(id)
+      mqPhone.removeEventListener('change', arm)
+      mqReduce.removeEventListener('change', arm)
+    }
+  }, [])
+
+  return (
+    <div
+      className={styles.benefitsCarouselWrap}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Copy trading benefits"
+      aria-live="polite"
+    >
+      <div className={styles.benefitsCarouselViewport}>
+        <div
+          ref={scrollRef}
+          className={styles.benefitsCarouselScroll}
+          tabIndex={0}
+          aria-label="Swipe or scroll horizontally for each benefit"
+          onKeyDown={(e) => {
+            if (e.key === 'ArrowLeft') {
+              e.preventDefault()
+              setCarouselIndex((i) => Math.max(0, i - 1))
+            } else if (e.key === 'ArrowRight') {
+              e.preventDefault()
+              setCarouselIndex((i) => Math.min(BENEFITS.length - 1, i + 1))
+            }
+          }}
+        >
+          {BENEFITS.map((b, i) => (
+            <div
+              key={b.title}
+              className={styles.benefitsCarouselSlide}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${BENEFITS.length}: ${b.title}`}
+              aria-hidden={i !== carouselIndex}
+            >
+              <div className={styles.benefitCard}>
+                <div className={styles.benefitIcon}>
+                  <BenefitIcon Icon={b.icon} />
+                </div>
+                <h3 className={styles.benefitTitle}>{b.title}</h3>
+                <p className={styles.benefitDesc}>{b.shortDescription}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={styles.benefitsCarouselDots} role="tablist" aria-label="Benefit slides">
+        {BENEFITS.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            role="tab"
+            aria-selected={i === carouselIndex}
+            aria-label={`Slide ${i + 1} of ${BENEFITS.length}`}
+            className={
+              i === carouselIndex ? styles.benefitsCarouselDotActive : styles.benefitsCarouselDot
+            }
+            onClick={() => setCarouselIndex(i)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function LeaderboardCarousel() {
+  const [carouselIndex, setCarouselIndex] = useState(0)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const indexRef = useRef(0)
+  const scrollSyncTimerRef = useRef<number | undefined>(undefined)
+
+  indexRef.current = carouselIndex
+
+  const scrollStep = useCallback((el: HTMLDivElement) => el.clientWidth + CAROUSEL_GAP_PX, [])
+
+  const syncIndexFromScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const step = scrollStep(el)
+    if (step <= CAROUSEL_GAP_PX) return
+    const i = Math.min(
+      LEADERBOARD_CAROUSEL_SLIDE_COUNT - 1,
+      Math.max(0, Math.round(el.scrollLeft / step)),
+    )
+    setCarouselIndex((prev) => (prev === i ? prev : i))
+  }, [scrollStep])
+
+  useLayoutEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const step = scrollStep(el)
+    if (step <= CAROUSEL_GAP_PX) return
+    const target = carouselIndex * step
+    if (Math.abs(el.scrollLeft - target) < 8) return
+    el.scrollTo({ left: target, behavior: 'smooth' })
+  }, [carouselIndex, scrollStep])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    const onScroll = () => {
+      if (scrollSyncTimerRef.current !== undefined) {
+        window.clearTimeout(scrollSyncTimerRef.current)
+      }
+      scrollSyncTimerRef.current = window.setTimeout(() => {
+        scrollSyncTimerRef.current = undefined
+        syncIndexFromScroll()
+      }, 60)
+    }
+
+    const onScrollEnd = () => {
+      if (scrollSyncTimerRef.current !== undefined) {
+        window.clearTimeout(scrollSyncTimerRef.current)
+        scrollSyncTimerRef.current = undefined
+      }
+      syncIndexFromScroll()
+    }
+
+    el.addEventListener('scroll', onScroll, { passive: true })
+    el.addEventListener('scrollend', onScrollEnd)
+    return () => {
+      el.removeEventListener('scroll', onScroll)
+      el.removeEventListener('scrollend', onScrollEnd)
+      if (scrollSyncTimerRef.current !== undefined) {
+        window.clearTimeout(scrollSyncTimerRef.current)
+      }
+    }
+  }, [syncIndexFromScroll])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    const applySize = () => {
+      const w = el.clientWidth
+      if (!w) return
+      el.style.setProperty('--leaderboard-slide-width', `${w}px`)
+      el.style.setProperty('--leaderboard-carousel-gap', `${CAROUSEL_GAP_PX}px`)
+      const step = w + CAROUSEL_GAP_PX
+      el.scrollTo({ left: indexRef.current * step, behavior: 'auto' })
+    }
+
+    const ro = new ResizeObserver(applySize)
+    ro.observe(el)
+    applySize()
+    return () => ro.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const mqPhone = window.matchMedia(`(max-width: ${PHONE_MAX_PX}px)`)
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const shouldAuto = () => mqPhone.matches && !mqReduce.matches
+
+    let id: number | undefined
+
+    const arm = () => {
+      if (id !== undefined) {
+        window.clearInterval(id)
+        id = undefined
+      }
+      if (!shouldAuto()) return
+      id = window.setInterval(() => {
+        setCarouselIndex((i) => (i + 1) % LEADERBOARD_CAROUSEL_SLIDE_COUNT)
+      }, CAROUSEL_SLIDE_MS)
+    }
+
+    arm()
+    mqPhone.addEventListener('change', arm)
+    mqReduce.addEventListener('change', arm)
+    return () => {
+      if (id !== undefined) window.clearInterval(id)
+      mqPhone.removeEventListener('change', arm)
+      mqReduce.removeEventListener('change', arm)
+    }
+  }, [])
+
+  return (
+    <div
+      className={styles.leaderboardCarouselWrap}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Strategy providers"
+      aria-live="polite"
+    >
+      <div className={styles.leaderboardCarouselViewport}>
+        <div
+          ref={scrollRef}
+          className={styles.leaderboardCarouselScroll}
+          tabIndex={0}
+          aria-label="Swipe or scroll horizontally to compare traders"
+          onKeyDown={(e) => {
+            if (e.key === 'ArrowLeft') {
+              e.preventDefault()
+              setCarouselIndex((i) => Math.max(0, i - 1))
+            } else if (e.key === 'ArrowRight') {
+              e.preventDefault()
+              setCarouselIndex((i) => Math.min(LEADERBOARD_CAROUSEL_SLIDE_COUNT - 1, i + 1))
+            }
+          }}
+        >
+          {TRADERS.map((t, i) => (
+            <div
+              key={t.id}
+              className={styles.leaderboardCarouselSlide}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${LEADERBOARD_CAROUSEL_SLIDE_COUNT}: ${t.name}`}
+              aria-hidden={i !== carouselIndex}
+            >
+              <motion.article className={styles.traderCard} whileHover={{ scale: 1.02, translateY: -5 }}>
+                <div className={styles.traderHeader}>
+                  <div className={styles.traderAvatar}>{t.initials}</div>
+                  <div>
+                    <div className={styles.traderName}>{t.name}</div>
+                    <span className={styles.traderStyle}>{t.style}</span>
+                    <span className={`${styles.riskPill} ${riskPillClass(t.riskLevel)}`}>
+                      {t.riskLevel} Risk
+                    </span>
+                  </div>
+                </div>
+                <div className={styles.traderStats}>
+                  <span className={styles.traderStat}>
+                    ROI <strong>{t.averageRoiPct}%</strong>
+                  </span>
+                  <span className={styles.traderStat}>
+                    Win rate <strong>{t.winRatePct}%</strong>
+                  </span>
+                </div>
+                <div className={styles.traderSecondaryStats}>
+                  <span className={styles.traderStat}>
+                    Max DD <strong>{t.maxDrawdown}%</strong>
+                  </span>
+                  <span className={styles.traderStat}>
+                    Followers <strong>{t.followersCount.toLocaleString()}</strong>
+                  </span>
+                </div>
+              </motion.article>
+            </div>
+          ))}
+          <div
+            className={styles.leaderboardCarouselSlide}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${LEADERBOARD_CAROUSEL_SLIDE_COUNT} of ${LEADERBOARD_CAROUSEL_SLIDE_COUNT}: View all strategy providers`}
+            aria-hidden={carouselIndex !== TRADERS.length}
+          >
+            <LeaderboardMoreCard />
+          </div>
+        </div>
+      </div>
+      <div className={styles.leaderboardCarouselDots} role="tablist" aria-label="Trader slides">
+        {Array.from({ length: LEADERBOARD_CAROUSEL_SLIDE_COUNT }, (_, i) => (
+          <button
+            key={i}
+            type="button"
+            role="tab"
+            aria-selected={i === carouselIndex}
+            aria-label={`Slide ${i + 1} of ${LEADERBOARD_CAROUSEL_SLIDE_COUNT}`}
+            className={
+              i === carouselIndex ? styles.leaderboardCarouselDotActive : styles.leaderboardCarouselDot
+            }
+            onClick={() => setCarouselIndex(i)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 const MONTHLY_RETURNS = [
   { month: 'Jan', returnPct: 2.1 },
@@ -62,13 +506,10 @@ function BenefitIcon({ Icon }: { Icon: any }) {
   return <Icon size={22} />
 }
 
-function riskPillClass(risk: string) {
-  if (risk === 'Low') return styles.riskLow
-  if (risk === 'High') return styles.riskHigh
-  return styles.riskMedium
-}
-
 export default function CopyTradingPage() {
+  const benefitsLayout = usePhoneSectionLayout()
+  const leaderboardLayout = usePhoneSectionLayout()
+
   const [investment, setInvestment] = useState('10000')
   const [monthlyReturnPct, setMonthlyReturnPct] = useState('2')
   const [months, setMonths] = useState('12')
@@ -225,32 +666,73 @@ export default function CopyTradingPage() {
           <p className={styles.sectionSubtitle}>
             Compare strategy providers based on performance, consistency, and risk profiles.
           </p>
-          <div className={styles.leaderboardGrid}>
-            {TRADERS.map((t) => (
-              <motion.article 
-                key={t.id} 
-                className={styles.traderCard}
-                whileHover={{ scale: 1.02, translateY: -5 }}
-              >
-                <div className={styles.traderHeader}>
-                  <div className={styles.traderAvatar}>{t.initials}</div>
-                  <div>
-                    <div className={styles.traderName}>{t.name}</div>
-                    <span className={styles.traderStyle}>{t.style}</span>
-                    <span className={`${styles.riskPill} ${riskPillClass(t.riskLevel)}`}>{t.riskLevel} Risk</span>
+          {leaderboardLayout === 'desktop' && (
+            <div className={styles.leaderboardGrid}>
+              {TRADERS.map((t) => (
+                <motion.article
+                  key={t.id}
+                  className={styles.traderCard}
+                  whileHover={{ scale: 1.02, translateY: -5 }}
+                >
+                  <div className={styles.traderHeader}>
+                    <div className={styles.traderAvatar}>{t.initials}</div>
+                    <div>
+                      <div className={styles.traderName}>{t.name}</div>
+                      <span className={styles.traderStyle}>{t.style}</span>
+                      <span className={`${styles.riskPill} ${riskPillClass(t.riskLevel)}`}>
+                        {t.riskLevel} Risk
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.traderStats}>
-                  <span className={styles.traderStat}>ROI <strong>{t.averageRoiPct}%</strong></span>
-                  <span className={styles.traderStat}>Win rate <strong>{t.winRatePct}%</strong></span>
-                </div>
-                <div className={styles.traderSecondaryStats}>
-                   <span className={styles.traderStat}>Max DD <strong>{t.maxDrawdown}%</strong></span>
-                   <span className={styles.traderStat}>Followers <strong>{t.followersCount.toLocaleString()}</strong></span>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+                  <div className={styles.traderStats}>
+                    <span className={styles.traderStat}>ROI <strong>{t.averageRoiPct}%</strong></span>
+                    <span className={styles.traderStat}>Win rate <strong>{t.winRatePct}%</strong></span>
+                  </div>
+                  <div className={styles.traderSecondaryStats}>
+                    <span className={styles.traderStat}>Max DD <strong>{t.maxDrawdown}%</strong></span>
+                    <span className={styles.traderStat}>
+                      Followers <strong>{t.followersCount.toLocaleString()}</strong>
+                    </span>
+                  </div>
+                </motion.article>
+              ))}
+              <LeaderboardMoreCard />
+            </div>
+          )}
+          {leaderboardLayout === 'phoneStack' && (
+            <div className={`${styles.leaderboardGrid} ${styles.leaderboardPhoneStack}`}>
+              {TRADERS.map((t) => (
+                <motion.article
+                  key={`stack-${t.id}`}
+                  className={styles.traderCard}
+                  whileHover={{ scale: 1.02, translateY: -5 }}
+                >
+                  <div className={styles.traderHeader}>
+                    <div className={styles.traderAvatar}>{t.initials}</div>
+                    <div>
+                      <div className={styles.traderName}>{t.name}</div>
+                      <span className={styles.traderStyle}>{t.style}</span>
+                      <span className={`${styles.riskPill} ${riskPillClass(t.riskLevel)}`}>
+                        {t.riskLevel} Risk
+                      </span>
+                    </div>
+                  </div>
+                  <div className={styles.traderStats}>
+                    <span className={styles.traderStat}>ROI <strong>{t.averageRoiPct}%</strong></span>
+                    <span className={styles.traderStat}>Win rate <strong>{t.winRatePct}%</strong></span>
+                  </div>
+                  <div className={styles.traderSecondaryStats}>
+                    <span className={styles.traderStat}>Max DD <strong>{t.maxDrawdown}%</strong></span>
+                    <span className={styles.traderStat}>
+                      Followers <strong>{t.followersCount.toLocaleString()}</strong>
+                    </span>
+                  </div>
+                </motion.article>
+              ))}
+              <LeaderboardMoreCard />
+            </div>
+          )}
+          {leaderboardLayout === 'phoneCarousel' && <LeaderboardCarousel />}
         </section>
 
         {/* How it works */}
@@ -398,15 +880,33 @@ export default function CopyTradingPage() {
           <p className={styles.sectionSubtitle}>
              Advanced strategy replication provides a systematic edge for institutional and retail portfolios.
           </p>
-          <div className={styles.benefitsGrid}>
-            {BENEFITS.map((b) => (
-              <div key={b.title} className={styles.benefitCard}>
-                <div className={styles.benefitIcon}><BenefitIcon Icon={b.icon} /></div>
-                <h3 className={styles.benefitTitle}>{b.title}</h3>
-                <p className={styles.benefitDesc}>{b.shortDescription}</p>
-              </div>
-            ))}
-          </div>
+          {benefitsLayout === 'desktop' && (
+            <div className={styles.benefitsGrid}>
+              {BENEFITS.map((b) => (
+                <div key={b.title} className={styles.benefitCard}>
+                  <div className={styles.benefitIcon}>
+                    <BenefitIcon Icon={b.icon} />
+                  </div>
+                  <h3 className={styles.benefitTitle}>{b.title}</h3>
+                  <p className={styles.benefitDesc}>{b.shortDescription}</p>
+                </div>
+              ))}
+            </div>
+          )}
+          {benefitsLayout === 'phoneStack' && (
+            <div className={`${styles.benefitsGrid} ${styles.benefitsPhoneStack}`}>
+              {BENEFITS.map((b) => (
+                <div key={`stack-${b.title}`} className={styles.benefitCard}>
+                  <div className={styles.benefitIcon}>
+                    <BenefitIcon Icon={b.icon} />
+                  </div>
+                  <h3 className={styles.benefitTitle}>{b.title}</h3>
+                  <p className={styles.benefitDesc}>{b.shortDescription}</p>
+                </div>
+              ))}
+            </div>
+          )}
+          {benefitsLayout === 'phoneCarousel' && <BenefitsCarousel />}
         </section>
 
         {/* Who is it for */}
