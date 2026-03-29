@@ -132,9 +132,6 @@ export default function IndicesPage() {
           Opportunity angle: when the index and the headline disagree, the methodology usually wins—eventually.
         </p>
         <div className={styles.heroActions}>
-          <Link href="/register" className={styles.ctaBtnPrimary}>
-            Start Trading
-          </Link>
           <a href="#behavior-insights" className={styles.ctaBtnSecondary}>
             Market behavior first
           </a>
@@ -480,9 +477,6 @@ export default function IndicesPage() {
               Open an account when you are ready; trade only with money you can afford to lose.
             </p>
             <div className={styles.ctaButtons}>
-              <Link href="/register" className={styles.ctaBtnPrimary}>
-                Open Trading Account
-              </Link>
               <Link href="/tools" className={styles.ctaBtnSecondary}>
                 Explore Trading Tools
               </Link>

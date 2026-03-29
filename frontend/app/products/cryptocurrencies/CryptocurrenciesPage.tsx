@@ -155,9 +155,6 @@ export default function CryptocurrenciesPage() {
           Curiosity hook: the technology is fascinating; your broker’s product sheet is what actually governs your risk.
         </p>
         <div className={styles.heroActions}>
-          <Link href="/register" className={styles.ctaBtnPrimary}>
-            Start Trading
-          </Link>
           <a href="#technology" className={styles.ctaBtnSecondary}>
             Start with the tech story
           </a>
@@ -497,9 +494,6 @@ export default function CryptocurrenciesPage() {
               Open an account when you are ready—trade only with capital you can afford to lose.
             </p>
             <div className={styles.ctaButtons}>
-              <Link href="/register" className={styles.ctaBtnPrimary}>
-                Open Trading Account
-              </Link>
               <Link href="/tools" className={styles.ctaBtnSecondary}>
                 Explore Trading Tools
               </Link>

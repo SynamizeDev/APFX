@@ -226,9 +226,6 @@ function MarketRow({ inst, liveData }: { inst: Instrument, liveData: MarketQuote
                 <Sparkline data={inst.trend} positive={changePositive} />
             </td>
             <td className={styles.thAction}>
-                <Link href="https://portal.apfx.com/register" className={styles.tradeBtn}>
-                    Trade now
-                </Link>
             </td>
         </motion.tr>
     )
@@ -368,9 +365,6 @@ export default function MarketsSection() {
                 </p>
 
                 <div className={styles.viewAll}>
-                    <Link href="https://portal.apfx.com/register" className={styles.viewAllBtn}>
-                        Open Live account
-                    </Link>
                 </div>
             </div>
         </section>

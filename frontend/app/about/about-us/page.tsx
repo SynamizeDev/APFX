@@ -221,7 +221,6 @@ export default function AboutUsPage() {
             <h2 id="cta-heading" className={styles.ctaTitle}>Take the next step</h2>
             <p className={styles.ctaSubtitle}>Start trading, explore our tools, or continue learning.</p>
             <div className={styles.ctaButtons}>
-              <Link href="/register" className={styles.ctaBtnPrimary}>Start Trading</Link>
               <Link href="/tools/calculators" className={styles.ctaBtnSecondary}>Explore Our Tools</Link>
               <Link href="/learn/blog" className={styles.ctaBtnSecondary}>Learn More</Link>
             </div>

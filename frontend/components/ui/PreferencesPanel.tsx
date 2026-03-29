@@ -48,21 +48,6 @@ export default function PreferencesPanel() {
                             </button>
                         </div>
 
-                        {/* Animations Toggle */}
-                        <div className={styles.option}>
-                            <div className={styles.optionInfo}>
-                                <div className={styles.icon}>
-                                    {animationsEnabled ? <Zap size={16} /> : <ZapOff size={16} />}
-                                </div>
-                                <span>Animations</span>
-                            </div>
-                            <button 
-                                className={`${styles.toggle} ${animationsEnabled ? styles.toggleOn : ''}`}
-                                onClick={() => setAnimationsEnabled(!animationsEnabled)}
-                            >
-                                <div className={styles.toggleKnob} />
-                            </button>
-                        </div>
 
                         {/* KPI Mode Toggle */}
                         <div className={styles.option}>

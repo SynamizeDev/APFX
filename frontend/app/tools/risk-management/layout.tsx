@@ -106,8 +106,6 @@ export default function RiskManagementLayout({
               Connect your strategy to institutional-grade risk management.
             </p>
             <div className={styles.ctaButtons}>
-              <Link href="/register" className={styles.ctaBtnPrimary}>Open Professional Account</Link>
-              <Link href="/register" className={styles.ctaBtnSecondary}>View Liquidity Pools</Link>
             </div>
           </section>
         </div>

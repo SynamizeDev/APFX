@@ -137,9 +137,6 @@ export default function CopyTradingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <Link href="/register" className={styles.heroCtaPrimary}>
-            Start Copy Trading <ChevronRight size={18} />
-          </Link>
           <a href="#top-traders" className={styles.heroCtaSecondary}>View Top Traders</a>
         </motion.div>
       </section>
@@ -251,7 +248,6 @@ export default function CopyTradingPage() {
                    <span className={styles.traderStat}>Max DD <strong>{t.maxDrawdown}%</strong></span>
                    <span className={styles.traderStat}>Followers <strong>{t.followersCount.toLocaleString()}</strong></span>
                 </div>
-                <Link href="/register" className={styles.traderCardCta}>Copy Trader</Link>
               </motion.article>
             ))}
           </div>
@@ -450,8 +446,6 @@ export default function CopyTradingPage() {
         <h2 id="cta-title" className={styles.ctaTitle}>Start Building a Smarter Trading Portfolio</h2>
         <p className={styles.ctaSubtitle}>Experience the power of professional automation with full transparency and control.</p>
         <div className={styles.ctaButtons}>
-          <Link href="/register" className={styles.ctaBtnPrimary}>Open Trading Account</Link>
-          <Link href="/register" className={styles.ctaBtnSecondary}>Start Copy Trading Now</Link>
         </div>
       </section>
     </>
