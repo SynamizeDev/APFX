@@ -1,6 +1,14 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import {
+    useState,
+    useMemo,
+    useEffect,
+    useRef,
+    useLayoutEffect,
+    useCallback,
+    type ReactNode,
+} from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Info, Target, Shield, Zap, AlertTriangle, Calculator, Globe } from 'lucide-react'
 import Select from '@/components/ui/Select'
@@ -34,11 +42,207 @@ const mockRates: Record<string, number> = {
     'USD/CAD': 1.36,
 }
 
+type InfoVariant = 'formula' | 'default' | 'proTip' | 'mistake'
+
+type InfoCardDef = {
+    title: string
+    icon: ReactNode
+    variant: InfoVariant
+    body: ReactNode
+}
+
+const INFO_CARDS: InfoCardDef[] = [
+    {
+        title: 'How it is Calculated',
+        icon: <Calculator size={16} />,
+        variant: 'formula',
+        body: (
+            <>
+                The pip value is derived by multiplying the <strong>Pip Size</strong> (usually 0.0001 or 0.01 for
+                JPY) by the <strong>Trade Volume</strong> (Lots × 100,000). If your account is in a different
+                currency than the pair&apos;s quote currency, an additional conversion rate is applied for
+                institutional accuracy.
+            </>
+        ),
+    },
+    {
+        title: 'What This Calculator Does',
+        icon: <Target size={16} />,
+        variant: 'default',
+        body: (
+            <>
+                It translates abstract &quot;pips&quot; into actual currency. In the institutional world, traders
+                use this to understand exactly how much equity is at risk per unit of price movement before
+                committing capital.
+            </>
+        ),
+    },
+    {
+        title: 'Why It Matters',
+        icon: <Shield size={16} />,
+        variant: 'default',
+        body: (
+            <>
+                Without knowing your pip value, you cannot set an intelligent stop-loss. This tool ensures your
+                risk-per-trade remains within your 1-2% comfort zone, protecting your principal capital from
+                unexpected volatility.
+            </>
+        ),
+    },
+    {
+        title: 'Professional Insight',
+        icon: <Zap size={16} />,
+        variant: 'proTip',
+        body: (
+            <>
+                Institutional traders normalize risk by adjusting position sizes based on variable pip values.
+                This ensures that a 20-pip stop on GBP/USD has the same financial weight as a 20-pip stop on
+                EUR/GBP.
+            </>
+        ),
+    },
+    {
+        title: 'Common Mistake',
+        icon: <AlertTriangle size={16} />,
+        variant: 'mistake',
+        body: (
+            <>
+                Many traders assume a pip is always worth $10 per standard lot. However, for non-USD quote pairs
+                (like EUR/GBP), the value varies significantly based on current exchange rates.
+            </>
+        ),
+    },
+]
+
+/** Must match `gap` on `.infoCarouselScroll` in PipCalculator.module.css */
+const INFO_CAROUSEL_GAP_PX = 12
+const INFO_SLIDE_MS = 5500
+const PHONE_MAX_PX = 768
+
+function infoCardClass(variant: InfoVariant) {
+    const base = styles.infoCard
+    if (variant === 'formula') return `${base} ${styles.formulaCard}`
+    if (variant === 'proTip') return `${base} ${styles.proTipCard}`
+    if (variant === 'mistake') return `${base} ${styles.mistakeCard}`
+    return base
+}
+
 export default function PipCalculatorPage() {
     const [pips, setPips] = useState(1)
     const [lots, setLots] = useState(1)
     const [instrument, setInstrument] = useState('EUR/USD')
     const [depositCurrency, setDepositCurrency] = useState('USD')
+    const [carouselIndex, setCarouselIndex] = useState(0)
+    const infoCarouselScrollRef = useRef<HTMLDivElement>(null)
+    const carouselIndexRef = useRef(0)
+    const scrollSyncTimerRef = useRef<number | undefined>(undefined)
+
+    carouselIndexRef.current = carouselIndex
+
+    const scrollStep = useCallback((el: HTMLDivElement) => el.clientWidth + INFO_CAROUSEL_GAP_PX, [])
+
+    const syncIndexFromScroll = useCallback(() => {
+        const el = infoCarouselScrollRef.current
+        if (!el) return
+        const step = scrollStep(el)
+        if (step <= INFO_CAROUSEL_GAP_PX) return
+        const i = Math.min(
+            INFO_CARDS.length - 1,
+            Math.max(0, Math.round(el.scrollLeft / step)),
+        )
+        setCarouselIndex((prev) => (prev === i ? prev : i))
+    }, [scrollStep])
+
+    useLayoutEffect(() => {
+        const el = infoCarouselScrollRef.current
+        if (!el) return
+        const step = scrollStep(el)
+        if (step <= INFO_CAROUSEL_GAP_PX) return
+        const target = carouselIndex * step
+        if (Math.abs(el.scrollLeft - target) < 8) return
+        el.scrollTo({ left: target, behavior: 'smooth' })
+    }, [carouselIndex, scrollStep])
+
+    useEffect(() => {
+        const el = infoCarouselScrollRef.current
+        if (!el) return
+
+        const onScroll = () => {
+            if (scrollSyncTimerRef.current !== undefined) {
+                window.clearTimeout(scrollSyncTimerRef.current)
+            }
+            scrollSyncTimerRef.current = window.setTimeout(() => {
+                scrollSyncTimerRef.current = undefined
+                syncIndexFromScroll()
+            }, 60)
+        }
+
+        const onScrollEnd = () => {
+            if (scrollSyncTimerRef.current !== undefined) {
+                window.clearTimeout(scrollSyncTimerRef.current)
+                scrollSyncTimerRef.current = undefined
+            }
+            syncIndexFromScroll()
+        }
+
+        el.addEventListener('scroll', onScroll, { passive: true })
+        el.addEventListener('scrollend', onScrollEnd)
+        return () => {
+            el.removeEventListener('scroll', onScroll)
+            el.removeEventListener('scrollend', onScrollEnd)
+            if (scrollSyncTimerRef.current !== undefined) {
+                window.clearTimeout(scrollSyncTimerRef.current)
+            }
+        }
+    }, [syncIndexFromScroll])
+
+    useEffect(() => {
+        const el = infoCarouselScrollRef.current
+        if (!el) return
+
+        const applySize = () => {
+            const w = el.clientWidth
+            if (!w) return
+            el.style.setProperty('--slide-width', `${w}px`)
+            el.style.setProperty('--info-carousel-gap', `${INFO_CAROUSEL_GAP_PX}px`)
+            const step = w + INFO_CAROUSEL_GAP_PX
+            el.scrollTo({ left: carouselIndexRef.current * step, behavior: 'auto' })
+        }
+
+        const ro = new ResizeObserver(applySize)
+        ro.observe(el)
+        applySize()
+        return () => ro.disconnect()
+    }, [])
+
+    useEffect(() => {
+        const mqPhone = window.matchMedia(`(max-width: ${PHONE_MAX_PX}px)`)
+        const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+        const shouldAuto = () => mqPhone.matches && !mqReduce.matches
+
+        let id: number | undefined
+
+        const arm = () => {
+            if (id !== undefined) {
+                window.clearInterval(id)
+                id = undefined
+            }
+            if (!shouldAuto()) return
+            id = window.setInterval(() => {
+                setCarouselIndex((i) => (i + 1) % INFO_CARDS.length)
+            }, INFO_SLIDE_MS)
+        }
+
+        arm()
+        mqPhone.addEventListener('change', arm)
+        mqReduce.addEventListener('change', arm)
+        return () => {
+            if (id !== undefined) window.clearInterval(id)
+            mqPhone.removeEventListener('change', arm)
+            mqReduce.removeEventListener('change', arm)
+        }
+    }, [])
 
     const pipSize = useMemo(() => {
         return instrument.includes('JPY') ? 0.01 : 0.0001
@@ -177,50 +381,86 @@ export default function PipCalculatorPage() {
                     </AnimatePresence>
                 </div>
 
-                <div className={styles.infoSection}>
-                    <div className={`${styles.infoCard} ${styles.formulaCard}`}>
-                        <h3 className={styles.infoTitle}>
-                            <Calculator size={16} /> How it is Calculated
-                        </h3>
-                        <p className={styles.infoText}>
-                            The pip value is derived by multiplying the <strong>Pip Size</strong> (usually 0.0001 or 0.01 for JPY) by the <strong>Trade Volume</strong> (Lots × 100,000). If your account is in a different currency than the pair's quote currency, an additional conversion rate is applied for institutional accuracy.
-                        </p>
-                    </div>
+                <div className={`${styles.infoSection} ${pipStyles.infoSectionDesktop}`}>
+                    {INFO_CARDS.map((card) => (
+                        <div key={card.title} className={infoCardClass(card.variant)}>
+                            <h3 className={styles.infoTitle}>
+                                {card.icon} {card.title}
+                            </h3>
+                            <p className={styles.infoText}>{card.body}</p>
+                        </div>
+                    ))}
+                </div>
 
-                    <div className={styles.infoCard}>
-                        <h3 className={styles.infoTitle}>
-                            <Target size={16} /> What This Calculator Does
-                        </h3>
-                        <p className={styles.infoText}>
-                            It translates abstract "pips" into actual currency. In the institutional world, traders use this to understand exactly how much equity is at risk per unit of price movement before committing capital.
-                        </p>
-                    </div>
-                    
-                    <div className={styles.infoCard}>
-                        <h3 className={styles.infoTitle}>
-                            <Shield size={16} /> Why It Matters
-                        </h3>
-                        <p className={styles.infoText}>
-                            Without knowing your pip value, you cannot set an intelligent stop-loss. This tool ensures your risk-per-trade remains within your 1-2% comfort zone, protecting your principal capital from unexpected volatility.
-                        </p>
-                    </div>
+                <div className={`${pipStyles.infoSectionPhoneReduced} ${styles.infoSection}`}>
+                    {INFO_CARDS.map((card) => (
+                        <div key={`stack-${card.title}`} className={infoCardClass(card.variant)}>
+                            <h3 className={styles.infoTitle}>
+                                {card.icon} {card.title}
+                            </h3>
+                            <p className={styles.infoText}>{card.body}</p>
+                        </div>
+                    ))}
+                </div>
 
-                    <div className={`${styles.infoCard} ${styles.proTipCard}`}>
-                        <h3 className={styles.infoTitle}>
-                            <Zap size={16} /> Professional Insight
-                        </h3>
-                        <p className={styles.infoText}>
-                            Institutional traders normalize risk by adjusting position sizes based on variable pip values. This ensures that a 20-pip stop on GBP/USD has the same financial weight as a 20-pip stop on EUR/GBP.
-                        </p>
+                <div
+                    className={pipStyles.infoCarouselWrap}
+                    role="region"
+                    aria-roledescription="carousel"
+                    aria-label="Calculator information"
+                    aria-live="polite"
+                >
+                    <div className={pipStyles.infoCarouselViewport}>
+                        <div
+                            ref={infoCarouselScrollRef}
+                            className={pipStyles.infoCarouselScroll}
+                            tabIndex={0}
+                            aria-label="Swipe or scroll horizontally to read each information card"
+                            onKeyDown={(e) => {
+                                if (e.key === 'ArrowLeft') {
+                                    e.preventDefault()
+                                    setCarouselIndex((i) => Math.max(0, i - 1))
+                                } else if (e.key === 'ArrowRight') {
+                                    e.preventDefault()
+                                    setCarouselIndex((i) =>
+                                        Math.min(INFO_CARDS.length - 1, i + 1),
+                                    )
+                                }
+                            }}
+                        >
+                            {INFO_CARDS.map((card, i) => (
+                                <div
+                                    key={card.title}
+                                    className={pipStyles.infoCarouselSlide}
+                                    role="group"
+                                    aria-roledescription="slide"
+                                    aria-label={`${i + 1} of ${INFO_CARDS.length}: ${card.title}`}
+                                    aria-hidden={i !== carouselIndex}
+                                >
+                                    <div className={infoCardClass(card.variant)}>
+                                        <h3 className={styles.infoTitle}>
+                                            {card.icon} {card.title}
+                                        </h3>
+                                        <p className={styles.infoText}>{card.body}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-
-                    <div className={`${styles.infoCard} ${styles.mistakeCard}`}>
-                        <h3 className={styles.infoTitle}>
-                            <AlertTriangle size={16} /> Common Mistake
-                        </h3>
-                        <p className={styles.infoText}>
-                            Many traders assume a pip is always worth $10 per standard lot. However, for non-USD quote pairs (like EUR/GBP), the value varies significantly based on current exchange rates.
-                        </p>
+                    <div className={pipStyles.carouselDots} role="tablist" aria-label="Information slides">
+                        {INFO_CARDS.map((_, i) => (
+                            <button
+                                key={i}
+                                type="button"
+                                role="tab"
+                                aria-selected={i === carouselIndex}
+                                aria-label={`Slide ${i + 1} of ${INFO_CARDS.length}`}
+                                className={
+                                    i === carouselIndex ? pipStyles.carouselDotActive : pipStyles.carouselDot
+                                }
+                                onClick={() => setCarouselIndex(i)}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
