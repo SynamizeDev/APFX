@@ -17,7 +17,6 @@ const WIDGET_DELAY = 1000 // 1s typing delay
 
 const INITIAL_GREETING = "Hi there 👋\nWelcome to APFX Support.\n\nHow can we assist you today?"
 const MAIN_OPTIONS = [
-    'Open an Account',
     'Account Types',
     'Trading Platforms',
     'Deposits & Withdrawals',
@@ -72,12 +71,6 @@ export default function ChatWidget() {
         // Then process response based on option
         switch (option) {
             /* ── Main Menu ── */
-            case 'Open an Account':
-                appendBotMessage(
-                    "Opening an APFX trading account takes just a few minutes.\n\nYou can begin the registration process here.",
-                    ['Start Registration', 'Back to Menu']
-                )
-                break
             case 'Account Types':
                 appendBotMessage(
                     "APFX offers three account types designed for different traders.",
@@ -157,11 +150,6 @@ export default function ChatWidget() {
                 break
 
             // Form Submit / Links
-            case 'Start Registration':
-                // Virtual Navigation
-                window.location.href = '/register'
-                appendBotMessage("Redirecting to registration...", ['Back to Menu'])
-                break
             case 'Back to Menu':
                 appendBotMessage(INITIAL_GREETING, MAIN_OPTIONS)
                 break

@@ -31,9 +31,6 @@ export default function StickyCTA() {
                             Ready to trade global equities?
                         </div>
                         <div className={styles.actions}>
-                            <Link href="https://portal.apfx.com/register" className={styles.btnPrimary}>
-                                Open Account
-                            </Link>
                             <Link href="/contact" className={styles.btnSecondary}>
                                 Speak to Expert
                             </Link>

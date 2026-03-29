@@ -16,9 +16,6 @@ export default function CTABanner() {
                             feel closer to a prop desk than a retail broker.
                         </p>
                         <div className={styles.actions}>
-                            <Link href="https://portal.apfx.com/register" className={styles.btnPrimary}>
-                                Open Account <ArrowRight size={20} />
-                            </Link>
                             <Link href="/contact" className={styles.btnSecondary}>
                                 Speak to an Expert
                             </Link>

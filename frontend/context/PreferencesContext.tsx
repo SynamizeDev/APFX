@@ -66,7 +66,14 @@ export const PreferencesProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
     const setTheme = (t: Theme) => setThemeState(t)
     const setAnimationsEnabled = (e: boolean) => setAnimationsEnabledState(e)
-    const setKpiMode = (k: boolean) => setKpiModeState(k)
+    const setKpiMode = (k: boolean) => {
+        setKpiModeState(k)
+        if (k) {
+            setAnimationsEnabledState(false)
+        } else {
+            setAnimationsEnabledState(true)
+        }
+    }
 
     return (
         <PreferencesContext.Provider

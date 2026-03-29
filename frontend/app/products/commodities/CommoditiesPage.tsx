@@ -171,9 +171,6 @@ export default function CommoditiesPage() {
           Curiosity hook: every commodity chart is downstream of something physical—start by asking what had to happen in the real economy first.
         </p>
         <div className={styles.heroActions}>
-          <Link href="/register" className={styles.ctaBtnPrimary}>
-            Start Trading
-          </Link>
           <a href="#why-world" className={styles.ctaBtnSecondary}>
             Why it matters
           </a>
@@ -543,9 +540,6 @@ export default function CommoditiesPage() {
               Open an account only with capital you can lose. Use paper logic first, live size second.
             </p>
             <div className={styles.ctaButtons}>
-              <Link href="/register" className={styles.ctaBtnPrimary}>
-                Open Trading Account
-              </Link>
               <Link href="/tools" className={styles.ctaBtnSecondary}>
                 Explore Trading Tools
               </Link>

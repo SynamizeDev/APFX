@@ -135,9 +135,6 @@ export default function FuturesPage() {
           Fear hook: the market will not wait while you re-read margin terms during a gap.
         </p>
         <div className={styles.heroActions}>
-          <Link href="/register" className={styles.ctaBtnPrimary}>
-            Start Trading
-          </Link>
           <a href="#desk-lens" className={styles.ctaBtnSecondary}>
             Start at the desk lens
           </a>
@@ -464,9 +461,6 @@ export default function FuturesPage() {
               Open an account when you are ready—use capital you can afford to lose.
             </p>
             <div className={styles.ctaButtons}>
-              <Link href="/register" className={styles.ctaBtnPrimary}>
-                Open Trading Account
-              </Link>
               <Link href="/tools" className={styles.ctaBtnSecondary}>
                 Explore Trading Tools
               </Link>

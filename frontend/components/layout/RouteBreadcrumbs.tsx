@@ -144,14 +144,6 @@ function getCrumbs(pathnameRaw: string): Crumb[] {
         crumbs.push({ label: 'Accounts', href: '/accounts' })
     }
 
-    // ── Auth ─────────────────────────────────────────────────────
-    else if (root === 'login') {
-        crumbs.push({ label: 'Account', href: '/login' })
-        crumbs.push({ label: 'Login' })
-    } else if (root === 'register') {
-        crumbs.push({ label: 'Account', href: '/register' })
-        crumbs.push({ label: 'Register' })
-    }
 
     // ── Legal ────────────────────────────────────────────────────
     else if (root === 'legal') {

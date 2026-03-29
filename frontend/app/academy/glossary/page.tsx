@@ -425,9 +425,6 @@ export default function GlossaryPage() {
             <Link href="/tools/calculators" className={styles.ctaBtnSecondary}>
               Try Our Trading Calculators
             </Link>
-            <Link href="/register" className={styles.ctaBtnSecondary}>
-              Start Trading
-            </Link>
           </div>
         </section>
       </div>

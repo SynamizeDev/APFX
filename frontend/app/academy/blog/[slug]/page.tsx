@@ -39,7 +39,6 @@ function DefaultBody({ slug }: { slug: string }) {
           <Link href="/tools/calculators/pip">Pip Calculator</Link>
           <Link href="/tools/calculators/position-size">Position Size Calculator</Link>
           <Link href="/tools/risk-management">Risk Management Tools</Link>
-          <Link href="/register">Open Trading Account</Link>
         </div>
       </div>
     </>

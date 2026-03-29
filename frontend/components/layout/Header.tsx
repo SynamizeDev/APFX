@@ -255,12 +255,6 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
 
                     {/* ── Actions ───────────────────────────────────────── */}
                     <div className={styles.actions}>
-                        <Link href="https://portal.apfx.com/login" className={styles.btnLogin}>
-                            Log In
-                        </Link>
-                        <Link href="https://portal.apfx.com/register" className={styles.btnCta}>
-                            Open Account
-                        </Link>
                     </div>
                 </div>
             </header>

@@ -239,7 +239,6 @@ export default function BlogPage() {
             Open an account, try our trading tools, and explore more educational resources.
           </p>
           <div className={styles.ctaButtons}>
-            <Link href="/register" className={styles.ctaBtnPrimary}>Open Trading Account</Link>
             <Link href="/tools/calculators" className={styles.ctaBtnSecondary}>Trading Calculators</Link>
             <Link href="/tools/risk-management" className={styles.ctaBtnSecondary}>Risk Management Tools</Link>
           </div>
