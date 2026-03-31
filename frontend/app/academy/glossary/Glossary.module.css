@@ -53,7 +53,7 @@
 
 .searchWrap {
   max-width: 480px;
-  margin: 0 auto;
+  margin: 0.5rem auto 0;
 }
 
 .searchInput {

@@ -3,6 +3,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useRef,
   type ReactNode,
 } from 'react'
@@ -29,7 +30,12 @@ export function HomeEntryProvider({ children }: { children: ReactNode }) {
     prev !== null &&
     prev !== '/'
 
-  prevPathRef.current = pathname
+  // Important: update "previous path" AFTER render.
+  // In React 18 StrictMode (dev), render can run twice; mutating refs during render
+  // can make `prev` appear as the current route and break the "skip on navigation" rule.
+  useEffect(() => {
+    prevPathRef.current = pathname
+  }, [pathname])
 
   return (
     <HomeEntryContext.Provider value={{ skipHomeEntryAnimation }}>

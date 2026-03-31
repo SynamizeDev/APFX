@@ -195,6 +195,7 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
     const centerVec = useMemo(() => new THREE.Vector3(), [])
     const nodeWorldVec = useMemo(() => new THREE.Vector3(), [])
     const cameraVec = useMemo(() => new THREE.Vector3(), [])
+    const projectedVec = useMemo(() => new THREE.Vector3(), [])
 
     useFrame((state, _delta) => {
         const { camera } = state
@@ -217,10 +218,23 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
                 const toNode = nodeWorldVec.clone().sub(centerVec)
                 const toCamera = cameraVec.clone().sub(centerVec)
                 const facingCamera = toNode.dot(toCamera) > 0
-                if (prevLabelVisibleRef.current[i] !== facingCamera) {
+
+                // Also hide labels near edges to avoid clipped fragments.
+                // Project to NDC: x/y in [-1, 1] is on-screen; keep a safe margin.
+                projectedVec.copy(nodeWorldVec).project(camera)
+                const margin = 0.88
+                const withinSafeBounds =
+                    Math.abs(projectedVec.x) < margin &&
+                    Math.abs(projectedVec.y) < margin &&
+                    projectedVec.z > -1 &&
+                    projectedVec.z < 1
+
+                const visible = facingCamera && withinSafeBounds
+
+                if (prevLabelVisibleRef.current[i] !== visible) {
                     anyChange = true
                 }
-                prevLabelVisibleRef.current[i] = facingCamera
+                prevLabelVisibleRef.current[i] = visible
             }
             if (anyChange) {
                 setNodeLabelVisible([...prevLabelVisibleRef.current])
@@ -325,8 +339,14 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
                     
                     {/* Node label: show when camera-facing; highlight active session */}
                     {nodeLabelVisible[i] && (
-                        <Html position={[0.1, 0.1, 0.1]} center style={{ pointerEvents: 'none' }}>
-                            <div style={{
+                        <Html
+                            position={[0.1, 0.1, 0.1]}
+                            center
+                            style={{ pointerEvents: 'none' }}
+                            className="apfxGlobeNodeLabel"
+                        >
+                            <div
+                                style={{
                                 color: node.isActive ? 'rgba(0, 200, 150, 0.9)' : 'rgba(0, 200, 150, 0.55)',
                                 fontSize: node.isActive ? '10px' : '9px',
                                 textTransform: 'uppercase',
@@ -339,7 +359,8 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
                                   : '1px solid rgba(0, 200, 150, 0.14)',
                                 backdropFilter: 'blur(4px)',
                                 whiteSpace: 'nowrap'
-                            }}>
+                                }}
+                            >
                                 {node.name}
                             </div>
                         </Html>
@@ -436,28 +457,48 @@ export default function Globe() {
             </Suspense>
 
             {/* ── Floating Global Stats ───────────────────── */}
-            <Html position={[-3.5, 2, 0]} center style={{ pointerEvents: 'none' }}>
+            <Html
+                position={[-3.5, 2, 0]}
+                center
+                style={{ pointerEvents: 'none' }}
+                className="apfxGlobeStat"
+            >
                 <div style={statStyle}>
                     <div style={statVal}>150+</div>
                     <div style={statLab}>Countries Served</div>
                 </div>
             </Html>
             
-            <Html position={[3.5, -2, 0]} center style={{ pointerEvents: 'none' }}>
+            <Html
+                position={[3.5, -2, 0]}
+                center
+                style={{ pointerEvents: 'none' }}
+                className="apfxGlobeStat"
+            >
                 <div style={statStyle}>
                     <div style={statVal}>50+</div>
                     <div style={statLab}>Liquidity Providers</div>
                 </div>
             </Html>
             
-            <Html position={[3.5, 2, 0]} center style={{ pointerEvents: 'none' }}>
+            <Html
+                position={[3.5, 2, 0]}
+                center
+                style={{ pointerEvents: 'none' }}
+                className="apfxGlobeStat"
+            >
                 <div style={{...statStyle, textAlign: 'right'}}>
                     <div style={statVal}>{'<1ms'}</div>
                     <div style={statLab}>Sub-Millisecond Execution</div>
                 </div>
             </Html>
             
-            <Html position={[-3.5, -2, 0]} center style={{ pointerEvents: 'none' }}>
+            <Html
+                position={[-3.5, -2, 0]}
+                center
+                style={{ pointerEvents: 'none' }}
+                className="apfxGlobeStat"
+            >
                 <div style={statStyle}>
                     <div style={statVal}>$5B+</div>
                     <div style={statLab}>Daily Trading Volume</div>

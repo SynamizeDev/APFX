@@ -85,7 +85,8 @@ export default function WhyAPFX() {
         if (!slider) return
 
         const canAutoSlide = () => {
-            const isSmallScreen = window.matchMedia('(max-width: 640px)').matches
+            // Match the rest of the home-page carousels (phone breakpoint)
+            const isSmallScreen = window.matchMedia('(max-width: 768px)').matches
             const isScrollable = slider.scrollWidth - slider.clientWidth > 8
             return isSmallScreen && isScrollable
         }

@@ -29,6 +29,16 @@
     min-height: 600px;
 }
 
+/* Globe overlays */
+:global(.apfxGlobeNodeLabel) {
+    display: block;
+}
+
+/* Keep the floating stat overlays off (they can clash/clamp in the layout). */
+:global(.apfxGlobeStat) {
+    display: none;
+}
+
 /* ── Left: Narrative ─────────────────────────────────────── */
 .narrative {
     text-align: left;
@@ -224,5 +234,41 @@
         flex-direction: row;
         justify-content: center;
         gap: 2rem;
+    }
+
+    /* Trust highlights: turn into swipeable carousel */
+    .regulators {
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 1rem;
+        padding-bottom: 0.45rem;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .regulators::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .regulators::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .regulators::-webkit-scrollbar-thumb {
+        background: var(--color-border-2);
+        border-radius: var(--radius-full);
+    }
+
+    .regItem {
+        flex: 0 0 92%;
+        min-width: 92%;
+        scroll-snap-align: start;
+    }
+
+    /* Connector line doesn’t make sense in horizontal mode */
+    .connector {
+        display: none;
     }
 }
