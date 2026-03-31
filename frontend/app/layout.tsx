@@ -3,6 +3,7 @@ import { SmoothScrollProvider } from '@/components/animations/SmoothScrollProvid
 import Header from '@/components/layout/Header'
 import '@/styles/globals.css'
 import { PreferencesProvider } from '@/context/PreferencesContext'
+import { HomeEntryProvider } from '@/context/HomeEntryContext'
 
 /* =========================================================
    APFX — Root Layout
@@ -114,6 +115,7 @@ export default function RootLayout({
 
       <body>
         <PreferencesProvider>
+          <HomeEntryProvider>
           <SmoothScrollProvider>
           {/*
             ───────────────────────────────────────────────
@@ -140,6 +142,7 @@ export default function RootLayout({
             <PreferencesPanel />
           </main>
           </SmoothScrollProvider>
+          </HomeEntryProvider>
         </PreferencesProvider>
       </body>
     </html>

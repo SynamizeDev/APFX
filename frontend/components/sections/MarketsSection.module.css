@@ -360,6 +360,11 @@
     text-align: center;
 }
 
+.tdAction {
+    text-align: center;
+    vertical-align: middle;
+}
+
 /* ── Table Body ──────────────────────────────────────────────── */
 .tableBody {
     display: flex;

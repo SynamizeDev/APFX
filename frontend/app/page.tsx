@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import { motion, AnimatePresence, Variants } from 'framer-motion'
 import EntryAnimation from '@/components/sections/EntryAnimation'
@@ -56,6 +56,7 @@ const CTABanner = dynamic(() => import('@/components/sections/CTABanner'), { ssr
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import AnimatedSection from '@/components/animations/AnimatedSection'
+import { useHomeEntryNavigation } from '@/context/HomeEntryContext'
 
 /* =========================================================
    Motion Presets — subtle, confidence-led
@@ -77,8 +78,12 @@ const pageFade: Variants = {
    ========================================================= */
 
 export default function HomePage() {
-  const [showAnimation, setShowAnimation] = useState(true)
-  const [ready, setReady] = useState(false)
+  const { skipHomeEntryAnimation } = useHomeEntryNavigation()
+
+  const [showAnimation, setShowAnimation] = useState(
+    () => !skipHomeEntryAnimation
+  )
+  const [ready, setReady] = useState(() => skipHomeEntryAnimation)
 
   const handleReadyToReveal = useCallback(() => {
     setReady(true)

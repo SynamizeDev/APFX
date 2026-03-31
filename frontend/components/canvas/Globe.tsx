@@ -51,10 +51,14 @@ const HUBS = [
     { name: 'London', lat: 51.5074, lon: -0.1278, region: 'Europe' },
     { name: 'New York', lat: 40.7128, lon: -74.0060, region: 'Americas' },
     { name: 'Tel Aviv', lat: 32.0853, lon: 34.7818, region: 'Middle East' },
+    { name: 'Dubai', lat: 25.2048, lon: 55.2708, region: 'Middle East' },
+    { name: 'Riyadh', lat: 24.7136, lon: 46.6753, region: 'Middle East' },
     { name: 'Singapore', lat: 1.3521, lon: 103.8198, region: 'Asia' },
     { name: 'Tokyo', lat: 35.6762, lon: 139.6503, region: 'Asia' },
+    { name: 'Mumbai', lat: 19.0760, lon: 72.8777, region: 'Asia' },
     { name: 'Melbourne', lat: -37.8136, lon: 144.9631, region: 'Asia' },
     { name: 'Frankfurt', lat: 50.1109, lon: 8.6821, region: 'Europe' },
+    { name: 'Paris', lat: 48.8566, lon: 2.3522, region: 'Europe' },
     { name: 'Hong Kong', lat: 22.3193, lon: 114.1694, region: 'Asia' },
     { name: 'Chicago', lat: 41.8781, lon: -87.6298, region: 'Americas' },
     { name: 'Toronto', lat: 43.6510, lon: -79.3470, region: 'Americas' },
@@ -62,13 +66,16 @@ const HUBS = [
     { name: 'Madrid', lat: 40.4168, lon: -3.7038, region: 'Europe' },
     { name: 'Shanghai', lat: 31.2304, lon: 121.4737, region: 'Asia' },
     { name: 'Sydney', lat: -33.8688, lon: 151.2093, region: 'Asia' },
-    { name: 'Johannesburg', lat: -26.2041, lon: 28.0473, region: 'Europe' },
+    { name: 'Johannesburg', lat: -26.2041, lon: 28.0473, region: 'Middle East' },
     { name: 'São Paulo', lat: -23.5505, lon: -46.6333, region: 'Americas' },
     { name: 'Mexico City', lat: 19.4326, lon: -99.1332, region: 'Americas' },
     { name: 'Seoul', lat: 37.5665, lon: 126.9780, region: 'Asia' },
     { name: 'Bangkok', lat: 13.7563, lon: 100.5018, region: 'Asia' },
     { name: 'Kuala Lumpur', lat: 3.1390, lon: 101.6869, region: 'Asia' },
-    { name: 'Istanbul', lat: 41.0082, lon: 28.9784, region: 'Europe' }
+    { name: 'Istanbul', lat: 41.0082, lon: 28.9784, region: 'Middle East' },
+    { name: 'San Francisco', lat: 37.7749, lon: -122.4194, region: 'Americas' },
+    { name: 'Santiago', lat: -33.4489, lon: -70.6693, region: 'Americas' },
+    { name: 'Cairo', lat: 30.0444, lon: 31.2357, region: 'Middle East' }
 ]
 
 const MINOR_NODES = [
@@ -81,14 +88,22 @@ const MINOR_NODES = [
     { name: 'Buenos Aires', lat: -34.6037, lon: -58.3816 },
     { name: 'Santiago', lat: -33.4489, lon: -70.6693 },
     { name: 'Cairo', lat: 30.0444, lon: 31.2357 },
-    { name: 'Nairobi', lat: -1.2921, lon: 36.8219 }
+    { name: 'Nairobi', lat: -1.2921, lon: 36.8219 },
+    { name: 'Doha', lat: 25.2854, lon: 51.5310 },
+    { name: 'Kuwait City', lat: 29.3759, lon: 47.9774 },
+    { name: 'Casablanca', lat: 33.5731, lon: -7.5898 },
+    { name: 'Lagos', lat: 6.5244, lon: 3.3792 }
 ]
 
 // 2. Liquidity Connections (Pairs of Indices from HUBS)
 const CONNECTIONS = [
-    [1, 0], [0, 6], [0, 2], [2, 5], [3, 4], [3, 7], [4, 1], [13, 3], [6, 10], [8, 1],
-    [0, 10], [6, 20], [2, 11], [5, 3], [7, 12], [4, 17], [3, 19], [3, 18], [1, 9],
-    [1, 15], [8, 16], [0, 14], [10, 2], [7, 4], [5, 11], [9, 8], [15, 16]
+    [1, 0], [0, 8], [0, 2], [2, 3], [3, 4], [4, 6], [6, 1],
+    [5, 7], [5, 10], [7, 11], [10, 5], [12, 1],
+    [8, 9], [9, 13], [13, 8], [8, 14], [14, 9],
+    [1, 15], [15, 16], [16, 1],
+    [1, 22], [22, 12], [22, 15],
+    [3, 18], [18, 21], [21, 3],
+    [0, 12], [12, 2], [9, 0]
 ]
 
 // Component to handle moving particles along paths
@@ -308,18 +323,20 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
                         />
                     </mesh>
                     
-                    {/* Node label: only when active and on camera-facing side of globe */}
-                    {node.isActive && nodeLabelVisible[i] && (
+                    {/* Node label: show when camera-facing; highlight active session */}
+                    {nodeLabelVisible[i] && (
                         <Html position={[0.1, 0.1, 0.1]} center style={{ pointerEvents: 'none' }}>
                             <div style={{
-                                color: 'rgba(0, 200, 150, 0.8)',
-                                fontSize: '10px',
+                                color: node.isActive ? 'rgba(0, 200, 150, 0.9)' : 'rgba(0, 200, 150, 0.55)',
+                                fontSize: node.isActive ? '10px' : '9px',
                                 textTransform: 'uppercase',
                                 letterSpacing: '2px',
                                 background: 'rgba(3, 5, 10, 0.6)',
                                 padding: '2px 6px',
                                 borderRadius: '4px',
-                                border: '1px solid rgba(0, 200, 150, 0.2)',
+                                border: node.isActive
+                                  ? '1px solid rgba(0, 200, 150, 0.28)'
+                                  : '1px solid rgba(0, 200, 150, 0.14)',
                                 backdropFilter: 'blur(4px)',
                                 whiteSpace: 'nowrap'
                             }}>
