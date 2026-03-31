@@ -24,16 +24,11 @@ const FOOTER_LINKS = {
         { label: 'Privacy Policy', href: '/privacy-policy' },
         { label: 'Terms of Service', href: '/terms-of-service' },
         { label: 'Risk Disclosure', href: '/risk-disclosure' },
-        { label: 'Careers', href: '/company/careers' },
     ],
     Support: [
         { label: 'Support Center', href: '/support' },
         { label: 'FAQ', href: '/faq' },
         { label: 'Contact', href: '/contact' },
-    ],
-    Partner: [
-        { label: 'Become a Partner', href: '/partners' },
-        { label: 'IB Program', href: '/partners/ib-program' },
     ],
 }
 

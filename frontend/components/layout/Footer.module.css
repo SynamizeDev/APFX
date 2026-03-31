@@ -5,6 +5,12 @@
     position: relative;
     overflow: hidden;
     isolation: isolate;
+    /* Footer is rendered with `.apfx-section` in markup; neutralize the global
+       section padding to avoid a large empty band above/below the footer. */
+    --section-py: 0rem;
+    padding-block: 0;
+    /* Reserve space for fixed bottom ticker so content doesn't sit behind it */
+    padding-bottom: calc(38px + 0.75rem + env(safe-area-inset-bottom, 0px));
 }
 
 /* Accent divider glow */

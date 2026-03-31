@@ -8,7 +8,9 @@
     position: fixed;
     inset: 0 0 auto 0;
     z-index: var(--z-sticky);
-    padding-block: 1.35rem;
+    /* Prevent top clipping under browser UI / notches (mobile safe-area). */
+    padding-top: calc(env(safe-area-inset-top, 0px) + 1.35rem);
+    padding-bottom: 1.35rem;
     background: var(--color-nav-bg);
     transition:
         padding var(--duration-slower) var(--ease-out),
@@ -19,7 +21,8 @@
 
 .header.scrolled,
 .header.menuActive {
-    padding-block: 0.8rem;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 0.8rem);
+    padding-bottom: 0.8rem;
     background: var(--color-nav-scrolled-bg);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
@@ -605,6 +608,11 @@
 }
 
 @media (max-width: 640px) {
+    /* Phone: hide Login / Open Account section in overlay menu */
+    .mobileAuth {
+        display: none;
+    }
+
     /* Keep actions visible, but reduce further */
     .btnLogin {
         font-size: 0.74rem;

@@ -1,12 +1,233 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import {
+  useState,
+  useMemo,
+  useEffect,
+  useRef,
+  useLayoutEffect,
+  useCallback,
+  type ReactNode,
+} from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Info, Target, Shield, Zap, AlertTriangle, Calculator, TrendingUp, Activity, Crosshair, BarChart3, Binary, Flame } from 'lucide-react'
+import { Shield, Zap, AlertTriangle, Calculator, Binary, Activity, Flame, TrendingUp } from 'lucide-react'
 import styles from '@/components/ui/CalculatorLayout.module.css'
 import calcStyles from '../RiskCalc.module.css'
 
+type InfoVariant = 'formula' | 'default' | 'proTip' | 'mistake'
+
+type InfoCardDef = {
+  title: string
+  icon: ReactNode
+  variant: InfoVariant
+  body: ReactNode
+}
+
+function infoCardClass(variant: InfoVariant) {
+  const base = styles.infoCard
+  if (variant === 'formula') return `${base} ${styles.formulaCard}`
+  if (variant === 'proTip') return `${base} ${styles.proTipCard}`
+  if (variant === 'mistake') return `${base} ${styles.mistakeCard}`
+  return base
+}
+
+/** Must match `gap` on `.infoCarouselScroll` in RiskCalc.module.css */
+const INFO_CAROUSEL_GAP_PX = 12
+const INFO_SLIDE_MS = 5500
+const PHONE_MAX_PX = 768
+
+type InfoLayout = 'desktop' | 'phoneStack' | 'phoneCarousel'
+
+function readInfoLayout(): InfoLayout {
+  if (typeof window === 'undefined') return 'desktop'
+  const phone = window.matchMedia(`(max-width: ${PHONE_MAX_PX}px)`).matches
+  if (!phone) return 'desktop'
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return 'phoneStack'
+  return 'phoneCarousel'
+}
+
+function useInfoLayout(): InfoLayout {
+  const [layout, setLayout] = useState<InfoLayout>('desktop')
+
+  useLayoutEffect(() => {
+    const sync = () => setLayout(readInfoLayout())
+    sync()
+    const mqPhone = window.matchMedia(`(max-width: ${PHONE_MAX_PX}px)`)
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)')
+    mqPhone.addEventListener('change', sync)
+    mqReduce.addEventListener('change', sync)
+    return () => {
+      mqPhone.removeEventListener('change', sync)
+      mqReduce.removeEventListener('change', sync)
+    }
+  }, [])
+
+  return layout
+}
+
+function RiskOfRuinInfoCarousel({ cards }: { cards: InfoCardDef[] }) {
+  const [carouselIndex, setCarouselIndex] = useState(0)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const indexRef = useRef(0)
+  const scrollSyncTimerRef = useRef<number | undefined>(undefined)
+
+  indexRef.current = carouselIndex
+
+  const scrollStep = useCallback((el: HTMLDivElement) => el.clientWidth + INFO_CAROUSEL_GAP_PX, [])
+
+  const syncIndexFromScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const step = scrollStep(el)
+    if (step <= INFO_CAROUSEL_GAP_PX) return
+    const i = Math.min(cards.length - 1, Math.max(0, Math.round(el.scrollLeft / step)))
+    setCarouselIndex((prev) => (prev === i ? prev : i))
+  }, [cards.length, scrollStep])
+
+  useLayoutEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const step = scrollStep(el)
+    if (step <= INFO_CAROUSEL_GAP_PX) return
+    const target = carouselIndex * step
+    if (Math.abs(el.scrollLeft - target) < 8) return
+    el.scrollTo({ left: target, behavior: 'smooth' })
+  }, [carouselIndex, scrollStep])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    const onScroll = () => {
+      if (scrollSyncTimerRef.current !== undefined) window.clearTimeout(scrollSyncTimerRef.current)
+      scrollSyncTimerRef.current = window.setTimeout(() => {
+        scrollSyncTimerRef.current = undefined
+        syncIndexFromScroll()
+      }, 60)
+    }
+
+    const onScrollEnd = () => {
+      if (scrollSyncTimerRef.current !== undefined) {
+        window.clearTimeout(scrollSyncTimerRef.current)
+        scrollSyncTimerRef.current = undefined
+      }
+      syncIndexFromScroll()
+    }
+
+    el.addEventListener('scroll', onScroll, { passive: true })
+    el.addEventListener('scrollend', onScrollEnd)
+    return () => {
+      el.removeEventListener('scroll', onScroll)
+      el.removeEventListener('scrollend', onScrollEnd)
+      if (scrollSyncTimerRef.current !== undefined) window.clearTimeout(scrollSyncTimerRef.current)
+    }
+  }, [syncIndexFromScroll])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    const applySize = () => {
+      const w = el.clientWidth
+      if (!w) return
+      el.style.setProperty('--slide-width', `${w}px`)
+      el.style.setProperty('--info-carousel-gap', `${INFO_CAROUSEL_GAP_PX}px`)
+      const step = w + INFO_CAROUSEL_GAP_PX
+      el.scrollTo({ left: indexRef.current * step, behavior: 'auto' })
+    }
+
+    const ro = new ResizeObserver(applySize)
+    ro.observe(el)
+    applySize()
+    return () => ro.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const mqPhone = window.matchMedia(`(max-width: ${PHONE_MAX_PX}px)`)
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const shouldAuto = () => mqPhone.matches && !mqReduce.matches
+
+    let id: number | undefined
+    const arm = () => {
+      if (id !== undefined) {
+        window.clearInterval(id)
+        id = undefined
+      }
+      if (!shouldAuto()) return
+      id = window.setInterval(() => setCarouselIndex((i) => (i + 1) % cards.length), INFO_SLIDE_MS)
+    }
+    arm()
+    mqPhone.addEventListener('change', arm)
+    mqReduce.addEventListener('change', arm)
+    return () => {
+      if (id !== undefined) window.clearInterval(id)
+      mqPhone.removeEventListener('change', arm)
+      mqReduce.removeEventListener('change', arm)
+    }
+  }, [cards.length])
+
+  return (
+    <div
+      className={calcStyles.infoCarouselWrap}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Risk of ruin information"
+      aria-live="polite"
+    >
+      <div className={calcStyles.infoCarouselViewport}>
+        <div
+          ref={scrollRef}
+          className={calcStyles.infoCarouselScroll}
+          tabIndex={0}
+          aria-label="Swipe or scroll horizontally to read each information card"
+          onKeyDown={(e) => {
+            if (e.key === 'ArrowLeft') {
+              e.preventDefault()
+              setCarouselIndex((i) => Math.max(0, i - 1))
+            } else if (e.key === 'ArrowRight') {
+              e.preventDefault()
+              setCarouselIndex((i) => Math.min(cards.length - 1, i + 1))
+            }
+          }}
+        >
+          {cards.map((card, i) => (
+            <div
+              key={card.title}
+              className={calcStyles.infoCarouselSlide}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${cards.length}: ${card.title}`}
+              aria-hidden={i !== carouselIndex}
+            >
+              <div className={infoCardClass(card.variant)}>
+                <h3 className={styles.infoTitle}>
+                  {card.icon} {card.title}
+                </h3>
+                <div className={styles.infoText}>{card.body}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={calcStyles.carouselDots} role="tablist" aria-label="Information slides">
+        {cards.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            role="tab"
+            aria-selected={i === carouselIndex}
+            aria-label={`Slide ${i + 1} of ${cards.length}`}
+            className={i === carouselIndex ? calcStyles.carouselDotActive : calcStyles.carouselDot}
+            onClick={() => setCarouselIndex(i)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function RiskOfRuinPage() {
+  const infoLayout = useInfoLayout()
   const [winRatePct, setWinRatePct] = useState('55')
   const [riskPerTradePct, setRiskPerTradePct] = useState('1')
   const [rewardRiskRatio, setRewardRiskRatio] = useState('1.5')
@@ -32,6 +253,69 @@ export default function RiskOfRuinPage() {
     const level = ruinPctValue > 20 ? 'Critical' : ruinPctValue > 5 ? 'High' : ruinPctValue > 1 ? 'Moderate' : 'Institutional'
     return { ruinPct: ruinPctValue, riskLevel: level, edge: edgeVal }
   }, [winRatePct, riskPerTradePct, rewardRiskRatio, numTrades])
+
+  const infoCards: InfoCardDef[] = useMemo(
+    () => [
+      {
+        title: 'The Ruin Equation',
+        icon: <Calculator size={16} />,
+        variant: 'formula',
+        body: (
+          <p className={styles.infoText}>
+            Based on the <strong>Gambler&apos;s Ruin</strong> theorem. It checks if your edge is sufficient to outrun the
+            &quot;variance-induced depletion&quot; that accompanies any series of random outcomes.
+          </p>
+        ),
+      },
+      {
+        title: 'What This Tool Does',
+        icon: <Binary size={16} />,
+        variant: 'default',
+        body: (
+          <p className={styles.infoText}>
+            It calculates the <strong>Ultimate Frontier</strong> of your trading business. If this tool shows a ruin
+            probability above 1%, your strategy is mathematically destined for failure, regardless of short-term
+            gains.
+          </p>
+        ),
+      },
+      {
+        title: 'Why It Matters',
+        icon: <Shield size={16} />,
+        variant: 'default',
+        body: (
+          <p className={styles.infoText}>
+            A 0% Risk of Ruin is non-negotiable for professional firms. It ensures that even the worst possible
+            sequence of losses (the &quot;tail event&quot;) cannot remove the firm from the marketplace.
+          </p>
+        ),
+      },
+      {
+        title: 'Professional Insight',
+        icon: <Zap size={16} />,
+        variant: 'proTip',
+        body: (
+          <p className={styles.infoText}>
+            If your Risk of Ruin is high, the solution is rarely to &quot;be a better trader.&quot; The solution is to{' '}
+            <strong>lower your risk per trade</strong> until the units of capital can survive the variance of your
+            edge.
+          </p>
+        ),
+      },
+      {
+        title: 'Common Mistake',
+        icon: <AlertTriangle size={16} />,
+        variant: 'mistake',
+        body: (
+          <p className={styles.infoText}>
+            Confusing a &quot;Positive Edge&quot; with &quot;Invincibility.&quot; You can have a profitable strategy but still
+            have a 100% Risk of Ruin if your position sizes are too aggressive relative to your win rate.
+          </p>
+        ),
+      },
+    ],
+    []
+  )
 
   return (
     <main className={styles.container}>
@@ -166,58 +450,31 @@ export default function RiskOfRuinPage() {
           </div>
         </div>
 
-        <div className={styles.infoSection}>
-          <div className={`${styles.infoCard} ${styles.formulaCard}`}>
-            <h3 className={styles.infoTitle}>
-              <Calculator size={16} /> The Ruin Equation
-            </h3>
-            <p className={styles.infoText}>
-              Based on the <strong>Gambler's Ruin</strong> theorem. It checks if your edge is sufficient to outrun the "variance-induced depletion" that accompanies any series of random outcomes.
-            </p>
+        {infoLayout === 'desktop' && (
+          <div className={`${styles.infoSection} ${calcStyles.infoSectionDesktop}`}>
+            {infoCards.map((card) => (
+              <div key={card.title} className={infoCardClass(card.variant)}>
+                <h3 className={styles.infoTitle}>
+                  {card.icon} {card.title}
+                </h3>
+                <div className={styles.infoText}>{card.body}</div>
+              </div>
+            ))}
           </div>
-
-          <div className={styles.infoCard}>
-            <h3 className={styles.infoTitle}>
-              <Binary size={16} /> What This Tool Does
-            </h3>
-            <p className={styles.infoText}>
-              It calculates the <strong>Ultimate Frontier</strong> of your trading business. If this tool shows a ruin probability above 1%, your strategy is mathematically destined for failure, regardless of short-term gains.
-            </p>
+        )}
+        {infoLayout === 'phoneStack' && (
+          <div className={`${styles.infoSection} ${calcStyles.infoSectionPhoneStack}`}>
+            {infoCards.map((card) => (
+              <div key={`stack-${card.title}`} className={infoCardClass(card.variant)}>
+                <h3 className={styles.infoTitle}>
+                  {card.icon} {card.title}
+                </h3>
+                <div className={styles.infoText}>{card.body}</div>
+              </div>
+            ))}
           </div>
-          
-          <div className={styles.infoCard}>
-            <h3 className={styles.infoTitle}>
-              <Shield size={16} /> Why It Matters
-            </h3>
-            <p className={styles.infoText}>
-              A 0% Risk of Ruin is non-negotiable for professional firms. It ensures 
-              that even the worst possible sequence of losses (the "tail event") 
-              cannot remove the firm from the marketplace.
-            </p>
-          </div>
-
-          <div className={`${styles.infoCard} ${styles.proTipCard}`}>
-            <h3 className={styles.infoTitle}>
-              <Zap size={16} /> Professional Insight
-            </h3>
-            <p className={styles.infoText}>
-              If your Risk of Ruin is high, the solution is rarely to "be a better 
-              trader." The solution is to <strong>lower your risk per trade</strong> 
-              until the units of capital can survive the variance of your edge.
-            </p>
-          </div>
-
-          <div className={`${styles.infoCard} ${styles.mistakeCard}`}>
-            <h3 className={styles.infoTitle}>
-              <AlertTriangle size={16} /> Common Mistake
-            </h3>
-            <p className={styles.infoText}>
-              Confusing a "Positive Edge" with "Invincibility." You can have a 
-              profitable strategy but still have a 100% Risk of Ruin if your 
-              position sizes are too aggressive relative to your win rate.
-            </p>
-          </div>
-        </div>
+        )}
+        {infoLayout === 'phoneCarousel' && <RiskOfRuinInfoCarousel cards={infoCards} />}
       </div>
     </main>
   )
