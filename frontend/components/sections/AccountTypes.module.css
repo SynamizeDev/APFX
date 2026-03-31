@@ -151,17 +151,18 @@
     .grid {
         display: flex;
         overflow-x: auto;
-        overflow-y: hidden;
+        overflow-y: visible;
         gap: 1rem;
+        padding-top: 0.75rem;
         padding-bottom: 0.5rem;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
+        scrollbar-width: none;
         width: 100%;
     }
 
     .grid::-webkit-scrollbar {
-        height: 4px;
+        display: none;
     }
 
     .grid::-webkit-scrollbar-track {
@@ -179,4 +180,53 @@
         scroll-snap-align: start;
         padding: 2.5rem 1.5rem;
     }
+}
+
+@media (hover: none) {
+    .card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+/* ── Mobile carousel dots ───────────────────────────────────── */
+.carouselDots {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .carouselDots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+}
+
+.carouselDot,
+.carouselDotActive {
+    width: 7px;
+    height: 7px;
+    border-radius: var(--radius-full);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition:
+        background var(--duration-fast) var(--ease-out),
+        transform var(--duration-fast) var(--ease-out);
+}
+
+.carouselDot {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.carouselDot:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.carouselDotActive {
+    background: var(--color-accent);
+    transform: scale(1.2);
+    box-shadow: 0 0 12px rgba(0, 200, 150, 0.35);
 }

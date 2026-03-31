@@ -405,106 +405,109 @@ function GlobeWithTexture() {
 }
 
 export default function Globe() {
+    const [eventSource, setEventSource] = useState<HTMLElement | null>(null)
+
     return (
-        <Canvas
-            camera={{ position: [0, 0, 6], fov: 45 }}
-            gl={{
-                antialias: false,
-                powerPreference: 'high-performance',
-                stencil: false,
-                depth: true,
-            }}
-            dpr={[1, 2]}
+        <div
+            ref={setEventSource as unknown as (node: HTMLDivElement | null) => void}
+            style={{ width: '100%', height: '100%' }}
         >
-            {/* ── Lighting ──────────────────────────────── */}
-            <ambientLight intensity={0.5} />
-
-            {/* Primary key light (sun-like, for realistic shading) */}
-            <pointLight
-                position={[10, 8, 10]}
-                intensity={0.8}
-                color="#e0fff5" // Very subtle teal tint
-            />
-
-            {/* Accent fill (brand tint on dark side) */}
-            <pointLight
-                position={[-6, -4, -8]}
-                intensity={0.35}
-                color="#00C896"
-            />
-
-            {/* Soft fill for depth */}
-            <pointLight
-                position={[-8, -6, -10]}
-                intensity={0.4}
-            />
-
-            {/* ── Motion Wrapper (Suspense: show solid globe until texture loads) ─ */}
-            <Suspense
-                fallback={
-                    <Float speed={1.4} rotationIntensity={0.4} floatIntensity={0.45}>
-                        <RotatingGlobe />
-                    </Float>
-                }
-            >
-                <Float
-                    speed={1.4}
-                    rotationIntensity={0.4}
-                    floatIntensity={0.45}
+            {eventSource && (
+                <Canvas
+                    eventSource={eventSource}
+                    camera={{ position: [0, 0, 6], fov: 45 }}
+                    gl={{
+                        antialias: false,
+                        powerPreference: 'high-performance',
+                        stencil: false,
+                        depth: true,
+                    }}
+                    dpr={[1, 2]}
                 >
-                    <GlobeWithTexture />
-                </Float>
-            </Suspense>
+                    {/* ── Lighting ──────────────────────────────── */}
+                    <ambientLight intensity={0.5} />
 
-            {/* ── Floating Global Stats ───────────────────── */}
-            <Html
-                position={[-3.5, 2, 0]}
-                center
-                style={{ pointerEvents: 'none' }}
-                className="apfxGlobeStat"
-            >
-                <div style={statStyle}>
-                    <div style={statVal}>150+</div>
-                    <div style={statLab}>Countries Served</div>
-                </div>
-            </Html>
-            
-            <Html
-                position={[3.5, -2, 0]}
-                center
-                style={{ pointerEvents: 'none' }}
-                className="apfxGlobeStat"
-            >
-                <div style={statStyle}>
-                    <div style={statVal}>50+</div>
-                    <div style={statLab}>Liquidity Providers</div>
-                </div>
-            </Html>
-            
-            <Html
-                position={[3.5, 2, 0]}
-                center
-                style={{ pointerEvents: 'none' }}
-                className="apfxGlobeStat"
-            >
-                <div style={{...statStyle, textAlign: 'right'}}>
-                    <div style={statVal}>{'<1ms'}</div>
-                    <div style={statLab}>Sub-Millisecond Execution</div>
-                </div>
-            </Html>
-            
-            <Html
-                position={[-3.5, -2, 0]}
-                center
-                style={{ pointerEvents: 'none' }}
-                className="apfxGlobeStat"
-            >
-                <div style={statStyle}>
-                    <div style={statVal}>$5B+</div>
-                    <div style={statLab}>Daily Trading Volume</div>
-                </div>
-            </Html>
-        </Canvas>
+                    {/* Primary key light (sun-like, for realistic shading) */}
+                    <pointLight
+                        position={[10, 8, 10]}
+                        intensity={0.8}
+                        color="#e0fff5" // Very subtle teal tint
+                    />
+
+                    {/* Accent fill (brand tint on dark side) */}
+                    <pointLight
+                        position={[-6, -4, -8]}
+                        intensity={0.35}
+                        color="#00C896"
+                    />
+
+                    {/* Soft fill for depth */}
+                    <pointLight position={[-8, -6, -10]} intensity={0.4} />
+
+                    {/* ── Motion Wrapper (Suspense: show solid globe until texture loads) ─ */}
+                    <Suspense
+                        fallback={
+                            <Float speed={1.4} rotationIntensity={0.4} floatIntensity={0.45}>
+                                <RotatingGlobe />
+                            </Float>
+                        }
+                    >
+                        <Float speed={1.4} rotationIntensity={0.4} floatIntensity={0.45}>
+                            <GlobeWithTexture />
+                        </Float>
+                    </Suspense>
+
+                    {/* ── Floating Global Stats ───────────────────── */}
+                    <Html
+                        position={[-3.5, 2, 0]}
+                        center
+                        style={{ pointerEvents: 'none' }}
+                        className="apfxGlobeStat"
+                    >
+                        <div style={statStyle}>
+                            <div style={statVal}>150+</div>
+                            <div style={statLab}>Countries Served</div>
+                        </div>
+                    </Html>
+
+                    <Html
+                        position={[3.5, -2, 0]}
+                        center
+                        style={{ pointerEvents: 'none' }}
+                        className="apfxGlobeStat"
+                    >
+                        <div style={statStyle}>
+                            <div style={statVal}>50+</div>
+                            <div style={statLab}>Liquidity Providers</div>
+                        </div>
+                    </Html>
+
+                    <Html
+                        position={[3.5, 2, 0]}
+                        center
+                        style={{ pointerEvents: 'none' }}
+                        className="apfxGlobeStat"
+                    >
+                        <div style={{ ...statStyle, textAlign: 'right' }}>
+                            <div style={statVal}>{'<1ms'}</div>
+                            <div style={statLab}>Sub-Millisecond Execution</div>
+                        </div>
+                    </Html>
+
+                    <Html
+                        position={[-3.5, -2, 0]}
+                        center
+                        style={{ pointerEvents: 'none' }}
+                        className="apfxGlobeStat"
+                    >
+                        <div style={statStyle}>
+                            <div style={statVal}>$5B+</div>
+                            <div style={statLab}>Daily Trading Volume</div>
+                        </div>
+                    </Html>
+                </Canvas>
+            )}
+        </div>
     )
 }
 
