@@ -15,7 +15,7 @@
     background: rgba(15, 20, 30, 0.8);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--foreground-muted);
+    color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,13 +26,13 @@
 
 .trigger:hover {
     background: rgba(25, 35, 50, 0.9);
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
     transform: translateY(-2px);
 }
 
 .active {
-    background: var(--accent-primary);
+    background: var(--color-accent);
     color: #000;
 }
 
@@ -58,13 +58,13 @@
 .header {
     margin-bottom: 16px;
     padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .title {
     font-size: 14px;
     font-weight: 600;
-    color: var(--foreground);
+    color: #FFFFFF;
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -87,7 +87,7 @@
     align-items: center;
     gap: 10px;
     font-size: 13px;
-    color: var(--foreground-muted);
+    color: #FFFFFF;
 }
 
 .icon {
@@ -96,9 +96,9 @@
     justify-content: center;
     width: 28px;
     height: 28px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--color-border-subtle);
     border-radius: 6px;
-    color: var(--foreground);
+    color: #FFFFFF;
 }
 
 .toggle {
@@ -114,7 +114,7 @@
 }
 
 .toggleOn {
-    background: var(--accent-primary);
+    background: var(--color-accent);
 }
 
 .toggleKnob {

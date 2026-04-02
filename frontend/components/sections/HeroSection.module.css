@@ -64,9 +64,9 @@
     inset: 0;
     z-index: 1;
     background: radial-gradient(ellipse 80% 80% at 50% 50%,
-            rgba(3, 5, 10, 0.2) 0%,
-            rgba(3, 5, 10, 0.7) 60%,
-            rgba(3, 5, 10, 0.95) 100%);
+            var(--bg-glass-deep) 0%,
+            var(--bg-glass-deep) 60%,
+            var(--bg-glass-deep) 100%);
     mask-image: linear-gradient(to right, black 52%, transparent 58%);
     -webkit-mask-image: linear-gradient(to right, black 52%, transparent 58%);
 }
@@ -336,7 +336,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 2rem;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--color-surface-subtle);
     border: 1px solid rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
     color: var(--color-text-1);
@@ -348,7 +348,7 @@
 }
 
 .ctaSecondary:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--color-border-subtle);
     border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-4px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);

@@ -9,7 +9,7 @@
 }
 
 .container {
-    background: rgba(11, 15, 26, 0.85);
+    background: var(--bg-glass-base);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(0, 200, 150, 0.3);
     border-radius: 999px;
@@ -47,7 +47,7 @@
 }
 
 .btnSecondary {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--color-border-subtle);
     color: var(--color-text-1);
     padding: 0.5rem 1.25rem;
     border-radius: 999px;

@@ -54,10 +54,8 @@ export default function RiskManagementLayout({
             </h2>
             <div className={styles.frameworkGrid}>
               <div className={styles.frameworkCard}>
-                <div className={styles.frameworkCardHeader}>
-                  <div className={styles.frameworkIcon}><Shield size={20} /></div>
-                  <h3 className={styles.frameworkCardTitle}>Capital Preservation</h3>
-                </div>
+                <div className={styles.frameworkIcon}><Shield size={22} /></div>
+                <h3 className={styles.frameworkCardTitle}>Capital Preservation</h3>
                 <p className={styles.frameworkCardDesc}>
                   Survival is the only goal. Professionals prioritize 
                   minimizing drawdown over maximizing gains, ensuring they stay in 
@@ -65,20 +63,16 @@ export default function RiskManagementLayout({
                 </p>
               </div>
               <div className={styles.frameworkCard}>
-                <div className={styles.frameworkCardHeader}>
-                  <div className={styles.frameworkIcon}><TrendingUp size={20} /></div>
-                  <h3 className={styles.frameworkCardTitle}>Probabilistic Thinking</h3>
-                </div>
+                <div className={styles.frameworkIcon}><TrendingUp size={22} /></div>
+                <h3 className={styles.frameworkCardTitle}>Probabilistic Thinking</h3>
                 <p className={styles.frameworkCardDesc}>
-                  Individual trades are random; series are statistical. These stools 
+                  Individual trades are random; series are statistical. These tools 
                   help align your execution with your long-term mathematical edge.
                 </p>
               </div>
               <div className={styles.frameworkCard}>
-                <div className={styles.frameworkCardHeader}>
-                  <div className={styles.frameworkIcon}><Zap size={20} /></div>
-                  <h3 className={styles.frameworkCardTitle}>Asymmetric Returns</h3>
-                </div>
+                <div className={styles.frameworkIcon}><Zap size={22} /></div>
+                <h3 className={styles.frameworkCardTitle}>Asymmetric Returns</h3>
                 <p className={styles.frameworkCardDesc}>
                   Seek setups where risk is capped and potential reward is larger. 
                   This allows profitability even with a win rate below 50%.

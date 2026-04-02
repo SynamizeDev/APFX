@@ -194,7 +194,6 @@ export default function ChatWidget() {
                         {/* Conversation */}
                         <div className={styles.conversation} ref={scrollRef}>
                             {messages.map((msg, index) => {
-                                const isLastBot = msg.sender === 'bot' && index === messages.filter(m => m.sender === 'bot').length - 1
                                 return (
                                     <motion.div 
                                         key={msg.id}

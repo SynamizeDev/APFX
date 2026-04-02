@@ -168,6 +168,12 @@
     --glass-border: rgba(255, 255, 255, 0.06);
     --glass-blur: blur(20px);
 
+    --bg-glass-base: rgba(11, 15, 26, 0.6);
+    --bg-glass-dark: rgba(6, 10, 18, 0.9);
+    --bg-glass-header: rgba(18, 24, 38, 0.95);
+    --bg-glass-deep: rgba(3, 5, 10, 0.6);
+    --bg-surface-dark: #1A2235;
+
     /* Navbar context-aware */
     --color-nav-bg: transparent;
     --color-nav-scrolled-bg: #03050A;
@@ -209,6 +215,12 @@
 
     --glass-bg: rgba(255, 255, 255, 0.8);
     --glass-border: rgba(0, 0, 0, 0.08);
+
+    --bg-glass-base: rgba(255, 255, 255, 0.85);
+    --bg-glass-dark: #FFFFFF;
+    --bg-glass-header: rgba(255, 255, 255, 0.98);
+    --bg-glass-deep: rgba(248, 249, 250, 0.9);
+    --bg-surface-dark: #FFFFFF;
 
     --color-nav-bg: #FFFFFF;
     --color-nav-scrolled-bg: #FFFFFF;
