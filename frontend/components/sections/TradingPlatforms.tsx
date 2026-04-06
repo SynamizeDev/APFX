@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { BarChart3, TrendingUp, Globe, Smartphone } from 'lucide-react'
 import styles from './TradingPlatforms.module.css'
 
@@ -29,6 +29,16 @@ const PLATFORMS = [
 
 export default function TradingPlatforms() {
     const sliderRef = useRef<HTMLDivElement | null>(null)
+    const [activeIndex, setActiveIndex] = useState(0)
+
+    const syncIndexFromScroll = useCallback(() => {
+        const slider = sliderRef.current
+        if (!slider) return
+        const step = slider.clientWidth
+        if (!step) return
+        const i = Math.min(PLATFORMS.length - 1, Math.max(0, Math.round(slider.scrollLeft / step)))
+        setActiveIndex((prev) => (prev === i ? prev : i))
+    }, [])
 
     useEffect(() => {
         const slider = sliderRef.current
@@ -43,42 +53,7 @@ export default function TradingPlatforms() {
         let intervalId: number | undefined
         let startTimeoutId: number | undefined
         let pausedUntil = 0
-        let rafId: number | null = null
-        let isAnimating = false
-
-        const easeInOutQuint = (t: number) =>
-            t < 0.5
-                ? 16 * Math.pow(t, 5)
-                : 1 - Math.pow(-2 * t + 2, 5) / 2
-
-        const animateScrollTo = (targetLeft: number, duration = 2000) => {
-            if (isAnimating) return
-
-            const startLeft = slider.scrollLeft
-            const maxLeft = Math.max(0, slider.scrollWidth - slider.clientWidth)
-            const clampedTarget = Math.max(0, Math.min(targetLeft, maxLeft))
-            const delta = clampedTarget - startLeft
-            if (Math.abs(delta) < 1) return
-
-            isAnimating = true
-            const startTime = performance.now()
-
-            const stepFrame = (now: number) => {
-                const elapsed = now - startTime
-                const progress = Math.min(1, elapsed / duration)
-                const eased = easeInOutQuint(progress)
-                slider.scrollLeft = startLeft + delta * eased
-
-                if (progress < 1) {
-                    rafId = requestAnimationFrame(stepFrame)
-                } else {
-                    isAnimating = false
-                    rafId = null
-                }
-            }
-
-            rafId = requestAnimationFrame(stepFrame)
-        }
+        let scrollSyncTimerId: number | undefined
 
         const getStep = () => {
             const firstCard = slider.querySelector<HTMLElement>(`.${styles.platformItem}`)
@@ -90,15 +65,14 @@ export default function TradingPlatforms() {
         const tick = () => {
             if (!canAutoSlide()) return
             if (Date.now() < pausedUntil) return
-            if (isAnimating) return
 
             const step = getStep()
             const atEnd = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 4
 
             if (atEnd) {
-                animateScrollTo(0)
+                slider.scrollTo({ left: 0, behavior: 'smooth' })
             } else {
-                animateScrollTo(slider.scrollLeft + step)
+                slider.scrollTo({ left: slider.scrollLeft + step, behavior: 'smooth' })
             }
         }
 
@@ -109,6 +83,17 @@ export default function TradingPlatforms() {
         slider.addEventListener('touchstart', pauseAuto, { passive: true })
         slider.addEventListener('pointerdown', pauseAuto, { passive: true })
         slider.addEventListener('wheel', pauseAuto, { passive: true })
+        slider.addEventListener(
+            'scroll',
+            () => {
+                if (scrollSyncTimerId !== undefined) window.clearTimeout(scrollSyncTimerId)
+                scrollSyncTimerId = window.setTimeout(() => {
+                    scrollSyncTimerId = undefined
+                    syncIndexFromScroll()
+                }, 60)
+            },
+            { passive: true },
+        )
 
         // Kick off first movement quickly so autoplay is noticeable.
         startTimeoutId = window.setTimeout(tick, 900)
@@ -117,12 +102,12 @@ export default function TradingPlatforms() {
         return () => {
             if (intervalId !== undefined) window.clearInterval(intervalId)
             if (startTimeoutId !== undefined) window.clearTimeout(startTimeoutId)
-            if (rafId !== null) cancelAnimationFrame(rafId)
+            if (scrollSyncTimerId !== undefined) window.clearTimeout(scrollSyncTimerId)
             slider.removeEventListener('touchstart', pauseAuto)
             slider.removeEventListener('pointerdown', pauseAuto)
             slider.removeEventListener('wheel', pauseAuto)
         }
-    }, [])
+    }, [syncIndexFromScroll])
 
     return (
         <section className={`${styles.section} apfx-section`} aria-labelledby="platforms-heading">
@@ -146,6 +131,26 @@ export default function TradingPlatforms() {
                                 <h3 className={styles.platformName}>{p.name}</h3>
                                 <p className={styles.platformDesc}>{p.desc}</p>
                             </div>
+                        ))}
+                    </div>
+
+                    <div className={styles.carouselDots} role="tablist" aria-label="Platform slides">
+                        {PLATFORMS.map((p, i) => (
+                            <button
+                                key={p.name}
+                                type="button"
+                                role="tab"
+                                aria-selected={i === activeIndex}
+                                aria-label={`Slide ${i + 1} of ${PLATFORMS.length}: ${p.name}`}
+                                className={i === activeIndex ? styles.carouselDotActive : styles.carouselDot}
+                                onClick={() => {
+                                    const slider = sliderRef.current
+                                    if (!slider) return
+                                    const left = i * slider.clientWidth
+                                    slider.scrollTo({ left, behavior: 'smooth' })
+                                    setActiveIndex(i)
+                                }}
+                            />
                         ))}
                     </div>
                 </div>

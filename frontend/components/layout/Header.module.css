@@ -8,7 +8,9 @@
     position: fixed;
     inset: 0 0 auto 0;
     z-index: var(--z-sticky);
-    padding-block: 1.35rem;
+    /* Prevent top clipping under browser UI / notches (mobile safe-area). */
+    padding-top: calc(env(safe-area-inset-top, 0px) + 1.35rem);
+    padding-bottom: 1.35rem;
     background: var(--color-nav-bg);
     transition:
         padding var(--duration-slower) var(--ease-out),
@@ -19,7 +21,8 @@
 
 .header.scrolled,
 .header.menuActive {
-    padding-block: 0.8rem;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 0.8rem);
+    padding-bottom: 0.8rem;
     background: var(--color-nav-scrolled-bg);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
@@ -277,21 +280,34 @@
     margin-top: 0.25rem;
 }
 
-/* Login */
+/* Portal actions — APFX emerald (matches site accent / account cards) */
 .btnLogin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-size: 0.825rem;
-    font-weight: var(--fw-medium);
-    color: var(--color-nav-text);
-    padding: 0.45rem 0.75rem;
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-1);
+    padding: 0.45rem 0.95rem;
     white-space: nowrap;
-    transition: color var(--duration-normal) var(--ease-out);
+    text-decoration: none;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(0, 200, 150, 0.45);
+    background: var(--color-accent-subtle);
+    transition:
+        color var(--duration-normal) var(--ease-out),
+        background var(--duration-normal) var(--ease-out),
+        border-color var(--duration-normal) var(--ease-out),
+        box-shadow var(--duration-normal) var(--ease-out);
 }
 
 .btnLogin:hover {
     color: var(--color-text-1);
+    background: rgba(0, 200, 150, 0.16);
+    border-color: rgba(0, 230, 170, 0.55);
+    box-shadow: 0 0 28px rgba(0, 200, 150, 0.28);
 }
 
-/* Primary CTA */
 .btnCta {
     display: inline-flex;
     align-items: center;
@@ -299,20 +315,24 @@
     padding: 0.55rem 1.35rem;
     white-space: nowrap;
     border-radius: var(--radius-full);
-    background: var(--color-accent);
-    color: #000;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--color-accent-hover) 0%, var(--color-accent) 48%, #00e5b0 100%);
+    color: #020617;
     font-size: var(--text-sm);
     font-weight: var(--fw-semibold);
+    border: 1px solid rgba(180, 255, 229, 0.35);
     transition:
         background var(--duration-normal) var(--ease-out),
         box-shadow var(--duration-normal) var(--ease-out),
-        transform var(--duration-fast) var(--ease-out);
+        transform var(--duration-fast) var(--ease-out),
+        border-color var(--duration-normal) var(--ease-out);
 }
 
 .btnCta:hover {
-    background: var(--color-accent-hover);
+    background: linear-gradient(135deg, #00a078 0%, var(--color-accent-hover) 45%, var(--color-accent) 100%);
     box-shadow: 0 12px 34px rgba(0, 200, 150, 0.45);
     transform: translateY(-1px);
+    border-color: rgba(180, 255, 229, 0.5);
 }
 
 /* ============================================================
@@ -487,20 +507,73 @@
     color: var(--color-accent-hover);
 }
 
-.mobileCta {
-    margin-top: 2rem;
-    padding: 0.9rem 2.6rem;
-    background: var(--color-accent);
-    color: #000 !important;
+.mobileAuth {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+    margin-top: 1.5rem;
+    padding-inline: 1.5rem;
+}
+
+.mobileLogin {
+    display: block;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-1);
+    text-decoration: none;
+    padding: 0.65rem 1.25rem;
     border-radius: var(--radius-full);
-    font-size: var(--text-lg) !important;
-    font-weight: var(--fw-bold);
+    border: 1px solid rgba(0, 200, 150, 0.45);
+    background: var(--color-accent-subtle);
     opacity: 0;
     transform: translateY(20px);
     transition:
         opacity var(--duration-slower) 0.35s var(--ease-out),
         transform var(--duration-slower) 0.35s var(--ease-out),
-        background var(--duration-normal) var(--ease-out);
+        color var(--duration-normal) var(--ease-out),
+        background var(--duration-normal) var(--ease-out),
+        border-color var(--duration-normal) var(--ease-out);
+}
+
+.mobileLogin:hover {
+    color: var(--color-text-1);
+    background: rgba(0, 200, 150, 0.16);
+    border-color: rgba(0, 230, 170, 0.55);
+}
+
+.mobileMenu.open .mobileLogin {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mobileCta {
+    margin-top: 0;
+    padding: 0.9rem 2.6rem;
+    text-align: center;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--color-accent-hover) 0%, var(--color-accent) 48%, #00e5b0 100%);
+    color: #020617 !important;
+    border-radius: var(--radius-full);
+    font-size: var(--text-lg) !important;
+    font-weight: var(--fw-bold);
+    border: 1px solid rgba(180, 255, 229, 0.35);
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        opacity var(--duration-slower) 0.38s var(--ease-out),
+        transform var(--duration-slower) 0.38s var(--ease-out),
+        background var(--duration-normal) var(--ease-out),
+        box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.mobileCta:hover {
+    background: linear-gradient(135deg, #00a078 0%, var(--color-accent-hover) 45%, var(--color-accent) 100%);
+    box-shadow: 0 12px 34px rgba(0, 200, 150, 0.42);
 }
 
 .mobileMenu.open .mobileCta {
@@ -535,6 +608,11 @@
 }
 
 @media (max-width: 640px) {
+    /* Phone: hide Login / Open Account section in overlay menu */
+    .mobileAuth {
+        display: none;
+    }
+
     /* Keep actions visible, but reduce further */
     .btnLogin {
         font-size: 0.74rem;

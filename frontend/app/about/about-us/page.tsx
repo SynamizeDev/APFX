@@ -47,15 +47,15 @@ const WHY_US = [
 ]
 
 const MILESTONES = [
-  { year: '2012', title: 'Founded', description: 'APFX started with a focus on institutional-grade execution for serious retail traders.' },
-  { year: '2016', title: 'Platform expansion', description: 'Launched advanced trading tools and expanded into new markets.' },
-  { year: '2020', title: 'Education and tools', description: 'Introduced comprehensive calculators, risk management tools, and educational content.' },
-  { year: '2024', title: 'Today', description: 'Serving traders globally with tools, insights, and a commitment to transparency and security.' },
+  { year: '2014', title: 'Founded', description: 'APFX started with a focus on institutional-grade execution for serious retail traders.' },
+  { year: '2018', title: 'Platform expansion', description: 'Launched advanced trading tools and expanded into new markets.' },
+  { year: '2022', title: 'Education and tools', description: 'Introduced comprehensive calculators, risk management tools, and educational content.' },
+  { year: '2026', title: 'Today', description: 'Serving traders globally with tools, insights, and a commitment to transparency and security.' },
 ]
 
 const TEAM = [
-  { initials: 'JD', name: 'Jane Doe', role: 'Chief Executive Officer', bio: 'Over 15 years in financial technology and trading infrastructure.' },
-  { initials: 'AS', name: 'Alex Smith', role: 'Head of Product', bio: 'Leads platform and tool development with a focus on trader experience.' },
+  { initials: 'AP', name: 'Abhishek Pandey', role: 'Chief Executive Officer', bio: 'Over 15 years in financial technology and trading infrastructure.' },
+  { initials: 'SP', name: 'Sushil Pulojwar', role: 'Head of Product', bio: 'Leads platform and tool development with a focus on trader experience.' },
 ]
 
 export default function AboutUsPage() {

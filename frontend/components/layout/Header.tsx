@@ -255,6 +255,20 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
 
                     {/* ── Actions ───────────────────────────────────────── */}
                     <div className={styles.actions}>
+                        <Link
+                            href="https://portal.apfx.com/login"
+                            className={styles.btnLogin}
+                            prefetch={false}
+                        >
+                            Log In
+                        </Link>
+                        <Link
+                            href="https://portal.apfx.com/register"
+                            className={styles.btnCta}
+                            prefetch={false}
+                        >
+                            Open Account
+                        </Link>
                     </div>
                 </div>
             </header>
@@ -333,6 +347,24 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                         </div>
                     )
                 })}
+                <div className={styles.mobileAuth}>
+                    <Link
+                        href="https://portal.apfx.com/login"
+                        className={styles.mobileLogin}
+                        onClick={closeMenu}
+                        prefetch={false}
+                    >
+                        Log In
+                    </Link>
+                    <Link
+                        href="https://portal.apfx.com/register"
+                        className={styles.mobileCta}
+                        onClick={closeMenu}
+                        prefetch={false}
+                    >
+                        Open Account
+                    </Link>
+                </div>
             </nav>
         </>
     )

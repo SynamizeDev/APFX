@@ -172,23 +172,31 @@
 .resultRow {
   margin-top: 2rem;
   text-align: center;
-  padding: 2rem 1.5rem;
-  background: var(--color-surface-2);
+  padding: 2rem 2rem 2.25rem;
+  background: var(--color-bg);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   position: relative;
+  overflow: hidden;
 }
 
-.resultRow::before {
+/* Same treatment as WhyAPFX bento cards — soft accent glow, bottom-right */
+.resultRow::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
-  opacity: 0.5;
+  bottom: -1.25rem;
+  right: -1.25rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 200, 150, 0.14), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.resultRow > * {
+  position: relative;
+  z-index: 1;
 }
 
 .resultLabel {
@@ -197,6 +205,17 @@
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+/* Primary metric label — matches bento eyebrow (e.g. Liquidity / Security) */
+.resultRow > .resultLabel:first-of-type {
+  color: var(--color-accent);
+  font-weight: var(--fw-semibold);
+}
+
+.resultGrid .resultLabel {
+  color: var(--color-text-3);
+  font-weight: var(--fw-regular);
 }
 
 .resultValue {
@@ -256,6 +275,96 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
+  min-width: 0;
+}
+
+.leaderboardPhoneStack {
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.leaderboardCarouselWrap {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.leaderboardCarouselViewport {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 18rem;
+}
+
+.leaderboardCarouselScroll {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 18rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: var(--leaderboard-carousel-gap, 12px);
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  outline: none;
+}
+
+.leaderboardCarouselScroll:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.35);
+  border-radius: var(--radius-lg);
+}
+
+.leaderboardCarouselScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.leaderboardCarouselSlide {
+  flex: 0 0 var(--leaderboard-slide-width, 100%);
+  min-width: 0;
+  max-width: var(--leaderboard-slide-width, 100%);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  box-sizing: border-box;
+}
+
+.leaderboardCarouselDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.125rem;
+}
+
+.leaderboardCarouselDot,
+.leaderboardCarouselDotActive {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.leaderboardCarouselDot {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.leaderboardCarouselDot:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.leaderboardCarouselDotActive {
+  background: var(--color-accent);
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(0, 200, 150, 0.35);
 }
 
 .traderCard {
@@ -263,6 +372,9 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: 1.5rem;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
   transition: border-color var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
 }
 
@@ -276,6 +388,12 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  min-width: 0;
+}
+
+.traderHeader > div:not(.traderAvatar) {
+  flex: 1;
+  min-width: 0;
 }
 
 .traderAvatar {
@@ -295,6 +413,7 @@
   font-weight: var(--fw-bold);
   color: var(--color-text-1);
   font-size: 1.0625rem;
+  overflow-wrap: anywhere;
 }
 
 .traderStyle {
@@ -302,31 +421,43 @@
   font-size: 0.8125rem;
   color: var(--color-text-3);
   margin: 0.25rem 0 0.5rem;
+  overflow-wrap: anywhere;
 }
 
 .traderSecondaryStats {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 0.75rem;
+  row-gap: 0.35rem;
+  align-items: start;
   padding: 0.75rem 0;
   border-top: 1px solid var(--color-border-subtle);
   margin-top: 0.5rem;
 }
 
+.traderSecondaryStats .traderStat:last-child {
+  text-align: right;
+  justify-self: end;
+}
+
 .traderStats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.5rem 0.75rem;
   margin-bottom: 1rem;
   font-size: 0.875rem;
 }
 
 .traderStat {
   color: var(--color-text-2);
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .traderStat strong {
   color: var(--color-accent);
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 .riskPill {
@@ -371,6 +502,68 @@
 .traderCardCta:hover {
   background: rgba(0, 200, 150, 0.25);
   border-color: var(--color-accent);
+}
+
+.traderCardMore {
+  padding: 0;
+  border-style: dashed;
+  border-color: rgba(0, 200, 150, 0.28);
+  background: rgba(0, 200, 150, 0.05);
+}
+
+.traderCardMoreLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 100%;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  border-radius: inherit;
+  outline: none;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.traderCardMoreLink:hover {
+  background: rgba(0, 200, 150, 0.08);
+}
+
+.traderCardMoreLink:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.45);
+}
+
+.traderCardMorePlus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  margin-bottom: 0.15rem;
+}
+
+.traderCardMoreTitle {
+  font-size: 1.25rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-1);
+}
+
+.traderCardMoreHint {
+  font-size: 0.8125rem;
+  color: var(--color-text-3);
+  line-height: 1.4;
+  max-width: 12rem;
+}
+
+.traderCardMoreCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: var(--fw-semibold);
+  color: var(--color-accent);
 }
 
 /* ── How it works ────────────────────────────────────────────── */
@@ -550,6 +743,91 @@
   color: var(--color-text-2);
   line-height: 1.5;
   margin: 0;
+}
+
+.benefitsPhoneStack {
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+/* Phone: horizontal snap carousel (see BENEFITS_CAROUSEL_GAP_PX in page.tsx) */
+.benefitsCarouselWrap {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.benefitsCarouselViewport {
+  position: relative;
+  width: 100%;
+  min-height: 15rem;
+}
+
+.benefitsCarouselScroll {
+  display: flex;
+  width: 100%;
+  min-height: 15rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: var(--benefits-carousel-gap, 12px); /* CAROUSEL_GAP_PX in page.tsx */
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  outline: none;
+}
+
+.benefitsCarouselScroll:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.35);
+  border-radius: var(--radius-lg);
+}
+
+.benefitsCarouselScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.benefitsCarouselSlide {
+  flex: 0 0 var(--benefits-slide-width, 100%);
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  box-sizing: border-box;
+}
+
+.benefitsCarouselDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.125rem;
+}
+
+.benefitsCarouselDot,
+.benefitsCarouselDotActive {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.benefitsCarouselDot {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.benefitsCarouselDot:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.benefitsCarouselDotActive {
+  background: var(--color-accent);
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(0, 200, 150, 0.35);
 }
 
 /* ── CTA section ─────────────────────────────────────────────── */

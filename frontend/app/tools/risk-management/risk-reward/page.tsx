@@ -1,8 +1,16 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import {
+  useState,
+  useMemo,
+  useEffect,
+  useRef,
+  useLayoutEffect,
+  useCallback,
+  type ReactNode,
+} from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Info, Target, Shield, Zap, AlertTriangle, Calculator, TrendingUp, Activity, Crosshair, BarChart3 } from 'lucide-react'
+import { Shield, Zap, AlertTriangle, BarChart3, Activity, Crosshair, Target, TrendingUp } from 'lucide-react'
 import styles from '@/components/ui/CalculatorLayout.module.css'
 import calcStyles from '../RiskCalc.module.css'
 
@@ -12,7 +20,231 @@ function getQuality(ratio: number): 'Poor' | 'Moderate' | 'Good' {
   return 'Good'
 }
 
+type InfoVariant = 'formula' | 'default' | 'proTip' | 'mistake'
+
+type InfoCardDef = {
+  title: string
+  icon: ReactNode
+  variant: InfoVariant
+  body: ReactNode
+}
+
+function infoCardClass(variant: InfoVariant) {
+  const base = styles.infoCard
+  if (variant === 'formula') return `${base} ${styles.formulaCard}`
+  if (variant === 'proTip') return `${base} ${styles.proTipCard}`
+  if (variant === 'mistake') return `${base} ${styles.mistakeCard}`
+  return base
+}
+
+/** Must match `gap` on `.infoCarouselScroll` in RiskCalc.module.css */
+const INFO_CAROUSEL_GAP_PX = 12
+const INFO_SLIDE_MS = 5500
+const PHONE_MAX_PX = 768
+
+type InfoLayout = 'desktop' | 'phoneStack' | 'phoneCarousel'
+
+function readInfoLayout(): InfoLayout {
+  if (typeof window === 'undefined') return 'desktop'
+  const phone = window.matchMedia(`(max-width: ${PHONE_MAX_PX}px)`).matches
+  if (!phone) return 'desktop'
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return 'phoneStack'
+  return 'phoneCarousel'
+}
+
+function useInfoLayout(): InfoLayout {
+  const [layout, setLayout] = useState<InfoLayout>('desktop')
+
+  useLayoutEffect(() => {
+    const sync = () => setLayout(readInfoLayout())
+    sync()
+    const mqPhone = window.matchMedia(`(max-width: ${PHONE_MAX_PX}px)`)
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)')
+    mqPhone.addEventListener('change', sync)
+    mqReduce.addEventListener('change', sync)
+    return () => {
+      mqPhone.removeEventListener('change', sync)
+      mqReduce.removeEventListener('change', sync)
+    }
+  }, [])
+
+  return layout
+}
+
+function RiskRewardInfoCarousel({ cards }: { cards: InfoCardDef[] }) {
+  const [carouselIndex, setCarouselIndex] = useState(0)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const indexRef = useRef(0)
+  const scrollSyncTimerRef = useRef<number | undefined>(undefined)
+
+  indexRef.current = carouselIndex
+
+  const scrollStep = useCallback((el: HTMLDivElement) => el.clientWidth + INFO_CAROUSEL_GAP_PX, [])
+
+  const syncIndexFromScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const step = scrollStep(el)
+    if (step <= INFO_CAROUSEL_GAP_PX) return
+    const i = Math.min(
+      cards.length - 1,
+      Math.max(0, Math.round(el.scrollLeft / step)),
+    )
+    setCarouselIndex((prev) => (prev === i ? prev : i))
+  }, [cards.length, scrollStep])
+
+  useLayoutEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const step = scrollStep(el)
+    if (step <= INFO_CAROUSEL_GAP_PX) return
+    const target = carouselIndex * step
+    if (Math.abs(el.scrollLeft - target) < 8) return
+    el.scrollTo({ left: target, behavior: 'smooth' })
+  }, [carouselIndex, scrollStep])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    const onScroll = () => {
+      if (scrollSyncTimerRef.current !== undefined) {
+        window.clearTimeout(scrollSyncTimerRef.current)
+      }
+      scrollSyncTimerRef.current = window.setTimeout(() => {
+        scrollSyncTimerRef.current = undefined
+        syncIndexFromScroll()
+      }, 60)
+    }
+
+    const onScrollEnd = () => {
+      if (scrollSyncTimerRef.current !== undefined) {
+        window.clearTimeout(scrollSyncTimerRef.current)
+        scrollSyncTimerRef.current = undefined
+      }
+      syncIndexFromScroll()
+    }
+
+    el.addEventListener('scroll', onScroll, { passive: true })
+    el.addEventListener('scrollend', onScrollEnd)
+    return () => {
+      el.removeEventListener('scroll', onScroll)
+      el.removeEventListener('scrollend', onScrollEnd)
+      if (scrollSyncTimerRef.current !== undefined) {
+        window.clearTimeout(scrollSyncTimerRef.current)
+      }
+    }
+  }, [syncIndexFromScroll])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    const applySize = () => {
+      const w = el.clientWidth
+      if (!w) return
+      el.style.setProperty('--slide-width', `${w}px`)
+      el.style.setProperty('--info-carousel-gap', `${INFO_CAROUSEL_GAP_PX}px`)
+      const step = w + INFO_CAROUSEL_GAP_PX
+      el.scrollTo({ left: indexRef.current * step, behavior: 'auto' })
+    }
+
+    const ro = new ResizeObserver(applySize)
+    ro.observe(el)
+    applySize()
+    return () => ro.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const mqPhone = window.matchMedia(`(max-width: ${PHONE_MAX_PX}px)`)
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const shouldAuto = () => mqPhone.matches && !mqReduce.matches
+
+    let id: number | undefined
+
+    const arm = () => {
+      if (id !== undefined) {
+        window.clearInterval(id)
+        id = undefined
+      }
+      if (!shouldAuto()) return
+      id = window.setInterval(() => {
+        setCarouselIndex((i) => (i + 1) % cards.length)
+      }, INFO_SLIDE_MS)
+    }
+
+    arm()
+    mqPhone.addEventListener('change', arm)
+    mqReduce.addEventListener('change', arm)
+    return () => {
+      if (id !== undefined) window.clearInterval(id)
+      mqPhone.removeEventListener('change', arm)
+      mqReduce.removeEventListener('change', arm)
+    }
+  }, [cards.length])
+
+  return (
+    <div
+      className={calcStyles.infoCarouselWrap}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Risk-reward information"
+      aria-live="polite"
+    >
+      <div className={calcStyles.infoCarouselViewport}>
+        <div
+          ref={scrollRef}
+          className={calcStyles.infoCarouselScroll}
+          tabIndex={0}
+          aria-label="Swipe or scroll horizontally to read each information card"
+          onKeyDown={(e) => {
+            if (e.key === 'ArrowLeft') {
+              e.preventDefault()
+              setCarouselIndex((i) => Math.max(0, i - 1))
+            } else if (e.key === 'ArrowRight') {
+              e.preventDefault()
+              setCarouselIndex((i) => Math.min(cards.length - 1, i + 1))
+            }
+          }}
+        >
+          {cards.map((card, i) => (
+            <div
+              key={card.title}
+              className={calcStyles.infoCarouselSlide}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${cards.length}: ${card.title}`}
+              aria-hidden={i !== carouselIndex}
+            >
+              <div className={infoCardClass(card.variant)}>
+                <h3 className={styles.infoTitle}>
+                  {card.icon} {card.title}
+                </h3>
+                <div className={styles.infoText}>{card.body}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={calcStyles.carouselDots} role="tablist" aria-label="Information slides">
+        {cards.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            role="tab"
+            aria-selected={i === carouselIndex}
+            aria-label={`Slide ${i + 1} of ${cards.length}`}
+            className={i === carouselIndex ? calcStyles.carouselDotActive : calcStyles.carouselDot}
+            onClick={() => setCarouselIndex(i)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function RiskRewardPage() {
+  const infoLayout = useInfoLayout()
   const [entry, setEntry] = useState('1.1000')
   const [stopLoss, setStopLoss] = useState('1.0950')
   const [takeProfit, setTakeProfit] = useState('1.1150')
@@ -27,6 +259,93 @@ export default function RiskRewardPage() {
     const be = r > 0 ? (1 / (1 + r)) * 100 : 0
     return { ratio: r, quality: getQuality(r), breakevenWinRate: be }
   }, [entry, stopLoss, takeProfit])
+
+  const infoCards: InfoCardDef[] = useMemo(
+    () => [
+      {
+        title: 'Breakeven Win Rate Matrix',
+        icon: <BarChart3 size={16} />,
+        variant: 'formula',
+        body: (
+          <div className={calcStyles.recoveryTableContainer}>
+            <table className={calcStyles.recoveryTable}>
+              <thead>
+                <tr>
+                  <th>R:R Ratio</th>
+                  <th>Req. Win Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1:1</td>
+                  <td className={calcStyles.num}>50%</td>
+                </tr>
+                <tr>
+                  <td>1:2</td>
+                  <td className={calcStyles.num}>33%</td>
+                </tr>
+                <tr style={{ background: 'rgba(0, 200, 150, 0.05)' }}>
+                  <td>1:3 (Pro Target)</td>
+                  <td className={calcStyles.num}>25%</td>
+                </tr>
+                <tr>
+                  <td>1:5</td>
+                  <td className={calcStyles.num}>17%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        ),
+      },
+      {
+        title: 'The Asymmetry Advantage',
+        icon: <Activity size={16} />,
+        variant: 'default',
+        body: (
+          <p className={styles.infoText}>
+            In institutional trading, &quot;edge&quot; is not just predicting direction—it is securing{' '}
+            <strong>Asymmetry</strong>. By targeting 1:3 RR, you can be wrong 70% of the time and still remain net
+            profitable.
+          </p>
+        ),
+      },
+      {
+        title: 'Why It Matters',
+        icon: <Shield size={16} />,
+        variant: 'default',
+        body: (
+          <p className={styles.infoText}>
+            Your R:R ratio is the bridge between win rate and account growth. It removes the emotional need to
+            &quot;be right&quot; and replaces it with the mathematical necessity of &quot;winning big.&quot;
+          </p>
+        ),
+      },
+      {
+        title: 'Professional Insight',
+        icon: <Zap size={16} />,
+        variant: 'proTip',
+        body: (
+          <p className={styles.infoText}>
+            Hedge funds often ignore setups below 1:2.5. They understand that slippage, commissions, and spread
+            &quot;decay&quot; lower-ratio trades, turning the math against you over a long enough sample size.
+          </p>
+        ),
+      },
+      {
+        title: 'Common Mistake',
+        icon: <AlertTriangle size={16} />,
+        variant: 'mistake',
+        body: (
+          <p className={styles.infoText}>
+            Forcing target levels just to &quot;make the R:R look good.&quot; If the market structure doesn&apos;t
+            support the target, the trade will fail. Let market structure dictate target, then check if R:R meets your
+            minimum filter.
+          </p>
+        ),
+      },
+    ],
+    []
+  )
 
   return (
     <main className={styles.container}>
@@ -126,75 +445,31 @@ export default function RiskRewardPage() {
           </div>
         </div>
 
-        <div className={styles.infoSection}>
-          <div className={`${styles.infoCard} ${styles.formulaCard}`}>
-            <h3 className={styles.infoTitle}>
-              <BarChart3 size={16} /> Breakeven Win Rate Matrix
-            </h3>
-            <div className={calcStyles.recoveryTableContainer}>
-              <table className={calcStyles.recoveryTable}>
-                <thead>
-                  <tr>
-                    <th>R:R Ratio</th>
-                    <th>Req. Win Rate</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>1:1</td><td className={calcStyles.num}>50%</td></tr>
-                  <tr><td>1:2</td><td className={calcStyles.num}>33%</td></tr>
-                  <tr style={{ background: 'rgba(0, 200, 150, 0.05)' }}>
-                    <td>1:3 (Pro Target)</td>
-                    <td className={calcStyles.num}>25%</td></tr>
-                  <tr><td>1:5</td><td className={calcStyles.num}>17%</td></tr>
-                </tbody>
-              </table>
-            </div>
+        {infoLayout === 'desktop' && (
+          <div className={`${styles.infoSection} ${calcStyles.infoSectionDesktop}`}>
+            {infoCards.map((card) => (
+              <div key={card.title} className={infoCardClass(card.variant)}>
+                <h3 className={styles.infoTitle}>
+                  {card.icon} {card.title}
+                </h3>
+                <div className={styles.infoText}>{card.body}</div>
+              </div>
+            ))}
           </div>
-
-          <div className={styles.infoCard}>
-            <h3 className={styles.infoTitle}>
-              <Activity size={16} /> The Asymmetry Advantage
-            </h3>
-            <p className={styles.infoText}>
-              In institutional trading, "edge" is not just predicting direction—it is 
-              securing <strong>Asymmetry</strong>. By targeting 1:3 RR, you can be wrong 
-              70% of the time and still remain net profitable.
-            </p>
+        )}
+        {infoLayout === 'phoneStack' && (
+          <div className={`${styles.infoSection} ${calcStyles.infoSectionPhoneStack}`}>
+            {infoCards.map((card) => (
+              <div key={`stack-${card.title}`} className={infoCardClass(card.variant)}>
+                <h3 className={styles.infoTitle}>
+                  {card.icon} {card.title}
+                </h3>
+                <div className={styles.infoText}>{card.body}</div>
+              </div>
+            ))}
           </div>
-          
-          <div className={styles.infoCard}>
-            <h3 className={styles.infoTitle}>
-              <Shield size={16} /> Why It Matters
-            </h3>
-            <p className={styles.infoText}>
-              Your R:R ratio is the bridge between win rate and account growth. It 
-              removes the emotional need to "be right" and replaces it with the 
-              mathematical necessity of "winning big."
-            </p>
-          </div>
-
-          <div className={`${styles.infoCard} ${styles.proTipCard}`}>
-            <h3 className={styles.infoTitle}>
-              <Zap size={16} /> Professional Insight
-            </h3>
-            <p className={styles.infoText}>
-              Hedge funds often ignore setups below 1:2.5. They understand that 
-              slippage, commissions, and spread "decay" lower-ratio trades, turning 
-              the math against you over a long enough sample size.
-            </p>
-          </div>
-
-          <div className={`${styles.infoCard} ${styles.mistakeCard}`}>
-            <h3 className={styles.infoTitle}>
-              <AlertTriangle size={16} /> Common Mistake
-            </h3>
-            <p className={styles.infoText}>
-              Forcing target levels just to "make the R:R look good." If the market 
-              structure doesn't support the target, the trade will fail. Let market 
-              structure dictate target, then check if R:R meets your minimum filter.
-            </p>
-          </div>
-        </div>
+        )}
+        {infoLayout === 'phoneCarousel' && <RiskRewardInfoCarousel cards={infoCards} />}
       </div>
     </main>
   )

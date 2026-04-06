@@ -244,6 +244,90 @@
   gap: 1.5rem;
 }
 
+.frameworkGridSingleCol {
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+/* Phone carousel for framework cards (see FRAMEWORK_CAROUSEL_GAP_PX in layout.tsx) */
+.frameworkCarouselWrap {
+  display: block;
+}
+
+.frameworkCarouselViewport {
+  position: relative;
+  width: 100%;
+  min-height: 16rem;
+}
+
+.frameworkCarouselScroll {
+  display: flex;
+  width: 100%;
+  min-height: 16rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: var(--framework-carousel-gap, 12px);
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  outline: none;
+}
+
+.frameworkCarouselScroll:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.35);
+  border-radius: var(--radius-xl);
+}
+
+.frameworkCarouselScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.frameworkCarouselSlide {
+  flex: 0 0 var(--framework-slide-width, 100%);
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  box-sizing: border-box;
+}
+
+.frameworkCarouselDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.125rem;
+}
+
+.frameworkCarouselDot,
+.frameworkCarouselDotActive {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.frameworkCarouselDot {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.frameworkCarouselDot:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.frameworkCarouselDotActive {
+  background: var(--color-accent);
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(0, 200, 150, 0.35);
+}
+
 .frameworkCard {
   position: relative;
   padding: 2rem;

@@ -188,6 +188,97 @@
   }
 }
 
+.infoSectionDesktop {
+  display: grid;
+}
+
+.infoSectionPhoneStack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.infoCarouselWrap {
+  display: block;
+  margin-top: 3.5rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.infoCarouselViewport {
+  position: relative;
+  width: 100%;
+  min-height: 13.5rem;
+}
+
+.infoCarouselScroll {
+  display: flex;
+  width: 100%;
+  min-height: 13.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: var(--info-carousel-gap, 12px);
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  outline: none;
+}
+
+.infoCarouselScroll:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.35);
+  border-radius: var(--radius-lg);
+}
+
+.infoCarouselScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.infoCarouselSlide {
+  flex: 0 0 var(--slide-width, 100%);
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  box-sizing: border-box;
+}
+
+.carouselDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.125rem;
+}
+
+.carouselDot,
+.carouselDotActive {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.carouselDot {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.carouselDot:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.carouselDotActive {
+  background: var(--color-accent);
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(0, 200, 150, 0.35);
+}
+
 .riskMeterContainer {
   margin-bottom: 2rem;
   padding: 1.25rem;

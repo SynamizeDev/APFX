@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
 import styles from './AccountTypes.module.css'
 
@@ -53,6 +53,18 @@ const ACCOUNTS = [
 
 export default function AccountTypes() {
     const sliderRef = useRef<HTMLDivElement | null>(null)
+    const [activeIndex, setActiveIndex] = useState(0)
+    const activeIndexRef = useRef(0)
+    activeIndexRef.current = activeIndex
+
+    const syncIndexFromScroll = useCallback(() => {
+        const slider = sliderRef.current
+        if (!slider) return
+        const step = slider.clientWidth
+        if (!step) return
+        const i = Math.min(ACCOUNTS.length - 1, Math.max(0, Math.round(slider.scrollLeft / step)))
+        setActiveIndex((prev) => (prev === i ? prev : i))
+    }, [])
 
     useEffect(() => {
         const slider = sliderRef.current
@@ -67,42 +79,7 @@ export default function AccountTypes() {
         let intervalId: number | undefined
         let startTimeoutId: number | undefined
         let pausedUntil = 0
-        let rafId: number | null = null
-        let isAnimating = false
-
-        const easeInOutQuint = (t: number) =>
-            t < 0.5
-                ? 16 * Math.pow(t, 5)
-                : 1 - Math.pow(-2 * t + 2, 5) / 2
-
-        const animateScrollTo = (targetLeft: number, duration = 2000) => {
-            if (isAnimating) return
-
-            const startLeft = slider.scrollLeft
-            const maxLeft = Math.max(0, slider.scrollWidth - slider.clientWidth)
-            const clampedTarget = Math.max(0, Math.min(targetLeft, maxLeft))
-            const delta = clampedTarget - startLeft
-            if (Math.abs(delta) < 1) return
-
-            isAnimating = true
-            const startTime = performance.now()
-
-            const stepFrame = (now: number) => {
-                const elapsed = now - startTime
-                const progress = Math.min(1, elapsed / duration)
-                const eased = easeInOutQuint(progress)
-                slider.scrollLeft = startLeft + delta * eased
-
-                if (progress < 1) {
-                    rafId = requestAnimationFrame(stepFrame)
-                } else {
-                    isAnimating = false
-                    rafId = null
-                }
-            }
-
-            rafId = requestAnimationFrame(stepFrame)
-        }
+        let scrollSyncTimerId: number | undefined
 
         const getStep = () => {
             const firstCard = slider.querySelector<HTMLElement>(`.${styles.card}`)
@@ -114,16 +91,12 @@ export default function AccountTypes() {
         const tick = () => {
             if (!canAutoSlide()) return
             if (Date.now() < pausedUntil) return
-            if (isAnimating) return
 
             const step = getStep()
             const atEnd = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 4
 
-            if (atEnd) {
-                animateScrollTo(0)
-            } else {
-                animateScrollTo(slider.scrollLeft + step)
-            }
+            const target = atEnd ? 0 : slider.scrollLeft + step
+            slider.scrollTo({ left: target, behavior: 'smooth' })
         }
 
         const pauseAuto = () => {
@@ -133,6 +106,17 @@ export default function AccountTypes() {
         slider.addEventListener('touchstart', pauseAuto, { passive: true })
         slider.addEventListener('pointerdown', pauseAuto, { passive: true })
         slider.addEventListener('wheel', pauseAuto, { passive: true })
+        slider.addEventListener(
+            'scroll',
+            () => {
+                if (scrollSyncTimerId !== undefined) window.clearTimeout(scrollSyncTimerId)
+                scrollSyncTimerId = window.setTimeout(() => {
+                    scrollSyncTimerId = undefined
+                    syncIndexFromScroll()
+                }, 60)
+            },
+            { passive: true },
+        )
 
         startTimeoutId = window.setTimeout(tick, 900)
         intervalId = window.setInterval(tick, 4200)
@@ -140,12 +124,12 @@ export default function AccountTypes() {
         return () => {
             if (intervalId !== undefined) window.clearInterval(intervalId)
             if (startTimeoutId !== undefined) window.clearTimeout(startTimeoutId)
-            if (rafId !== null) cancelAnimationFrame(rafId)
+            if (scrollSyncTimerId !== undefined) window.clearTimeout(scrollSyncTimerId)
             slider.removeEventListener('touchstart', pauseAuto)
             slider.removeEventListener('pointerdown', pauseAuto)
             slider.removeEventListener('wheel', pauseAuto)
         }
-    }, [])
+    }, [syncIndexFromScroll])
 
     return (
         <section className={`${styles.section} apfx-section`} aria-labelledby="accounts-heading">
@@ -184,6 +168,26 @@ export default function AccountTypes() {
                                 {acc.cta}
                             </Link>
                         </div>
+                    ))}
+                </div>
+
+                <div className={styles.carouselDots} role="tablist" aria-label="Account slides">
+                    {ACCOUNTS.map((acc, i) => (
+                        <button
+                            key={acc.name}
+                            type="button"
+                            role="tab"
+                            aria-selected={i === activeIndex}
+                            aria-label={`Slide ${i + 1} of ${ACCOUNTS.length}: ${acc.name}`}
+                            className={i === activeIndex ? styles.carouselDotActive : styles.carouselDot}
+                            onClick={() => {
+                                const slider = sliderRef.current
+                                if (!slider) return
+                                const left = i * slider.clientWidth
+                                slider.scrollTo({ left, behavior: 'smooth' })
+                                setActiveIndex(i)
+                            }}
+                        />
                     ))}
                 </div>
             </div>

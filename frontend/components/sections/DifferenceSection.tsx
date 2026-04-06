@@ -29,7 +29,12 @@ const DIFFERENCE_ITEMS = [
         id: 'touch',
         title: 'We Love\nto Stay in Touch!',
         desc: 'Stay up-to-date on the latest market news, promotions and offers! <strong>Follow us</strong> on our social media channels for real-time market updates.'
-    }
+    },
+    {
+        id: 'security',
+        title: 'Secure &\nTransparent',
+        desc: 'Trade with confidence using strong platform protections and clear policies—built around <strong>privacy</strong>, <strong>risk controls</strong>, and reliable infrastructure.'
+    },
 ]
 
 export default function DifferenceSection() {

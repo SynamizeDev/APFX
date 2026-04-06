@@ -185,6 +185,99 @@
     gap: 2rem;
 }
 
+/* Phone + reduced motion: single column (only mounted when that layout is active) */
+.whyGridSingleCol {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+/* Phone carousel: mounted only when JS selects that layout (see WhyUseCalculatorsSection) */
+.whyCarouselWrap {
+    display: block;
+}
+
+.whyCarouselViewport {
+    position: relative;
+    width: 100%;
+    min-height: 11rem;
+}
+
+.whyCarouselScroll {
+    display: flex;
+    width: 100%;
+    min-height: 11rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: var(--why-carousel-gap, 12px);
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    outline: none;
+}
+
+.whyCarouselScroll:focus-visible {
+    box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.35);
+    border-radius: var(--radius-lg);
+}
+
+.whyCarouselScroll::-webkit-scrollbar {
+    display: none;
+}
+
+.whyCarouselSlide {
+    flex: 0 0 var(--slide-width, 100%);
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    box-sizing: border-box;
+}
+
+.whyCarouselCard {
+    height: 100%;
+    padding: 1.25rem 1.15rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-lg);
+}
+
+.whyCarouselDots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.whyCarouselDot,
+.whyCarouselDotActive {
+    width: 7px;
+    height: 7px;
+    border-radius: var(--radius-full);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition:
+        background var(--duration-fast) var(--ease-out),
+        transform var(--duration-fast) var(--ease-out);
+}
+
+.whyCarouselDot {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.whyCarouselDot:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.whyCarouselDotActive {
+    background: var(--color-accent);
+    transform: scale(1.2);
+    box-shadow: 0 0 12px rgba(0, 200, 150, 0.35);
+}
+
 .whyItem {
     display: flex;
     gap: 1rem;

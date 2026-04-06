@@ -1,6 +1,6 @@
 .chatWidgetContainer {
     position: fixed;
-    bottom: 2rem;
+    bottom: 3rem;
     right: 2rem;
     z-index: 100;
     display: flex;
@@ -294,7 +294,7 @@ textarea.formInput {
 
 @media (max-width: 480px) {
     .chatWidgetContainer {
-        bottom: 1rem;
+        bottom: 2.75rem;
         right: 1rem;
     }
     .chatPanel {

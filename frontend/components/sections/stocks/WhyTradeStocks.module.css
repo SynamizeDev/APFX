@@ -51,7 +51,7 @@
 }
 
 .card:hover {
-    background: var(--color-surface-2);
+    background: rgba(255, 255, 255, 0.04);
     border-color: rgba(0, 200, 150, 0.3);
     transform: translateY(-5px);
     box-shadow: var(--shadow-md);

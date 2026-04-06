@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import Footer from '@/components/layout/Footer'
+import BottomBar from '@/components/layout/BottomBar'
 
 export const metadata: Metadata = {
   title: 'Trading & Investing Glossary',
@@ -11,5 +13,11 @@ export const metadata: Metadata = {
 }
 
 export default function GlossaryLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return (
+    <>
+      {children}
+      <Footer />
+      <BottomBar />
+    </>
+  )
 }

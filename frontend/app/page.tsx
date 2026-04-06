@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { motion, AnimatePresence, Variants } from 'framer-motion'
 import EntryAnimation from '@/components/sections/EntryAnimation'
@@ -56,6 +56,7 @@ const CTABanner = dynamic(() => import('@/components/sections/CTABanner'), { ssr
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import AnimatedSection from '@/components/animations/AnimatedSection'
+import { useHomeEntryNavigation } from '@/context/HomeEntryContext'
 
 /* =========================================================
    Motion Presets — subtle, confidence-led
@@ -77,8 +78,46 @@ const pageFade: Variants = {
    ========================================================= */
 
 export default function HomePage() {
-  const [showAnimation, setShowAnimation] = useState(true)
+  const { skipHomeEntryAnimation } = useHomeEntryNavigation()
+
+  // IMPORTANT (hydration): do not read browser-only values during initial render.
+  // First render must match server output; then we decide in an effect.
+  const [showAnimation, setShowAnimation] = useState(false)
   const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    // Skip when arriving to home via client-side navigation (e.g., clicking the logo).
+    if (skipHomeEntryAnimation) {
+      setShowAnimation(false)
+      setReady(true)
+      return
+    }
+
+    const key = 'apfx.homeEntryAnimation.shown'
+
+    const nav = performance.getEntriesByType?.('navigation')?.[0] as
+      | PerformanceNavigationTiming
+      | undefined
+    const navType = nav?.type
+
+    // Always show on hard reload.
+    if (navType === 'reload') {
+      setShowAnimation(true)
+      setReady(false)
+      return
+    }
+
+    // Only show once per tab session on normal navigation.
+    let shouldShow = true
+    try {
+      shouldShow = sessionStorage.getItem(key) !== '1'
+    } catch {
+      shouldShow = true
+    }
+
+    setShowAnimation(shouldShow)
+    setReady(!shouldShow)
+  }, [skipHomeEntryAnimation])
 
   const handleReadyToReveal = useCallback(() => {
     setReady(true)
@@ -87,10 +126,28 @@ export default function HomePage() {
   const handleAnimationComplete = useCallback(() => {
     setShowAnimation(false)
     setReady(true) // Ensure ready is true if not already
+
+    try {
+      sessionStorage.setItem('apfx.homeEntryAnimation.shown', '1')
+    } catch {
+      // ignore
+    }
   }, [])
 
   return (
     <>
+      {/* Prevent a flash of content before we decide animation vs reveal */}
+      {!ready && !showAnimation && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9996,
+            background: '#03050A',
+          }}
+        />
+      )}
+
       {/* ── Entry Animation ───────────────────────────── */}
       <AnimatePresence>
         {showAnimation && (

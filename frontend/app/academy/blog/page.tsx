@@ -86,9 +86,6 @@ export default function BlogPage() {
       <header className={styles.hero}>
         <h1 className={styles.title}>Market Intelligence & Technical Outlook</h1>
         <p className={styles.subtitle}>Professional-grade technical research, fundamental analysis, and institutional perspectives on global market catalysts.</p>
-        <Link href="#featured" className={styles.heroCta}>
-          Access Research
-        </Link>
       </header>
 
       <div className={styles.container}>

@@ -1,7 +1,7 @@
 /* ── Why APFX — Bento Grid ───────────────────────────────────── */
 .section {
     padding-block: var(--section-py);
-    background-color: var(--color-surface);
+    background-color: var(--color-section-band);
     overflow: hidden;
 }
 
@@ -188,21 +188,22 @@
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     .bento {
         display: flex;
         overflow-x: auto;
-        overflow-y: hidden;
+        overflow-y: visible;
         gap: 1rem;
+        padding-top: 0.75rem;
         padding-bottom: 0.45rem;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
+        scrollbar-width: none;
         align-items: stretch;
     }
 
     .bento::-webkit-scrollbar {
-        height: 4px;
+        display: none;
     }
 
     .bento::-webkit-scrollbar-track {
@@ -264,4 +265,42 @@
     .bentoLarge {
         grid-column: auto;
     }
+}
+
+@media (hover: none) {
+    .bentoItem:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+/* ── Mobile carousel dots ───────────────────────────────────── */
+.carouselDots {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .carouselDots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+}
+
+.carouselDot,
+.carouselDotActive {
+    width: 7px;
+    height: 7px;
+    border-radius: var(--radius-full);
+    border: none;
+    background: rgba(255, 255, 255, 0.18);
+    cursor: pointer;
+    transition: transform 140ms ease, background 140ms ease;
+}
+
+.carouselDotActive {
+    background: rgba(0, 200, 150, 0.95);
+    transform: scale(1.15);
 }

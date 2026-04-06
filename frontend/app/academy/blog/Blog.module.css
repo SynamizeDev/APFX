@@ -39,25 +39,6 @@
   margin: 0 auto 2rem;
 }
 
-.heroCta {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.9rem 1.75rem;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
-  color: #020617;
-  font-weight: var(--fw-bold);
-  font-size: 1rem;
-  border-radius: var(--radius-full);
-  text-decoration: none;
-  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
-  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
-}
-
-.heroCta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
-}
-
 /* ── Section titles ─────────────────────────────────────────── */
 .section {
   padding: 3rem 0;

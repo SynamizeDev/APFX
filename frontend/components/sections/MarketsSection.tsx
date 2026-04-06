@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { fetchMarketData, MarketQuote } from '@/services/marketData'
 import styles from './MarketsSection.module.css'
 
+const PORTAL_REGISTER_URL = 'https://portal.apfx.com/register'
+
 /* ── Category Data ─────────────────────────────────────────── */
 const CATEGORIES = [
     {
@@ -225,7 +227,16 @@ function MarketRow({ inst, liveData }: { inst: Instrument, liveData: MarketQuote
             <td className={styles.tdTrend}>
                 <Sparkline data={inst.trend} positive={changePositive} />
             </td>
-            <td className={styles.thAction}>
+            <td className={styles.tdAction}>
+                <Link
+                    href={PORTAL_REGISTER_URL}
+                    className={styles.tradeBtn}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Trade now — ${inst.symbol}`}
+                >
+                    Trade Now
+                </Link>
             </td>
         </motion.tr>
     )
@@ -339,7 +350,9 @@ export default function MarketsSection() {
                                     <th className={styles.thNum}>Low</th>
                                     <th className={styles.thNum}>Daily Change</th>
                                     <th className={styles.thTrend}>Trend</th>
-                                    <th className={styles.thAction}></th>
+                                    <th className={styles.thAction} scope="col">
+                                        <span className="sr-only">Trade</span>
+                                    </th>
                                 </tr>
                             </thead>
 
