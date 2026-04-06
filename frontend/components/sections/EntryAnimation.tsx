@@ -87,7 +87,7 @@ export default function EntryAnimation({
         gsap.set(pulseRef.current, { scale: 1, opacity: 0 })
 
         // Sequence: dark background first, then logo fades in for at least 3s
-        const LOGO_FADE_DURATION = 3
+        const LOGO_FADE_DURATION = 1.2
 
         tl
             /* Dark overlay already at 1 — site stays dark for full 3s+ logo fade-in */
@@ -206,7 +206,7 @@ export default function EntryAnimation({
                     position: 'fixed',
                     inset: 0,
                     zIndex: 9997, 
-                    background: '#03050A',
+                    background: 'var(--color-bg)',
                     pointerEvents: 'none',
                     opacity: 1
                 }}

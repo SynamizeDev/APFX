@@ -1,6 +1,6 @@
 .section {
   padding: clamp(3rem, 5vw, 4rem) 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .container {
@@ -40,11 +40,11 @@
 .card {
   padding: 1.25rem 1.35rem;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--color-border-subtle);
   background: linear-gradient(
     165deg,
     rgba(0, 200, 150, 0.06) 0%,
-    rgba(6, 10, 18, 0.75) 100%
+    var(--bg-glass-dark) 100%
   );
 }
 
@@ -70,5 +70,5 @@
   line-height: 1.55;
   border-radius: var(--radius-md);
   border: 1px dashed rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--color-surface-subtle);
 }

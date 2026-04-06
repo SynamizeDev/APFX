@@ -59,7 +59,7 @@
 .searchInput {
   width: 100%;
   padding: 0.9rem 1.25rem 0.9rem 2.75rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-border-subtle);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-full);
   color: var(--color-text-1);
@@ -139,8 +139,8 @@
   font-size: 0.8125rem;
   font-weight: var(--fw-medium);
   color: var(--color-text-2);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: color var(--duration-fast), background var(--duration-fast), border-color var(--duration-fast);
@@ -148,7 +148,7 @@
 
 .categoryBtn:hover {
   color: var(--color-text-1);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--color-border-subtle);
 }
 
 .categoryBtnActive {
@@ -165,7 +165,7 @@
   gap: 0.25rem 0.5rem;
   margin-bottom: 2rem;
   padding: 1rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .azLetter {
@@ -188,7 +188,7 @@
 
 .azLetter:hover:not(.azLetterDisabled) {
   color: var(--color-text-1);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--color-border-subtle);
 }
 
 .azLetterActive {
@@ -219,12 +219,12 @@
   color: var(--color-accent);
   margin-bottom: 0.75rem;
   padding-bottom: 0.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .termCard {
-  background: linear-gradient(165deg, rgba(11, 15, 26, 0.6) 0%, rgba(6, 10, 18, 0.85) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(165deg, var(--bg-glass-base) 0%, var(--bg-glass-dark) 100%);
+  border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: border-color var(--duration-normal), box-shadow var(--duration-normal);
@@ -316,7 +316,7 @@
 .termBody {
   position: relative;
   padding: 0 1.5rem 1.35rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--color-border-subtle);
   overflow: hidden;
 }
 
@@ -345,11 +345,11 @@
   background: linear-gradient(
     135deg,
     rgba(0, 200, 150, 0.09) 0%,
-    rgba(6, 10, 18, 0.65) 55%,
-    rgba(11, 15, 26, 0.5) 100%
+    var(--bg-glass-dark) 55%,
+    var(--bg-glass-base) 100%
   );
   border: 1px solid rgba(0, 200, 150, 0.18);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 0 var(--color-surface-subtle);
 }
 
 .insightBlockHeader {
@@ -392,8 +392,8 @@
   margin-top: 1rem;
   padding: 1rem 1.15rem;
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border-subtle);
 }
 
 .exampleBlockHeader {
@@ -482,7 +482,7 @@
 .learningLinks {
   margin-top: 1.15rem;
   padding-top: 1.1rem;
-  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  border-top: 1px dashed var(--color-border-subtle);
 }
 
 .learningLinksTitle {
@@ -509,7 +509,7 @@
   font-weight: var(--fw-semibold);
   color: var(--color-text-1);
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--color-surface-subtle);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-full);
   transition:
@@ -537,7 +537,7 @@
   padding: 3rem 1.5rem;
   margin-top: 2rem;
   background: linear-gradient(180deg, rgba(0, 200, 150, 0.06) 0%, transparent 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-xl);
 }
 
@@ -617,8 +617,8 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 1.25rem 1.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-lg);
   margin-bottom: 2rem;
 }

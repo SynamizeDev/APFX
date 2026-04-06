@@ -147,7 +147,7 @@
   overflow-x: auto;
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.01);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
   margin-top: 1rem;
 }
 
@@ -162,7 +162,7 @@
 .recoveryTable td {
   padding: 0.6rem 0.75rem;
   text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .recoveryTable th {
@@ -282,9 +282,9 @@
 .riskMeterContainer {
   margin-bottom: 2rem;
   padding: 1.25rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--color-surface-subtle);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
   text-align: left;
 }
 
@@ -308,7 +308,7 @@
 .progressBar {
   width: 100%;
   height: 6px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-border-subtle);
   border-radius: 999px;
   overflow: hidden;
 }

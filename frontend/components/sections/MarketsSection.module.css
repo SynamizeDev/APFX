@@ -204,12 +204,12 @@
 }
 
 .categoryActive .categoryName {
-    color: #fff;
+    color: var(--color-text-1);
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
 }
 
 .categoryCard:hover .categoryName {
-    color: #fff;
+    color: var(--color-text-1);
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -224,14 +224,14 @@
 .categoryActive .categoryArrow {
     opacity: 1;
     transform: translateX(0);
-    color: #fff;
+    color: var(--color-text-1);
     filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
 }
 
 .categoryCard:hover .categoryArrow {
     opacity: 1;
     transform: translateX(0);
-    color: #fff;
+    color: var(--color-text-1);
     filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
 }
 
@@ -397,7 +397,7 @@
 }
 
 .tableRow:hover {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--color-surface-subtle);
     box-shadow: none;
 }
 
@@ -474,12 +474,12 @@
     padding: 0.35rem 0.75rem;
     min-width: 85px;
     width: fit-content;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--color-border-subtle);
     border-radius: 12px;
     font-size: 0.72rem;
     font-weight: var(--fw-semibold);
     color: var(--color-text-2);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--color-surface-subtle);
     text-decoration: none;
     cursor: pointer;
     white-space: nowrap;

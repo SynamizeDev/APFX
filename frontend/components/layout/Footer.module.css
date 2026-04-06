@@ -193,8 +193,8 @@
 }
 
 .newsletterForm input {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border-subtle);
     padding: 0.75rem 1.15rem;
     border-radius: var(--radius-md);
     color: var(--color-text-1);
@@ -206,7 +206,7 @@
 .newsletterForm input:focus {
     outline: none;
     border-color: var(--color-accent);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--color-surface-subtle);
 }
 
 .newsletterForm button {

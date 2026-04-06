@@ -193,7 +193,7 @@
     padding: 1.05rem 1.2rem;
     border-radius: var(--radius-xl);
 
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--color-surface-subtle);
     border: 1px solid rgba(255, 255, 255, 0.065);
 
     transition:

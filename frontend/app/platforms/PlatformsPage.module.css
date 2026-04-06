@@ -160,7 +160,7 @@
 }
 
 .btnSecondary:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--color-border-subtle);
     transform: translateY(-2px);
     border-color: var(--color-border);
 }
@@ -193,7 +193,7 @@
     inset: -40%;
     background: radial-gradient(
         circle,
-        rgba(255, 255, 255, 0.08),
+        var(--color-border-subtle),
         transparent 60%
     );
     opacity: 0.4;
@@ -249,7 +249,7 @@
     overflow: hidden;
     box-shadow:
         0 28px 60px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        inset 0 1px 0 var(--color-border-subtle);
 }
 
 .ctaBox h2 {

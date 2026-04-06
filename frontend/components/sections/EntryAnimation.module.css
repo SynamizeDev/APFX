@@ -3,7 +3,7 @@
     position: fixed;
     inset: 0;
     z-index: var(--z-top);
-    background: #03050A;
+    background: var(--color-bg);
 
     display: flex;
     flex-direction: column;
@@ -123,4 +123,10 @@
     pointer-events: none;
     opacity: 0;
     z-index: -1;
+}
+
+/* ── Light Mode Fix ───────────────────────────────────────── */
+:global(.light-mode) [class*="Logo_logoWordmark"],
+:global(.light-mode) [class*="Logo_logoPrefix"] {
+    color: #000000 !important;
 }
