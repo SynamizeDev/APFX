@@ -82,8 +82,8 @@ export default function EntryAnimation({
             y: 0 
         })
 
-        // Sequence: dark background first, then logo fades in for 2.0s
-        const LOGO_FADE_DURATION = 2.0
+        // Sequence: dark background first, then logo fades in for 3.0s
+        const LOGO_FADE_DURATION = 3.0
 
         tl
             /* Dark overlay already at 1 — site stays dark for full 3s+ logo fade-in */
@@ -165,7 +165,7 @@ export default function EntryAnimation({
                     if (onMergeStartRef.current) onMergeStartRef.current();
                     finish();
                 }
-            }, undefined, LOGO_FADE_DURATION + 2.5)
+            }, undefined, LOGO_FADE_DURATION + 1.5)
 
         return () => {
             tl.kill()
