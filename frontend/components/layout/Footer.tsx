@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { Linkedin, Send, Youtube, Sparkles } from 'lucide-react'
+import Logo from '@/components/ui/Logo'
 import styles from './Footer.module.css'
 
 const FOOTER_LINKS = {
@@ -49,14 +50,8 @@ export default function Footer() {
 
                 {/* Brand */}
                 <div className={styles.brand}>
-                    <Link href="/" className={styles.footerLogo}>
-                        <span className={styles.logoMark} aria-hidden="true">
-                            <Sparkles className={styles.logoIcon} />
-                        </span>
-                        <span className={styles.logoWordmark}>
-                            <span className={styles.logoPrefix}>AP</span>
-                            <span className={styles.logoFx}>FX</span>
-                        </span>
+                    <Link href="/" aria-label="Home" style={{ display: 'inline-block' }}>
+                        <Logo />
                     </Link>
                     <p className={styles.tagline}>
                         Institutional-grade trading for global investors.

@@ -1,7 +1,6 @@
 'use client'
 
 import React, { forwardRef } from 'react'
-import { Sparkles } from 'lucide-react'
 import styles from './Logo.module.css'
 
 interface LogoProps {
@@ -22,15 +21,13 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(({
             ref={ref}
             id={id}
             className={`${styles.logo} ${styles[size]} ${className}`}
-            style={style}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '40px', ...style }}
         >
-            <span className={styles.logoMark} aria-hidden="true">
-                <Sparkles className={styles.logoIcon} />
-            </span>
-            <span className={styles.logoWordmark}>
-                <span className={styles.logoPrefix}>AP</span>
-                <span className={styles.logoFx}>FX</span>
-            </span>
+            <img
+                src="/assets/logo.png"
+                alt="APFX Logo"
+                style={{ height: '100%', width: 'auto', objectFit: 'contain', transform: 'scale(2.8)', transformOrigin: 'center center' }}
+            />
         </div>
     )
 })

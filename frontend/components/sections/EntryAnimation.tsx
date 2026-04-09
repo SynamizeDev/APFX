@@ -18,8 +18,6 @@ export default function EntryAnimation({
 }) {
     const glassRef = useRef<HTMLDivElement>(null)
     const logoContainerRef = useRef<HTMLDivElement>(null)
-    const lineRef = useRef<HTMLDivElement>(null)
-    const pulseRef = useRef<HTMLDivElement>(null)
 
     const { animationsEnabled } = usePreferences()
 
@@ -80,14 +78,12 @@ export default function EntryAnimation({
         gsap.set(glassRef.current, { opacity: 1 })
         gsap.set(logoContainerRef.current, { 
             opacity: 0, 
-            scale: 2.34, // (1.8 * 1.3 pop)
+            scale: 1.5, // Start smaller to zoom in
             y: 0 
         })
-        gsap.set(lineRef.current, { width: 0, opacity: 0 })
-        gsap.set(pulseRef.current, { scale: 1, opacity: 0 })
 
-        // Sequence: dark background first, then logo fades in for at least 3s
-        const LOGO_FADE_DURATION = 1.2
+        // Sequence: dark background first, then logo fades in for 2.0s
+        const LOGO_FADE_DURATION = 2.0
 
         tl
             /* Dark overlay already at 1 — site stays dark for full 3s+ logo fade-in */
@@ -98,18 +94,10 @@ export default function EntryAnimation({
             /* 2. Logo fades in over 3 seconds - branding hold */
             .to(logoContainerRef.current, { 
                 opacity: 1, 
-                scale: 1.8, // Settle to "LG" visual size
+                scale: 3.0, // Settle size
                 duration: LOGO_FADE_DURATION, 
                 ease: 'power3.out' 
             }, 0.25)
-            
-            /* 3. Subtle line after logo is visible */
-            .to(lineRef.current, { 
-                width: '120px', 
-                opacity: 0.5, 
-                duration: 0.8, 
-                ease: 'power3.inOut' 
-            }, LOGO_FADE_DURATION + 0.2)
             
             /* 4. Logo slide-merge to header (after 3s fade-in + brief hold) */
             .call(() => {
@@ -125,7 +113,7 @@ export default function EntryAnimation({
                     }
 
                     // Get current scale to find base size
-                    const currentScale = gsap.getProperty(logoContainerRef.current, "scale") as number || 1.8;
+                    const currentScale = gsap.getProperty(logoContainerRef.current, "scale") as number || 3.0;
                     const unscaledWidth = lRect.width / currentScale;
 
                     // Precise center-to-center coordinate calculation
@@ -165,13 +153,6 @@ export default function EntryAnimation({
                             });
                         }
                     });
-
-                    // Fade out secondary elements with corresponding grace
-                    gsap.to([lineRef.current, pulseRef.current], { 
-                        opacity: 0, 
-                        duration: 0.6,
-                        ease: 'power2.inOut'
-                    });
                     
                     // Fade out glass transitionally to match logo flight
                     gsap.to(glassRef.current, { 
@@ -184,7 +165,7 @@ export default function EntryAnimation({
                     if (onMergeStartRef.current) onMergeStartRef.current();
                     finish();
                 }
-            }, undefined, LOGO_FADE_DURATION + 0.5)
+            }, undefined, LOGO_FADE_DURATION + 2.5)
 
         return () => {
             tl.kill()
@@ -227,7 +208,6 @@ export default function EntryAnimation({
                     perspective: '1000px'
                 }}
             >
-                <div className={styles.pulse} ref={pulseRef} />
                 <div
                     ref={logoContainerRef}
                     style={{
@@ -237,14 +217,11 @@ export default function EntryAnimation({
                         alignItems: 'center',
                         position: 'relative',
                         opacity: 0, // Prevent "double-logo" flash before GSAP init
-                        transform: 'scale(2.34)', // Synchronize with GSAP starting state (1.8 * 1.3)
+                        transform: 'scale(1.5)', // Synchronize with GSAP starting state
                         willChange: 'transform, opacity'
                     }}
                 >
                     <Logo size="sm" />
-                </div>
-                <div className={styles.linePulseContainer}>
-                    <div className={styles.line} ref={lineRef} />
                 </div>
             </div>
         </>
