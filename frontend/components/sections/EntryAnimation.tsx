@@ -94,12 +94,12 @@ export default function EntryAnimation({
             /* 2. Logo fades in over 3 seconds - branding hold */
             .to(logoContainerRef.current, { 
                 opacity: 1, 
-                scale: 3.0, // Settle size
+                scale: 3.8, // Increased from 3.0
                 duration: LOGO_FADE_DURATION, 
                 ease: 'power3.out' 
             }, 3.25) // Delayed from 4.25 (total 3s delay)
             
-            /* 4. Logo slide-merge to header (after 3s fade-in + brief hold) */
+            /* 4. Logo slide-merge to header (after 3s fade-in + 3.5s hold) */
             .call(() => {
                 const headerLogo = document.getElementById('header-logo');
                 if (headerLogo && logoContainerRef.current) {
@@ -113,7 +113,7 @@ export default function EntryAnimation({
                     }
 
                     // Get current scale to find base size
-                    const currentScale = gsap.getProperty(logoContainerRef.current, "scale") as number || 3.0;
+                    const currentScale = gsap.getProperty(logoContainerRef.current, "scale") as number || 3.8;
                     const unscaledWidth = lRect.width / currentScale;
 
                     // Precise center-to-center coordinate calculation
@@ -138,7 +138,7 @@ export default function EntryAnimation({
                         y: dy,
                         scale: tScale,
                         opacity: 1,
-                        duration: 2.2, // Ultra-smooth, gradual shrink
+                        duration: 2.7, // Increased from 2.2 for smoother transition
                         ease: 'power2.inOut', 
                         force3D: true,
                         onUpdate: function() {
@@ -165,7 +165,7 @@ export default function EntryAnimation({
                     if (onMergeStartRef.current) onMergeStartRef.current();
                     finish();
                 }
-            }, undefined, LOGO_FADE_DURATION + 1.5)
+            }, undefined, LOGO_FADE_DURATION + 4.5)
 
         return () => {
             tl.kill()
