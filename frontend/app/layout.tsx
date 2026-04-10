@@ -13,8 +13,8 @@ import { HomeEntryProvider } from '@/context/HomeEntryContext'
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://apfx.com'),
   title: {
-    default: 'APFX - Institutional Global Trading Platform',
-    template: '%s | APFX - Institutional Global Trading',
+    default: 'APFX',
+    template: '%s | APFX',
   },
   description:
     'APFX is a premium global trading platform offering Forex, Commodities, Indices, and Metals with deep liquidity, tight spreads, and institutional-grade execution.',
@@ -62,11 +62,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
-  },
+
 }
 
 import PageTransition from '@/components/animations/PageTransition'
@@ -116,8 +112,8 @@ export default function RootLayout({
       <body>
         <PreferencesProvider>
           <HomeEntryProvider>
-          <SmoothScrollProvider>
-          {/*
+            <SmoothScrollProvider>
+              {/*
             ───────────────────────────────────────────────
             Global Layout Notes
             Header: ~72px fixed at top
@@ -126,22 +122,22 @@ export default function RootLayout({
             and scroll integrity with smooth scrolling.
             ───────────────────────────────────────────────
           */}
-          <Header />
-          <main
-            id="main-content"
-            style={{
-              paddingTop: '72px',
-              paddingBottom: '38px',
-              position: 'relative',
-              isolation: 'isolate',
-            }}
-          >
-            <RouteBreadcrumbs />
-            <PageTransition>{children}</PageTransition>
-            <ChatWidget />
-            <PreferencesPanel />
-          </main>
-          </SmoothScrollProvider>
+              <Header />
+              <main
+                id="main-content"
+                style={{
+                  paddingTop: '72px',
+                  paddingBottom: '38px',
+                  position: 'relative',
+                  isolation: 'isolate',
+                }}
+              >
+                <RouteBreadcrumbs />
+                <PageTransition>{children}</PageTransition>
+                <ChatWidget />
+                <PreferencesPanel />
+              </main>
+            </SmoothScrollProvider>
           </HomeEntryProvider>
         </PreferencesProvider>
       </body>
