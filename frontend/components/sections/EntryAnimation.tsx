@@ -89,7 +89,7 @@ export default function EntryAnimation({
             /* Dark overlay already at 1 — site stays dark for full 3s+ logo fade-in */
             .call(() => {
                 if (onReadyToRevealRef.current) onReadyToRevealRef.current()
-            }, undefined, 0.15)
+            }, undefined, 3.15) // Delayed from 4.15 (total 3s delay)
             
             /* 2. Logo fades in over 3 seconds - branding hold */
             .to(logoContainerRef.current, { 
@@ -97,7 +97,7 @@ export default function EntryAnimation({
                 scale: 3.0, // Settle size
                 duration: LOGO_FADE_DURATION, 
                 ease: 'power3.out' 
-            }, 0.25)
+            }, 3.25) // Delayed from 4.25 (total 3s delay)
             
             /* 4. Logo slide-merge to header (after 3s fade-in + brief hold) */
             .call(() => {
@@ -189,9 +189,27 @@ export default function EntryAnimation({
                     zIndex: 9997, 
                     background: 'var(--color-bg)',
                     pointerEvents: 'none',
-                    opacity: 1
+                    opacity: 1,
+                    overflow: 'hidden'
                 }}
-            />
+            >
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        opacity: 0.6 // Subtle blend with the dark background
+                    }}
+                >
+                    <source src="/assets/entry-bg.mp4" type="video/mp4" />
+                </video>
+            </div>
 
             {/* Logo Container Layer */}
             <div
