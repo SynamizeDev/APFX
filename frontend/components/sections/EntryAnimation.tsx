@@ -89,15 +89,15 @@ export default function EntryAnimation({
             /* Dark overlay already at 1 — site stays dark for full logo fade-in */
             .call(() => {
                 if (onReadyToRevealRef.current) onReadyToRevealRef.current()
-            }, undefined, 1.0) // Delayed to 1.0s
-
+            }, undefined, 2.0) // Delayed to 2.0s
+            
             /* 2. Logo fades in over 2 seconds - branding hold */
-            .to(logoContainerRef.current, {
-                opacity: 1,
+            .to(logoContainerRef.current, { 
+                opacity: 1, 
                 scale: 3.8,
-                duration: 2.0, // Swifter fade
-                ease: 'power3.out'
-            }, 1.25) // Delayed to 1.25s
+                duration: 2.0, 
+                ease: 'power3.out' 
+            }, 2.25) // Delayed to 2.25s
 
             /* 4. Logo slide-merge to header (synchronized with video length) */
             .call(() => {
