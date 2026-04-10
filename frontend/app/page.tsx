@@ -142,7 +142,7 @@ export default function HomePage() {
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 9996,
+            zIndex: 10000,
             background: '#03050A',
           }}
         />

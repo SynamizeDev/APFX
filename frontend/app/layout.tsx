@@ -129,7 +129,6 @@ export default function RootLayout({
                   paddingTop: '72px',
                   paddingBottom: '38px',
                   position: 'relative',
-                  isolation: 'isolate',
                 }}
               >
                 <RouteBreadcrumbs />

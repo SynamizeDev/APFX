@@ -165,7 +165,7 @@ export default function EntryAnimation({
                     if (onMergeStartRef.current) onMergeStartRef.current();
                     finish();
                 }
-            }, undefined, LOGO_FADE_DURATION + 4.5)
+            }, undefined, LOGO_FADE_DURATION + 4.0)
 
         return () => {
             tl.kill()
@@ -186,7 +186,7 @@ export default function EntryAnimation({
                 style={{
                     position: 'fixed',
                     inset: 0,
-                    zIndex: 9997,
+                    zIndex: 10001,
                     background: 'var(--color-bg)',
                     pointerEvents: 'none',
                     opacity: 1,
@@ -216,7 +216,7 @@ export default function EntryAnimation({
                 style={{
                     position: 'fixed',
                     inset: 0,
-                    zIndex: 9998,
+                    zIndex: 10002,
                     pointerEvents: 'none',
                     display: 'flex',
                     alignItems: 'center',
