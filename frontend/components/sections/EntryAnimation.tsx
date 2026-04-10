@@ -89,17 +89,17 @@ export default function EntryAnimation({
             /* Dark overlay already at 1 — site stays dark for full 3s+ logo fade-in */
             .call(() => {
                 if (onReadyToRevealRef.current) onReadyToRevealRef.current()
-            }, undefined, 0.5) // Reduced initial delay for faster start
+            }, undefined, 3.15) // Delayed from 4.15 (total 3s delay)
 
             /* 2. Logo fades in over 3 seconds - branding hold */
             .to(logoContainerRef.current, {
                 opacity: 1,
-                scale: 3.8,
-                duration: 2.0, // Swifter fade
+                scale: 3.8, // Increased from 3.0
+                duration: LOGO_FADE_DURATION,
                 ease: 'power3.out'
-            }, 0.75)
+            }, 3.25) // Delayed from 4.25 (total 3s delay)
 
-            /* 4. Logo slide-merge to header (synchronized with video length) */
+            /* 4. Logo slide-merge to header (after 3s fade-in + 3.5s hold) */
             .call(() => {
                 const headerLogo = document.getElementById('header-logo');
                 if (headerLogo && logoContainerRef.current) {
@@ -138,7 +138,7 @@ export default function EntryAnimation({
                         y: dy,
                         scale: tScale,
                         opacity: 1,
-                        duration: 2.0, // Punchier move
+                        duration: 2.7, // Increased from 2.2 for smoother transition
                         ease: 'power2.inOut',
                         force3D: true,
                         onUpdate: function () {
@@ -165,7 +165,7 @@ export default function EntryAnimation({
                     if (onMergeStartRef.current) onMergeStartRef.current();
                     finish();
                 }
-            }, undefined, 3.5) // Total timeline reach ~5.5s, aligning with video length
+            }, undefined, LOGO_FADE_DURATION + 4.5)
 
         return () => {
             tl.kill()
@@ -180,7 +180,7 @@ export default function EntryAnimation({
 
     return (
         <>
-            {/* Dark overlay — keeps site dark for full logo fade-in */}
+            {/* Dark overlay — keeps site dark for full logo fade-in (3s+) */}
             <div
                 ref={glassRef}
                 style={{
@@ -196,6 +196,7 @@ export default function EntryAnimation({
                 <video
                     autoPlay
                     muted
+                    loop
                     playsInline
                     style={{
                         position: 'absolute',
