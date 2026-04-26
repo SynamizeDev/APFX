@@ -54,8 +54,8 @@ const MILESTONES = [
 ]
 
 const TEAM = [
-  { initials: 'AP', name: 'Abhishek Pandey', role: 'Chief Executive Officer', bio: 'Over 15 years in financial technology and trading infrastructure.' },
-  { initials: 'SP', name: 'Sushil Pulojwar', role: 'Head of Product', bio: 'Leads platform and tool development with a focus on trader experience.' },
+  { initials: 'AP', name: 'Abhishek Pandey', role: 'Founder & CEO', bio: 'Over 7 years in financial technology and trading infrastructure.' },
+  { initials: 'SP', name: 'Sushil Pulojwar', role: 'Head of Management', bio: 'Leads platform and tool development with a focus on trader experience.' },
 ]
 
 export default function AboutUsPage() {
