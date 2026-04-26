@@ -51,7 +51,7 @@ export default function EntryAnimation({
                 opacity: headerEl.style.opacity,
                 visibility: headerEl.style.visibility,
                 pointerEvents: headerEl.style.pointerEvents,
-            }
+              }
             : null
 
         if (headerEl) {
@@ -76,10 +76,10 @@ export default function EntryAnimation({
 
         // Initial state: dark overlay visible from start, logo hidden
         gsap.set(glassRef.current, { opacity: 1 })
-        gsap.set(logoContainerRef.current, {
-            opacity: 0,
+        gsap.set(logoContainerRef.current, { 
+            opacity: 0, 
             scale: 1.5, // Start smaller to zoom in
-            y: 0
+            y: 0 
         })
 
         // Sequence: dark background first, then logo fades in for 3.0s
@@ -89,23 +89,23 @@ export default function EntryAnimation({
             /* Dark overlay already at 1 — site stays dark for full 3s+ logo fade-in */
             .call(() => {
                 if (onReadyToRevealRef.current) onReadyToRevealRef.current()
-            }, undefined, 3.15) // Delayed from 4.15 (total 3s delay)
-
+            }, undefined, 0.15)
+            
             /* 2. Logo fades in over 3 seconds - branding hold */
-            .to(logoContainerRef.current, {
-                opacity: 1,
-                scale: 3.8, // Increased from 3.0
-                duration: LOGO_FADE_DURATION,
-                ease: 'power3.out'
-            }, 3.25) // Delayed from 4.25 (total 3s delay)
-
-            /* 4. Logo slide-merge to header (after 3s fade-in + 3.5s hold) */
+            .to(logoContainerRef.current, { 
+                opacity: 1, 
+                scale: 3.0, // Settle size
+                duration: LOGO_FADE_DURATION, 
+                ease: 'power3.out' 
+            }, 0.25)
+            
+            /* 4. Logo slide-merge to header (after 3s fade-in + brief hold) */
             .call(() => {
                 const headerLogo = document.getElementById('header-logo');
                 if (headerLogo && logoContainerRef.current) {
                     const hRect = headerLogo.getBoundingClientRect();
                     const lRect = logoContainerRef.current.getBoundingClientRect();
-
+                    
                     if (lRect.width <= 0 || lRect.height <= 0) {
                         if (onMergeStartRef.current) onMergeStartRef.current();
                         finish();
@@ -113,7 +113,7 @@ export default function EntryAnimation({
                     }
 
                     // Get current scale to find base size
-                    const currentScale = gsap.getProperty(logoContainerRef.current, "scale") as number || 3.8;
+                    const currentScale = gsap.getProperty(logoContainerRef.current, "scale") as number || 3.0;
                     const unscaledWidth = lRect.width / currentScale;
 
                     // Precise center-to-center coordinate calculation
@@ -133,15 +133,15 @@ export default function EntryAnimation({
                     // Use center origin for symmetrical shrinking
                     gsap.set(logoContainerRef.current, { transformOrigin: 'center center' });
 
-                    gsap.to(logoContainerRef.current, {
+                    gsap.to(logoContainerRef.current, { 
                         x: dx,
                         y: dy,
                         scale: tScale,
                         opacity: 1,
-                        duration: 2.7, // Increased from 2.2 for smoother transition
-                        ease: 'power2.inOut',
+                        duration: 2.2, // Ultra-smooth, gradual shrink
+                        ease: 'power2.inOut', 
                         force3D: true,
-                        onUpdate: function () {
+                        onUpdate: function() {
                             gsap.set(this.targets(), { filter: 'none' });
                         },
                         onComplete: () => {
@@ -153,19 +153,19 @@ export default function EntryAnimation({
                             });
                         }
                     });
-
+                    
                     // Fade out glass transitionally to match logo flight
-                    gsap.to(glassRef.current, {
-                        opacity: 0,
-                        duration: 1.2,
-                        ease: 'power3.inOut'
+                    gsap.to(glassRef.current, { 
+                        opacity: 0, 
+                        duration: 1.2, 
+                        ease: 'power3.inOut' 
                     });
                 } else {
                     // Fallback if header logo not found
                     if (onMergeStartRef.current) onMergeStartRef.current();
                     finish();
                 }
-            }, undefined, LOGO_FADE_DURATION + 4.0)
+            }, undefined, LOGO_FADE_DURATION + 1.5)
 
         return () => {
             tl.kill()
@@ -186,37 +186,19 @@ export default function EntryAnimation({
                 style={{
                     position: 'fixed',
                     inset: 0,
-                    zIndex: 10001,
+                    zIndex: 9997, 
                     background: 'var(--color-bg)',
                     pointerEvents: 'none',
-                    opacity: 1,
-                    overflow: 'hidden'
+                    opacity: 1
                 }}
-            >
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    style={{
-                        position: 'absolute',
-                        inset: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        opacity: 0.6 // Subtle blend with the dark background
-                    }}
-                >
-                    <source src="/assets/entry-bg.mp4" type="video/mp4" />
-                </video>
-            </div>
+            />
 
             {/* Logo Container Layer */}
             <div
                 style={{
                     position: 'fixed',
                     inset: 0,
-                    zIndex: 10002,
+                    zIndex: 9998,
                     pointerEvents: 'none',
                     display: 'flex',
                     alignItems: 'center',
