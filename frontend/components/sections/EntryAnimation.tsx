@@ -83,13 +83,13 @@ export default function EntryAnimation({
         })
 
         // Sequence: dark background first, then logo fades in for 3.0s
-        const LOGO_FADE_DURATION = 3.0
+        const LOGO_FADE_DURATION = 1.5
 
         tl
             /* Dark overlay already at 1 — site stays dark for full 3s+ logo fade-in */
             .call(() => {
                 if (onReadyToRevealRef.current) onReadyToRevealRef.current()
-            }, undefined, 0.15)
+            }, undefined, 0)
             
             /* 2. Logo fades in over 3 seconds - branding hold */
             .to(logoContainerRef.current, { 
@@ -138,7 +138,7 @@ export default function EntryAnimation({
                         y: dy,
                         scale: tScale,
                         opacity: 1,
-                        duration: 2.2, // Ultra-smooth, gradual shrink
+                        duration: 2.0, // Ultra-smooth, gradual shrink
                         ease: 'power2.inOut', 
                         force3D: true,
                         onUpdate: function() {
@@ -165,7 +165,7 @@ export default function EntryAnimation({
                     if (onMergeStartRef.current) onMergeStartRef.current();
                     finish();
                 }
-            }, undefined, LOGO_FADE_DURATION + 1.5)
+            }, undefined, LOGO_FADE_DURATION + 0.5)
 
         return () => {
             tl.kill()
