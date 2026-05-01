@@ -158,7 +158,20 @@
 :global(.light-mode) .nav a.navActive,
 :global(.light-mode) .nav button.navActive {
     background: rgba(0, 0, 0, 0.08);
-    color: var(--color-text-1);
+    color: #000000;
+}
+
+/* Light Mode Overrides for Action Buttons */
+:global(.light-mode) .btnIconSolidWhite,
+:global(.light-mode) .btnSolidWhite {
+    background: rgba(0, 0, 0, 0.04);
+    color: #000000;
+}
+
+:global(.light-mode) .btnIconSolidWhite:hover,
+:global(.light-mode) .btnSolidWhite:hover {
+    background: var(--color-accent);
+    color: #000000;
 }
 
 .navChevron {
@@ -280,36 +293,44 @@
 }
 
 /* Portal actions — Exact Minimalist Design */
-.btnIconOnly {
+.btnIconSolidWhite {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-text-1);
-    background: transparent;
+    width: 38px;
+    height: 38px;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
     border: none;
-    padding: 0.5rem;
-    transition: color var(--duration-normal) var(--ease-out);
+    border-radius: var(--radius-md);
+    transition: transform var(--duration-normal) var(--ease-out), background var(--duration-normal) var(--ease-out);
 }
 
-.btnIconOnly:hover {
-    color: var(--color-accent);
+.btnIconSolidWhite:hover {
+    background: var(--color-accent);
+    color: #000000;
+    transform: translateY(-1px);
 }
 
-.btnTextOnly {
+.btnSolidWhite {
     display: inline-flex;
     align-items: center;
     font-size: 0.875rem;
-    font-weight: var(--fw-semibold);
-    color: var(--color-text-1);
-    background: transparent;
+    font-weight: var(--fw-medium);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
     border: none;
-    padding: 0.5rem 0.5rem;
+    border-radius: var(--radius-md);
+    height: 38px;
+    padding: 0 1.15rem;
     text-decoration: none;
-    transition: color var(--duration-normal) var(--ease-out);
+    transition: transform var(--duration-normal) var(--ease-out), background var(--duration-normal) var(--ease-out);
 }
 
-.btnTextOnly:hover {
-    color: var(--color-accent);
+.btnSolidWhite:hover {
+    background: var(--color-accent);
+    color: #000000;
+    transform: translateY(-1px);
 }
 
 /* ============================================================
@@ -569,13 +590,15 @@
         gap: 0.35rem;
     }
 
-    .btnIconOnly {
-        padding: 0.42rem;
+    .btnIconSolidWhite {
+        width: 34px;
+        height: 34px;
     }
 
-    .btnTextOnly {
+    .btnSolidWhite {
         font-size: var(--text-xs);
-        padding: 0.42rem 0.8rem;
+        height: 34px;
+        padding: 0 0.8rem;
     }
 
     .hamburger {
@@ -591,13 +614,15 @@
     }
 
     /* Keep actions visible, but reduce further */
-    .btnIconOnly {
-        padding: 0.38rem;
+    .btnIconSolidWhite {
+        width: 32px;
+        height: 32px;
     }
 
-    .btnTextOnly {
+    .btnSolidWhite {
         font-size: var(--text-xs);
-        padding: 0.38rem 0.75rem;
+        height: 32px;
+        padding: 0 0.75rem;
     }
 
     /* Mobile menu sizing — keep items in-view and readable */
@@ -654,12 +679,13 @@
         gap: 0.25rem;
     }
 
-    .btnIconOnly {
+    .btnIconSolidWhite {
         display: none;
     }
 
-    .btnTextOnly {
+    .btnSolidWhite {
         font-size: 0.72rem;
-        padding: 0.34rem 0.72rem;
+        height: 28px;
+        padding: 0 0.72rem;
     }
 }

@@ -257,7 +257,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                     <div className={styles.actions}>
                         <Link
                             href="https://portal.apfx.com/login"
-                            className={styles.btnIconOnly}
+                            className={styles.btnIconSolidWhite}
                             prefetch={false}
                             aria-label="Log In"
                         >
@@ -265,10 +265,10 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                         </Link>
                         <Link
                             href="https://portal.apfx.com/register"
-                            className={styles.btnTextOnly}
+                            className={styles.btnSolidWhite}
                             prefetch={false}
                         >
-                            Create Account
+                            Register
                         </Link>
                     </div>
                 </div>
