@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Logo from '@/components/ui/Logo'
-import { ChevronDown, X } from 'lucide-react'
+import { ChevronDown, X, User } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './Header.module.css'
 import { usePathname } from 'next/navigation'
@@ -257,17 +257,18 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                     <div className={styles.actions}>
                         <Link
                             href="https://portal.apfx.com/login"
-                            className={styles.btnLogin}
+                            className={styles.btnIconOnly}
                             prefetch={false}
+                            aria-label="Log In"
                         >
-                            Log In
+                            <User size={20} strokeWidth={1.5} />
                         </Link>
                         <Link
                             href="https://portal.apfx.com/register"
-                            className={styles.btnCta}
+                            className={styles.btnTextOnly}
                             prefetch={false}
                         >
-                            Open Account
+                            Create Account
                         </Link>
                     </div>
                 </div>
