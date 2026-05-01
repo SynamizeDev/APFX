@@ -143,6 +143,24 @@
     background: rgba(255, 255, 255, 0.06);
 }
 
+/* Light Mode Overrides for Navigation Pill */
+:global(.light-mode) .nav {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+:global(.light-mode) .nav a,
+:global(.light-mode) .nav button {
+    color: #000000;
+}
+
+:global(.light-mode) .nav a:hover,
+:global(.light-mode) .nav button:hover,
+:global(.light-mode) .nav a.navActive,
+:global(.light-mode) .nav button.navActive {
+    background: rgba(0, 0, 0, 0.08);
+    color: var(--color-text-1);
+}
+
 .navChevron {
     width: 1em;
     height: 1em;
