@@ -285,13 +285,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.825rem;
+    font-size: var(--text-sm);
     font-weight: var(--fw-semibold);
     color: var(--color-text-1);
-    padding: 0.45rem 0.95rem;
+    padding: 0.55rem 1.15rem;
     white-space: nowrap;
     text-decoration: none;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-md);
     border: 1px solid rgba(0, 200, 150, 0.45);
     background: var(--color-accent-subtle);
     transition:
@@ -314,7 +314,7 @@
     gap: 0.4rem;
     padding: 0.55rem 1.35rem;
     white-space: nowrap;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-md);
     text-decoration: none;
     background: linear-gradient(135deg, var(--color-accent-hover) 0%, var(--color-accent) 48%, #00e5b0 100%);
     color: #020617;
@@ -527,7 +527,7 @@
     color: var(--color-text-1);
     text-decoration: none;
     padding: 0.65rem 1.25rem;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-md);
     border: 1px solid rgba(0, 200, 150, 0.45);
     background: var(--color-accent-subtle);
     opacity: 0;
@@ -558,7 +558,7 @@
     text-decoration: none;
     background: linear-gradient(135deg, var(--color-accent-hover) 0%, var(--color-accent) 48%, #00e5b0 100%);
     color: #020617 !important;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-md);
     font-size: var(--text-lg) !important;
     font-weight: var(--fw-bold);
     border: 1px solid rgba(180, 255, 229, 0.35);
@@ -593,8 +593,8 @@
     }
 
     .btnLogin {
-        font-size: 0.78rem;
-        padding: 0.35rem 0.55rem;
+        font-size: var(--text-xs);
+        padding: 0.42rem 0.8rem;
     }
 
     .btnCta {
@@ -615,8 +615,8 @@
 
     /* Keep actions visible, but reduce further */
     .btnLogin {
-        font-size: 0.74rem;
-        padding: 0.32rem 0.48rem;
+        font-size: var(--text-xs);
+        padding: 0.38rem 0.75rem;
     }
 
     .btnCta {
