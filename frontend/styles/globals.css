@@ -100,6 +100,13 @@ body {
     transition-delay: 0s !important;
 }
 
+/* Anti-FOUC for Initial Load (Entry Animation) */
+:root.hide-header-initially header[role="banner"] {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
 /* ============================================================
       Section Segregation (APFX Signature)
       ============================================================ */

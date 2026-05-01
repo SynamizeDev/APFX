@@ -95,6 +95,19 @@ export default function RootLayout({
         />
         <meta name="theme-color" content="#03050A" />
 
+        {/* Anti-FOUC Script for Entry Animation */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (window.location.pathname === '/' && sessionStorage.getItem('apfx.homeEntryAnimation.shown') !== '1') {
+                  document.documentElement.classList.add('hide-header-initially');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+
         {/* ── Structured Data (Organization) ───────────── */}
         <script
           type="application/ld+json"

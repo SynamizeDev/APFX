@@ -64,6 +64,7 @@ export default function EntryAnimation({
         const finish = () => {
             if (finished) return
             finished = true
+            document.documentElement.classList.remove('hide-header-initially')
             if (headerEl && prevHeaderStyles) {
                 headerEl.style.opacity = prevHeaderStyles.opacity
                 headerEl.style.visibility = prevHeaderStyles.visibility
@@ -169,6 +170,7 @@ export default function EntryAnimation({
 
         return () => {
             tl.kill()
+            document.documentElement.classList.remove('hide-header-initially')
             // Ensure header isn't left hidden if the animation is interrupted
             if (headerEl && prevHeaderStyles) {
                 headerEl.style.opacity = prevHeaderStyles.opacity
