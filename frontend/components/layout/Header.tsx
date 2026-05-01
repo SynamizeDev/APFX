@@ -4,9 +4,13 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Logo from '@/components/ui/Logo'
 import { ChevronDown, X, User } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import styles from './Header.module.css'
 import { usePathname } from 'next/navigation'
+import { useScroll, useTransform, motion, AnimatePresence, useMotionTemplate } from 'framer-motion'
+import { usePreferences } from '@/context/PreferencesContext'
+
+import styles from './Header.module.css'
+
+
 
 const NAV_LINKS = [
     { label: 'Trade & Invest', href: '/trade&invest/commodities', hasMegaMenu: true },
@@ -72,12 +76,48 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
     const headerRef = useRef<HTMLElement>(null)
     const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-    // ── Scroll-aware class ─────────────────────────────────────
+    // ── Scroll-driven animations ─────────────────────────────
+    const { scrollY } = useScroll()
+    const { theme } = usePreferences()
+    const isLight = theme === 'light'
+    
+    // Smooth scroll progress (0 to 1)
+    const scrollProgress = useTransform(scrollY, [0, 150], [0, 1])
+
+    
+    // Header Animations
+    const headerBgOpacity = useTransform(scrollProgress, [0.1, 1], [0, isLight ? 0.7 : 0.85])
+
+    const headerBg = useMotionTemplate`rgba(${isLight ? '255, 255, 255' : '3, 5, 10'}, ${headerBgOpacity})`
+
+
+    
+    const headerBorderOpacity = useTransform(scrollProgress, [0, 1], [0, 0.08])
+    const headerBorder = useMotionTemplate`rgba(${isLight ? '0, 0, 0' : '255, 255, 255'}, ${headerBorderOpacity})`
+    
+    const headerBlurAmount = useTransform(scrollProgress, [0, 1], [0, 20])
+    const headerBlur = useMotionTemplate`blur(${headerBlurAmount}px)`
+    
+    // Nav Pill Animations
+    const pillBgOpacity = useTransform(scrollProgress, [0, 1], [isLight ? 0.04 : 0.06, isLight ? 0.02 : 0.05])
+
+    const pillBg = useMotionTemplate`rgba(0, 0, 0, ${pillBgOpacity})`
+    
+    const pillBorderOpacity = useTransform(scrollProgress, [0, 1], [isLight ? 0.08 : 0.1, 0])
+    const pillBorder = useMotionTemplate`rgba(${isLight ? '0, 0, 0' : '255, 255, 255'}, ${pillBorderOpacity})`
+
+    
+    const pillShadowOpacity = useTransform(scrollProgress, [0, 1], [isLight ? 0.05 : 0.3, 0])
+    const pillShadow = useMotionTemplate`0 ${isLight ? '2px 10px' : '4px 20px'} rgba(0, 0, 0, ${pillShadowOpacity})`
+
+
+
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 60)
+        const onScroll = () => setScrolled(window.scrollY > 40)
         window.addEventListener('scroll', onScroll, { passive: true })
         return () => window.removeEventListener('scroll', onScroll)
     }, [])
+
 
     // ── Lock body scroll when mobile menu open ─────────────────
     useEffect(() => {
@@ -140,11 +180,18 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
 
     return (
         <>
-            <header
+            <motion.header
                 ref={headerRef}
                 className={`${styles.header} ${scrolled ? styles.scrolled : ''} ${activeDropdown ? styles.menuActive : ''}`}
                 role="banner"
+                style={{
+                    backgroundColor: headerBg,
+                    borderBottomColor: headerBorder,
+                    backdropFilter: headerBlur,
+                    WebkitBackdropFilter: headerBlur
+                }}
             >
+
                 <div className={styles.inner}>
                     {/* ── Hamburger (mobile/tablet only) ───────────────── */}
                     <button
@@ -173,7 +220,16 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
 
                     {/* ── Desktop Navigation ────────────────────────────── */}
                     <nav aria-label="Main navigation" onMouseLeave={handleMouseLeave}>
-                        <ul className={styles.nav} role="list">
+                        <motion.ul 
+                            className={styles.nav} 
+                            role="list"
+                            style={{
+                                backgroundColor: pillBg,
+                                borderColor: pillBorder,
+                                boxShadow: pillShadow
+                            }}
+                        >
+
                             {NAV_LINKS.map((link) => (
                                 <li
                                     key={link.href}
@@ -250,7 +306,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                                     </AnimatePresence>
                                 </li>
                             ))}
-                        </ul>
+                        </motion.ul>
                     </nav>
 
                     {/* ── Actions ───────────────────────────────────────── */}
@@ -272,7 +328,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                         </Link>
                     </div>
                 </div>
-            </header>
+            </motion.header>
 
             {/* ── Mobile Overlay Menu ──────────────────────────────── */}
             <nav

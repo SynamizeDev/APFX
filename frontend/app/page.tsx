@@ -86,6 +86,11 @@ export default function HomePage() {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
+    document.documentElement.classList.add('home-page')
+    return () => document.documentElement.classList.remove('home-page')
+  }, [])
+
+  useEffect(() => {
     // Skip when arriving to home via client-side navigation (e.g., clicking the logo).
     if (skipHomeEntryAnimation) {
       setShowAnimation(false)

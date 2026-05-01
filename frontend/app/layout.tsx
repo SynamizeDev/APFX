@@ -146,6 +146,7 @@ export default function RootLayout({
               <Header />
               <main
                 id="main-content"
+                className="main-wrapper"
                 style={{
                   paddingTop: '72px',
                   paddingBottom: '38px',

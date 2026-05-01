@@ -107,6 +107,19 @@ body {
     pointer-events: none !important;
 }
 
+:root.home-page .main-wrapper {
+    padding-top: 0 !important;
+}
+
+.main-wrapper {
+    padding-top: 72px;
+}
+
+:root:has(.home-page) .main-wrapper {
+    padding-top: 0;
+}
+
+
 /* ============================================================
       Section Segregation (APFX Signature)
       ============================================================ */
