@@ -188,8 +188,8 @@ export default function GlobalScale() {
                     {/* ── Center: Globe ────────────────────────── */}
                     <motion.div
                         className={styles.globeContainer}
-                        initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.9 }}
-                        whileInView={prefersReducedMotion ? undefined : { opacity: 1, scale: 1 }}
+                        initial={prefersReducedMotion ? false : { opacity: 0 }}
+                        whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
