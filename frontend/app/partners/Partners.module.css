@@ -22,7 +22,7 @@
   pointer-events: none;
   background: radial-gradient(
     1200px 400px at 50% -10%,
-    rgba(0, 200, 150, 0.03),
+    rgba(54, 249, 54, 0.03),
     transparent 70%
   );
 }
@@ -64,19 +64,19 @@
   display: inline-flex;
   align-items: center;
   padding: 0.9rem 1.75rem;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
   color: #020617;
   font-weight: var(--fw-bold);
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  box-shadow: 0 4px 20px -4px rgba(54, 249, 54, 0.4);
   transition: transform var(--duration-fast), box-shadow var(--duration-normal);
 }
 
 .heroCtaPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+  box-shadow: 0 8px 28px -4px rgba(54, 249, 54, 0.5);
 }
 
 .heroCtaSecondary {
@@ -89,12 +89,12 @@
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  border: 1px solid rgba(0, 200, 150, 0.4);
+  border: 1px solid rgba(54, 249, 54, 0.4);
   transition: background var(--duration-fast), border-color var(--duration-fast);
 }
 
 .heroCtaSecondary:hover {
-  background: rgba(0, 200, 150, 0.08);
+  background: rgba(54, 249, 54, 0.08);
   border-color: var(--color-accent);
 }
 
@@ -115,7 +115,7 @@
 }
 
 .benefitCard:hover {
-  border-color: rgba(0, 200, 150, 0.2);
+  border-color: rgba(54, 249, 54, 0.2);
   transform: translateY(-4px);
 }
 
@@ -200,7 +200,7 @@
   height: 40px;
   margin: 0 auto 1rem;
   border-radius: 50%;
-  background: rgba(0, 200, 150, 0.2);
+  background: rgba(54, 249, 54, 0.2);
   color: var(--color-accent);
   font-weight: var(--fw-bold);
   font-size: 1.125rem;
@@ -259,8 +259,8 @@
 }
 
 .exampleEarnings {
-  background: rgba(0, 200, 150, 0.06);
-  border: 1px solid rgba(0, 200, 150, 0.15);
+  background: rgba(54, 249, 54, 0.06);
+  border: 1px solid rgba(54, 249, 54, 0.15);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   margin-top: 1rem;
@@ -391,7 +391,7 @@
 .formGroup select:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.15);
+  box-shadow: 0 0 0 2px rgba(54, 249, 54, 0.15);
 }
 
 .formGroup input::placeholder {
@@ -402,7 +402,7 @@
   width: 100%;
   padding: 0.9rem 1.5rem;
   margin-top: 0.5rem;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
   color: #020617;
   font-weight: var(--fw-bold);
   font-size: 1rem;
@@ -414,7 +414,7 @@
 
 .submitBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(0, 200, 150, 0.35);
+  box-shadow: 0 6px 24px rgba(54, 249, 54, 0.35);
 }
 
 .submitBtn:disabled {
@@ -439,7 +439,7 @@
   text-align: center;
   padding: 3rem 1.5rem;
   margin-top: 1rem;
-  background: linear-gradient(180deg, rgba(0, 200, 150, 0.06) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(54, 249, 54, 0.06) 0%, transparent 100%);
   border-top: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-xl);
 }
@@ -461,19 +461,19 @@
   display: inline-flex;
   align-items: center;
   padding: 0.9rem 1.75rem;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
   color: #020617;
   font-weight: var(--fw-bold);
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  box-shadow: 0 4px 20px -4px rgba(54, 249, 54, 0.4);
   transition: transform var(--duration-fast), box-shadow var(--duration-normal);
 }
 
 .ctaBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+  box-shadow: 0 8px 28px -4px rgba(54, 249, 54, 0.5);
 }
 
 @media (max-width: 768px) {

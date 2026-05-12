@@ -22,7 +22,7 @@
 .hero {
   text-align: center;
   padding: 4rem var(--container-px, 1.5rem) 3rem;
-  background: linear-gradient(180deg, rgba(0, 200, 150, 0.04) 0%, transparent 50%);
+  background: linear-gradient(180deg, rgba(54, 249, 54, 0.04) 0%, transparent 50%);
 }
 
 .heroTitle {
@@ -74,7 +74,7 @@
 .searchInput:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(0, 200, 150, 0.15);
+  box-shadow: 0 0 0 3px rgba(54, 249, 54, 0.15);
 }
 
 .searchWrapInner {
@@ -111,8 +111,8 @@
 .popularLink {
   display: inline-block;
   padding: 0.5rem 1rem;
-  background: rgba(0, 200, 150, 0.1);
-  border: 1px solid rgba(0, 200, 150, 0.2);
+  background: rgba(54, 249, 54, 0.1);
+  border: 1px solid rgba(54, 249, 54, 0.2);
   border-radius: var(--radius-full);
   font-size: 0.875rem;
   font-weight: var(--fw-semibold);
@@ -122,7 +122,7 @@
 }
 
 .popularLink:hover {
-  background: rgba(0, 200, 150, 0.18);
+  background: rgba(54, 249, 54, 0.18);
   border-color: var(--color-accent);
 }
 
@@ -153,8 +153,8 @@
 
 .categoryBtnActive {
   color: var(--color-accent);
-  background: rgba(0, 200, 150, 0.12);
-  border-color: rgba(0, 200, 150, 0.3);
+  background: rgba(54, 249, 54, 0.12);
+  border-color: rgba(54, 249, 54, 0.3);
 }
 
 /* ── A–Z nav ─────────────────────────────────────────────────── */
@@ -193,7 +193,7 @@
 
 .azLetterActive {
   color: var(--color-accent);
-  background: rgba(0, 200, 150, 0.15);
+  background: rgba(54, 249, 54, 0.15);
 }
 
 .azLetterDisabled {
@@ -235,9 +235,9 @@
 }
 
 .termCardExpanded {
-  border-color: rgba(0, 200, 150, 0.28);
+  border-color: rgba(54, 249, 54, 0.28);
   box-shadow:
-    0 0 0 1px rgba(0, 200, 150, 0.08),
+    0 0 0 1px rgba(54, 249, 54, 0.08),
     0 12px 40px -12px rgba(0, 0, 0, 0.45);
 }
 
@@ -329,9 +329,9 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 200, 150, 0.45) 35%,
-    rgba(0, 200, 150, 0.75) 50%,
-    rgba(0, 200, 150, 0.45) 65%,
+    rgba(54, 249, 54, 0.45) 35%,
+    rgba(54, 249, 54, 0.75) 50%,
+    rgba(54, 249, 54, 0.45) 65%,
     transparent 100%
   );
   pointer-events: none;
@@ -344,11 +344,11 @@
   border-radius: var(--radius-md);
   background: linear-gradient(
     135deg,
-    rgba(0, 200, 150, 0.09) 0%,
+    rgba(54, 249, 54, 0.09) 0%,
     var(--bg-glass-dark) 55%,
     var(--bg-glass-base) 100%
   );
-  border: 1px solid rgba(0, 200, 150, 0.18);
+  border: 1px solid rgba(54, 249, 54, 0.18);
   box-shadow: inset 0 1px 0 var(--color-surface-subtle);
 }
 
@@ -366,7 +366,7 @@
   width: 2rem;
   height: 2rem;
   border-radius: var(--radius-md);
-  background: rgba(0, 200, 150, 0.15);
+  background: rgba(54, 249, 54, 0.15);
   color: var(--color-accent);
   flex-shrink: 0;
 }
@@ -457,8 +457,8 @@
   font-weight: var(--fw-semibold);
   color: var(--color-accent);
   text-decoration: none;
-  background: rgba(0, 200, 150, 0.08);
-  border: 1px solid rgba(0, 200, 150, 0.22);
+  background: rgba(54, 249, 54, 0.08);
+  border: 1px solid rgba(54, 249, 54, 0.22);
   border-radius: var(--radius-full);
   transition:
     background var(--duration-fast),
@@ -468,10 +468,10 @@
 }
 
 .relatedPill:hover {
-  background: rgba(0, 200, 150, 0.14);
-  border-color: rgba(0, 200, 150, 0.4);
+  background: rgba(54, 249, 54, 0.14);
+  border-color: rgba(54, 249, 54, 0.4);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px -4px rgba(0, 200, 150, 0.25);
+  box-shadow: 0 4px 14px -4px rgba(54, 249, 54, 0.25);
 }
 
 .relatedPillArrow {
@@ -519,8 +519,8 @@
 }
 
 .learningPill:hover {
-  background: rgba(0, 200, 150, 0.08);
-  border-color: rgba(0, 200, 150, 0.25);
+  background: rgba(54, 249, 54, 0.08);
+  border-color: rgba(54, 249, 54, 0.25);
   color: var(--color-accent);
 }
 
@@ -536,7 +536,7 @@
   text-align: center;
   padding: 3rem 1.5rem;
   margin-top: 2rem;
-  background: linear-gradient(180deg, rgba(0, 200, 150, 0.06) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(54, 249, 54, 0.06) 0%, transparent 100%);
   border-top: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-xl);
 }
@@ -565,19 +565,19 @@
   display: inline-flex;
   align-items: center;
   padding: 0.9rem 1.75rem;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
   color: #020617;
   font-weight: var(--fw-bold);
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  box-shadow: 0 4px 20px -4px rgba(54, 249, 54, 0.4);
   transition: transform var(--duration-fast), box-shadow var(--duration-normal);
 }
 
 .ctaBtnPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+  box-shadow: 0 8px 28px -4px rgba(54, 249, 54, 0.5);
 }
 
 .ctaBtnSecondary {
@@ -590,12 +590,12 @@
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  border: 1px solid rgba(0, 200, 150, 0.4);
+  border: 1px solid rgba(54, 249, 54, 0.4);
   transition: background var(--duration-fast), border-color var(--duration-fast);
 }
 
 .ctaBtnSecondary:hover {
-  background: rgba(0, 200, 150, 0.08);
+  background: rgba(54, 249, 54, 0.08);
   border-color: var(--color-accent);
 }
 
@@ -637,8 +637,8 @@
   font-size: 0.8125rem;
   font-weight: var(--fw-semibold);
   color: var(--color-accent);
-  background: rgba(0, 200, 150, 0.08);
-  border: 1px solid rgba(0, 200, 150, 0.3);
+  background: rgba(54, 249, 54, 0.08);
+  border: 1px solid rgba(54, 249, 54, 0.3);
   padding: 0.5rem 1rem;
   border-radius: var(--radius-full);
   cursor: pointer;
@@ -647,7 +647,7 @@
 }
 
 .clearBtn:hover {
-  background: rgba(0, 200, 150, 0.15);
+  background: rgba(54, 249, 54, 0.15);
   border-color: var(--color-accent);
   transform: translateY(-1px);
 }

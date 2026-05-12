@@ -24,11 +24,11 @@
     /* Emphasized borders */
 
     /* ── Brand / Accent ───────────────────────────────────── */
-    --color-accent: #00C896;
+    --color-accent: #36F936;
     /* APFX emerald — primary CTA */
-    --color-accent-hover: #00B888;
-    --color-accent-glow: rgba(0, 200, 150, 0.25);
-    --color-accent-subtle: rgba(0, 200, 150, 0.08);
+    --color-accent-hover: #28D128;
+    --color-accent-glow: rgba(54, 249, 54, 0.25);
+    --color-accent-subtle: rgba(54, 249, 54, 0.08);
 
     /* ── Trust / Premium Highlights ───────────────────────── */
     --color-gold: #C9A84C;
@@ -42,7 +42,7 @@
     /* Body copy */
     --color-text-3: #64748B;
     /* Muted / captions */
-    --color-text-accent: #00C896;
+    --color-text-accent: #36F936;
 
     /* ── Semantic Status ──────────────────────────────────── */
     --color-success: #10B981;
@@ -127,7 +127,7 @@
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
     --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-    --shadow-accent: 0 0 40px -8px rgba(0, 200, 150, 0.4);
+    --shadow-accent: 0 0 40px -8px rgba(54, 249, 54, 0.4);
     --shadow-gold: 0 0 30px -8px rgba(201, 168, 76, 0.35);
 
     /* =========================================================
@@ -186,12 +186,12 @@
     --section-divider: linear-gradient(90deg,
             transparent,
             rgba(255, 255, 255, 0.06),
-            rgba(0, 200, 150, 0.10),
+            rgba(54, 249, 54, 0.10),
             rgba(255, 255, 255, 0.06),
             transparent);
 
     --section-ambient: radial-gradient(ellipse 70% 45% at 50% 0%,
-            rgba(0, 200, 150, 0.045),
+            rgba(54, 249, 54, 0.045),
             transparent 62%);
 
     --section-edge-fade: linear-gradient(to bottom,
@@ -234,12 +234,12 @@
     --section-divider: linear-gradient(90deg,
             transparent,
             rgba(0, 0, 0, 0.06),
-            rgba(0, 200, 150, 0.15),
+            rgba(54, 249, 54, 0.15),
             rgba(0, 0, 0, 0.06),
             transparent);
 
     --section-ambient: radial-gradient(ellipse 70% 45% at 50% 0%,
-            rgba(0, 200, 150, 0.08),
+            rgba(54, 249, 54, 0.08),
             transparent 70%);
 
     --section-edge-fade: linear-gradient(to bottom,

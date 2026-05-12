@@ -28,10 +28,10 @@
     letter-spacing: var(--ls-wider);
     text-transform: uppercase;
     color: var(--color-accent);
-    background: rgba(0, 200, 150, 0.1);
+    background: rgba(54, 249, 54, 0.1);
     padding: 0.5rem 1rem;
     border-radius: 100px;
-    border: 1px solid rgba(0, 200, 150, 0.2);
+    border: 1px solid rgba(54, 249, 54, 0.2);
     margin-bottom: 1.5rem;
 }
 
@@ -55,7 +55,7 @@
 
 .glowAccent {
     color: var(--color-accent);
-    text-shadow: 0 0 20px rgba(0, 200, 150, 0.4);
+    text-shadow: 0 0 20px rgba(54, 249, 54, 0.4);
     position: relative;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .ctaPrimary:hover {
-    background: var(--color-accent-hover, #00e6a8);
+    background: var(--color-accent-hover, #36F936);
     transform: translateY(-2px);
 }
 
@@ -123,7 +123,7 @@
 
 .ctaSecondary:hover {
     border-color: var(--color-accent);
-    background: rgba(0, 200, 150, 0.08);
+    background: rgba(54, 249, 54, 0.08);
 }
 
 .trust {

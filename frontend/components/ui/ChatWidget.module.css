@@ -21,7 +21,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0, 200, 150, 0.4);
+    box-shadow: 0 10px 25px rgba(54, 249, 54, 0.4);
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: none;
     outline: none;
@@ -191,10 +191,10 @@
 }
 
 .message.user {
-    background: rgba(0, 200, 150, 0.15);
+    background: rgba(54, 249, 54, 0.15);
     color: var(--color-text-1);
     border-radius: 12px 12px 2px 12px;
-    border: 1px solid rgba(0, 200, 150, 0.3);
+    border: 1px solid rgba(54, 249, 54, 0.3);
 }
 
 /* Quick Options */

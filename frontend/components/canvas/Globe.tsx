@@ -140,7 +140,7 @@ function ParticleFlow({ arcs }: { arcs: { start: any, mid: any, end: any }[] }) 
     return (
         <instancedMesh ref={meshRef} args={[undefined, undefined, arcs.length]}>
             <sphereGeometry args={[0.015, 8, 8]} />
-            <meshBasicMaterial color="#ffffff" transparent opacity={0.6} />
+            <meshBasicMaterial color="#36F936" transparent opacity={0.6} />
         </instancedMesh>
     )
 }
@@ -265,20 +265,20 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
                 {earthMap ? (
                     <meshStandardMaterial
                         map={earthMap}
-                        roughness={0.9} // More matte
+                        roughness={0.9} 
                         metalness={0.15}
-                        color="#05080A" // Dark base for oceans
-                        emissive="#00C896" // Neon land
+                        color="#05080A" 
+                        emissive="#36F936" 
                         emissiveMap={earthMap}
-                        emissiveIntensity={0.65}
+                        emissiveIntensity={0.6}
                     />
                 ) : (
                     <meshStandardMaterial
                         color="#05080A"
                         roughness={0.8}
                         metalness={0.2}
-                        emissive="#00C896"
-                        emissiveIntensity={0.2}
+                        emissive="#36F936"
+                        emissiveIntensity={0.3}
                     />
                 )}
             </Sphere>
@@ -286,17 +286,17 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
             {/* ── Very subtle wireframe (optional tech accent, barely visible) ─ */}
             <Sphere args={[radius + 0.015, 32, 32]}>
                 <meshBasicMaterial
-                    color="#00C896"
+                    color="#36F936"
                     wireframe
                     transparent
-                    opacity={earthMap ? 0.03 : 0.045}
+                    opacity={earthMap ? 0.02 : 0.035}
                 />
             </Sphere>
 
             {/* ── Atmospheric Halo ───────────────────────── */}
             <Sphere args={[radius + 0.25, 32, 32]}>
                 <meshBasicMaterial
-                    color="#00C896"
+                    color="#FFFFFF"
                     transparent
                     opacity={0.012}
                     side={THREE.BackSide}
@@ -307,7 +307,7 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
             {minorNodes.map((node, i) => (
                 <mesh key={`minor-${i}`} position={node.pos as any}>
                     <sphereGeometry args={[0.015, 12, 12]} />
-                    <meshBasicMaterial color="#00e5b0" transparent opacity={0.15} />
+                    <meshBasicMaterial color="#36F936" transparent opacity={0.15} />
                 </mesh>
             ))}
 
@@ -321,21 +321,21 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
                     {/* Core point */}
                     <mesh>
                         <sphereGeometry args={[0.045, 18, 18]} />
-                        <meshBasicMaterial color="#00e5b0" />
+                        <meshBasicMaterial color="#36F936" />
                     </mesh>
 
                     {/* Glow pulse - stronger if active session */}
-                    <mesh 
-                        ref={el => { if (el) glowRefs.current[i] = el }}
-                        scale={[1.8, 1.8, 1.8]}
-                    >
-                        <sphereGeometry args={[node.isActive ? 0.08 : 0.045, 18, 18]} />
-                        <meshBasicMaterial
-                            color="#00e5b0"
-                            transparent
-                            opacity={node.isActive ? 0.4 : 0.15}
-                        />
-                    </mesh>
+                        <mesh 
+                            ref={el => { if (el) glowRefs.current[i] = el }}
+                            scale={[1.8, 1.8, 1.8]}
+                        >
+                            <sphereGeometry args={[node.isActive ? 0.08 : 0.045, 18, 18]} />
+                            <meshBasicMaterial
+                                color="#36F936"
+                                transparent
+                                opacity={node.isActive ? 0.5 : 0.2}
+                            />
+                        </mesh>
                     
                     {/* Node label: show when camera-facing; highlight active session */}
                     {nodeLabelVisible[i] && (
@@ -347,16 +347,16 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
                         >
                             <div
                                 style={{
-                                color: node.isActive ? 'rgba(0, 200, 150, 0.9)' : 'rgba(0, 200, 150, 0.55)',
+                                color: node.isActive ? '#36F936' : 'rgba(255, 255, 255, 0.7)',
                                 fontSize: node.isActive ? '10px' : '9px',
                                 textTransform: 'uppercase',
                                 letterSpacing: '2px',
-                                background: 'rgba(3, 5, 10, 0.6)',
-                                padding: '2px 6px',
+                                background: 'rgba(3, 5, 10, 0.75)',
+                                padding: '2px 8px',
                                 borderRadius: '4px',
                                 border: node.isActive
-                                  ? '1px solid rgba(0, 200, 150, 0.28)'
-                                  : '1px solid rgba(0, 200, 150, 0.14)',
+                                  ? '1px solid rgba(54, 249, 54, 0.4)'
+                                  : '1px solid rgba(255, 255, 255, 0.14)',
                                 backdropFilter: 'blur(4px)',
                                 whiteSpace: 'nowrap'
                                 }}
@@ -376,7 +376,7 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
                     start={arc.start}
                     mid={arc.mid}
                     end={arc.end}
-                    color="#00C896"
+                    color="#36F936"
                     lineWidth={1.2}
                     transparent
                     opacity={0.15}
@@ -430,15 +430,15 @@ export default function Globe() {
                     {/* Primary key light (sun-like, for realistic shading) */}
                     <pointLight
                         position={[10, 8, 10]}
-                        intensity={0.8}
-                        color="#e0fff5" // Very subtle teal tint
+                        intensity={1}
+                        color="#36F936" 
                     />
 
                     {/* Accent fill (brand tint on dark side) */}
                     <pointLight
                         position={[-6, -4, -8]}
-                        intensity={0.35}
-                        color="#00C896"
+                        intensity={0.4}
+                        color="#36F936"
                     />
 
                     {/* Soft fill for depth */}
@@ -527,7 +527,7 @@ const statVal: React.CSSProperties = {
     fontSize: '18px',
     fontWeight: 700,
     marginBottom: '2px',
-    color: '#00C896'
+    color: '#36F936'
 }
 
 const statLab: React.CSSProperties = {

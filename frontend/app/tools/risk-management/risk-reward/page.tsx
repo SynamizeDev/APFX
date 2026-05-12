@@ -284,7 +284,7 @@ export default function RiskRewardPage() {
                   <td>1:2</td>
                   <td className={calcStyles.num}>33%</td>
                 </tr>
-                <tr style={{ background: 'rgba(0, 200, 150, 0.05)' }}>
+                <tr style={{ background: 'rgba(54, 249, 54, 0.05)' }}>
                   <td>1:3 (Pro Target)</td>
                   <td className={calcStyles.num}>25%</td>
                 </tr>

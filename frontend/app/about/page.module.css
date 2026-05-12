@@ -2,7 +2,7 @@
     position: relative;
     padding: 12rem 2rem 8rem 2rem;
     text-align: center;
-    background: radial-gradient(circle at top, rgba(0, 200, 150, 0.08) 0%, transparent 50%), var(--color-bg);
+    background: radial-gradient(circle at top, rgba(54, 249, 54, 0.08) 0%, transparent 50%), var(--color-bg);
 }
 
 .heroTitle {

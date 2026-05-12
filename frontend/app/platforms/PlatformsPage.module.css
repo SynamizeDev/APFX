@@ -34,7 +34,7 @@
     pointer-events: none;
     background: radial-gradient(
         1100px 320px at 50% -10%,
-        rgba(0, 200, 150, 0.04),
+        rgba(54, 249, 54, 0.04),
         transparent 70%
     );
 }
@@ -141,7 +141,7 @@
 
 .btnPrimary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(0, 200, 150, 0.45);
+    box-shadow: 0 12px 28px rgba(54, 249, 54, 0.45);
 }
 
 /* Secondary */
@@ -174,7 +174,7 @@
         linear-gradient(
             135deg,
             rgba(20, 30, 50, 0.45),
-            rgba(0, 200, 150, 0.06)
+            rgba(54, 249, 54, 0.06)
         );
     border: 1px solid var(--color-border);
     border-radius: var(--radius-2xl);
@@ -239,7 +239,7 @@
         linear-gradient(
             180deg,
             var(--color-surface),
-            rgba(0, 200, 150, 0.03)
+            rgba(54, 249, 54, 0.03)
         );
     border: 1px solid var(--color-accent-subtle);
     padding: clamp(3rem, 6vw, 4.5rem);
@@ -279,12 +279,12 @@
     transition:
         transform var(--duration-fast),
         box-shadow var(--duration-fast);
-    box-shadow: 0 14px 36px rgba(0, 200, 150, 0.45);
+    box-shadow: 0 14px 36px rgba(54, 249, 54, 0.45);
 }
 
 .btnAccent:hover {
     transform: translateY(-3px);
-    box-shadow: 0 20px 48px rgba(0, 200, 150, 0.6);
+    box-shadow: 0 20px 48px rgba(54, 249, 54, 0.6);
 }
 
 /* =========================================================

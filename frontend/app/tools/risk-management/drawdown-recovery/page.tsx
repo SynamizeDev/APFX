@@ -260,7 +260,7 @@ export default function DrawdownRecoveryPage() {
                 {RECOVERY_TABLE_ROWS.slice(0, 8).map((dd) => (
                   <tr
                     key={dd}
-                    style={parseFloat(drawdownPct) === dd ? { background: 'rgba(0, 200, 150, 0.05)' } : {}}
+                    style={parseFloat(drawdownPct) === dd ? { background: 'rgba(54, 249, 54, 0.05)' } : {}}
                   >
                     <td>{dd}%</td>
                     <td className={calcStyles.num}>{((1 / (1 - dd / 100) - 1) * 100).toFixed(1)}%</td>

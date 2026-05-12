@@ -75,7 +75,7 @@
 }
 
 .option:hover {
-    background: rgba(0, 200, 150, 0.12);
+    background: rgba(54, 249, 54, 0.12);
 }
 
 .option[data-selected='true'] {
@@ -84,5 +84,5 @@
 }
 
 .option[data-selected='true']:hover {
-    background: rgba(0, 200, 150, 0.12);
+    background: rgba(54, 249, 54, 0.12);
 }

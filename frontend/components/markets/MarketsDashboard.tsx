@@ -102,7 +102,7 @@ function MarketCard({ quote }: { quote: MarketQuote }) {
                     onClick={() => setShowChart(!showChart)}
                     style={{
                         background: 'transparent',
-                        border: '1px solid rgba(0, 200, 150, 0.4)',
+                        border: '1px solid rgba(54, 249, 54, 0.4)',
                         color: 'var(--color-accent)',
                         padding: '0.4rem 0.8rem',
                         borderRadius: '8px',
@@ -125,7 +125,7 @@ function MarketCard({ quote }: { quote: MarketQuote }) {
                                 key={tf}
                                 onClick={() => setTimeframe(tf)}
                                 style={{
-                                    background: timeframe === tf ? 'rgba(0,200,150,0.1)' : 'transparent',
+                                    background: timeframe === tf ? 'rgba(54, 249, 54,0.1)' : 'transparent',
                                     color: timeframe === tf ? 'var(--color-accent)' : 'inherit',
                                     border: `1px solid ${timeframe === tf ? 'var(--color-accent)' : 'rgba(255,255,255,0.1)'}`,
                                     padding: '2px 8px',

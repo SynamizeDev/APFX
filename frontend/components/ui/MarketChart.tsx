@@ -48,10 +48,10 @@ export default function MarketChart({ symbol, timeframe = '1D' }: MarketChartPro
         chartRef.current = chart;
 
         const candlestickSeries = chart.addSeries(CandlestickSeries, {
-            upColor: '#00c896', // APFX Accent Green
+            upColor: '#36F936', // APFX Accent Green
             downColor: '#ff4757', // Associated Red
             borderVisible: false,
-            wickUpColor: '#00c896',
+            wickUpColor: '#36F936',
             wickDownColor: '#ff4757',
         }) as ISeriesApi<'Candlestick'>;
 

@@ -34,7 +34,7 @@
     pointer-events: none;
     background: radial-gradient(
         1000px 300px at 50% -10%,
-        rgba(0, 200, 150, 0.04),
+        rgba(54, 249, 54, 0.04),
         transparent 70%
     );
 }
@@ -74,7 +74,7 @@
     background: linear-gradient(
         120deg,
         transparent,
-        rgba(0, 200, 150, 0.06),
+        rgba(54, 249, 54, 0.06),
         transparent
     );
     opacity: 0;
@@ -98,7 +98,7 @@
     background: linear-gradient(
         180deg,
         var(--color-surface-2),
-        rgba(0, 200, 150, 0.03)
+        rgba(54, 249, 54, 0.03)
     );
     transform: scale(1.04);
     box-shadow:
@@ -120,7 +120,7 @@
     border-radius: var(--radius-full);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    box-shadow: 0 6px 18px rgba(0, 200, 150, 0.45);
+    box-shadow: 0 6px 18px rgba(54, 249, 54, 0.45);
 }
 
 /* ── Card Typography ────────────────────────────────────── */

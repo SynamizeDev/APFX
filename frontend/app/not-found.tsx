@@ -27,7 +27,7 @@ export default function NotFound() {
                     position: 'absolute',
                     inset: '-40%',
                     background:
-                        'radial-gradient(circle, rgba(0,200,150,0.12), transparent 60%)',
+                        'radial-gradient(circle, rgba(54, 249, 54,0.12), transparent 60%)',
                     filter: 'blur(120px)',
                     opacity: 0.35,
                     pointerEvents: 'none',
@@ -94,7 +94,7 @@ export default function NotFound() {
                         fontWeight: 700,
                         fontSize: 'var(--text-sm)',
                         boxShadow:
-                            '0 12px 32px rgba(0,200,150,0.45)',
+                            '0 12px 32px rgba(54, 249, 54,0.45)',
                         transition:
                             'transform 0.2s ease, box-shadow 0.2s ease',
                     }}

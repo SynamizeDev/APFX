@@ -65,7 +65,7 @@
 .input:focus {
     outline: none;
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 4px rgba(0, 200, 150, 0.1);
+    box-shadow: 0 0 0 4px rgba(54, 249, 54, 0.1);
     background: var(--bg-surface-dark);
 }
 
@@ -96,7 +96,7 @@
     width: 100%;
     padding: 1rem;
     border-radius: var(--radius-md);
-    background: linear-gradient(135deg, var(--color-accent), #00a078);
+    background: linear-gradient(135deg, var(--color-accent), #28D128);
     color: #000;
     font-weight: var(--fw-bold);
     font-size: var(--text-base);
@@ -107,7 +107,7 @@
 
 .submitBtn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px -10px rgba(0, 200, 150, 0.5);
+    box-shadow: 0 10px 20px -10px rgba(54, 249, 54, 0.5);
 }
 
 /* Info Column */

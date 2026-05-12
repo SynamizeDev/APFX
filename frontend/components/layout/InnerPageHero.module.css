@@ -98,8 +98,8 @@
     height: 120%;
     background: radial-gradient(
         ellipse at 40% 40%,
-        rgba(0, 200, 150, 0.085),
-        rgba(0, 200, 150, 0.04) 35%,
+        rgba(54, 249, 54, 0.085),
+        rgba(54, 249, 54, 0.04) 35%,
         transparent 70%
     );
     filter: blur(90px);

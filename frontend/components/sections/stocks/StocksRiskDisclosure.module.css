@@ -31,8 +31,8 @@
     width: 40px;
     height: 40px;
     border-radius: 14px;
-    background: rgba(0, 200, 150, 0.1);
-    border: 1px solid rgba(0, 200, 150, 0.18);
+    background: rgba(54, 249, 54, 0.1);
+    border: 1px solid rgba(54, 249, 54, 0.18);
     display: grid;
     place-items: center;
     color: var(--color-accent);

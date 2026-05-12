@@ -15,7 +15,7 @@
     width: 900px;
     height: 500px;
     transform: translateX(-50%);
-    background: radial-gradient(ellipse at center, rgba(0, 200, 150, 0.03) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(54, 249, 54, 0.03) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -446,7 +446,7 @@
 
 .sparkline {
     overflow: visible;
-    filter: drop-shadow(0 0 4px rgba(0, 200, 150, 0.2));
+    filter: drop-shadow(0 0 4px rgba(54, 249, 54, 0.2));
 }
 
 .sparkline polyline {
@@ -457,7 +457,7 @@
 .changeUp {
     color: var(--color-accent) !important;
     font-weight: var(--fw-bold);
-    text-shadow: 0 0 15px rgba(0, 200, 150, 0.25);
+    text-shadow: 0 0 15px rgba(54, 249, 54, 0.25);
 }
 
 .changeDown {
@@ -496,9 +496,9 @@
     background: var(--color-accent);
     border-color: var(--color-accent);
     box-shadow:
-        0 6px 20px rgba(0, 200, 150, 0.35),
-        0 0 30px rgba(0, 200, 150, 0.1);
-    transform: translateY(-1.5px);
+        0 8px 25px rgba(54, 249, 54, 0.45),
+        0 0 40px rgba(54, 249, 54, 0.15);
+    transform: translateY(-2px);
 }
 
 /* ── Disclaimer ──────────────────────────────────────────────── */
@@ -526,10 +526,10 @@
     font-weight: var(--fw-semibold);
     color: var(--color-accent);
     text-decoration: none;
-    border: 1px solid rgba(0, 200, 150, 0.25);
+    border: 1px solid rgba(54, 249, 54, 0.25);
     padding: 0.7rem 2rem;
     border-radius: var(--radius-full);
-    background: rgba(0, 200, 150, 0.04);
+    background: rgba(54, 249, 54, 0.04);
     transition:
         background var(--duration-normal) var(--ease-out),
         box-shadow var(--duration-normal) var(--ease-out),
@@ -538,12 +538,12 @@
 }
 
 .viewAllBtn:hover {
-    background: rgba(0, 200, 150, 0.08);
-    border-color: rgba(0, 200, 150, 0.4);
+    background: rgba(54, 249, 54, 0.1);
+    border-color: var(--color-accent);
     box-shadow:
-        0 0 30px rgba(0, 200, 150, 0.1),
-        0 8px 24px rgba(0, 0, 0, 0.2);
-    transform: translateY(-1px);
+        0 0 35px rgba(54, 249, 54, 0.2),
+        0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
 }
 
 /* ============================================================

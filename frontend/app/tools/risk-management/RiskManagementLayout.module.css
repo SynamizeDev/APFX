@@ -11,7 +11,7 @@
   margin: 0 auto;
   width: 100%;
   text-align: center;
-  background: linear-gradient(180deg, rgba(0, 200, 150, 0.04) 0%, transparent 60%);
+  background: linear-gradient(180deg, rgba(54, 249, 54, 0.04) 0%, transparent 60%);
 }
 
 .heroTitle {
@@ -81,7 +81,7 @@
 
 .sidebarNav:hover {
   border-color: var(--color-border-subtle);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 200, 150, 0.06);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(54, 249, 54, 0.06);
 }
 
 .sidebarTitle {
@@ -131,18 +131,18 @@
 
 .sidebarLinkActive {
   color: var(--color-text-1);
-  background: linear-gradient(90deg, rgba(0, 200, 150, 0.15), transparent);
+  background: linear-gradient(90deg, rgba(54, 249, 54, 0.15), transparent);
   border-left-color: var(--color-accent);
   padding-left: calc(1rem - 3px);
   margin-left: 0;
   box-shadow: 
-    inset 4px 0 12px -4px rgba(0, 200, 150, 0.4),
-    0 0 20px -10px rgba(0, 200, 150, 0.2);
-  text-shadow: 0 0 12px rgba(0, 200, 150, 0.3);
+    inset 4px 0 12px -4px rgba(54, 249, 54, 0.4),
+    0 0 20px -10px rgba(54, 249, 54, 0.2);
+  text-shadow: 0 0 12px rgba(54, 249, 54, 0.3);
 }
 
 .sidebarLinkActive:hover {
-  background: linear-gradient(90deg, rgba(0, 200, 150, 0.16), transparent);
+  background: linear-gradient(90deg, rgba(54, 249, 54, 0.16), transparent);
 }
 
 .content {
@@ -203,8 +203,8 @@
   margin-top: 4rem;
   padding: 3rem 2rem;
   text-align: center;
-  background: linear-gradient(180deg, rgba(0, 200, 150, 0.08) 0%, transparent 100%);
-  border: 1px solid rgba(0, 200, 150, 0.15);
+  background: linear-gradient(180deg, rgba(54, 249, 54, 0.08) 0%, transparent 100%);
+  border: 1px solid rgba(54, 249, 54, 0.15);
   border-radius: var(--radius-xl);
   position: relative;
   overflow: hidden;
@@ -277,7 +277,7 @@
 }
 
 .frameworkCarouselScroll:focus-visible {
-  box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.35);
+  box-shadow: 0 0 0 2px rgba(54, 249, 54, 0.35);
   border-radius: var(--radius-xl);
 }
 
@@ -325,7 +325,7 @@
 .frameworkCarouselDotActive {
   background: var(--color-accent);
   transform: scale(1.2);
-  box-shadow: 0 0 12px rgba(0, 200, 150, 0.35);
+  box-shadow: 0 0 12px rgba(54, 249, 54, 0.35);
 }
 
 .frameworkCard {
@@ -405,19 +405,19 @@
   display: inline-flex;
   align-items: center;
   padding: 0.9rem 1.75rem;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
   color: #020617;
   font-weight: var(--fw-bold);
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  box-shadow: 0 4px 20px -4px rgba(54, 249, 54, 0.4);
   transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
 }
 
 .ctaBtnPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+  box-shadow: 0 8px 28px -4px rgba(54, 249, 54, 0.5);
 }
 
 .ctaBtnSecondary {

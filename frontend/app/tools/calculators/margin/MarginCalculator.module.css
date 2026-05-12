@@ -15,13 +15,13 @@
     position: relative;
     padding: 0.9rem 2.5rem;
     border-radius: var(--radius-full);
-    background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+    background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
     color: #020617;
     font-size: 1rem;
     font-weight: var(--fw-bold);
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+    box-shadow: 0 4px 20px -4px rgba(54, 249, 54, 0.4);
     transition:
         transform var(--duration-fast) var(--ease-out),
         box-shadow var(--duration-normal) var(--ease-out);
@@ -29,7 +29,7 @@
 
 .calculateBtn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+    box-shadow: 0 8px 28px -4px rgba(54, 249, 54, 0.5);
 }
 
 .calculateBtn:active {
@@ -39,8 +39,8 @@
 .resultRow {
     margin-top: 2rem;
     padding: 2.5rem;
-    background: linear-gradient(180deg, rgba(0, 200, 150, 0.08) 0%, transparent 100%);
-    border: 1px solid rgba(0, 200, 150, 0.15);
+    background: linear-gradient(180deg, rgba(54, 249, 54, 0.08) 0%, transparent 100%);
+    border: 1px solid rgba(54, 249, 54, 0.15);
     border-radius: var(--radius-xl);
     display: flex;
     flex-direction: column;
@@ -108,7 +108,7 @@
 }
 
 .infoCarouselScroll:focus-visible {
-    box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.35);
+    box-shadow: 0 0 0 2px rgba(54, 249, 54, 0.35);
     border-radius: var(--radius-lg);
 }
 
@@ -156,5 +156,5 @@
 .carouselDotActive {
     background: var(--color-accent);
     transform: scale(1.2);
-    box-shadow: 0 0 12px rgba(0, 200, 150, 0.35);
+    box-shadow: 0 0 12px rgba(54, 249, 54, 0.35);
 }

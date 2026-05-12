@@ -88,11 +88,11 @@
             #ffffff 0%,
             #b4ffe5 12%,
             var(--color-accent) 45%,
-            #008f67 100%);
+            #1E9B1E 100%);
     border-radius: 10px;
     display: grid;
     place-items: center;
-    box-shadow: 0 0 34px rgba(0, 200, 150, 0.45);
+    box-shadow: 0 0 34px rgba(54, 249, 54, 0.45);
 }
 
 .logoIcon {
@@ -111,7 +111,7 @@
 .logoFx {
     background: linear-gradient(135deg,
             var(--color-accent),
-            #00e5b0,
+            #36F936,
             var(--color-accent));
     -webkit-background-clip: text;
     background-clip: text;
@@ -348,16 +348,20 @@
     width: 38px;
     height: 38px;
     color: #ffffff;
-    background: #000;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(54, 249, 54, 0.05);
+    border: 1px solid var(--color-accent);
     border-radius: 99px;
-    transition: transform var(--duration-normal) var(--ease-out), background var(--duration-normal) var(--ease-out), border-color var(--duration-normal) var(--ease-out);
+    transition: transform var(--duration-normal) var(--ease-out), 
+                background var(--duration-normal) var(--ease-out), 
+                border-color var(--duration-normal) var(--ease-out),
+                box-shadow var(--duration-normal) var(--ease-out);
 }
 
 .btnIconSolidWhite:hover {
-    background: #111;
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
+    background: rgba(54, 249, 54, 0.12);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 15px rgba(54, 249, 54, 0.25);
+    transform: translateY(-1.5px);
 }
 
 
@@ -367,19 +371,23 @@
     font-size: 0.8125rem;
     font-weight: var(--fw-bold);
     color: #ffffff;
-    background: #000;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(54, 249, 54, 0.05);
+    border: 1px solid var(--color-accent);
     border-radius: 99px;
     height: 38px;
     padding: 0 1.25rem;
     text-decoration: none;
-    transition: transform var(--duration-normal) var(--ease-out), background var(--duration-normal) var(--ease-out), border-color var(--duration-normal) var(--ease-out);
+    transition: transform var(--duration-normal) var(--ease-out), 
+                background var(--duration-normal) var(--ease-out), 
+                border-color var(--duration-normal) var(--ease-out),
+                box-shadow var(--duration-normal) var(--ease-out);
 }
 
 .btnSolidWhite:hover {
-    background: #111;
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
+    background: rgba(54, 249, 54, 0.12);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 20px rgba(54, 249, 54, 0.35);
+    transform: translateY(-1.5px);
 }
 
 
@@ -467,8 +475,8 @@
 }
 
 .mobileClose:hover {
-    border-color: rgba(0, 200, 150, 0.35);
-    box-shadow: 0 0 0 4px rgba(0, 200, 150, 0.08);
+    border-color: rgba(54, 249, 54, 0.35);
+    box-shadow: 0 0 0 4px rgba(54, 249, 54, 0.08);
 }
 
 .mobileMenu.open {
@@ -576,7 +584,7 @@
     text-decoration: none;
     padding: 0.65rem 1.25rem;
     border-radius: var(--radius-md);
-    border: 1px solid rgba(0, 200, 150, 0.45);
+    border: 1px solid rgba(54, 249, 54, 0.45);
     background: var(--color-accent-subtle);
     opacity: 0;
     transform: translateY(20px);
@@ -590,7 +598,7 @@
 
 .mobileLogin:hover {
     color: var(--color-text-1);
-    background: rgba(0, 200, 150, 0.16);
+    background: rgba(54, 249, 54, 0.16);
     border-color: rgba(0, 230, 170, 0.55);
 }
 
@@ -604,7 +612,7 @@
     padding: 0.9rem 2.6rem;
     text-align: center;
     text-decoration: none;
-    background: linear-gradient(135deg, var(--color-accent-hover) 0%, var(--color-accent) 48%, #00e5b0 100%);
+    background: linear-gradient(135deg, var(--color-accent-hover) 0%, var(--color-accent) 48%, #36F936 100%);
     color: #020617 !important;
     border-radius: var(--radius-md);
     font-size: var(--text-lg) !important;
@@ -620,8 +628,8 @@
 }
 
 .mobileCta:hover {
-    background: linear-gradient(135deg, #00a078 0%, var(--color-accent-hover) 45%, var(--color-accent) 100%);
-    box-shadow: 0 12px 34px rgba(0, 200, 150, 0.42);
+    background: linear-gradient(135deg, #28D128 0%, var(--color-accent-hover) 45%, var(--color-accent) 100%);
+    box-shadow: 0 12px 34px rgba(54, 249, 54, 0.42);
 }
 
 .mobileMenu.open .mobileCta {

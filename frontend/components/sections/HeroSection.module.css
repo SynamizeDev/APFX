@@ -182,7 +182,7 @@
 }
 
 .highlight {
-    color: #008E97; /* Teal accent */
+    color: #36F936; /* Teal accent */
 }
 
 .subHeadlineArea {
@@ -219,7 +219,7 @@
     font-family: var(--font-mono, monospace);
     font-size: 1.1rem;
     font-weight: 600;
-    color: #008E97;
+    color: #36F936;
     opacity: 0;
 }
 
@@ -236,6 +236,13 @@
     font-weight: 700;
     text-decoration: none;
     transition: all 0.3s;
+}
+
+.btnPrimary:hover {
+    background: var(--color-accent);
+    color: #000;
+    box-shadow: 0 0 30px rgba(54, 249, 54, 0.45);
+    transform: translateY(-2px);
 }
 
 .btnSecondary {

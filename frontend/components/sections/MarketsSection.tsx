@@ -85,7 +85,7 @@ const Sparkline = ({ data, positive }: { data: number[], positive: boolean }) =>
 
     const linePath = points.map(p => `${p.x},${p.y}`).join(' ')
     const areaPath = `M 0,${height} ${linePath} L ${width},${height} Z`
-    const color = positive ? '#00c896' : '#ff4757'
+    const color = positive ? '#36F936' : '#ff4757'
     const gradId = `sparkline-grad-${Math.random().toString(36).substring(2, 9)}`
 
     return (

@@ -143,7 +143,7 @@ body {
 
 .bg-alternate-2 {
     background-color: var(--color-bg);
-    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 200, 150, 0.03), transparent);
+    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(54, 249, 54, 0.03), transparent);
 }
 
 .apfx-section.apfx-section--no-divider {
@@ -259,7 +259,7 @@ textarea::placeholder {
 .gradient-text {
     background: linear-gradient(135deg,
             var(--color-accent) 0%,
-            #00e5b0 50%,
+            #36F936 50%,
             var(--color-accent) 100%);
     background-clip: text;
     -webkit-background-clip: text;
@@ -305,7 +305,7 @@ textarea::placeholder {
     align-items: center;
     justify-content: center;
     padding: 0.8rem 2.2rem;
-    background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+    background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
     color: #000;
     font-weight: var(--fw-bold);
     border-radius: var(--radius-full);
@@ -319,14 +319,14 @@ textarea::placeholder {
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    box-shadow: 0 0 25px rgba(0, 200, 150, 0.4);
+    box-shadow: 0 0 25px rgba(54, 249, 54, 0.4);
     opacity: 0;
     transition: opacity var(--duration-fast) var(--ease-out);
 }
 
 .btn-premium:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px -5px rgba(0, 200, 150, 0.4);
+    box-shadow: 0 10px 25px -5px rgba(54, 249, 54, 0.4);
 }
 
 .btn-premium:hover::after {
@@ -350,7 +350,7 @@ textarea::placeholder {
     outline: none;
     border-color: var(--color-accent);
     background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 0 0 4px rgba(0, 200, 150, 0.1);
+    box-shadow: 0 0 0 4px rgba(54, 249, 54, 0.1);
 }
 
 /* Glass Card Premium */
@@ -388,7 +388,7 @@ textarea::placeholder {
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 200, 150, 0.14), transparent 70%);
+    background: radial-gradient(circle, rgba(54, 249, 54, 0.14), transparent 70%);
     pointer-events: none;
     z-index: 0;
 }

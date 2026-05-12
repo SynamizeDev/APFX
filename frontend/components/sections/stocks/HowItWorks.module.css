@@ -34,7 +34,7 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background: rgba(0, 200, 150, 0.1);
+    background: rgba(54, 249, 54, 0.1);
     border: 2px solid var(--color-accent);
     display: grid;
     place-items: center;
@@ -84,7 +84,7 @@
         left: calc(50% + 40px);
         width: calc(100% - 80px);
         height: 1px;
-        background: radial-gradient(circle at center, rgba(0, 200, 150, 0.5), transparent);
+        background: radial-gradient(circle at center, rgba(54, 249, 54, 0.5), transparent);
         z-index: -1;
     }
 }

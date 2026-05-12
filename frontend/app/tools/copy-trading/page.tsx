@@ -841,7 +841,7 @@ export default function CopyTradingPage() {
             Audited transparency is the foundation of institutional copy trading. Learn how to interpret performance data beyond simple ROI.
           </p>
           <div className={styles.insightsCard}>
-             <div className={styles.insightCard} style={{ marginBottom: '2rem', background: 'rgba(0, 200, 150, 0.05)', borderLeft: '3px solid var(--color-accent)' }}>
+             <div className={styles.insightCard} style={{ marginBottom: '2rem', background: 'rgba(54, 249, 54, 0.05)', borderLeft: '3px solid var(--color-accent)' }}>
                 <p><strong><Info size={14} style={{ verticalAlign: 'middle', marginRight: '4px' }} /> How to Read This Data:</strong> While monthly returns fluctuate, consistency and capital preservation are the true indicators of a professional edge. Prioritize providers with stable equity curves and managed drawdown history over those with isolated "ROI spikes."</p>
              </div>
             <p className={styles.chartTitle}>Monthly returns (example)</p>

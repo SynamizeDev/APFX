@@ -33,19 +33,19 @@
   align-items: center;
   justify-content: center;
   padding: 0.9rem 1.75rem;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
   color: #020617;
   font-weight: var(--fw-bold);
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  box-shadow: 0 4px 20px -4px rgba(54, 249, 54, 0.4);
   transition: transform var(--duration-fast), box-shadow var(--duration-normal);
 }
 
 .ctaBtnPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+  box-shadow: 0 8px 28px -4px rgba(54, 249, 54, 0.5);
 }
 
 .ctaBtnSecondary {
@@ -59,12 +59,12 @@
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  border: 1px solid rgba(0, 200, 150, 0.4);
+  border: 1px solid rgba(54, 249, 54, 0.4);
   transition: background var(--duration-fast), border-color var(--duration-fast);
 }
 
 .ctaBtnSecondary:hover {
-  background: rgba(0, 200, 150, 0.08);
+  background: rgba(54, 249, 54, 0.08);
   border-color: var(--color-accent);
 }
 
@@ -80,7 +80,7 @@
   pointer-events: none;
   background: radial-gradient(
     1200px 400px at 50% -10%,
-    rgba(0, 200, 150, 0.03),
+    rgba(54, 249, 54, 0.03),
     transparent 70%
   );
 }
@@ -255,8 +255,8 @@
   gap: 1rem;
   align-items: flex-start;
   padding: 1.25rem 1.35rem;
-  background: rgba(0, 200, 150, 0.04);
-  border: 1px solid rgba(0, 200, 150, 0.1);
+  background: rgba(54, 249, 54, 0.04);
+  border: 1px solid rgba(54, 249, 54, 0.1);
   border-radius: var(--radius-lg);
 }
 
@@ -305,7 +305,7 @@
   text-align: center;
   padding: 3rem 1.5rem;
   margin-top: 1rem;
-  background: linear-gradient(180deg, rgba(0, 200, 150, 0.06) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(54, 249, 54, 0.06) 0%, transparent 100%);
   border-top: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-xl);
 }
@@ -369,11 +369,11 @@
   padding: 1.35rem var(--container-px, 1.5rem);
   background: linear-gradient(
     90deg,
-    rgba(0, 200, 150, 0.1) 0%,
+    rgba(54, 249, 54, 0.1) 0%,
     var(--bg-glass-dark) 50%,
-    rgba(0, 200, 150, 0.08) 100%
+    rgba(54, 249, 54, 0.08) 100%
   );
-  border-bottom: 1px solid rgba(0, 200, 150, 0.15);
+  border-bottom: 1px solid rgba(54, 249, 54, 0.15);
 }
 
 .weekStripInner {
@@ -407,7 +407,7 @@
   width: 1.75rem;
   height: 1.75rem;
   border-radius: var(--radius-sm);
-  background: rgba(0, 200, 150, 0.18);
+  background: rgba(54, 249, 54, 0.18);
   color: var(--color-text-1);
   font-size: 0.65rem;
   font-weight: var(--fw-bold);
@@ -483,8 +483,8 @@
 .volExplainer {
   padding: 1.25rem 1.35rem;
   border-radius: var(--radius-lg);
-  border: 1px dashed rgba(0, 200, 150, 0.35);
-  background: rgba(0, 200, 150, 0.05);
+  border: 1px dashed rgba(54, 249, 54, 0.35);
+  background: rgba(54, 249, 54, 0.05);
 }
 
 .volExplainer p {
@@ -526,8 +526,8 @@
 }
 
 .relatedLinks a:hover {
-  border-color: rgba(0, 200, 150, 0.35);
-  background: rgba(0, 200, 150, 0.06);
+  border-color: rgba(54, 249, 54, 0.35);
+  background: rgba(54, 249, 54, 0.06);
 }
 
 .sectionEyebrow {
@@ -580,8 +580,8 @@
 .regScenario {
   padding: 1.5rem 1.5rem;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(0, 200, 150, 0.18);
-  background: linear-gradient(145deg, rgba(0, 200, 150, 0.06) 0%, var(--bg-glass-dark) 100%);
+  border: 1px solid rgba(54, 249, 54, 0.18);
+  background: linear-gradient(145deg, rgba(54, 249, 54, 0.06) 0%, var(--bg-glass-dark) 100%);
 }
 
 .regScenario h3 {

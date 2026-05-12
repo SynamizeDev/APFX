@@ -87,7 +87,7 @@
 .marketCard:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-    border-color: rgba(0, 200, 150, 0.3);
+    border-color: rgba(54, 249, 54, 0.3);
 }
 
 .cardHeader {

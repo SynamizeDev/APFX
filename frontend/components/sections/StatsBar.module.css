@@ -12,7 +12,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 60% 100% at 50% 0%, rgba(0, 200, 150, 0.04), transparent);
+    background: radial-gradient(ellipse 60% 100% at 50% 0%, rgba(54, 249, 54, 0.04), transparent);
 }
 
 .grid {

@@ -17,8 +17,8 @@ export default function HeroCurve() {
                 <defs>
                     <linearGradient id="heroCurveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                         <stop offset="0%" stopColor="rgba(3, 5, 10, 0)" />
-                        <stop offset="40%" stopColor="rgba(0, 200, 150, 0.03)" />
-                        <stop offset="100%" stopColor="rgba(0, 200, 150, 0.08)" />
+                        <stop offset="40%" stopColor="rgba(54, 249, 54, 0.03)" />
+                        <stop offset="100%" stopColor="rgba(54, 249, 54, 0.08)" />
                     </linearGradient>
                 </defs>
                 {/* Organic blob: right side filled, smooth S-curve left edge */}

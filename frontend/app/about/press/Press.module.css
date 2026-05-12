@@ -22,7 +22,7 @@
   pointer-events: none;
   background: radial-gradient(
     1200px 400px at 50% -10%,
-    rgba(0, 200, 150, 0.03),
+    rgba(54, 249, 54, 0.03),
     transparent 70%
   );
 }
@@ -64,19 +64,19 @@
   display: inline-flex;
   align-items: center;
   padding: 0.9rem 1.75rem;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
   color: #020617;
   font-weight: var(--fw-bold);
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  box-shadow: 0 4px 20px -4px rgba(54, 249, 54, 0.4);
   transition: transform var(--duration-fast), box-shadow var(--duration-normal);
 }
 
 .heroCtaPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+  box-shadow: 0 8px 28px -4px rgba(54, 249, 54, 0.5);
 }
 
 .heroCtaSecondary {
@@ -89,12 +89,12 @@
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  border: 1px solid rgba(0, 200, 150, 0.4);
+  border: 1px solid rgba(54, 249, 54, 0.4);
   transition: background var(--duration-fast), border-color var(--duration-fast);
 }
 
 .heroCtaSecondary:hover {
-  background: rgba(0, 200, 150, 0.08);
+  background: rgba(54, 249, 54, 0.08);
   border-color: var(--color-accent);
 }
 
@@ -281,7 +281,7 @@
 }
 
 .assetCard:hover {
-  border-color: rgba(0, 200, 150, 0.2);
+  border-color: rgba(54, 249, 54, 0.2);
 }
 
 .assetIcon {
@@ -312,15 +312,15 @@
   font-size: 0.875rem;
   font-weight: var(--fw-semibold);
   color: var(--color-accent);
-  background: rgba(0, 200, 150, 0.1);
-  border: 1px solid rgba(0, 200, 150, 0.25);
+  background: rgba(54, 249, 54, 0.1);
+  border: 1px solid rgba(54, 249, 54, 0.25);
   border-radius: var(--radius-md);
   text-decoration: none;
   transition: background var(--duration-fast), border-color var(--duration-fast);
 }
 
 .downloadBtn:hover {
-  background: rgba(0, 200, 150, 0.18);
+  background: rgba(54, 249, 54, 0.18);
   border-color: var(--color-accent);
 }
 
@@ -357,7 +357,7 @@
 /* Media contact */
 .contactBlock {
   background: linear-gradient(165deg, var(--bg-glass-base) 0%, var(--bg-glass-dark) 100%);
-  border: 1px solid rgba(0, 200, 150, 0.15);
+  border: 1px solid rgba(54, 249, 54, 0.15);
   border-radius: var(--radius-xl);
   padding: 2rem 2.25rem;
   max-width: 560px;
@@ -400,7 +400,7 @@
   text-align: center;
   padding: 3rem 1.5rem;
   margin-top: 1rem;
-  background: linear-gradient(180deg, rgba(0, 200, 150, 0.06) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(54, 249, 54, 0.06) 0%, transparent 100%);
   border-top: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-xl);
 }
@@ -429,19 +429,19 @@
   display: inline-flex;
   align-items: center;
   padding: 0.9rem 1.75rem;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
   color: #020617;
   font-weight: var(--fw-bold);
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  box-shadow: 0 4px 20px -4px rgba(54, 249, 54, 0.4);
   transition: transform var(--duration-fast), box-shadow var(--duration-normal);
 }
 
 .ctaBtnPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+  box-shadow: 0 8px 28px -4px rgba(54, 249, 54, 0.5);
 }
 
 .ctaBtnSecondary {
@@ -454,12 +454,12 @@
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  border: 1px solid rgba(0, 200, 150, 0.4);
+  border: 1px solid rgba(54, 249, 54, 0.4);
   transition: background var(--duration-fast), border-color var(--duration-fast);
 }
 
 .ctaBtnSecondary:hover {
-  background: rgba(0, 200, 150, 0.08);
+  background: rgba(54, 249, 54, 0.08);
   border-color: var(--color-accent);
 }
 

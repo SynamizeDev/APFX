@@ -80,9 +80,9 @@
 }
 
 .bentoItem:hover {
-    border-color: rgba(0, 200, 150, 0.4);
+    border-color: rgba(54, 249, 54, 0.4);
     transform: translateY(-5px) scale(1.01);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 200, 150, 0.1);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 20px rgba(54, 249, 54, 0.1);
 }
 
 /* Large featured tile */
@@ -101,7 +101,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0, 200, 150, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(54, 249, 54, 0.3), transparent);
     opacity: 0;
     transition: opacity var(--duration-slow) var(--ease-out);
 }
@@ -114,8 +114,8 @@
     width: 52px;
     height: 52px;
     border-radius: var(--radius-md);
-    background: var(--icon-bg, rgba(0, 200, 150, 0.1));
-    border: 1px solid var(--icon-border, rgba(0, 200, 150, 0.2));
+    background: var(--icon-bg, rgba(54, 249, 54, 0.1));
+    border: 1px solid var(--icon-border, rgba(54, 249, 54, 0.2));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -164,7 +164,7 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: radial-gradient(circle, var(--glow-color, rgba(0, 200, 150, 0.12)), transparent 70%);
+    background: radial-gradient(circle, var(--glow-color, rgba(54, 249, 54, 0.12)), transparent 70%);
     transition: transform var(--duration-slow) var(--ease-out);
 }
 
@@ -301,6 +301,6 @@
 }
 
 .carouselDotActive {
-    background: rgba(0, 200, 150, 0.95);
+    background: rgba(54, 249, 54, 0.95);
     transform: scale(1.15);
 }

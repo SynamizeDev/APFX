@@ -41,7 +41,7 @@
         #ffffff 0%,
         #b4ffe5 12%,
         var(--color-accent) 45%,
-        #008f67 100%
+        #1E9B1E 100%
     );
     border-radius: 12px;
 
@@ -54,8 +54,8 @@
     color: #020617;
 
     box-shadow:
-        0 0 0 rgba(0, 200, 150, 0),
-        0 0 60px rgba(0, 200, 150, 0.35);
+        0 0 0 rgba(54, 249, 54, 0),
+        0 0 60px rgba(54, 249, 54, 0.35);
 
     will-change: transform, box-shadow;
 }

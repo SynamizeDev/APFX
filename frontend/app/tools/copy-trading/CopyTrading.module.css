@@ -95,7 +95,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.9rem 1.75rem;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
   color: #020617;
   font-weight: var(--fw-bold);
   font-size: 1rem;
@@ -103,13 +103,13 @@
   text-decoration: none;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  box-shadow: 0 4px 20px -4px rgba(54, 249, 54, 0.4);
   transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
 }
 
 .heroCtaPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+  box-shadow: 0 8px 28px -4px rgba(54, 249, 54, 0.5);
 }
 
 .heroCtaSecondary {
@@ -122,12 +122,12 @@
   font-size: 1rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  border: 1px solid rgba(0, 200, 150, 0.4);
+  border: 1px solid rgba(54, 249, 54, 0.4);
   transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
 }
 
 .heroCtaSecondary:hover {
-  background: rgba(0, 200, 150, 0.08);
+  background: rgba(54, 249, 54, 0.08);
   border-color: var(--color-accent);
 }
 
@@ -154,19 +154,19 @@
 .calculateBtn {
   padding: 0.9rem 2.5rem;
   border-radius: var(--radius-full);
-  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
   color: #020617;
   font-size: 1rem;
   font-weight: var(--fw-bold);
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 20px -4px rgba(0, 200, 150, 0.4);
+  box-shadow: 0 4px 20px -4px rgba(54, 249, 54, 0.4);
   transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
 }
 
 .calculateBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px -4px rgba(0, 200, 150, 0.5);
+  box-shadow: 0 8px 28px -4px rgba(54, 249, 54, 0.5);
 }
 
 .resultRow {
@@ -189,7 +189,7 @@
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 200, 150, 0.14), transparent 70%);
+  background: radial-gradient(circle, rgba(54, 249, 54, 0.14), transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -315,7 +315,7 @@
 }
 
 .leaderboardCarouselScroll:focus-visible {
-  box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.35);
+  box-shadow: 0 0 0 2px rgba(54, 249, 54, 0.35);
   border-radius: var(--radius-lg);
 }
 
@@ -364,7 +364,7 @@
 .leaderboardCarouselDotActive {
   background: var(--color-accent);
   transform: scale(1.2);
-  box-shadow: 0 0 12px rgba(0, 200, 150, 0.35);
+  box-shadow: 0 0 12px rgba(54, 249, 54, 0.35);
 }
 
 .traderCard {
@@ -400,7 +400,7 @@
   width: 48px;
   height: 48px;
   border-radius: var(--radius-full);
-  background: linear-gradient(135deg, var(--color-accent), #00a078);
+  background: linear-gradient(135deg, var(--color-accent), #28D128);
   color: #020617;
   font-weight: var(--fw-bold);
   font-size: 1rem;
@@ -489,26 +489,26 @@
   padding: 0.65rem 1rem;
   margin-top: 0.75rem;
   text-align: center;
-  background: rgba(0, 200, 150, 0.15);
+  background: rgba(54, 249, 54, 0.15);
   color: var(--color-accent);
   font-weight: var(--fw-semibold);
   font-size: 0.875rem;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(0, 200, 150, 0.25);
+  border: 1px solid rgba(54, 249, 54, 0.25);
   text-decoration: none;
   transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
 }
 
 .traderCardCta:hover {
-  background: rgba(0, 200, 150, 0.25);
+  background: rgba(54, 249, 54, 0.25);
   border-color: var(--color-accent);
 }
 
 .traderCardMore {
   padding: 0;
   border-style: dashed;
-  border-color: rgba(0, 200, 150, 0.28);
-  background: rgba(0, 200, 150, 0.05);
+  border-color: rgba(54, 249, 54, 0.28);
+  background: rgba(54, 249, 54, 0.05);
 }
 
 .traderCardMoreLink {
@@ -528,11 +528,11 @@
 }
 
 .traderCardMoreLink:hover {
-  background: rgba(0, 200, 150, 0.08);
+  background: rgba(54, 249, 54, 0.08);
 }
 
 .traderCardMoreLink:focus-visible {
-  box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.45);
+  box-shadow: 0 0 0 2px rgba(54, 249, 54, 0.45);
 }
 
 .traderCardMorePlus {
@@ -591,7 +591,7 @@
   height: 48px;
   margin: 0 auto 1rem;
   border-radius: var(--radius-full);
-  background: rgba(0, 200, 150, 0.15);
+  background: rgba(54, 249, 54, 0.15);
   color: var(--color-accent);
   display: flex;
   align-items: center;
@@ -656,7 +656,7 @@
   width: 100%;
   min-height: 4px;
   border-radius: var(--radius-sm) var(--radius-sm) 0 0;
-  background: linear-gradient(180deg, var(--color-accent), #00a078);
+  background: linear-gradient(180deg, var(--color-accent), #28D128);
   transition: height var(--duration-normal) var(--ease-out);
 }
 
@@ -672,8 +672,8 @@
 
 .equityCurve {
   height: 80px;
-  background: rgba(0, 200, 150, 0.06);
-  border: 1px solid rgba(0, 200, 150, 0.12);
+  background: rgba(54, 249, 54, 0.06);
+  border: 1px solid rgba(54, 249, 54, 0.12);
   border-radius: var(--radius-md);
   margin-bottom: 1rem;
   position: relative;
@@ -724,7 +724,7 @@
   height: 44px;
   margin: 0 auto 1rem;
   border-radius: var(--radius-md);
-  background: rgba(0, 200, 150, 0.12);
+  background: rgba(54, 249, 54, 0.12);
   color: var(--color-accent);
   display: flex;
   align-items: center;
@@ -779,7 +779,7 @@
 }
 
 .benefitsCarouselScroll:focus-visible {
-  box-shadow: 0 0 0 2px rgba(0, 200, 150, 0.35);
+  box-shadow: 0 0 0 2px rgba(54, 249, 54, 0.35);
   border-radius: var(--radius-lg);
 }
 
@@ -827,14 +827,14 @@
 .benefitsCarouselDotActive {
   background: var(--color-accent);
   transform: scale(1.2);
-  box-shadow: 0 0 12px rgba(0, 200, 150, 0.35);
+  box-shadow: 0 0 12px rgba(54, 249, 54, 0.35);
 }
 
 /* ── CTA section ─────────────────────────────────────────────── */
 .ctaSection {
   text-align: center;
   padding: 4rem var(--container-px, 1.5rem);
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 200, 150, 0.06) 50%, transparent 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(54, 249, 54, 0.06) 50%, transparent 100%);
   border-top: 1px solid var(--color-border-subtle);
 }
 
@@ -862,19 +862,19 @@
   display: inline-flex;
   align-items: center;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, var(--color-accent) 0%, #00a078 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
   color: #020617;
   font-weight: var(--fw-bold);
   font-size: 1.0625rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  box-shadow: 0 4px 24px -4px rgba(0, 200, 150, 0.5);
+  box-shadow: 0 4px 24px -4px rgba(54, 249, 54, 0.5);
   transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
 }
 
 .ctaBtnPrimary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px -4px rgba(0, 200, 150, 0.5);
+  box-shadow: 0 12px 32px -4px rgba(54, 249, 54, 0.5);
 }
 
 .ctaBtnSecondary {
@@ -915,9 +915,9 @@
 
 .personaCard:hover {
   background: var(--color-surface-subtle);
-  border-color: rgba(0, 200, 150, 0.3);
+  border-color: rgba(54, 249, 54, 0.3);
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px -12px rgba(0, 200, 150, 0.15);
+  box-shadow: 0 12px 40px -12px rgba(54, 249, 54, 0.15);
 }
 
 .personaIcon {
@@ -925,7 +925,7 @@
   height: 48px;
   margin-bottom: 1.5rem;
   border-radius: var(--radius-lg);
-  background: rgba(0, 200, 150, 0.1);
+  background: rgba(54, 249, 54, 0.1);
   color: var(--color-accent);
   display: flex;
   align-items: center;
@@ -965,7 +965,7 @@
 .insightCard {
   margin-top: 1.5rem;
   padding: 1rem;
-  background: rgba(0, 200, 150, 0.05);
+  background: rgba(54, 249, 54, 0.05);
   border-left: 3px solid var(--color-accent);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   font-size: 0.875rem;
@@ -995,7 +995,7 @@
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(145deg, rgba(0, 200, 150, 0.15), var(--color-surface-subtle), transparent 50%);
+  background: linear-gradient(145deg, rgba(54, 249, 54, 0.15), var(--color-surface-subtle), transparent 50%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;

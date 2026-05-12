@@ -167,12 +167,12 @@ export default function TradingPlatforms() {
                             </div>
                             <div style={{ padding: '1rem', height: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 <div style={{ display: 'flex', gap: '8px', height: '60%' }}>
-                                    <div style={{ flex: 2, background: 'rgba(0, 200, 150, 0.05)', border: '1px solid rgba(0, 200, 150, 0.2)', borderRadius: '4px', position: 'relative', overflow: 'hidden' }}>
+                                    <div style={{ flex: 2, background: 'rgba(54, 249, 54, 0.05)', border: '1px solid rgba(54, 249, 54, 0.2)', borderRadius: '4px', position: 'relative', overflow: 'hidden' }}>
                                         {/* Simple CSS Candlesticks representation */}
-                                        <div style={{ position: 'absolute', bottom: '20%', left: '10%', width: '4px', height: '30%', background: '#00C896' }}></div>
-                                        <div style={{ position: 'absolute', bottom: '40%', left: '30%', width: '4px', height: '40%', background: '#00C896' }}></div>
+                                        <div style={{ position: 'absolute', bottom: '20%', left: '10%', width: '4px', height: '30%', background: '#36F936' }}></div>
+                                        <div style={{ position: 'absolute', bottom: '40%', left: '30%', width: '4px', height: '40%', background: '#36F936' }}></div>
                                         <div style={{ position: 'absolute', bottom: '30%', left: '50%', width: '4px', height: '25%', background: '#ff4757' }}></div>
-                                        <div style={{ position: 'absolute', bottom: '45%', left: '70%', width: '4px', height: '35%', background: '#00C896' }}></div>
+                                        <div style={{ position: 'absolute', bottom: '45%', left: '70%', width: '4px', height: '35%', background: '#36F936' }}></div>
                                     </div>
                                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                         <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
@@ -187,12 +187,12 @@ export default function TradingPlatforms() {
                         <div style={{ position: 'absolute', width: '45%', height: '55%', background: '#03050A', border: '2px solid #2A3245', borderRadius: '12px', zIndex: 2, bottom: '5%', left: '5%', boxShadow: '0 15px 40px rgba(0,0,0,0.6)', overflow: 'hidden' }}>
                             <div style={{ height: '100%', padding: '0.8rem', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 <div style={{ width: '40%', height: '6px', background: '#1A2235', borderRadius: '3px' }}></div>
-                                <div style={{ flex: 1, background: 'rgba(0, 200, 150, 0.08)', borderRadius: '6px', border: '1px solid rgba(0, 200, 150, 0.15)', display: 'flex', alignItems: 'flex-end', padding: '8px', gap: '4px' }}>
+                                <div style={{ flex: 1, background: 'rgba(54, 249, 54, 0.08)', borderRadius: '6px', border: '1px solid rgba(54, 249, 54, 0.15)', display: 'flex', alignItems: 'flex-end', padding: '8px', gap: '4px' }}>
                                     {/* Line chart mock */}
-                                    <div style={{ width: '20%', height: '30%', background: '#00C896', borderRadius: '2px 2px 0 0' }}></div>
-                                    <div style={{ width: '20%', height: '50%', background: '#00C896', borderRadius: '2px 2px 0 0' }}></div>
-                                    <div style={{ width: '20%', height: '40%', background: '#00C896', borderRadius: '2px 2px 0 0' }}></div>
-                                    <div style={{ width: '20%', height: '70%', background: '#00C896', borderRadius: '2px 2px 0 0' }}></div>
+                                    <div style={{ width: '20%', height: '30%', background: '#36F936', borderRadius: '2px 2px 0 0' }}></div>
+                                    <div style={{ width: '20%', height: '50%', background: '#36F936', borderRadius: '2px 2px 0 0' }}></div>
+                                    <div style={{ width: '20%', height: '40%', background: '#36F936', borderRadius: '2px 2px 0 0' }}></div>
+                                    <div style={{ width: '20%', height: '70%', background: '#36F936', borderRadius: '2px 2px 0 0' }}></div>
                                 </div>
                                 <div style={{ height: '20%', display: 'flex', gap: '8px' }}>
                                     <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
@@ -206,7 +206,7 @@ export default function TradingPlatforms() {
                             <div style={{ position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%)', width: '40%', height: '12px', background: '#3A4255', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px', zIndex: 4 }}></div>
                             <div style={{ padding: '1.2rem 0.8rem 0.8rem', height: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <div style={{ width: '40%', height: '16px', background: '#00C896', borderRadius: '4px', opacity: 0.8 }}></div>
+                                    <div style={{ width: '40%', height: '16px', background: '#36F936', borderRadius: '4px', opacity: 0.8 }}></div>
                                     <div style={{ width: '20%', height: '16px', background: '#ff4757', borderRadius: '4px', opacity: 0.8 }}></div>
                                 </div>
                                 <div style={{ flex: 1, background: 'rgba(255, 255, 255, 0.03)', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.05)', display: 'flex', flexDirection: 'column', gap: '4px', padding: '6px' }}>
@@ -216,7 +216,7 @@ export default function TradingPlatforms() {
                                     <div style={{ width: '100%', height: '12px', background: '#1A2235', borderRadius: '2px' }}></div>
                                 </div>
                                 <div style={{ display: 'flex', gap: '6px', marginTop: 'auto' }}>
-                                    <div style={{ flex: 1, height: '24px', background: '#00C896', borderRadius: '12px' }}></div>
+                                    <div style={{ flex: 1, height: '24px', background: '#36F936', borderRadius: '12px' }}></div>
                                     <div style={{ flex: 1, height: '24px', background: '#ff4757', borderRadius: '12px' }}></div>
                                 </div>
                             </div>
