@@ -1,0 +1,86 @@
+.toggle {
+    position: relative;
+    width: 76px;
+    height: 38px;
+    background: rgba(13, 17, 23, 0.6);
+    border: 1.5px solid var(--color-accent);
+    border-radius: 99px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: all 0.4s var(--ease-out);
+    user-select: none;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 10px rgba(54, 249, 54, 0.15);
+}
+
+.toggle:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 15px rgba(54, 249, 54, 0.25);
+    background: rgba(13, 17, 23, 0.8);
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    transition: all 0.4s var(--ease-out);
+}
+
+.iconMoon {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.iconSun {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.active {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+.active .iconMoon,
+.active .iconSun {
+    color: #fff;
+}
+
+.handle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 28px;
+    height: 28px;
+    background: var(--color-accent); 
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 15px rgba(54, 249, 54, 0.4);
+}
+
+/* Theme light mode overrides */
+:global(.light-mode) .toggle {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: var(--color-accent);
+}
+
+:global(.light-mode) .iconMoon,
+:global(.light-mode) .iconSun {
+    color: rgba(0, 0, 0, 0.3);
+}
+
+:global(.light-mode) .active {
+    filter: drop-shadow(0 0 5px rgba(54, 249, 54, 0.4));
+}
+
+:global(.light-mode) .active .iconMoon,
+:global(.light-mode) .active .iconSun {
+    color: #000;
+}
+
+:global(.light-mode) .handle {
+    box-shadow: 0 0 15px rgba(54, 249, 54, 0.4);
+}

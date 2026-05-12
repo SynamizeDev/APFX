@@ -9,6 +9,8 @@ import { useScroll, useTransform, motion, AnimatePresence, useMotionTemplate } f
 import { usePreferences } from '@/context/PreferencesContext'
 
 import styles from './Header.module.css'
+import ThemeToggle from '@/components/ui/ThemeToggle'
+
 
 
 
@@ -319,6 +321,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                         >
                             <User size={20} strokeWidth={1.5} />
                         </Link>
+
                         <Link
                             href="https://portal.apfx.com/register"
                             className={styles.btnSolidWhite}
@@ -326,6 +329,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                         >
                             Register
                         </Link>
+                        <ThemeToggle />
                     </div>
                 </div>
             </motion.header>

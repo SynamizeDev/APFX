@@ -75,7 +75,6 @@ export const metadata: Metadata = {
 
 import PageTransition from '@/components/animations/PageTransition'
 import ChatWidget from '@/components/ui/ChatWidget'
-import PreferencesPanel from '@/components/ui/PreferencesPanel'
 import RouteBreadcrumbs from '@/components/layout/RouteBreadcrumbs'
 
 export default function RootLayout({
@@ -157,7 +156,6 @@ export default function RootLayout({
                 <RouteBreadcrumbs />
                 <PageTransition>{children}</PageTransition>
                 <ChatWidget />
-                <PreferencesPanel />
               </main>
             </SmoothScrollProvider>
           </HomeEntryProvider>

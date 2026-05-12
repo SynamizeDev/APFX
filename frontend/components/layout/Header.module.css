@@ -207,6 +207,7 @@
 :global(.light-mode) .btnSolidWhite {
     background: rgba(0, 0, 0, 0.04);
     color: #000000;
+    border-color: var(--color-accent);
 }
 
 :global(.light-mode) .btnIconSolidWhite:hover,
