@@ -141,12 +141,23 @@ export default function Footer() {
                         <Link href="/risk-disclosure" prefetch={true}>Risk Disclosure</Link>
                     </nav>
                 </div>
-                <p className={styles.disclaimer}>
-                    Risk Warning: Trading CFDs carries significant risk of loss. Leverage can work against you.
-                    You may lose more than you invest. Ensure you fully understand the risks involved and seek
-                    independent financial advice if necessary. APFX Limited is regulated and authorised.
-                    Past performance is not indicative of future results.
-                </p>
+                <div className={styles.disclosure}>
+                    <p>
+                        APFX Global Markets is operated by APFX Global Markets Ltd, an International Business
+                        Company incorporated in Saint Lucia.
+                    </p>
+                    <p>
+                        <span className={styles.disclosureLabel}>Risk Warning:</span> Trading leveraged
+                        products such as forex and CFDs carries a high level of risk and may not be suitable
+                        for all investors. You may lose all of your invested capital. Please ensure you fully
+                        understand the risks involved before trading.
+                    </p>
+                    <p>
+                        <span className={styles.disclosureLabel}>Restricted Jurisdictions:</span> APFX
+                        Global Markets does not provide services to residents of jurisdictions where such
+                        distribution or use would be contrary to local law or regulation.
+                    </p>
+                </div>
             </div>
 
         </footer>
