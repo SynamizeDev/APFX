@@ -15,11 +15,11 @@ import ThemeToggle from '@/components/ui/ThemeToggle'
 
 
 const NAV_LINKS = [
+    { label: 'Introduction', href: '/about', hasMegaMenu: false },
     { label: 'Trade & Invest', href: '/trade&invest/commodities', hasMegaMenu: true },
     { label: 'Tools', href: '/tools', hasMegaMenu: true },
     { label: 'Learn', href: '/learn', hasMegaMenu: true },
     { label: 'Company', href: '/company', hasMegaMenu: true },
-    { label: 'Become a Partner', href: '/partners', hasMegaMenu: false },
 ]
 
 const MEGA_MENU_DATA = {
@@ -60,6 +60,7 @@ const MEGA_MENU_DATA = {
             links: [
                 { label: 'About Us', href: '/company/about-us' },
                 { label: 'Account Types', href: '/accounts' },
+                { label: 'Become a Partner', href: '/partners' },
                 { label: 'Privacy Policy', href: '/privacy-policy' },
                 { label: 'Terms of Service', href: '/terms-of-service' },
                 { label: 'Risk Disclosure', href: '/risk-disclosure' },
