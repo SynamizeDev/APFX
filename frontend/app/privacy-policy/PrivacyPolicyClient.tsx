@@ -18,7 +18,7 @@ const stagger: Variants = {
     hidden: {},
     visible: {
         transition: {
-            staggerChildren: 0.1,
+            staggerChildren: 0.08,
         },
     },
 }
@@ -29,7 +29,7 @@ export default function PrivacyPolicyClient() {
             <InnerPageHero
                 title="Privacy"
                 accentLine="Policy"
-                subtitle="Your data privacy and security are our priority. At APFX Fintech, we are committed to protecting your privacy and ensuring transparency in how your information is handled."
+                subtitle="Your data privacy and security are our top priority. Learn how APFX Global Markets collects, uses, and protects your information."
                 breadcrumbs={[{ label: 'Company', href: '/company' }, { label: 'Privacy Policy' }]}
             />
 
@@ -43,57 +43,49 @@ export default function PrivacyPolicyClient() {
                             whileInView="visible"
                             viewport={{ once: true, margin: '-100px' }}
                         >
-                            <motion.h2 variants={fadeUp}>Introduction</motion.h2>
+                            <motion.h2 variants={fadeUp}>Collection of Information</motion.h2>
                             <motion.p variants={fadeUp}>
-                                This Privacy Policy outlines how we collect, use, and safeguard your data when you use our platform. By accessing APFX Fintech, you entrust us with your information, and we take this responsibility seriously.
+                                The Company may collect various types of information to provide and improve our services, including:
                             </motion.p>
-
-                            <motion.h2 variants={fadeUp}>Information We Collect</motion.h2>
-                            <motion.p variants={fadeUp}>
-                                We may collect the following types of information to provide and improve our services:
-                            </motion.p>
-                            <motion.ul variants={fadeUp}>
-                                <li>Personal information such as name, email address, phone number</li>
-                                <li>Account and transaction-related data</li>
-                                <li>Device and browser information (IP address, OS, browser type)</li>
-                                <li>Usage data including interactions with our platform</li>
+                            <motion.ul variants={stagger}>
+                                <motion.li variants={fadeUp}>Name</motion.li>
+                                <motion.li variants={fadeUp}>Address</motion.li>
+                                <motion.li variants={fadeUp}>Contact details</motion.li>
+                                <motion.li variants={fadeUp}>Financial information</motion.li>
+                                <motion.li variants={fadeUp}>Device and IP information</motion.li>
                             </motion.ul>
 
-                            <motion.h2 variants={fadeUp}>How We Use Your Information</motion.h2>
+                            <motion.h2 variants={fadeUp} style={{ marginTop: '4rem' }}>Use of Information</motion.h2>
                             <motion.p variants={fadeUp}>
-                                We use your information to ensure a seamless and secure experience:
+                                Information collected may be used for several critical operations:
                             </motion.p>
-                            <motion.ul variants={fadeUp}>
-                                <li>Provide, operate, and maintain our services</li>
-                                <li>Improve user experience and platform performance</li>
-                                <li>Communicate important updates, alerts, and notifications</li>
-                                <li>Enhance security and prevent fraudulent activities</li>
+                            <motion.ul variants={stagger}>
+                                <motion.li variants={fadeUp}>Account verification</motion.li>
+                                <motion.li variants={fadeUp}>Compliance purposes</motion.li>
+                                <motion.li variants={fadeUp}>Transaction processing</motion.li>
+                                <motion.li variants={fadeUp}>Customer support</motion.li>
+                                <motion.li variants={fadeUp}>Security monitoring</motion.li>
                             </motion.ul>
 
-                            <motion.h2 variants={fadeUp}>Data Protection and Security</motion.h2>
+                            <motion.h2 variants={fadeUp} style={{ marginTop: '4rem' }}>Data Protection</motion.h2>
                             <motion.p variants={fadeUp}>
-                                We implement industry-standard security measures including high-grade encryption, secure servers, and strict access controls to protect your data against unauthorized access, alteration, or disclosure.
+                                The Company takes reasonable measures, including high-level encryption and secure server protocols, to protect client information from unauthorized access, loss, or disclosure.
                             </motion.p>
-
-                            <motion.h2 variants={fadeUp}>Third-Party Services</motion.h2>
-                            <motion.p variants={fadeUp}>
-                                We may engage trusted third-party services for analytics, communication, and infrastructure. These providers are bound by strict confidentiality and data protection standards.
-                            </motion.p>
-
-                            <motion.h2 variants={fadeUp}>Cookies and Tracking</motion.h2>
-                            <motion.p variants={fadeUp}>
-                                We use cookies and similar technologies to enhance your browsing experience, analyze traffic patterns, and personalize content delivery.
-                            </motion.p>
-
-                            <motion.h2 variants={fadeUp}>User Rights</motion.h2>
-                            <motion.p variants={fadeUp}>
-                                You have the right to access your personal data, request correction or deletion, and withdraw consent where applicable under global privacy regulations.
-                            </motion.p>
-
-                            <motion.h2 variants={fadeUp}>Policy Updates</motion.h2>
-                            <motion.p variants={fadeUp}>
-                                We may update this Privacy Policy periodically. Any changes will be reflected on this page with an updated effective date.
-                            </motion.p>
+                            
+                            <motion.div 
+                                className={styles.warningBox} 
+                                variants={fadeUp}
+                                style={{ 
+                                    marginTop: '4rem',
+                                    background: 'rgba(54, 249, 54, 0.03)',
+                                    borderColor: 'var(--color-accent-glow)',
+                                    color: 'var(--color-text-1)'
+                                }}
+                            >
+                                <p style={{ margin: 0, fontWeight: 'var(--fw-semibold)' }}>
+                                    Your trust is our most valuable asset. We are committed to maintaining the highest standards of data security and transparency.
+                                </p>
+                            </motion.div>
                         </motion.div>
                     </div>
                 </section>
@@ -103,3 +95,4 @@ export default function PrivacyPolicyClient() {
         </div>
     )
 }
+

@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import RiskDisclosureClient from './RiskDisclosureClient'
 
 export const metadata: Metadata = {
-    title: 'Compliance & Risk Disclosure - APFX Trading Safety',
+    title: 'Risk Disclosure Statement | APFX Global Markets',
     description:
-        'Crucial risk warnings and disclosures related to CFD and Margin trading. Understand the market, technical, and operational risks before you invest.',
+        'Official risk disclosure statement for APFX Global Markets. Understand the significant risks associated with leveraged trading of Forex, CFDs, and cryptocurrencies.',
 }
 
 export default function RiskDisclosurePage() {

@@ -75,7 +75,7 @@ export const metadata: Metadata = {
 
 import PageTransition from '@/components/animations/PageTransition'
 import ChatWidget from '@/components/ui/ChatWidget'
-import RouteBreadcrumbs from '@/components/layout/RouteBreadcrumbs'
+import CookieConsent from '@/components/ui/CookieConsent'
 
 export default function RootLayout({
   children,
@@ -153,9 +153,9 @@ export default function RootLayout({
                   isolation: 'isolate',
                 }}
               >
-                <RouteBreadcrumbs />
                 <PageTransition>{children}</PageTransition>
                 <ChatWidget />
+                <CookieConsent />
               </main>
             </SmoothScrollProvider>
           </HomeEntryProvider>

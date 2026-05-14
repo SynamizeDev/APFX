@@ -20,13 +20,8 @@ const FOOTER_LINKS = {
         { label: 'TradingView', href: '/platforms' },
         { label: 'Mobile App', href: '/platforms' },
     ],
-    Company: [
-        { label: 'About Us', href: '/company/about-us' },
-        { label: 'Privacy Policy', href: '/privacy-policy' },
-        { label: 'Terms of Service', href: '/terms-of-service' },
-        { label: 'Risk Disclosure', href: '/risk-disclosure' },
-    ],
     Support: [
+        { label: 'About Us', href: '/company/about-us' },
         { label: 'Support Center', href: '/support' },
         { label: 'FAQ', href: '/faq' },
         { label: 'Contact', href: '/contact' },
@@ -136,9 +131,19 @@ export default function Footer() {
                         © {new Date().getFullYear()} APFX Limited. All rights reserved.
                     </span>
                     <nav className={styles.legal} aria-label="Legal navigation">
+                        <Link href="/legal" prefetch={true}>Legal Documents</Link>
                         <Link href="/privacy-policy" prefetch={true}>Privacy Policy</Link>
-                        <Link href="/terms-of-service" prefetch={true}>Terms of Service</Link>
+                        <Link href="/terms-of-service" prefetch={true}>Terms & Conditions</Link>
                         <Link href="/risk-disclosure" prefetch={true}>Risk Disclosure</Link>
+                        <Link href="/aml-kyc-policy" prefetch={true}>AML & KYC</Link>
+                        <Link href="/cookie-policy" prefetch={true}>Cookie Policy</Link>
+                        <Link href="/complaint-handling-policy" prefetch={true}>Complaint Handling</Link>
+                        <Link href="/bonus-terms" prefetch={true}>Bonus Terms</Link>
+                        <Link href="/deposit-withdrawal-policy" prefetch={true}>Deposit & Withdrawal</Link>
+                        <Link href="/restricted-countries-policy" prefetch={true}>Restricted Countries</Link>
+                        <Link href="/compliance-tips" prefetch={true}>Compliance Standards</Link>
+                        <Link href="/high-risk-disclaimer" prefetch={true}>High-Risk Disclaimer</Link>
+                        <Link href="/payment-disclaimer" prefetch={true}>Payment Disclaimer</Link>
                     </nav>
                 </div>
                 <div className={styles.disclosure}>

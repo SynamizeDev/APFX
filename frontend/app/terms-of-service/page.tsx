@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import TermsOfServiceClient from './TermsOfServiceClient'
 
 export const metadata: Metadata = {
-    title: 'Terms of Service - Global Trading Agreement',
+    title: 'Terms & Conditions | APFX Global Markets',
     description:
-        'The legal framework governing your relationship with APFX. Transparent terms for professional traders and institutional clients.',
+        'The comprehensive legal framework governing your relationship with APFX Global Markets. Transparent terms for professional traders and institutional clients.',
 }
 
 export default function TermsOfServicePage() {

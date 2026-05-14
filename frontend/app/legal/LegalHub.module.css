@@ -1,0 +1,114 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-bg);
+}
+
+.main {
+    padding: 6rem 0;
+}
+
+.container {
+    max-width: var(--container-xl);
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--color-border-2);
+    border-radius: var(--radius-xl);
+    transition: all var(--duration-normal) var(--ease-out);
+    text-decoration: none;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(54, 249, 54, 0.03), transparent 60%);
+    opacity: 0;
+    transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.card:hover {
+    border-color: var(--color-accent-dim);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.icon {
+    font-size: 2rem;
+    line-height: 1;
+    background: var(--color-bg);
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-3);
+    flex-shrink: 0;
+}
+
+.content {
+    flex: 1;
+}
+
+.content h3 {
+    color: var(--color-text-1);
+    font-size: 1.25rem;
+    font-weight: var(--fw-bold);
+    margin: 0 0 0.5rem 0;
+    transition: color var(--duration-fast) var(--ease-out);
+}
+
+.card:hover h3 {
+    color: var(--color-accent);
+}
+
+.content p {
+    color: var(--color-text-3);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.arrow {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    color: var(--color-text-3);
+    font-size: 1.25rem;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all var(--duration-normal) var(--ease-out);
+}
+
+.card:hover .arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--color-accent);
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

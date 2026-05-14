@@ -18,7 +18,7 @@ const stagger: Variants = {
     hidden: {},
     visible: {
         transition: {
-            staggerChildren: 0.1,
+            staggerChildren: 0.05,
         },
     },
 }
@@ -27,10 +27,10 @@ export default function TermsOfServiceClient() {
     return (
         <div className={styles.page}>
             <InnerPageHero
-                title="Terms of"
-                accentLine="Service"
-                subtitle="Guidelines for using our platform responsibly. These terms govern your use of our platform and services."
-                breadcrumbs={[{ label: 'Company', href: '/company' }, { label: 'Terms of Service' }]}
+                title="Terms &"
+                accentLine="Conditions"
+                subtitle="The legal framework governing your relationship with APFX Global Markets. Please read these terms carefully before using our services."
+                breadcrumbs={[{ label: 'Company', href: '/company' }, { label: 'Terms & Conditions' }]}
             />
 
             <main className={styles.main}>
@@ -43,50 +43,166 @@ export default function TermsOfServiceClient() {
                             whileInView="visible"
                             viewport={{ once: true, margin: '-100px' }}
                         >
-                            <motion.h2 variants={fadeUp}>Introduction</motion.h2>
+                            <motion.h2 variants={fadeUp}>3.1 Acceptance of Terms</motion.h2>
                             <motion.p variants={fadeUp}>
-                                By accessing or using APFX Fintech, you agree to comply with these Terms of Service. These terms form a legally binding agreement between you and APFX Fintech.
+                                By accessing this website or opening a trading account with APFX Global Markets, the Client agrees to be bound by these Terms and Conditions.
+                            </motion.p>
+                            <motion.p variants={fadeUp} style={{ color: 'var(--color-accent)', fontWeight: 'var(--fw-semibold)' }}>
+                                If the Client does not agree with these Terms, the Client should not use the services.
                             </motion.p>
 
-                            <motion.h2 variants={fadeUp}>User Responsibilities</motion.h2>
+                            <motion.h2 variants={fadeUp}>3.2 Eligibility</motion.h2>
+                            <motion.p variants={fadeUp}>Clients must:</motion.p>
+                            <motion.ul variants={stagger}>
+                                <motion.li variants={fadeUp}>Be at least 18 years old.</motion.li>
+                                <motion.li variants={fadeUp}>Have legal capacity to enter into binding agreements.</motion.li>
+                                <motion.li variants={fadeUp}>Comply with the laws of their country of residence.</motion.li>
+                            </motion.ul>
                             <motion.p variants={fadeUp}>
-                                To maintain a secure and efficient trading environment, all users agree to:
+                                The Company reserves the right to reject any account application at its sole discretion.
                             </motion.p>
-                            <motion.ul variants={fadeUp}>
-                                <li>Provide accurate, current, and complete information during registration</li>
-                                <li>Use the platform in strict compliance with applicable local and international laws</li>
-                                <li>Maintain the absolute confidentiality of account credentials and security keys</li>
+
+                            <motion.h2 variants={fadeUp}>3.3 Restricted Jurisdictions</motion.h2>
+                            <motion.p variants={fadeUp}>
+                                APFX Global Markets does not offer services to residents of jurisdictions where forex or CFD trading is restricted or prohibited by local laws.
+                            </motion.p>
+                            <motion.p variants={fadeUp}>
+                                The Company reserves the right to decline or terminate accounts from restricted jurisdictions.
+                            </motion.p>
+
+                            <motion.h2 variants={fadeUp}>3.4 Client Responsibility</motion.h2>
+                            <motion.p variants={fadeUp}>Clients are responsible for:</motion.p>
+                            <motion.ul variants={stagger}>
+                                <motion.li variants={fadeUp}>Maintaining confidentiality of account credentials.</motion.li>
+                                <motion.li variants={fadeUp}>Monitoring account activity.</motion.li>
+                                <motion.li variants={fadeUp}>Ensuring sufficient margin.</motion.li>
+                                <motion.li variants={fadeUp}>Understanding trading risks.</motion.li>
+                            </motion.ul>
+                            <motion.p variants={fadeUp}>
+                                The Company shall not be liable for unauthorized access resulting from Client negligence.
+                            </motion.p>
+
+                            <motion.h2 variants={fadeUp}>3.5 Order Execution</motion.h2>
+                            <motion.p variants={fadeUp}>
+                                The Company shall use commercially reasonable efforts to execute Client orders.
+                            </motion.p>
+                            <motion.p variants={fadeUp}>However, the Client acknowledges that:</motion.p>
+                            <motion.ul variants={stagger}>
+                                <motion.li variants={fadeUp}>Prices may change rapidly.</motion.li>
+                                <motion.li variants={fadeUp}>Slippage may occur.</motion.li>
+                                <motion.li variants={fadeUp}>Execution delays may occur during market volatility.</motion.li>
+                                <motion.li variants={fadeUp}>Market gaps may affect order execution.</motion.li>
+                            </motion.ul>
+                            <motion.p variants={fadeUp}>
+                                The Company does not guarantee execution at requested prices.
+                            </motion.p>
+
+                            <motion.h2 variants={fadeUp}>3.6 Leverage</motion.h2>
+                            <motion.p variants={fadeUp}>
+                                Trading with leverage increases both potential profits and potential losses.
+                            </motion.p>
+                            <motion.p variants={fadeUp}>The Company reserves the right to:</motion.p>
+                            <motion.ul variants={stagger}>
+                                <motion.li variants={fadeUp}>Adjust leverage levels.</motion.li>
+                                <motion.li variants={fadeUp}>Change margin requirements.</motion.li>
+                                <motion.li variants={fadeUp}>Close positions due to insufficient margin.</motion.li>
                             </motion.ul>
 
-                            <motion.h2 variants={fadeUp}>Account Security</motion.h2>
+                            <motion.h2 variants={fadeUp}>3.7 Margin Call & Stop Out</motion.h2>
                             <motion.p variants={fadeUp}>
-                                You are solely responsible for all activities conducted under your account. Any unauthorized use or suspicion of a security breach should be reported to our support team immediately.
+                                Clients are responsible for monitoring margin levels.
+                            </motion.p>
+                            <motion.p variants={fadeUp}>
+                                The Company may close open positions without prior notice if account equity falls below required margin thresholds.
                             </motion.p>
 
-                            <motion.h2 variants={fadeUp}>Prohibited Activities</motion.h2>
+                            <motion.h2 variants={fadeUp}>3.8 Deposits & Withdrawals</motion.h2>
                             <motion.p variants={fadeUp}>
-                                Users must not engage in activities that compromise the integrity or performance of APFX Fintech:
+                                Clients must use payment methods registered in their own name.
                             </motion.p>
-                            <motion.ul variants={fadeUp}>
-                                <li>Attempt unauthorized access to systems, data, or other user accounts</li>
-                                <li>Engage in fraudulent, deceptive, or manipulative trading practices</li>
-                                <li>Interfere with platform performance, security, or underlying infrastructure</li>
-                                <li>Use automated systems to extract data without explicit written permission</li>
+                            <motion.p variants={fadeUp}>The Company reserves the right to:</motion.p>
+                            <motion.ul variants={stagger}>
+                                <motion.li variants={fadeUp}>Request verification documents.</motion.li>
+                                <motion.li variants={fadeUp}>Reject suspicious transactions.</motion.li>
+                                <motion.li variants={fadeUp}>Delay withdrawals pending compliance checks.</motion.li>
+                            </motion.ul>
+                            <motion.p variants={fadeUp}>
+                                Withdrawals may be processed only to verified payment sources belonging to the Client.
+                            </motion.p>
+
+                            <motion.h2 variants={fadeUp}>3.9 Anti-Money Laundering (AML)</motion.h2>
+                            <motion.p variants={fadeUp}>
+                                The Company complies with anti-money laundering procedures and may require identity verification at any time.
+                            </motion.p>
+                            <motion.p variants={fadeUp}>The Company reserves the right to:</motion.p>
+                            <motion.ul variants={stagger}>
+                                <motion.li variants={fadeUp}>Request additional documentation.</motion.li>
+                                <motion.li variants={fadeUp}>Reject transactions.</motion.li>
+                                <motion.li variants={fadeUp}>Suspend or terminate accounts.</motion.li>
+                                <motion.li variants={fadeUp}>Report suspicious activity to relevant authorities.</motion.li>
                             </motion.ul>
 
-                            <motion.h2 variants={fadeUp}>Service Availability</motion.h2>
+                            <motion.h2 variants={fadeUp}>3.10 Prohibited Trading Practices</motion.h2>
                             <motion.p variants={fadeUp}>
-                                While we strive for high availability and low latency, we do not guarantee uninterrupted service. Scheduled maintenance or technical issues may cause temporary disruptions.
+                                The following activities may result in account suspension or termination:
+                            </motion.p>
+                            <motion.ul variants={stagger}>
+                                <motion.li variants={fadeUp}>Arbitrage abuse</motion.li>
+                                <motion.li variants={fadeUp}>Latency exploitation</motion.li>
+                                <motion.li variants={fadeUp}>Market manipulation</motion.li>
+                                <motion.li variants={fadeUp}>Bonus abuse</motion.li>
+                                <motion.li variants={fadeUp}>Use of unauthorized trading software</motion.li>
+                                <motion.li variants={fadeUp}>Fraudulent activity</motion.li>
+                            </motion.ul>
+                            <motion.p variants={fadeUp}>
+                                The Company reserves the right to void trades resulting from abusive trading practices.
                             </motion.p>
 
-                            <motion.h2 variants={fadeUp}>Limitation of Liability</motion.h2>
+                            <motion.h2 variants={fadeUp}>3.11 Bonuses & Promotions</motion.h2>
                             <motion.p variants={fadeUp}>
-                                APFX Fintech shall not be held liable for any direct or indirect losses, including financial losses or opportunity costs, arising from the use of our platform or services.
+                                Promotional offers are subject to separate terms and conditions.
+                            </motion.p>
+                            <motion.p variants={fadeUp}>The Company reserves the right to:</motion.p>
+                            <motion.ul variants={stagger}>
+                                <motion.li variants={fadeUp}>Modify promotions.</motion.li>
+                                <motion.li variants={fadeUp}>Cancel bonuses.</motion.li>
+                                <motion.li variants={fadeUp}>Restrict withdrawals related to abuse.</motion.li>
+                            </motion.ul>
+
+                            <motion.h2 variants={fadeUp}>3.12 Limitation of Liability</motion.h2>
+                            <motion.p variants={fadeUp}>The Company shall not be liable for:</motion.p>
+                            <motion.ul variants={stagger}>
+                                <motion.li variants={fadeUp}>Indirect losses</motion.li>
+                                <motion.li variants={fadeUp}>Consequential damages</motion.li>
+                                <motion.li variants={fadeUp}>Loss of profits</motion.li>
+                                <motion.li variants={fadeUp}>Technical interruptions</motion.li>
+                                <motion.li variants={fadeUp}>Market volatility</motion.li>
+                                <motion.li variants={fadeUp}>Internet failures</motion.li>
+                                <motion.li variants={fadeUp}>Third-party system failures</motion.li>
+                            </motion.ul>
+
+                            <motion.h2 variants={fadeUp}>3.13 Intellectual Property</motion.h2>
+                            <motion.p variants={fadeUp}>
+                                All website content, logos, graphics, and materials remain the intellectual property of APFX Global Markets.
+                            </motion.p>
+                            <motion.p variants={fadeUp}>
+                                Unauthorized use is prohibited.
                             </motion.p>
 
-                            <motion.h2 variants={fadeUp}>Termination</motion.h2>
+                            <motion.h2 variants={fadeUp}>3.14 Account Suspension & Termination</motion.h2>
                             <motion.p variants={fadeUp}>
-                                We reserve the right to suspend or terminate accounts that violate these terms, pose a risk to the platform, or are subject to regulatory investigations.
+                                The Company reserves the right to suspend or terminate accounts at its discretion, particularly in cases involving:
+                            </motion.p>
+                            <motion.ul variants={stagger}>
+                                <motion.li variants={fadeUp}>Fraud</motion.li>
+                                <motion.li variants={fadeUp}>AML concerns</motion.li>
+                                <motion.li variants={fadeUp}>Regulatory violations</motion.li>
+                                <motion.li variants={fadeUp}>Abusive trading behavior</motion.li>
+                            </motion.ul>
+
+                            <motion.h2 variants={fadeUp}>3.15 Governing Law</motion.h2>
+                            <motion.p variants={fadeUp}>
+                                These Terms shall be governed by the laws applicable to the Company’s jurisdiction of incorporation.
                             </motion.p>
                         </motion.div>
                     </div>
@@ -97,3 +213,4 @@ export default function TermsOfServiceClient() {
         </div>
     )
 }
+

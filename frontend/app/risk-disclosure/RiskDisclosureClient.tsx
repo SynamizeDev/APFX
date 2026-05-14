@@ -44,51 +44,54 @@ export default function RiskDisclosureClient() {
                             viewport={{ once: true, margin: '-100px' }}
                         >
                             <motion.div className={styles.warningBox} variants={fadeUp}>
-                                <strong>Important Risk Warning</strong>
+                                <strong>Risk Disclosure Statement</strong>
                                 <p>
-                                    Trading CFDs carries significant risk of loss. Leverage can work against you. You may lose more than you invest. Ensure you fully understand the risks involved and seek independent financial advice if necessary.
+                                    Trading foreign exchange (Forex), Contracts for Difference (CFDs), commodities, indices, cryptocurrencies, and other leveraged financial instruments involves significant risk and may not be suitable for all investors.
                                 </p>
                             </motion.div>
 
-                            <motion.h2 variants={fadeUp}>Introduction</motion.h2>
                             <motion.p variants={fadeUp}>
-                                At APFX Fintech, we believe in full transparency. Detailed below are the market, technical, and operational risks associated with financial trading. Users must carefully evaluate their financial situation before engaging with our platform.
+                                Clients should carefully consider their investment objectives, level of experience, and risk appetite before trading.
                             </motion.p>
 
-                            <motion.h2 variants={fadeUp}>Market Risks</motion.h2>
                             <motion.p variants={fadeUp}>
-                                Financial markets are highly volatile. Prices can fluctuate rapidly due to geopolitical events, economic data releases, and market sentiment, leading to potential substantial losses.
+                                The use of leverage can work both for and against you. Market volatility may result in substantial losses, including the loss of your entire deposited capital.
                             </motion.p>
 
-                            <motion.h2 variants={fadeUp}>No Guarantee of Returns</motion.h2>
                             <motion.p variants={fadeUp}>
-                                APFX Fintech does not guarantee profits, specific returns, or successful outcomes of any financial activity. Past performance is not indicative of future results.
+                                Past performance is not indicative of future results.
                             </motion.p>
 
-                            <motion.h2 variants={fadeUp}>User Responsibility</motion.h2>
                             <motion.p variants={fadeUp}>
-                                All investment decisions are made solely by the user. APFX Fintech does not provide financial advice, price predictions, or specific investment recommendations.
+                                APFX Global Markets does not guarantee profits or protection from losses.
                             </motion.p>
 
-                            <motion.h2 variants={fadeUp}>Leverage Risks</motion.h2>
-                            <motion.p variants={fadeUp}>
-                                Using leverage can magnify both profits and losses. It is a powerful tool that requires a deep understanding of margin requirements and risk management before use.
-                            </motion.p>
+                            <motion.h3 variants={fadeUp} style={{ marginTop: '3rem', marginBottom: '1.5rem' }}>
+                                Clients acknowledge that:
+                            </motion.h3>
 
-                            <motion.h2 variants={fadeUp}>Technical Risks</motion.h2>
-                            <motion.p variants={fadeUp}>
-                                System outages, connectivity issues, or hardware failures may affect the execution of transactions. While we maintain redundant systems, technical risks are inherent in electronic trading.
-                            </motion.p>
+                            <motion.ul variants={stagger} style={{ marginBottom: '3rem' }}>
+                                <motion.li variants={fadeUp}>Prices may fluctuate rapidly.</motion.li>
+                                <motion.li variants={fadeUp}>Slippage and execution delays may occur.</motion.li>
+                                <motion.li variants={fadeUp}>Trading during volatile market conditions may increase risk.</motion.li>
+                                <motion.li variants={fadeUp}>Technical failures may affect trading activity.</motion.li>
+                                <motion.li variants={fadeUp}>Leveraged trading amplifies both gains and losses.</motion.li>
+                            </motion.ul>
 
-                            <motion.h2 variants={fadeUp}>Regulatory Considerations</motion.h2>
-                            <motion.p variants={fadeUp}>
-                                Users are responsible for ensuring compliance with local laws and regulations applicable to financial activities in their respective jurisdictions.
-                            </motion.p>
-
-                            <motion.h2 variants={fadeUp}>Acknowledgment</motion.h2>
-                            <motion.p variants={fadeUp}>
-                                By using the APFX Fintech platform, you acknowledge that you understand and accept all associated risks and are prepared for the possibility of financial loss.
-                            </motion.p>
+                            <motion.div 
+                                className={styles.warningBox} 
+                                variants={fadeUp}
+                                style={{ 
+                                    background: 'rgba(255, 255, 255, 0.03)', 
+                                    borderColor: 'var(--color-border-2)',
+                                    color: 'var(--color-text-1)',
+                                    marginBottom: 0
+                                }}
+                            >
+                                <p style={{ margin: 0, fontSize: 'var(--text-lg)', fontWeight: 'var(--fw-semibold)', color: 'var(--color-accent)' }}>
+                                    Clients should not trade with money they cannot afford to lose.
+                                </p>
+                            </motion.div>
                         </motion.div>
                     </div>
                 </section>
@@ -98,3 +101,4 @@ export default function RiskDisclosureClient() {
         </div>
     )
 }
+
