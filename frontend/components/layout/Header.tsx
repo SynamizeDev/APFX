@@ -16,7 +16,8 @@ import ThemeToggle from '@/components/ui/ThemeToggle'
 
 const NAV_LINKS = [
     { label: 'Introduction', href: '/about', hasMegaMenu: false },
-    { label: 'Trade & Invest', href: '/trade&invest/commodities', hasMegaMenu: true },
+    { label: 'Trade & Invest', href: '/trade&invest/platforms', hasMegaMenu: true },
+    { label: 'Products', href: '/products/forex', hasMegaMenu: true },
     { label: 'Tools', href: '/tools', hasMegaMenu: true },
     { label: 'Learn', href: '/learn', hasMegaMenu: true },
     { label: 'Company', href: '/company', hasMegaMenu: true },
@@ -27,11 +28,24 @@ const MEGA_MENU_DATA = {
         {
             title: '',
             links: [
-                { label: 'Commodities', href: '/trade&invest/commodities' },
-                { label: 'Indices', href: '/trade&invest/indices' },
-                { label: 'Stocks (CFDs)', href: '/trade&invest/stocks' },
-                { label: 'Cryptocurrencies', href: '/trade&invest/cryptocurrencies' },
-                { label: 'Futures', href: '/trade&invest/futures' },
+                { label: 'Accounts Overview', href: '/accounts' },
+                { label: 'Premium Account', href: '/accounts/premium' },
+                { label: 'Standard Account', href: '/accounts/standard' },
+                { label: 'Elite Account', href: '/accounts/elite' },
+                { label: 'Swap Free Account', href: '/accounts/swap-free' },
+            ],
+        },
+    ],
+    Products: [
+        {
+            title: '',
+            links: [
+                { label: 'Forex', href: '/products/forex' },
+                { label: 'Commodities', href: '/products/commodities' },
+                { label: 'Indices', href: '/products/indices' },
+                { label: 'Stocks (CFDs)', href: '/products/stocks' },
+                { label: 'Cryptocurrencies', href: '/products/cryptocurrencies' },
+                { label: 'Futures', href: '/products/futures' },
             ],
         },
     ],
