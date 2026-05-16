@@ -37,33 +37,73 @@ const ASSET_LIST = [
 
 export default function HeroSection() {
     const rootRef = useRef<HTMLDivElement>(null)
-    const cardRef = useRef<HTMLDivElement>(null)
     const trackRef = useRef<HTMLDivElement>(null)
     const [currentSlide, setCurrentSlide] = useState(0)
+    const hasLoaded = useRef(false)
 
+    // Robust Auto-advance that always respects the current slide
     useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % 3)
+        const timer = setTimeout(() => {
+            setCurrentSlide((prev) => (prev >= 3 ? 1 : prev + 1))
         }, 6000)
-        return () => clearInterval(interval)
-    }, [])
+        return () => clearTimeout(timer)
+    }, [currentSlide])
 
+    // Main animation driver
     useEffect(() => {
-        // Track sliding animation
-        // The track is 300% wide. So moving by 1 slide means moving 33.3333% of its own width.
+        const targetPercent = -(currentSlide * 25)
+        const currentX = gsap.getProperty(trackRef.current, "xPercent") as number;
+        
+        let duration = 1.2;
+        
+        // If we are moving to Slide 0 and the track is still at -75% (clone), instantly snap it
+        if (currentSlide === 0 && currentX <= -74) {
+            gsap.set(trackRef.current, { xPercent: 0 })
+            duration = 0;
+        }
+
         gsap.to(trackRef.current, {
-            xPercent: -(currentSlide * 33.333333),
-            duration: 1.2,
+            xPercent: targetPercent,
+            duration: duration,
             ease: 'power4.inOut',
-            overwrite: 'auto'
+            overwrite: 'auto',
+            onComplete: () => {
+                // Once we hit the clone, silently snap back to 0
+                if (currentSlide === 3) {
+                    gsap.set(trackRef.current, { xPercent: 0 })
+                    setCurrentSlide(0)
+                }
+            }
         })
 
-        if (currentSlide === 0) {
-            // Initial load animations for Slide 1
+        // Initial entry animation only
+        if (currentSlide === 0 && !hasLoaded.current) {
+            hasLoaded.current = true;
             gsap.fromTo(`.${styles.content}`,
                 { opacity: 0, y: 30 },
                 { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', overwrite: 'auto' }
             )
+        }
+
+        // ── Slide 2 Specific Animations ───────────────────
+        if (currentSlide === 1) {
+            gsap.fromTo(`.${styles.bonusLabel}`, 
+                { opacity: 0, scale: 0.5, y: 40, rotation: -10 },
+                { opacity: 1, scale: 1, y: 0, rotation: 0, duration: 1, stagger: 0.15, ease: 'back.out(1.7)', overwrite: 'auto' }
+            )
+            gsap.fromTo(`.${styles.graphPath}`,
+                { strokeDashoffset: 4000 },
+                { strokeDashoffset: 0, duration: 4.5, ease: 'power2.inOut', delay: 0.4, overwrite: 'auto' }
+            )
+            gsap.fromTo(`.${styles.graphArea}`,
+                { opacity: 0 },
+                { opacity: 0.15, duration: 2, delay: 1.5, ease: 'power1.inOut', overwrite: 'auto' }
+            )
+        } else {
+            // Reset for next time
+            gsap.set(`.${styles.bonusLabel}`, { opacity: 0, scale: 0.5, y: 40 })
+            gsap.set(`.${styles.graphPath}`, { strokeDashoffset: 4000 })
+            gsap.set(`.${styles.graphArea}`, { opacity: 0 })
         }
     }, [currentSlide])
 
@@ -81,7 +121,7 @@ export default function HeroSection() {
                 { opacity: 1, y: 0 },
                 '-=0.8'
             )
-            .fromTo(cardRef.current,
+            .fromTo(`.${styles.mockupCard}`,
                 { opacity: 0, x: 50, rotateY: 10 },
                 { opacity: 1, x: 0, rotateY: 0, duration: 1.5 },
                 '-=1'
@@ -105,7 +145,7 @@ export default function HeroSection() {
             window.addEventListener('mousemove', handleMouseMove)
 
             // Subtle floating for the card in Slide 1
-            gsap.to(cardRef.current, {
+            gsap.to(`.${styles.mockupCard}`, {
                 y: -15,
                 duration: 4,
                 ease: 'sine.inOut',
@@ -147,6 +187,114 @@ export default function HeroSection() {
         return () => ctx.revert()
     }, [])
 
+    const renderSlide1 = (isClone = false) => (
+        <div key={isClone ? 'slide-1-clone' : 'slide-1'} className={styles.slideItem} aria-hidden={isClone}>
+            <div className={`${styles.slideBg} ${styles.slideBg1}`} />
+            <div className={styles.slideContainer}>
+                <div className={styles.content}>
+                    <div className={styles.contentLeft}>
+                        <h1 className={styles.headline}>
+                            Smarter Trading.<br />
+                            Faster Execution.<br />
+                            <span className={styles.highlight}>Better Profits.</span>
+                        </h1>
+                        <div className={styles.subHeadlineArea}>
+                            <p className={styles.subheadline}>Trade with APFX</p>
+                            <div className={styles.assetScroller}>
+                                {ASSET_LIST.map((asset, i) => (
+                                    <div key={i} className={styles.assetItem}>
+                                        {asset}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className={styles.valuePoints}>
+                            <div className={styles.valuePoint}>
+                                <div className={styles.valueIcon}><Zap size={14} /></div>
+                                <span>Ultra-fast execution</span>
+                            </div>
+                            <div className={styles.valuePoint}>
+                                <div className={styles.valueIcon}><ShieldCheck size={14} /></div>
+                                <span>Secure assets</span>
+                            </div>
+                            <div className={styles.valuePoint}>
+                                <div className={styles.valueIcon}><Activity size={14} /></div>
+                                <span>Real-time analytics</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={styles.contentRight}>
+                        <div className={styles.mockupCard}>
+                            <div className={`${styles.floatingChip} ${styles.chip1}`}>
+                                <Activity size={16} color="#87E5A5" /> <span>Real-time Feed</span>
+                            </div>
+                            <div className={`${styles.floatingChip} ${styles.chip2}`}>
+                                <ShieldCheck size={16} color="#A3F1F1" /> <span>Encrypted</span>
+                            </div>
+                            <div className={`${styles.floatingChip} ${styles.chip3}`}>
+                                <TrendingUp size={16} color="#E2F991" /> <span>+12.4% APR</span>
+                            </div>
+
+                            <div className={styles.mockupBadge}>
+                                <span className={styles.badgeIcon}><Plus size={14} /></span> Allocate funds
+                            </div>
+
+                            <div className={styles.profitIndicator}>
+                                <TrendingUp size={14} />
+                                <span>+8.4%</span>
+                            </div>
+
+                            <div className={styles.mockupHeader}>
+                                <div className={styles.mockupLogo}>
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" className={styles.cardLogo}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z" /></svg>
+                                    <span>APFX</span>
+                                </div>
+                            </div>
+
+                            <div className={styles.mockupBody}>
+                                <div className={styles.mockupBalanceLabel}>Total Balance</div>
+                                <div className={styles.mockupBalance}>$42,850.12</div>
+                                <div className={styles.miniGraph}>
+                                    <svg viewBox="0 0 100 30" preserveAspectRatio="none" style={{ width: '100%', height: '100%' }}>
+                                        <line x1="5" y1="18" x2="5" y2="28" stroke="#87E5A5" strokeWidth="1" />
+                                        <rect x="3" y="20" width="4" height="6" fill="#87E5A5" rx="1" />
+                                        <line x1="15" y1="12" x2="15" y2="22" stroke="#87E5A5" strokeWidth="1" />
+                                        <rect x="13" y="14" width="4" height="6" fill="#87E5A5" rx="1" />
+                                        <line x1="25" y1="8" x2="25" y2="18" stroke="#87E5A5" strokeWidth="1" />
+                                        <rect x="23" y="10" width="4" height="6" fill="#87E5A5" rx="1" />
+                                        <line x1="35" y1="10" x2="35" y2="20" stroke="#FF5C5C" strokeWidth="1" />
+                                        <rect x="33" y="12" width="4" height="4" fill="#FF5C5C" rx="1" />
+                                        <line x1="45" y1="5" x2="45" y2="15" stroke="#87E5A5" strokeWidth="1" />
+                                        <rect x="43" y="7" width="4" height="6" fill="#87E5A5" rx="1" />
+                                        <line x1="55" y1="2" x2="55" y2="12" stroke="#87E5A5" strokeWidth="1" />
+                                        <rect x="53" y="4" width="4" height="6" fill="#87E5A5" rx="1" />
+                                        <line x1="65" y1="8" x2="65" y2="18" stroke="#FF5C5C" strokeWidth="1" />
+                                        <rect x="63" y="10" width="4" height="5" fill="#FF5C5C" rx="1" />
+                                        <line x1="75" y1="4" x2="75" y2="14" stroke="#87E5A5" strokeWidth="1" />
+                                        <rect x="73" y="6" width="4" height="6" fill="#87E5A5" rx="1" />
+                                        <line x1="85" y1="2" x2="85" y2="10" stroke="#87E5A5" strokeWidth="1" />
+                                        <rect x="83" y="3" width="4" height="5" fill="#87E5A5" rx="1" />
+                                        <line x1="95" y1="0" x2="95" y2="8" stroke="#87E5A5" strokeWidth="1" />
+                                        <rect x="93" y="1" width="4" height="5" fill="#87E5A5" rx="1" />
+                                    </svg>
+                                </div>
+                                <div className={styles.mockupCardNumber}>•••• •••• 1406 1805</div>
+                            </div>
+
+                            <div className={styles.mockupFooter}>
+                                <div className={styles.mockupName}>JATIN SHARMA</div>
+                                <div className={styles.mockupDate}>12/28</div>
+                                <div className={styles.visaTag}>PREMIUM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+
     return (
         <section ref={rootRef} className={styles.heroWrapper}>
             {/* ── The Framed Card Block with Dual Notches ────────── */}
@@ -158,118 +306,40 @@ export default function HeroSection() {
                     <div ref={trackRef} className={styles.sliderTrack}>
                         
                         {/* ── Slide 1 ─────────────────────── */}
-                        <div className={styles.slideItem}>
-                            <div className={`${styles.slideBg} ${styles.slideBg1}`} />
-                            <div className={styles.slideContainer}>
-                                <div className={styles.content}>
-                                    <div className={styles.contentLeft}>
-                                        <h1 className={styles.headline}>
-                                            Smarter Trading.<br />
-                                            Faster Execution.<br />
-                                            <span className={styles.highlight}>Better Profits.</span>
-                                        </h1>
-                                        <div className={styles.subHeadlineArea}>
-                                            <p className={styles.subheadline}>Trade with APFX</p>
-                                            <div className={styles.assetScroller}>
-                                                {ASSET_LIST.map((asset, i) => (
-                                                    <div key={i} className={styles.assetItem}>
-                                                        {asset}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        <div className={styles.valuePoints}>
-                                            <div className={styles.valuePoint}>
-                                                <div className={styles.valueIcon}><Zap size={14} /></div>
-                                                <span>Ultra-fast execution</span>
-                                            </div>
-                                            <div className={styles.valuePoint}>
-                                                <div className={styles.valueIcon}><ShieldCheck size={14} /></div>
-                                                <span>Secure assets</span>
-                                            </div>
-                                            <div className={styles.valuePoint}>
-                                                <div className={styles.valueIcon}><Activity size={14} /></div>
-                                                <span>Real-time analytics</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className={styles.contentRight}>
-                                        <div ref={cardRef} className={styles.mockupCard}>
-                                            <div className={`${styles.floatingChip} ${styles.chip1}`}>
-                                                <Activity size={16} color="#87E5A5" /> <span>Real-time Feed</span>
-                                            </div>
-                                            <div className={`${styles.floatingChip} ${styles.chip2}`}>
-                                                <ShieldCheck size={16} color="#A3F1F1" /> <span>Encrypted</span>
-                                            </div>
-                                            <div className={`${styles.floatingChip} ${styles.chip3}`}>
-                                                <TrendingUp size={16} color="#E2F991" /> <span>+12.4% APR</span>
-                                            </div>
-
-                                            <div className={styles.mockupBadge}>
-                                                <span className={styles.badgeIcon}><Plus size={14} /></span> Allocate funds
-                                            </div>
-
-                                            <div className={styles.profitIndicator}>
-                                                <TrendingUp size={14} />
-                                                <span>+8.4%</span>
-                                            </div>
-
-                                            <div className={styles.mockupHeader}>
-                                                <div className={styles.mockupLogo}>
-                                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" className={styles.cardLogo}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z" /></svg>
-                                                    <span>APFX</span>
-                                                </div>
-                                            </div>
-
-                                            <div className={styles.mockupBody}>
-                                                <div className={styles.mockupBalanceLabel}>Total Balance</div>
-                                                <div className={styles.mockupBalance}>$42,850.12</div>
-                                                <div className={styles.miniGraph}>
-                                                    <svg viewBox="0 0 100 30" preserveAspectRatio="none" style={{ width: '100%', height: '100%' }}>
-                                                        <line x1="5" y1="18" x2="5" y2="28" stroke="#87E5A5" strokeWidth="1" />
-                                                        <rect x="3" y="20" width="4" height="6" fill="#87E5A5" rx="1" />
-                                                        <line x1="15" y1="12" x2="15" y2="22" stroke="#87E5A5" strokeWidth="1" />
-                                                        <rect x="13" y="14" width="4" height="6" fill="#87E5A5" rx="1" />
-                                                        <line x1="25" y1="8" x2="25" y2="18" stroke="#87E5A5" strokeWidth="1" />
-                                                        <rect x="23" y="10" width="4" height="6" fill="#87E5A5" rx="1" />
-                                                        <line x1="35" y1="10" x2="35" y2="20" stroke="#FF5C5C" strokeWidth="1" />
-                                                        <rect x="33" y="12" width="4" height="4" fill="#FF5C5C" rx="1" />
-                                                        <line x1="45" y1="5" x2="45" y2="15" stroke="#87E5A5" strokeWidth="1" />
-                                                        <rect x="43" y="7" width="4" height="6" fill="#87E5A5" rx="1" />
-                                                        <line x1="55" y1="2" x2="55" y2="12" stroke="#87E5A5" strokeWidth="1" />
-                                                        <rect x="53" y="4" width="4" height="6" fill="#87E5A5" rx="1" />
-                                                        <line x1="65" y1="8" x2="65" y2="18" stroke="#FF5C5C" strokeWidth="1" />
-                                                        <rect x="63" y="10" width="4" height="5" fill="#FF5C5C" rx="1" />
-                                                        <line x1="75" y1="4" x2="75" y2="14" stroke="#87E5A5" strokeWidth="1" />
-                                                        <rect x="73" y="6" width="4" height="6" fill="#87E5A5" rx="1" />
-                                                        <line x1="85" y1="2" x2="85" y2="10" stroke="#87E5A5" strokeWidth="1" />
-                                                        <rect x="83" y="3" width="4" height="5" fill="#87E5A5" rx="1" />
-                                                        <line x1="95" y1="0" x2="95" y2="8" stroke="#87E5A5" strokeWidth="1" />
-                                                        <rect x="93" y="1" width="4" height="5" fill="#87E5A5" rx="1" />
-                                                    </svg>
-                                                </div>
-                                                <div className={styles.mockupCardNumber}>•••• •••• 1406 1805</div>
-                                            </div>
-
-                                            <div className={styles.mockupFooter}>
-                                                <div className={styles.mockupName}>JATIN SHARMA</div>
-                                                <div className={styles.mockupDate}>12/28</div>
-                                                <div className={styles.visaTag}>PREMIUM</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {renderSlide1(false)}
 
                         {/* ── Slide 2 ─────────────────────── */}
                         <div className={styles.slideItem}>
                             <div className={`${styles.slideBg} ${styles.slideBg2}`}>
-                                <div className={styles.orb1} />
-                                <div className={styles.orb2} />
-                                <div className={styles.floatingRing} />
+                                <div className={styles.bgGridPattern} />
+                                <div className={styles.bgOrb1} />
+                                <div className={styles.bgOrb2} />
+
+                                {/* Floating Bonus Labels */}
+                                <div className={`${styles.bonusLabel} ${styles.label1}`}>+$1,000</div>
+                                <div className={`${styles.bonusLabel} ${styles.label2}`}>+100%</div>
+                                <div className={`${styles.bonusLabel} ${styles.label3}`}>WINNER</div>
+                                <div className={`${styles.bonusLabel} ${styles.label4}`}>BONUS</div>
+
+                                {/* Rising Graph */}
+                                <div className={styles.risingGraph}>
+                                    <svg className={styles.graphSvg} viewBox="0 0 1000 500" preserveAspectRatio="none">
+                                        <defs>
+                                            <linearGradient id="graphGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" stopColor="rgba(54, 249, 54, 0.3)" />
+                                                <stop offset="100%" stopColor="rgba(54, 249, 54, 0)" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path 
+                                            className={styles.graphArea}
+                                            d="M0,480 L40,460 L80,470 L120,420 L160,440 L200,380 L240,400 L280,320 L320,350 L360,280 L400,310 L440,220 L480,250 L520,180 L560,210 L600,120 L640,150 L680,80 L720,110 L760,50 L800,70 L840,30 L880,90 L920,40 L960,80 L1000,20 L1000,500 L0,500 Z"
+                                        />
+                                        <path 
+                                            className={styles.graphPath}
+                                            d="M0,480 L40,460 L80,470 L120,420 L160,440 L200,380 L240,400 L280,320 L320,350 L360,280 L400,310 L440,220 L480,250 L520,180 L560,210 L600,120 L640,150 L680,80 L720,110 L760,50 L800,70 L840,30 L880,90 L920,40 L960,80 L1000,20" 
+                                        />
+                                    </svg>
+                                </div>
                             </div>
                             <div className={`${styles.slideContainer} ${styles.slideCenter}`}>
                                 <div className={styles.slideCenterContent}>
@@ -295,6 +365,12 @@ export default function HeroSection() {
                                 <div className={`${styles.cube3d} ${styles.cubeRight}`}>
                                     <span>Elite</span>
                                 </div>
+                                <div className={`${styles.cube3d} ${styles.cubeSwapFree}`}>
+                                    <span>Swap Free</span>
+                                </div>
+                                <div className={`${styles.cube3d} ${styles.cubeStandard}`}>
+                                    <span>Standard<br />Account</span>
+                                </div>
                                 
                                 <div className={styles.slideCenterContent}>
                                     <h2 className={styles.slideHeadline}>
@@ -308,6 +384,8 @@ export default function HeroSection() {
                             </div>
                         </div>
 
+                        {/* ── Slide 1 Clone (Infinite Loop) ── */}
+                        {renderSlide1(true)}
                     </div>
                 </div>
 
@@ -316,8 +394,10 @@ export default function HeroSection() {
                     {[0, 1, 2].map((idx) => (
                         <button
                             key={idx}
-                            className={`${styles.dot} ${currentSlide === idx ? styles.activeDot : ''}`}
-                            onClick={() => setCurrentSlide(idx)}
+                            className={`${styles.dot} ${currentSlide === idx || (currentSlide === 3 && idx === 0) ? styles.activeDot : ''}`}
+                            onClick={() => {
+                                if (currentSlide !== 3) setCurrentSlide(idx)
+                            }}
                             aria-label={`Go to slide ${idx + 1}`}
                         />
                     ))}

@@ -17,7 +17,7 @@
     --color-surface-2: var(--color-bg);
     /* Elevated chips / hover — same base; use rgba overlays where lift is needed */
     /* Full-bleed section stripes only (preserves alternating rhythm vs --color-bg) */
-    --color-section-band: #0b0f1a;
+    --color-section-band: #06090D;
     --color-border: #1A2235;
     /* Subtle dividers */
     --color-border-2: #243050;
@@ -206,7 +206,7 @@
     --color-bg: #FFFFFF;
     --color-surface: var(--color-bg);
     --color-surface-2: var(--color-bg);
-    --color-section-band: #f8f9fa;
+    --color-section-band: #F5F5F7;
     --color-border: #E5E7EB;
     --color-border-2: #D1D5DB;
     --color-border-subtle: rgba(0, 0, 0, 0.04);
