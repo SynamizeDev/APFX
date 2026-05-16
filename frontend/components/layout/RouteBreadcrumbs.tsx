@@ -50,7 +50,6 @@ function getCrumbs(pathnameRaw: string): Crumb[] {
         'risk-management': 'Risk Management',
         'risk-per-trade': 'Risk Per Trade',
         'risk-reward': 'Risk Reward',
-        'risk-of-ruin': 'Risk of Ruin',
         'drawdown-recovery': 'Drawdown Recovery',
         'portfolio-risk': 'Portfolio Risk',
         'position-size': 'Position Size',

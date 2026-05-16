@@ -109,6 +109,11 @@ function AccountsContent() {
     }, [searchParams])
 
     const handleTabChange = (tab: string) => {
+        if (tab === 'PAMM') {
+            router.push('/pamm')
+            return
+        }
+        
         setActiveTab(tab)
         // Optional: Update URL without full reload to keep it in sync
         const typeMap: Record<string, string> = {
@@ -228,7 +233,7 @@ function AccountsContent() {
                 <nav className={styles.tabNav}>
                     <div className={styles.container}>
                         <div className={styles.tabList}>
-                            {['Account Overview', 'Standard', 'Premium', 'Elite', 'Swap Free', 'Funding', 'Withdrawal'].map((tab) => (
+                            {['Account Overview', 'Standard', 'Premium', 'Elite', 'Swap Free', 'PAMM', 'Funding', 'Withdrawal'].map((tab) => (
                                 <button 
                                     key={tab}
                                     className={`${styles.tabItem} ${activeTab === tab ? styles.tabActive : ''}`}
@@ -345,7 +350,7 @@ function AccountsContent() {
                     <nav className={styles.tabNav}>
                         <div className={styles.container}>
                             <div className={styles.tabList}>
-                                {['Account Overview', 'Standard', 'Premium', 'Elite', 'Swap Free', 'Funding', 'Withdrawal'].map((tab) => (
+                                {['Account Overview', 'Standard', 'Premium', 'Elite', 'Swap Free', 'PAMM', 'Funding', 'Withdrawal'].map((tab) => (
                                     <button 
                                         key={tab}
                                         className={`${styles.tabItem} ${activeTab === tab ? styles.tabActive : ''}`}

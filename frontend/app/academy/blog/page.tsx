@@ -40,7 +40,7 @@ const LATEST: Article[] = [
   { slug: 'pip-calculator-guide', title: 'How to Use the Pip Calculator', description: 'Step-by-step guide to our Pip Calculator so you know the value of every move.', category: 'platform-guides', readTime: '5 min', date: '2025-03-08' },
   { slug: 'position-size-calculator', title: 'Using the Position Size Calculator', description: 'Size your trades correctly using account balance, risk percentage, and stop loss.', category: 'platform-guides', readTime: '6 min', date: '2025-03-07' },
   { slug: 'forex-economic-events', title: 'Key Economic Events That Move Forex', description: 'Non-farm payrolls, CPI, central bank decisions, and how they affect currency pairs.', category: 'market-insights', readTime: '10 min', date: '2025-03-06' },
-  { slug: 'risk-calculators-overview', title: 'Risk Management Tools Overview', description: 'A tour of our risk calculators: risk per trade, drawdown recovery, and risk of ruin.', category: 'platform-guides', readTime: '7 min', date: '2025-03-05' },
+  { slug: 'risk-calculators-overview', title: 'Risk Management Tools Overview', description: 'A tour of our risk calculators: risk per trade and drawdown recovery.', category: 'platform-guides', readTime: '7 min', date: '2025-03-05' },
 ]
 
 const EDUCATIONAL_GUIDES = [
