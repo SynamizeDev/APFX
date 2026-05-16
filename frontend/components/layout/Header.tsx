@@ -77,7 +77,18 @@ const MEGA_MENU_DATA = {
     ],
     Learn: [
         {
-            title: '',
+            title: 'APFX Academy',
+            links: [
+                { label: 'How to open account?', href: '/learn/academy/open-account' },
+                { label: 'How to deposit?', href: '/learn/academy/deposit' },
+                { label: 'How to withdraw?', href: '/learn/academy/withdraw' },
+                { label: 'How to refer clients as IB?', href: '/learn/academy/refer-ib' },
+                { label: 'How to get Bonus?', href: '/learn/academy/get-bonus' },
+                { label: 'How copy trading works?', href: '/learn/academy/copy-trading' },
+            ],
+        },
+        {
+            title: 'Resources',
             links: [
                 { label: 'Blog', href: '/learn/blog' },
                 { label: 'Glossary', href: '/learn/glossary' },

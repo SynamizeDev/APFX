@@ -285,7 +285,7 @@
 }
 
 .col a:hover {
-    color: var(--color-text-1);
+    color: var(--color-accent);
     transform: translateX(2px);
 }
 
@@ -302,13 +302,11 @@
     max-width: var(--container-max);
     margin-inline: auto;
     padding-inline: var(--container-px);
-    padding-block: 1rem;
+    padding-block: 1.5rem;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    text-align: center;
+    justify-content: flex-start;
+    border-top: 1px solid var(--color-border);
 }
 
 .copy {
@@ -342,30 +340,67 @@
     max-width: var(--container-max);
     margin-inline: auto;
     padding-inline: var(--container-px);
-    padding-top: 0.85rem;
-    padding-bottom: 1.25rem;
+    padding-block: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.55rem;
-    border-top: 1px solid var(--color-border);
-    text-align: center;
+    align-items: flex-start;
+    gap: 1.25rem;
+    text-align: left;
 }
 
 .disclosure p {
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     color: var(--color-text-3);
-    line-height: 1.7;
-    opacity: 0.65;
-    max-width: 110ch;
+    line-height: 1.6;
+    opacity: 0.8;
+    max-width: 100%;
+    margin: 0;
 }
 
 .disclosureLabel {
-    font-weight: var(--fw-semibold);
-    /* Override: labels must not inherit parent opacity — use a visible color directly */
+    font-weight: var(--fw-bold);
     color: var(--color-text-2);
     opacity: 1;
-    filter: none;
+}
+
+.accentLink {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: var(--fw-bold);
+}
+
+.accentLink:hover {
+    text-decoration: underline;
+}
+
+.underline {
+    text-decoration: underline;
+    color: var(--color-accent);
+}
+
+.legalHeading {
+    color: var(--color-text-2);
+    font-size: var(--text-sm);
+    font-weight: var(--fw-bold);
+    margin-top: 0.5rem;
+}
+
+.legalNav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.legalNav a {
+    font-size: var(--text-xs);
+    color: var(--color-text-3);
+    text-decoration: none;
+    transition: color var(--duration-fast);
+}
+
+.legalNav a:hover {
+    color: var(--color-accent);
 }
 
 /* ============================================================

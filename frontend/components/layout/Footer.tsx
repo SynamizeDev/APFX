@@ -126,42 +126,47 @@ export default function Footer() {
 
             {/* ── Bottom bar ──────────────────────────────────────── */}
             <div className={styles.bottom}>
-                <div className={styles.bottomInner}>
-                    <span className={styles.copy}>
-                        © {new Date().getFullYear()} APFX Limited. All rights reserved.
-                    </span>
-                    <nav className={styles.legal} aria-label="Legal navigation">
-                        <Link href="/legal" prefetch={true}>Legal Documents</Link>
-                        <Link href="/privacy-policy" prefetch={true}>Privacy Policy</Link>
-                        <Link href="/terms-of-service" prefetch={true}>Terms & Conditions</Link>
-                        <Link href="/risk-disclosure" prefetch={true}>Risk Disclosure</Link>
-                        <Link href="/aml-kyc-policy" prefetch={true}>AML & KYC</Link>
-                        <Link href="/cookie-policy" prefetch={true}>Cookie Policy</Link>
-                        <Link href="/complaint-handling-policy" prefetch={true}>Complaint Handling</Link>
-                        <Link href="/bonus-terms" prefetch={true}>Bonus Terms</Link>
-                        <Link href="/deposit-withdrawal-policy" prefetch={true}>Deposit & Withdrawal</Link>
-                        <Link href="/restricted-countries-policy" prefetch={true}>Restricted Countries</Link>
-                        <Link href="/compliance-tips" prefetch={true}>Compliance Standards</Link>
-                        <Link href="/high-risk-disclaimer" prefetch={true}>High-Risk Disclaimer</Link>
-                        <Link href="/payment-disclaimer" prefetch={true}>Payment Disclaimer</Link>
-                    </nav>
-                </div>
                 <div className={styles.disclosure}>
                     <p>
-                        APFX Global Markets is operated by APFX Global Markets Ltd, an International Business
-                        Company incorporated in Saint Lucia.
+                        APFX is the trading names of APFX Global Markets Ltd, which is regulated by the Saint Lucia Financial Services Regulatory Authority.
                     </p>
                     <p>
-                        <span className={styles.disclosureLabel}>Risk Warning:</span> Trading leveraged
-                        products such as forex and CFDs carries a high level of risk and may not be suitable
-                        for all investors. You may lose all of your invested capital. Please ensure you fully
-                        understand the risks involved before trading.
+                        <span className={styles.disclosureLabel}>Risk Warning:</span> Trading in securities involves significant risk. Prices may fluctuate and securities can become entirely valueless. You may incur losses that exceed your potential profits, and in some cases, losses may exceed the amount you have deposited. Securities, futures, options, and contracts for differences are complex financial instruments and are not suitable for all investors. Engaging in such transactions requires a sound understanding of the associated risks. Please read and ensure you fully understand our <Link href="/risk-disclosure" className={styles.accentLink}>Risk Disclosure</Link>.
                     </p>
                     <p>
-                        <span className={styles.disclosureLabel}>Restricted Jurisdictions:</span> APFX
-                        Global Markets does not provide services to residents of jurisdictions where such
-                        distribution or use would be contrary to local law or regulation.
+                        Our leverage is dynamic and may change at any time. Such changes may affect your positions and margin requirements. You are responsible for monitoring your positions and maintaining sufficient margin at all times.
                     </p>
+                    <p>
+                        <span className={styles.disclosureLabel}>Restricted Countries:</span> APFX Global Markets Ltd does not provide services for residents of certain countries such as the United States, Iran, North Korea, Syria, Sudan and Cuba or a country where such distribution or use would be contrary to local law or regulation.
+                    </p>
+                    <p>
+                        You must be 18 years old, or of legal age as determined in your country. Upon registering an account with APFX Global Markets Ltd, you acknowledge that you are registering <span className={styles.underline}>at your own free will, without solicitation on behalf of APFX Global Markets Ltd</span>.
+                    </p>
+                    <p>
+                        APFX Global Markets Ltd does not direct its website and services to any individual in any country in which the use of its website and services are prohibited by local laws or regulations. When accessing this website from a country in which its use may or may not be prohibited, it is the user&apos;s <span className={styles.underline}>responsibility to ensure that any use of the website or services adheres to local laws or regulations</span>. APFX Global Markets Ltd does not affirm that the information on its website is suitable for all jurisdictions.
+                    </p>
+
+                    <nav className={styles.legalNav} aria-label="Legal navigation">
+                        <Link href="/legal">Legal Documents</Link>
+                        <Link href="/privacy-policy">Privacy Policy</Link>
+                        <Link href="/terms-of-service">Terms & Conditions</Link>
+                        <Link href="/risk-disclosure">Risk Disclosure</Link>
+                        <Link href="/aml-kyc-policy">AML & KYC</Link>
+                        <Link href="/cookie-policy">Cookie Policy</Link>
+                        <Link href="/complaint-handling-policy">Complaint Handling</Link>
+                        <Link href="/bonus-terms">Bonus Terms</Link>
+                        <Link href="/deposit-withdrawal-policy">Deposit & Withdrawal</Link>
+                        <Link href="/restricted-countries-policy">Restricted Countries</Link>
+                        <Link href="/compliance-tips">Compliance Standards</Link>
+                        <Link href="/high-risk-disclaimer">High-Risk Disclaimer</Link>
+                        <Link href="/payment-disclaimer">Payment Disclaimer</Link>
+                    </nav>
+                </div>
+
+                <div className={styles.bottomInner}>
+                    <span className={styles.copy}>
+                        © {new Date().getFullYear()} APFX Global Markets Ltd | All rights reserved.
+                    </span>
                 </div>
             </div>
 
