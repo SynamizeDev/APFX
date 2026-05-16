@@ -38,9 +38,31 @@
     width: 100%;
 }
 
-
 :global(.home-page) .header:not(.scrolled) .inner {
     padding-block: 1.35rem;
+}
+
+/* Force elements to be white over the dark HeroSection, even in light mode */
+:global(.home-page) .header:not(.scrolled) .logo,
+:global(.home-page) .header:not(.scrolled) .nav a,
+:global(.home-page) .header:not(.scrolled) .nav button {
+    color: #ffffff !important;
+}
+
+:global(.home-page) .header:not(.scrolled) .btnIconSolidWhite,
+:global(.home-page) .header:not(.scrolled) .btnSolidWhite {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+:global(.home-page) .header:not(.scrolled) .btnIconSolidWhite:hover,
+:global(.home-page) .header:not(.scrolled) .btnSolidWhite:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+:global(.home-page) .header:not(.scrolled) .hamburger span {
+    background: #ffffff !important;
 }
 
 
