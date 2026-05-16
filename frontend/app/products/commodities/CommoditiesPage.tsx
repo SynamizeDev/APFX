@@ -19,6 +19,7 @@ import {
   Landmark,
 } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
+import ProductsTabNav from '@/components/navigation/ProductsTabNav'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import styles from './CommoditiesPage.module.css'
@@ -160,22 +161,13 @@ const WHY_US = [
 export default function CommoditiesPage() {
   return (
     <div className={styles.page}>
-      <div className={styles.heroWrap}>
-        <InnerPageHero
-          title="Real Assets, Global Demand"
-          subtitle="Commodities are where weather, logistics, and policy meet a price. Learn how derivative markets translate that world into trades you can actually manage."
-          breadcrumbs={[]}
-          omitBottomBorder
-        />
-        <p className={styles.heroTagline}>
-          Curiosity hook: every commodity chart is downstream of something physical—start by asking what had to happen in the real economy first.
-        </p>
-        <div className={styles.heroActions}>
-          <a href="#why-world" className={styles.ctaBtnSecondary}>
-            Why it matters
-          </a>
-        </div>
-      </div>
+      <InnerPageHero
+        title="Institutional"
+        accent="Products"
+        description="Trade every major market from a single, high-performance platform with deep liquidity and tight spreads."
+        breadcrumbs={[{ label: 'Products', href: '/products/range' }, { label: 'Commodities' }]}
+      />
+      <ProductsTabNav />
 
       <main className={styles.main}>
         <section id="why-world" className={styles.section} aria-labelledby="why-heading">

@@ -12,7 +12,9 @@ interface Breadcrumb {
 interface InnerPageHeroProps {
     title: string
     subtitle?: string
-    breadcrumbs: Breadcrumb[]
+    description?: string // Add alias for description
+    accent?: string // Add alias for accent
+    breadcrumbs?: Breadcrumb[] // Make optional
     accentLine?: string
     /** When true, removes the default bottom border (e.g. when CTAs sit directly below the hero). */
     omitBottomBorder?: boolean
@@ -21,12 +23,18 @@ interface InnerPageHeroProps {
 export default function InnerPageHero({
     title,
     subtitle,
-    breadcrumbs,
+    description,
+    accent,
+    breadcrumbs = [],
     accentLine,
     omitBottomBorder = false,
 }: InnerPageHeroProps) {
     const prefersReducedMotion = useReducedMotion()
     const shouldRenderBreadcrumbs = breadcrumbs.length > 0
+    
+    // Support aliases for props used in recent edits
+    const displaySubtitle = subtitle || description
+    const displayAccent = accentLine || accent
 
     return (
         <section
@@ -75,15 +83,15 @@ export default function InnerPageHero({
                 >
                     <h1 className={styles.title}>
                         {title}
-                        {accentLine && (
+                        {displayAccent && (
                             <>
                                 <br />
-                                <span className={styles.accent}>{accentLine}</span>
+                                <span className={styles.accent}>{displayAccent}</span>
                             </>
                         )}
                     </h1>
 
-                    {subtitle && (
+                    {displaySubtitle && (
                         <motion.p
                             className={styles.subtitle}
                             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
@@ -94,7 +102,7 @@ export default function InnerPageHero({
                                 delay: 0.15,
                             }}
                         >
-                            {subtitle}
+                            {displaySubtitle}
                         </motion.p>
                     )}
                 </motion.div>

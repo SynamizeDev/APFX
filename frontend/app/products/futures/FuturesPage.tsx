@@ -16,6 +16,7 @@ import {
   BarChart3,
 } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
+import ProductsTabNav from '@/components/navigation/ProductsTabNav'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import styles from './FuturesPage.module.css'
@@ -124,22 +125,13 @@ const WHY_US = [
 export default function FuturesPage() {
   return (
     <div className={styles.page}>
-      <div className={styles.heroWrap}>
-        <InnerPageHero
-          title="Contracts, Deadlines, Discipline"
-          subtitle="Futures are where market opinion meets an expiry date. Learn the spec first—strategies come after."
-          breadcrumbs={[]}
-          omitBottomBorder
-        />
-        <p className={styles.heroTagline}>
-          Fear hook: the market will not wait while you re-read margin terms during a gap.
-        </p>
-        <div className={styles.heroActions}>
-          <a href="#desk-lens" className={styles.ctaBtnSecondary}>
-            Start at the desk lens
-          </a>
-        </div>
-      </div>
+      <InnerPageHero
+        title="Institutional"
+        accent="Products"
+        description="Trade every major market from a single, high-performance platform with deep liquidity and tight spreads."
+        breadcrumbs={[{ label: 'Products', href: '/products/range' }, { label: 'Futures' }]}
+      />
+      <ProductsTabNav />
 
       <main className={styles.main}>
         <section id="desk-lens" className={styles.section} aria-labelledby="desk-heading">

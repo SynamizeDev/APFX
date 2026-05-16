@@ -1,7 +1,8 @@
 'use client';
 
 import CTABanner from '@/components/sections/CTABanner';
-import StocksHero from '@/components/sections/stocks/StocksHero';
+import InnerPageHero from '@/components/layout/InnerPageHero';
+import ProductsTabNav from '@/components/navigation/ProductsTabNav';
 import WhatAreStocks from '@/components/sections/stocks/WhatAreStocks';
 import TypesOfStocks from '@/components/sections/stocks/TypesOfStocks';
 import WhyTradeStocks from '@/components/sections/stocks/WhyTradeStocks';
@@ -20,7 +21,13 @@ import hubStyles from './stocks-hub.module.css';
 export default function StocksClient() {
     return (
         <div className={hubStyles.root}>
-            <StocksHero />
+            <InnerPageHero
+                title="Institutional"
+                accent="Products"
+                description="Trade every major market from a single, high-performance platform with deep liquidity and tight spreads."
+                breadcrumbs={[{ label: 'Products', href: '/products/range' }, { label: 'Stocks' }]}
+            />
+            <ProductsTabNav />
             <StocksDecisionHook />
             <WhyTradeStocks />
             <WhatAreStocks />

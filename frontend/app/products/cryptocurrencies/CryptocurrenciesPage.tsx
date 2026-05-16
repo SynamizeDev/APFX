@@ -18,6 +18,7 @@ import {
   Link2,
 } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
+import ProductsTabNav from '@/components/navigation/ProductsTabNav'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import styles from './CryptocurrenciesPage.module.css'
@@ -144,22 +145,13 @@ const TECH_PILLARS = [
 export default function CryptocurrenciesPage() {
   return (
     <div className={styles.page}>
-      <div className={styles.heroWrap}>
-        <InnerPageHero
-          title="Networks, Prices, What's Next"
-          subtitle="Digital assets sit at the intersection of open-source software, global liquidity, and evolving rules. Learn the rails before you size a trade."
-          breadcrumbs={[]}
-          omitBottomBorder
-        />
-        <p className={styles.heroTagline}>
-          Curiosity hook: the technology is fascinating; your broker’s product sheet is what actually governs your risk.
-        </p>
-        <div className={styles.heroActions}>
-          <a href="#technology" className={styles.ctaBtnSecondary}>
-            Start with the tech story
-          </a>
-        </div>
-      </div>
+      <InnerPageHero
+        title="Institutional"
+        accent="Products"
+        description="Trade every major market from a single, high-performance platform with deep liquidity and tight spreads."
+        breadcrumbs={[{ label: 'Products', href: '/products/range' }, { label: 'Crypto' }]}
+      />
+      <ProductsTabNav />
 
       <main className={styles.main}>
         <section id="technology" className={styles.section} aria-labelledby="tech-heading">

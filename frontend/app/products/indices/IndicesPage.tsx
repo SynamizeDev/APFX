@@ -17,6 +17,7 @@ import {
   BarChart3,
 } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
+import ProductsTabNav from '@/components/navigation/ProductsTabNav'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import styles from './IndicesPage.module.css'
@@ -121,22 +122,13 @@ const WHY_US = [
 export default function IndicesPage() {
   return (
     <div className={styles.page}>
-      <div className={styles.heroWrap}>
-        <InnerPageHero
-          title="Benchmarks, Trends, Macro Moves"
-          subtitle="Indices compress thousands of stories into one level. Learn how that number is built—and what still hides inside it."
-          breadcrumbs={[]}
-          omitBottomBorder
-        />
-        <p className={styles.heroTagline}>
-          Opportunity angle: when the index and the headline disagree, the methodology usually wins—eventually.
-        </p>
-        <div className={styles.heroActions}>
-          <a href="#behavior-insights" className={styles.ctaBtnSecondary}>
-            Market behavior first
-          </a>
-        </div>
-      </div>
+      <InnerPageHero
+        title="Institutional"
+        accent="Products"
+        description="Trade every major market from a single, high-performance platform with deep liquidity and tight spreads."
+        breadcrumbs={[{ label: 'Products', href: '/products/range' }, { label: 'Indices' }]}
+      />
+      <ProductsTabNav />
 
       <main className={styles.main}>
         <section id="behavior-insights" className={styles.section} aria-labelledby="behavior-heading">
