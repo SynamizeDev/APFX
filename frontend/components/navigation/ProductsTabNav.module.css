@@ -34,7 +34,7 @@
     cursor: pointer;
     white-space: nowrap;
     transition: all var(--duration-normal) var(--ease-out);
-    font-size: 11px;
+    font-size: var(--text-xs);
     text-transform: uppercase;
     letter-spacing: 0.15em;
     position: relative;

@@ -339,13 +339,13 @@ export default function RebateCalculatorPage() {
 
     const [instrument, setInstrument] = useState('EUR/USD')
     const [depositCurrency, setDepositCurrency] = useState('USD')
-    const [rebatePerLotRaw, setRebatePerLotRaw] = useState('0.7')
+    const [rebatePerLotRaw, setRebatePerLotRaw] = useState('0')
     const [rebateUnit, setRebateUnit] = useState('pips')
     const rebatePerLot = useMemo(() => {
         const n = parseFloat(rebatePerLotRaw)
         return Number.isNaN(n) || n < 0 ? 0 : n
     }, [rebatePerLotRaw])
-    const [lotsTraded, setLotsTraded] = useState(1)
+    const [lotsTraded, setLotsTraded] = useState(0)
 
     const pipSize = useMemo(() => (instrument.includes('JPY') ? 0.01 : 0.0001), [instrument])
 

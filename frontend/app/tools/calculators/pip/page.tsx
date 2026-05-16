@@ -128,8 +128,8 @@ function infoCardClass(variant: InfoVariant) {
 }
 
 export default function PipCalculatorPage() {
-    const [pips, setPips] = useState(1)
-    const [lots, setLots] = useState(1)
+    const [pips, setPips] = useState(0)
+    const [lots, setLots] = useState(0)
     const [instrument, setInstrument] = useState('EUR/USD')
     const [depositCurrency, setDepositCurrency] = useState('USD')
     const [carouselIndex, setCarouselIndex] = useState(0)

@@ -339,7 +339,7 @@ export default function MarginCalculatorPage() {
     const [instrument, setInstrument] = useState('EUR/USD')
     const [depositCurrency, setDepositCurrency] = useState('USD')
     const [leverage, setLeverage] = useState(100)
-    const [lots, setLots] = useState(1)
+    const [lots, setLots] = useState(0)
     const [price, setPrice] = useState(1.14152)
 
     useEffect(() => {

@@ -336,9 +336,9 @@ export default function PositionSizeCalculatorPage() {
 
     const [instrument, setInstrument] = useState('EUR/USD')
     const [depositCurrency, setDepositCurrency] = useState('USD')
-    const [stopLossPips, setStopLossPips] = useState(200)
-    const [accountBalance, setAccountBalance] = useState(100000)
-    const [riskPercent, setRiskPercent] = useState(2)
+    const [stopLossPips, setStopLossPips] = useState(0)
+    const [accountBalance, setAccountBalance] = useState(0)
+    const [riskPercent, setRiskPercent] = useState(0)
     const [contractSize, setContractSize] = useState(100000)
 
     const pipSize = useMemo(() => (instrument.includes('JPY') ? 0.01 : 0.0001), [instrument])

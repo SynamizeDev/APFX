@@ -9,8 +9,8 @@
        section padding to avoid a large empty band above/below the footer. */
     --section-py: 0rem;
     padding-block: 0;
-    /* Reserve space for fixed bottom ticker so content doesn't sit behind it */
-    padding-bottom: calc(38px + env(safe-area-inset-bottom, 0px));
+    /* padding-bottom removed because layout.tsx already adds 38px padding to main */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 /* Accent divider glow */
