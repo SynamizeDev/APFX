@@ -73,100 +73,67 @@ export default function EntryAnimation({
             if (onCompleteRef.current) onCompleteRef.current()
         }
 
-        const tl = gsap.timeline()
+        const tl = gsap.timeline({
+            onComplete: () => {
+                if (onMergeStartRef.current) onMergeStartRef.current();
+                finish();
+            }
+        });
 
-        // Initial state: dark overlay visible from start, logo hidden
-        gsap.set(glassRef.current, { opacity: 1 })
-        gsap.set(logoContainerRef.current, { 
-            opacity: 0, 
-            scale: 1.5, // Start smaller to zoom in
-            y: 0 
-        })
-
-        // Sequence: dark background first, then logo fades in for 3.0s
-        const LOGO_FADE_DURATION = 1.5
-
+        // ── The Quantum Scan Sequence ───────────────────
+        
+        // 1. Initial State
+        gsap.set(glassRef.current, { opacity: 1 });
+        gsap.set(logoContainerRef.current, { opacity: 0, scale: 0.8 });
+        
         tl
-            /* Dark overlay already at 1 — site stays dark for full 3s+ logo fade-in */
-            .call(() => {
-                if (onReadyToRevealRef.current) onReadyToRevealRef.current()
-            }, undefined, 0)
-            
-            /* 2. Logo fades in over 3 seconds - branding hold */
+            // 1. Digital Reveal (Slower & More Deliberate Blink)
             .to(logoContainerRef.current, { 
                 opacity: 1, 
-                scale: 3.0, // Settle size
-                duration: LOGO_FADE_DURATION, 
-                ease: 'power3.out' 
-            }, 0.25)
+                scale: 1, 
+                duration: 0.5 
+            }, 0.5)
+            .to(logoContainerRef.current, { 
+                opacity: 0.3, 
+                duration: 0.25, // Slower blink
+                repeat: 3, 
+                yoyo: true, 
+                ease: 'power1.inOut' 
+            })
+            // Explicitly settle at full opacity before the "explosion"
+            .to(logoContainerRef.current, {
+                opacity: 1,
+                duration: 0.4,
+                ease: 'power2.out'
+            })
             
-            /* 4. Logo slide-merge to header (after 3s fade-in + brief hold) */
-            .call(() => {
-                const headerLogo = document.getElementById('header-logo');
-                if (headerLogo && logoContainerRef.current) {
-                    const hRect = headerLogo.getBoundingClientRect();
-                    const lRect = logoContainerRef.current.getBoundingClientRect();
-                    
-                    if (lRect.width <= 0 || lRect.height <= 0) {
-                        if (onMergeStartRef.current) onMergeStartRef.current();
-                        finish();
-                        return;
-                    }
-
-                    // Get current scale to find base size
-                    const currentScale = gsap.getProperty(logoContainerRef.current, "scale") as number || 3.0;
-                    const unscaledWidth = lRect.width / currentScale;
-
-                    // Precise center-to-center coordinate calculation
-                    const lCenter = {
-                        x: lRect.left + lRect.width / 2,
-                        y: lRect.top + lRect.height / 2
-                    };
-                    const hCenter = {
-                        x: hRect.left + hRect.width / 2,
-                        y: hRect.top + hRect.height / 2
-                    };
-
-                    const dx = hCenter.x - lCenter.x;
-                    const dy = hCenter.y - lCenter.y;
-                    const tScale = hRect.width / unscaledWidth;
-
-                    // Use center origin for symmetrical shrinking
-                    gsap.set(logoContainerRef.current, { transformOrigin: 'center center' });
-
-                    gsap.to(logoContainerRef.current, { 
-                        x: dx,
-                        y: dy,
-                        scale: tScale,
-                        opacity: 1,
-                        duration: 2.0, // Ultra-smooth, gradual shrink
-                        ease: 'power2.inOut', 
-                        force3D: true,
-                        onUpdate: function() {
-                            gsap.set(this.targets(), { filter: 'none' });
-                        },
-                        onComplete: () => {
-                            if (onMergeStartRef.current) onMergeStartRef.current();
-                            // Visual overlap hold for 1 frame to prevent flicker
-                            gsap.delayedCall(0.02, () => {
-                                gsap.set(logoContainerRef.current, { opacity: 0 });
-                                finish();
-                            });
-                        }
-                    });
-                    
-                    // Fade out glass transitionally to match logo flight
-                    gsap.to(glassRef.current, { 
-                        opacity: 0, 
-                        duration: 1.2, 
-                        ease: 'power3.inOut' 
-                    });
-                } else {
-                    // Fallback if header logo not found
-                    if (onMergeStartRef.current) onMergeStartRef.current();
-                    finish();
+            // 2. Transition: Subtle Scale Up and Fade for LOGO ONLY
+            .to(logoContainerRef.current, {
+                scale: 1.5, 
+                opacity: 0,
+                duration: 1.5,
+                ease: 'power2.inOut'
+            })
+            
+            // 3. Smooth Transition to Header Reveal
+            .to(glassRef.current, {
+                opacity: 0,
+                duration: 1.2,
+                ease: 'power2.inOut',
+                onStart: () => {
+                    // Instantly hide dots when reveal starts
+                    gsap.set(`.${styles.dotsContainer}`, { display: 'none' });
                 }
-            }, undefined, LOGO_FADE_DURATION + 0.5)
+            }, "-=1.0");
+
+        // Sequential "Load" for the dots (No scale, no yoyo-blink)
+        const dotsTl = gsap.timeline({ repeat: -1 });
+        const dots = document.querySelectorAll(`.${styles.dot}`);
+        
+        dots.forEach((dot, i) => {
+            dotsTl.to(dot, { opacity: 1, duration: 0.3 }, i * 0.3);
+        });
+        dotsTl.to(dots, { opacity: 0.2, duration: 0.3, delay: 0.3 }); // Overlap for a seamless "zoom out" feel // Overlap with the dissolve for smoothness
 
         return () => {
             tl.kill()
@@ -212,18 +179,25 @@ export default function EntryAnimation({
             >
                 <div
                     ref={logoContainerRef}
+                    className={styles.logoWrapper}
                     style={{
                         pointerEvents: 'none',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         position: 'relative',
-                        opacity: 0, // Prevent "double-logo" flash before GSAP init
-                        transform: 'scale(1.5)', // Synchronize with GSAP starting state
+                        opacity: 0,
+                        transform: 'scale(0.8)',
                         willChange: 'transform, opacity'
                     }}
                 >
-                    <Logo size="sm" />
+                    <Logo variant="icon" size="md" />
+                </div>
+
+                <div className={styles.dotsContainer}>
+                    <div className={styles.dot} />
+                    <div className={styles.dot} />
+                    <div className={styles.dot} />
                 </div>
             </div>
         </>

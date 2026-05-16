@@ -38,25 +38,20 @@
 }
 
 .logoIcon {
-    width: 16px;
-    height: 16px;
-    color: #020617;
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+    transform: scale(2.2); /* Reduced from 2.8 to make it 20% smaller */
+    transform-origin: center center;
 }
 
-.logoWordmark {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.1rem;
-    letter-spacing: -0.02em;
-    white-space: nowrap;
-}
-
-.logoFx {
-    background: linear-gradient(135deg,
-            var(--color-accent),
-            #36F936,
-            var(--color-accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+.logoText {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+    transform: scale(2.8); /* Compensate for large white space in the source PNG */
+    transform-origin: center center;
+    margin-left: -10px; /* Pull text closer to icon because of internal white space */
 }

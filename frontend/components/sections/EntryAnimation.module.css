@@ -1,132 +1,57 @@
-/* ── Overlay ─────────────────────────────────────────────── */
-.overlay {
+/* ============================================================
+   Entry Animation Styles
+   "The Quantum Scan" Reveal
+   ============================================================ */
+
+.laserLine {
     position: fixed;
-    inset: 0;
-    z-index: var(--z-top);
-    background: var(--color-bg);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.25rem;
-
-    pointer-events: all;
-    isolation: isolate;
-}
-
-.overlay.hidden {
-    pointer-events: none;
-}
-
-/* ── Logo Group ──────────────────────────────────────────── */
-.logoWrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 1.1rem;
-
-    opacity: 0;
-    transform: translateY(18px);
-    will-change: transform, opacity;
-}
-
-/* Logo mark (APFX glyph container) */
-.mark {
-    width: 56px;
-    height: 56px;
-
-    background: radial-gradient(
-        circle at 20% 0%,
-        #ffffff 0%,
-        #b4ffe5 12%,
-        var(--color-accent) 45%,
-        #1E9B1E 100%
-    );
-    border-radius: 12px;
-
-    display: grid;
-    place-items: center;
-
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: var(--fw-extrabold);
-    color: #020617;
-
-    box-shadow:
-        0 0 0 rgba(54, 249, 54, 0),
-        0 0 60px rgba(54, 249, 54, 0.35);
-
-    will-change: transform, box-shadow;
-}
-
-/* Wordmark */
-.wordmark {
-    font-family: var(--font-display);
-    font-size: clamp(2.6rem, 6vw, 4.1rem);
-    font-weight: var(--fw-extrabold);
-    color: var(--color-text-1);
-
-    letter-spacing: -0.045em;
-    line-height: 1;
-}
-
-/* ── Tagline ─────────────────────────────────────────────── */
-.tagline {
-    font-family: var(--font-body);
-    font-size: var(--text-sm);
-    color: var(--color-text-3);
-
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-
-    opacity: 0;
-    transform: translateY(6px);
-    will-change: transform, opacity;
-}
-
-/* ── New V3 Elements ─────────────────────────────────────── */
-.linePulseContainer {
-    position: relative;
-    width: 100%;
-    margin-top: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.line {
-    width: 0%;
-    height: 1px;
+    top: 0;
+    bottom: 0;
+    width: 60px; /* Wider shine for better visibility */
     background: linear-gradient(
-        90deg,
+        to right,
         transparent,
-        var(--color-accent),
+        rgba(54, 249, 54, 0.4),
+        rgba(255, 255, 255, 0.8),
+        rgba(54, 249, 54, 0.4),
         transparent
     );
-    opacity: 0.8;
-}
-
-.pulse {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: radial-gradient(
-        circle,
-        var(--color-accent-glow) 0%,
-        transparent 70%
-    );
+    box-shadow: 0 0 20px rgba(54, 249, 54, 0.5);
+    z-index: 10000;
     pointer-events: none;
     opacity: 0;
-    z-index: -1;
+    
+    /* Mask the shine to only show on the logo pixels */
+    -webkit-mask-image: url('/assets/apfx-icon.png');
+    mask-image: url('/assets/apfx-icon.png');
+    -webkit-mask-size: 240px; /* Should match the 'md' size of the logo icon roughly */
+    mask-size: 240px;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center center;
+    mask-position: center center;
 }
 
-/* ── Light Mode Fix ───────────────────────────────────────── */
-:global(.light-mode) [class*="Logo_logoWordmark"],
-:global(.light-mode) [class*="Logo_logoPrefix"] {
-    color: #000000 !important;
+.logoWrapper {
+    position: relative;
+    z-index: 9999;
+}
+
+.dotsContainer {
+    position: absolute;
+    top: calc(50% + 50px); /* Nudged down slightly for better balance */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    opacity: 0.6;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background-color: #ffffff; /* Changed to white */
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    opacity: 0.15; /* Low base opacity for better sequential contrast */
 }
