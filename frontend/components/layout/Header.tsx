@@ -15,7 +15,7 @@ import ThemeToggle from '@/components/ui/ThemeToggle'
 
 
 const NAV_LINKS = [
-    { label: 'Introduction', href: '/about', hasMegaMenu: false },
+    { label: 'Introduction', href: '/about?type=why-apfx', hasMegaMenu: true },
     { label: 'Trade & Invest', href: '/trade&invest/platforms', hasMegaMenu: true },
     { label: 'Products', href: '/products/forex', hasMegaMenu: true },
     { label: 'Tools', href: '/tools', hasMegaMenu: true },
@@ -24,15 +24,29 @@ const NAV_LINKS = [
 ]
 
 const MEGA_MENU_DATA = {
+    'Introduction': [
+        {
+            title: '',
+            links: [
+                { label: 'Why APFX', href: '/about?type=why-apfx' },
+                { label: 'How Trading Works', href: '/about?type=how-it-works' },
+                { label: 'Markets Overview', href: '/about?type=markets' },
+                { label: 'Trading Basics', href: '/about?type=basics' },
+                { label: 'Account Types', href: '/accounts' },
+                { label: 'Demo Account', href: '/about?type=demo' },
+                { label: 'Security & Regulation', href: '/about?type=security' },
+            ],
+        },
+    ],
     'Trade & Invest': [
         {
             title: '',
             links: [
-                { label: 'Accounts Overview', href: '/accounts' },
-                { label: 'Premium Account', href: '/accounts/premium' },
-                { label: 'Standard Account', href: '/accounts/standard' },
-                { label: 'Elite Account', href: '/accounts/elite' },
-                { label: 'Swap Free Account', href: '/accounts/swap-free' },
+                { label: 'Accounts Overview', href: '/accounts?type=overview' },
+                { label: 'Premium Account', href: '/accounts?type=premium' },
+                { label: 'Standard Account', href: '/accounts?type=standard' },
+                { label: 'Elite Account', href: '/accounts?type=elite' },
+                { label: 'Swap Free Account', href: '/accounts?type=swap-free' },
             ],
         },
     ],

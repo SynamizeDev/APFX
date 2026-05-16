@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { motion, AnimatePresence, Variants } from 'framer-motion'
 import Link from 'next/link'
 import Footer from '@/components/layout/Footer'
@@ -82,8 +83,48 @@ const COMPARISON_ROWS = [
     { label: 'Volume Rebates', values: [false, false, true] },
 ]
 
-export default function AccountsPage() {
+function AccountsContent() {
+    const searchParams = useSearchParams()
+    const router = useRouter()
     const [activeTab, setActiveTab] = useState('Account Overview')
+
+    // ── Sync tab with URL ───────────────────────────────────────
+    useEffect(() => {
+        const type = searchParams.get('type')
+        if (type) {
+            const tabMap: Record<string, string> = {
+                'standard': 'Standard',
+                'premium': 'Premium',
+                'elite': 'Elite',
+                'swap-free': 'Swap Free',
+                'funding': 'Funding',
+                'withdrawal': 'Withdrawal',
+                'overview': 'Account Overview'
+            }
+            const mappedTab = tabMap[type.toLowerCase()]
+            if (mappedTab) {
+                setActiveTab(mappedTab)
+            }
+        }
+    }, [searchParams])
+
+    const handleTabChange = (tab: string) => {
+        setActiveTab(tab)
+        // Optional: Update URL without full reload to keep it in sync
+        const typeMap: Record<string, string> = {
+            'Standard': 'standard',
+            'Premium': 'premium',
+            'Elite': 'elite',
+            'Swap Free': 'swap-free',
+            'Funding': 'funding',
+            'Withdrawal': 'withdrawal',
+            'Account Overview': 'overview'
+        }
+        const type = typeMap[tab]
+        if (type) {
+            router.push(`/accounts?type=${type}`, { scroll: false })
+        }
+    }
 
     const renderOverview = () => (
         <main className={styles.main}>
@@ -191,7 +232,7 @@ export default function AccountsPage() {
                                 <button 
                                     key={tab}
                                     className={`${styles.tabItem} ${activeTab === tab ? styles.tabActive : ''}`}
-                                    onClick={() => setActiveTab(tab)}
+                                    onClick={() => handleTabChange(tab)}
                                 >
                                     {tab}
                                 </button>
@@ -308,7 +349,7 @@ export default function AccountsPage() {
                                     <button 
                                         key={tab}
                                         className={`${styles.tabItem} ${activeTab === tab ? styles.tabActive : ''}`}
-                                        onClick={() => setActiveTab(tab)}
+                                        onClick={() => handleTabChange(tab)}
                                     >
                                         {tab}
                                     </button>
@@ -327,5 +368,13 @@ export default function AccountsPage() {
             <Footer />
             <BottomBar />
         </div>
+    )
+}
+
+export default function AccountsPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <AccountsContent />
+        </Suspense>
     )
 }

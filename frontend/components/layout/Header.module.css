@@ -44,9 +44,14 @@
 
 /* Force elements to be white over the dark HeroSection, even in light mode */
 :global(.home-page) .header:not(.scrolled) .logo,
-:global(.home-page) .header:not(.scrolled) .nav a,
-:global(.home-page) .header:not(.scrolled) .nav button {
+:global(.home-page) .header:not(.scrolled) .nav > li > a,
+:global(.home-page) .header:not(.scrolled) .nav > li > button {
     color: #ffffff !important;
+}
+
+:global(.home-page) .header:not(.scrolled) .nav > li > a.navActive,
+:global(.home-page) .header:not(.scrolled) .nav > li > button.navActive {
+    color: var(--color-accent) !important;
 }
 
 :global(.home-page) .header:not(.scrolled) .btnIconSolidWhite,
@@ -202,7 +207,7 @@
 
 .nav a.navActive,
 .nav button.navActive {
-    color: var(--color-nav-text-active);
+    color: var(--color-accent) !important;
     background: rgba(255, 255, 255, 0.06);
 }
 
@@ -217,11 +222,15 @@
 }
 
 :global(.light-mode) .nav a:hover,
-:global(.light-mode) .nav button:hover,
+:global(.light-mode) .nav button:hover {
+    background: rgba(0, 0, 0, 0.08);
+    color: #000000;
+}
+
 :global(.light-mode) .nav a.navActive,
 :global(.light-mode) .nav button.navActive {
     background: rgba(0, 0, 0, 0.08);
-    color: #000000;
+    color: #1E9B1E !important; /* Slightly darker green for contrast on light mode */
 }
 
 /* Light Mode Overrides for Action Buttons */
@@ -330,6 +339,7 @@
     text-decoration: none !important;
     transition: color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
     white-space: nowrap;
+    border-radius: 0;
 }
 
 .megaMenuLinks a::after {
