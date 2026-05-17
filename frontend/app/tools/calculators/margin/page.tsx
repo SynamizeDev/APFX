@@ -369,23 +369,41 @@ export default function MarginCalculatorPage() {
     }, [instrument, depositCurrency, leverage, lots, price])
 
     const renderInfoCards = (keyPrefix: string) =>
-        MARGIN_INFO_CARDS.map((card) => (
-            <div key={`${keyPrefix}-${card.title}`} className={infoCardClass(card.variant)}>
+        MARGIN_INFO_CARDS.map((card, i) => (
+            <motion.div 
+                key={`${keyPrefix}-${card.title}`} 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className={infoCardClass(card.variant)}
+            >
                 <h3 className={styles.infoTitle}>
                     {card.icon} {card.title}
                 </h3>
                 <p className={styles.infoText}>{card.body}</p>
-            </div>
+            </motion.div>
         ))
 
     return (
         <main className={styles.container}>
             <header className={styles.header}>
-                <h1 className={styles.title}>Professional Margin Calculator</h1>
-                <p className={styles.subtitle}>
-                    Calculate the exact collateral (margin) required to open and maintain trading positions. Essential
-                    for managing account equity and understanding the impact of leverage on your trading capital.
-                </p>
+                <motion.h1 
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={styles.title}
+                >
+                    Professional Margin Calculator
+                </motion.h1>
+                <motion.p 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className={styles.subtitle}
+                >
+                    Calculate the exact collateral (margin) required to open and maintain trading positions 
+                    with institutional-grade precision.
+                </motion.p>
             </header>
 
             <div className={styles.inputPanel}>
@@ -403,12 +421,16 @@ export default function MarginCalculatorPage() {
                                 </span>
                             </div>
                         </div>
-                        <Select
-                            id="margin-instrument"
-                            value={instrument}
-                            onChange={setInstrument}
-                            options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <Select
+                                id="margin-instrument"
+                                value={instrument}
+                                onChange={setInstrument}
+                                options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
+                                triggerClassName={styles.selectTrigger}
+                            />
+                            <div className={styles.inputIcon}><Globe size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
@@ -422,15 +444,19 @@ export default function MarginCalculatorPage() {
                                 </span>
                             </div>
                         </div>
-                        <Select
-                            id="margin-deposit"
-                            value={depositCurrency}
-                            onChange={setDepositCurrency}
-                            options={DEPOSIT_CURRENCIES.map((c) => ({
-                                value: c.value,
-                                label: c.label,
-                            }))}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <Select
+                                id="margin-deposit"
+                                value={depositCurrency}
+                                onChange={setDepositCurrency}
+                                options={DEPOSIT_CURRENCIES.map((c) => ({
+                                    value: c.value,
+                                    label: c.label,
+                                }))}
+                                triggerClassName={styles.selectTrigger}
+                            />
+                            <div className={styles.inputIcon}><Shield size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
@@ -445,17 +471,20 @@ export default function MarginCalculatorPage() {
                                 </span>
                             </div>
                         </div>
-                        <input
-                            id="margin-leverage"
-                            type="number"
-                            className={styles.input}
-                            value={leverage}
-                            onChange={(e) => {
-                                const n = parseInt(e.target.value, 10)
-                                if (!Number.isNaN(n) && n >= 1) setLeverage(n)
-                            }}
-                            min={1}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <input
+                                id="margin-leverage"
+                                type="number"
+                                className={styles.input}
+                                value={leverage}
+                                onChange={(e) => {
+                                    const n = parseInt(e.target.value, 10)
+                                    if (!Number.isNaN(n) && n >= 1) setLeverage(n)
+                                }}
+                                min={1}
+                            />
+                            <div className={styles.inputIcon}><Scale size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
@@ -469,15 +498,18 @@ export default function MarginCalculatorPage() {
                                 </span>
                             </div>
                         </div>
-                        <input
-                            id="margin-lots"
-                            type="number"
-                            className={styles.input}
-                            value={lots}
-                            onChange={(e) => setLots(Number(e.target.value) || 0)}
-                            min={0.01}
-                            step={0.01}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <input
+                                id="margin-lots"
+                                type="number"
+                                className={styles.input}
+                                value={lots}
+                                onChange={(e) => setLots(Number(e.target.value) || 0)}
+                                min={0.01}
+                                step={0.01}
+                            />
+                            <div className={styles.inputIcon}><Zap size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
@@ -492,25 +524,32 @@ export default function MarginCalculatorPage() {
                                 </span>
                             </div>
                         </div>
-                        <input
-                            id="margin-price"
-                            type="number"
-                            className={styles.input}
-                            value={price}
-                            onChange={(e) => setPrice(Number(e.target.value) || 0)}
-                            min={0}
-                            step={0.00001}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <input
+                                id="margin-price"
+                                type="number"
+                                className={styles.input}
+                                value={price}
+                                onChange={(e) => setPrice(Number(e.target.value) || 0)}
+                                min={0}
+                                step={0.00001}
+                            />
+                            <div className={styles.inputIcon}><Target size={20} /></div>
+                        </div>
                     </div>
                 </div>
 
                 <div className={marginStyles.resultRow}>
                     <div className={styles.resultTitle}>Required Margin (Collateral)</div>
+                    
+                    {/* High-fidelity background glow */}
+                    <div className={marginStyles.resultGlow} />
+
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={marginRequired}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+                            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                             className={styles.resultValue}
                         >
                             {marginRequired.toLocaleString('en-US', {

@@ -366,23 +366,41 @@ export default function RebateCalculatorPage() {
     }, [instrument, depositCurrency, rebatePerLot, rebateUnit, lotsTraded, pipSize])
 
     const renderInfoCards = (keyPrefix: string) =>
-        REBATE_INFO_CARDS.map((card) => (
-            <div key={`${keyPrefix}-${card.title}`} className={infoCardClass(card.variant)}>
+        REBATE_INFO_CARDS.map((card, i) => (
+            <motion.div 
+                key={`${keyPrefix}-${card.title}`} 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className={infoCardClass(card.variant)}
+            >
                 <h3 className={styles.infoTitle}>
                     {card.icon} {card.title}
                 </h3>
                 <p className={styles.infoText}>{card.body}</p>
-            </div>
+            </motion.div>
         ))
 
     return (
         <main className={styles.container}>
             <header className={styles.header}>
-                <h1 className={styles.title}>Professional Rebate Calculator</h1>
-                <p className={styles.subtitle}>
-                    Estimate the cashback or rebate yield from your trading volume. Institutional strategies often rely
-                    on rebates to offset the cost of spreads and commissions, improving net profitability.
-                </p>
+                <motion.h1 
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={styles.title}
+                >
+                    Rebate Calculator
+                </motion.h1>
+                <motion.p 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className={styles.subtitle}
+                >
+                    Calculate the total cashback or rebate value earned from your trading volume 
+                    with institutional precision and real-time conversion.
+                </motion.p>
             </header>
 
             <div className={styles.inputPanel}>
@@ -395,16 +413,20 @@ export default function RebateCalculatorPage() {
                             <div className={styles.tooltipContainer}>
                                 <Globe size={14} />
                                 <span className={styles.tooltipText}>
-                                    The currency pair traded. Required if calculating rebate based on pips.
+                                    The currency pair you are trading. Rebate values are often volume-based.
                                 </span>
                             </div>
                         </div>
-                        <Select
-                            id="rebate-instrument"
-                            value={instrument}
-                            onChange={setInstrument}
-                            options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <Select
+                                id="rebate-instrument"
+                                value={instrument}
+                                onChange={setInstrument}
+                                options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
+                                triggerClassName={styles.selectTrigger}
+                            />
+                            <div className={styles.inputIcon}><Globe size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
@@ -413,84 +435,87 @@ export default function RebateCalculatorPage() {
                             </label>
                             <div className={styles.tooltipContainer}>
                                 <Shield size={14} />
-                                <span className={styles.tooltipText}>The currency in which the rebate will be paid out.</span>
+                                <span className={styles.tooltipText}>The currency in which you receive your rebate.</span>
                             </div>
                         </div>
-                        <Select
-                            id="rebate-deposit"
-                            value={depositCurrency}
-                            onChange={setDepositCurrency}
-                            options={DEPOSIT_CURRENCIES.map((c) => ({
-                                value: c.value,
-                                label: c.label,
-                            }))}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <Select
+                                id="rebate-deposit"
+                                value={depositCurrency}
+                                onChange={setDepositCurrency}
+                                options={DEPOSIT_CURRENCIES.map((c) => ({
+                                    value: c.value,
+                                    label: c.label,
+                                }))}
+                                triggerClassName={styles.selectTrigger}
+                            />
+                            <div className={styles.inputIcon}><Shield size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
-                            <label className={styles.label} htmlFor="rebate-per-lot">
-                                Rebate Rate
-                            </label>
+                            <label className={styles.label} htmlFor="rebate-rate">Rebate per Lot</label>
                             <div className={styles.tooltipContainer}>
-                                <TrendingUp size={14} />
+                                <Zap size={14} />
                                 <span className={styles.tooltipText}>
-                                    The amount of cashback per lot traded, either in fixed currency or in pips.
+                                    The rebate amount paid per standard lot by your broker.
                                 </span>
                             </div>
                         </div>
                         <div className={rebateStyles.rebatePerLotRow}>
-                            <input
-                                id="rebate-per-lot"
-                                type="number"
-                                inputMode="decimal"
-                                className={`${styles.input} ${rebateStyles.rebateInput}`}
-                                value={rebatePerLotRaw}
-                                onChange={(e) => setRebatePerLotRaw(e.target.value)}
-                                min={0}
-                                step={0.1}
-                            />
-                            <Select
-                                value={rebateUnit}
-                                onChange={setRebateUnit}
-                                options={REBATE_UNITS.map((u) => ({
-                                    value: u.value,
-                                    label: u.label,
-                                }))}
-                                id="rebate-unit"
-                            />
+                            <div className={styles.inputWrapper}>
+                                <input
+                                    id="rebate-rate"
+                                    type="number"
+                                    className={styles.input}
+                                    value={rebatePerLot}
+                                    onChange={(e) => setRebatePerLot(Number(e.target.value) || 0)}
+                                    min={0}
+                                    step={0.1}
+                                />
+                                <div className={styles.inputIcon}><Zap size={20} /></div>
+                            </div>
+                            <div className={rebateStyles.rebateUnit}>
+                                {rebateUnit}
+                            </div>
                         </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
-                            <label className={styles.label} htmlFor="rebate-lots">
-                                Lots Traded
-                            </label>
+                            <label className={styles.label} htmlFor="rebate-lots">Lots Traded</label>
                             <div className={styles.tooltipContainer}>
-                                <Zap size={14} />
+                                <Calculator size={14} />
                                 <span className={styles.tooltipText}>
-                                    Total trading volume for the period you wish to calculate for.
+                                    Total trading volume for which you are calculating the rebate.
                                 </span>
                             </div>
                         </div>
-                        <input
-                            id="rebate-lots"
-                            type="number"
-                            className={styles.input}
-                            value={lotsTraded}
-                            onChange={(e) => setLotsTraded(Number(e.target.value) || 0)}
-                            min={0.01}
-                            step={0.01}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <input
+                                id="rebate-lots"
+                                type="number"
+                                className={styles.input}
+                                value={lotsTraded}
+                                onChange={(e) => setLotsTraded(Number(e.target.value) || 0)}
+                                min={0.01}
+                                step={0.01}
+                            />
+                            <div className={styles.inputIcon}><Calculator size={20} /></div>
+                        </div>
                     </div>
                 </div>
 
                 <div className={rebateStyles.resultRow}>
-                    <div className={styles.resultTitle}>Estimated Cashback Yield</div>
+                    <div className={styles.resultTitle}>Total Rebate Value</div>
+
+                    {/* High-fidelity background glow */}
+                    <div className={rebateStyles.resultGlow} />
+
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={totalRebate}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+                            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                             className={styles.resultValue}
                         >
                             {totalRebate.toLocaleString('en-US', {

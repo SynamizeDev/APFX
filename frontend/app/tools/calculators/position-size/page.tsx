@@ -377,23 +377,41 @@ export default function PositionSizeCalculatorPage() {
     ])
 
     const renderInfoCards = (keyPrefix: string) =>
-        POS_INFO_CARDS.map((card) => (
-            <div key={`${keyPrefix}-${card.title}`} className={infoCardClass(card.variant)}>
+        POS_INFO_CARDS.map((card, i) => (
+            <motion.div 
+                key={`${keyPrefix}-${card.title}`} 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className={infoCardClass(card.variant)}
+            >
                 <h3 className={styles.infoTitle}>
                     {card.icon} {card.title}
                 </h3>
                 <p className={styles.infoText}>{card.body}</p>
-            </div>
+            </motion.div>
         ))
 
     return (
         <main className={styles.container}>
             <header className={styles.header}>
-                <h1 className={styles.title}>Professional Position Size Calculator</h1>
-                <p className={styles.subtitle}>
-                    Determine the exact lot size for your trade based on your risk tolerance and stop-loss distance. The
-                    single most important tool for institutional-grade capital preservation and longevity.
-                </p>
+                <motion.h1 
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={styles.title}
+                >
+                    Position Size Calculator
+                </motion.h1>
+                <motion.p 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className={styles.subtitle}
+                >
+                    Precisely calculate the exact lot size required to manage your risk exposure 
+                    per trade with institutional-grade risk management parameters.
+                </motion.p>
             </header>
 
             <div className={styles.inputPanel}>
@@ -410,12 +428,16 @@ export default function PositionSizeCalculatorPage() {
                                 </span>
                             </div>
                         </div>
-                        <Select
-                            id="pos-instrument"
-                            value={instrument}
-                            onChange={setInstrument}
-                            options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <Select
+                                id="pos-instrument"
+                                value={instrument}
+                                onChange={setInstrument}
+                                options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
+                                triggerClassName={styles.selectTrigger}
+                            />
+                            <div className={styles.inputIcon}><Globe size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
@@ -427,15 +449,19 @@ export default function PositionSizeCalculatorPage() {
                                 <span className={styles.tooltipText}>The base currency of your trading account.</span>
                             </div>
                         </div>
-                        <Select
-                            id="pos-deposit"
-                            value={depositCurrency}
-                            onChange={setDepositCurrency}
-                            options={DEPOSIT_CURRENCIES.map((c) => ({
-                                value: c.value,
-                                label: c.label,
-                            }))}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <Select
+                                id="pos-deposit"
+                                value={depositCurrency}
+                                onChange={setDepositCurrency}
+                                options={DEPOSIT_CURRENCIES.map((c) => ({
+                                    value: c.value,
+                                    label: c.label,
+                                }))}
+                                triggerClassName={styles.selectTrigger}
+                            />
+                            <div className={styles.inputIcon}><Shield size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
@@ -449,18 +475,21 @@ export default function PositionSizeCalculatorPage() {
                                 </span>
                             </div>
                         </div>
-                        <input
-                            id="pos-stoploss"
-                            type="number"
-                            className={styles.input}
-                            value={stopLossPips}
-                            onChange={(e) => setStopLossPips(Number(e.target.value) || 0)}
-                            min={1}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <input
+                                id="pos-stoploss"
+                                type="number"
+                                className={styles.input}
+                                value={stopLossPips}
+                                onChange={(e) => setStopLossPips(Number(e.target.value) || 0)}
+                                min={1}
+                            />
+                            <div className={styles.inputIcon}><Target size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
-                            <label className={styles.label}>Account Balance</label>
+                            <label className={styles.label} htmlFor="pos-balance">Account Balance</label>
                             <div className={styles.tooltipContainer}>
                                 <Scale size={14} />
                                 <span className={styles.tooltipText}>
@@ -468,18 +497,22 @@ export default function PositionSizeCalculatorPage() {
                                 </span>
                             </div>
                         </div>
-                        <input
-                            type="number"
-                            className={styles.input}
-                            value={accountBalance}
-                            onChange={(e) => setAccountBalance(Number(e.target.value) || 0)}
-                            min={0}
-                            step={100}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <input
+                                id="pos-balance"
+                                type="number"
+                                className={styles.input}
+                                value={accountBalance}
+                                onChange={(e) => setAccountBalance(Number(e.target.value) || 0)}
+                                min={0}
+                                step={100}
+                            />
+                            <div className={styles.inputIcon}><Scale size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
-                            <label className={styles.label}>Risk Preference (%)</label>
+                            <label className={styles.label} htmlFor="pos-risk">Risk Preference (%)</label>
                             <div className={styles.tooltipContainer}>
                                 <TrendingDown size={14} />
                                 <span className={styles.tooltipText}>
@@ -489,15 +522,19 @@ export default function PositionSizeCalculatorPage() {
                             </div>
                         </div>
                         <div className={posStyles.riskRow}>
-                            <input
-                                type="number"
-                                className={`${styles.input} ${posStyles.riskInput}`}
-                                value={riskPercent}
-                                onChange={(e) => setRiskPercent(Number(e.target.value) || 0)}
-                                min={0.1}
-                                step={0.1}
-                                max={100}
-                            />
+                            <div className={`${styles.inputWrapper} ${posStyles.riskInput}`}>
+                                <input
+                                    id="pos-risk"
+                                    type="number"
+                                    className={styles.input}
+                                    value={riskPercent}
+                                    onChange={(e) => setRiskPercent(Number(e.target.value) || 0)}
+                                    min={0.1}
+                                    step={0.1}
+                                    max={100}
+                                />
+                                <div className={styles.inputIcon}><TrendingDown size={20} /></div>
+                            </div>
                             <span className={posStyles.riskUnit}>%</span>
                         </div>
                     </div>
@@ -505,16 +542,21 @@ export default function PositionSizeCalculatorPage() {
 
                 <div className={posStyles.resultRow}>
                     <div className={posStyles.resultGrid}>
-                        <div className={posStyles.resultItem}>
-                            <motion.span
-                                key={lots}
-                                initial={{ opacity: 0, y: 5 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className={posStyles.resultItemValue}
-                            >
-                                {lots}
-                            </motion.span>
-                            <span className={posStyles.resultItemLabel}>Lots (Trade Size)</span>
+                        <div className={`${posStyles.resultItem} ${posStyles.resultItemHighlight}`}>
+                            {/* High-fidelity background glow */}
+                            <div className={posStyles.resultGlow} />
+                            
+                            <div className={posStyles.resultItemLabel}>Position Size (Lots)</div>
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={lots}
+                                    initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+                                    animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                                    className={`${posStyles.resultItemValue} ${posStyles.highlight}`}
+                                >
+                                    {lots.toFixed(2)}
+                                </motion.div>
+                            </AnimatePresence>
                         </div>
                         <div className={posStyles.resultItem}>
                             <motion.span
@@ -527,12 +569,12 @@ export default function PositionSizeCalculatorPage() {
                             </motion.span>
                             <span className={posStyles.resultItemLabel}>Total Units</span>
                         </div>
-                        <div className={`${posStyles.resultItem} ${posStyles.resultItemHighlight}`}>
+                        <div className={posStyles.resultItem}>
                             <motion.span
                                 key={riskAmount}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                className={`${posStyles.resultItemValue} ${posStyles.highlight}`}
+                                className={posStyles.resultItemValue}
                             >
                                 {riskAmount.toLocaleString('en-US', {
                                     style: 'currency',

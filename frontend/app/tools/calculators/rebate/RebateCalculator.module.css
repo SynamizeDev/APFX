@@ -1,138 +1,97 @@
-/* Forex Rebate Calculator — form grid, read-only, CTA, result */
+/* Forex Rebate Calculator — form grid, read-only, CTA, result block */
 .formGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem 2rem;
+    gap: 2rem 2.5rem;
 }
 
 .rebatePerLotRow {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.75rem;
     align-items: stretch;
 }
 
 .rebateInput {
     flex: 1;
-    min-width: 5rem;
-    width: 0;
+    min-width: 0;
 }
 
 .rebateUnit {
     flex-shrink: 0;
     width: 6rem;
-}
-
-.readOnlyRow {
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--color-border-subtle);
-}
-
-.readOnlyField {
-    width: 100%;
-    background: rgba(54, 249, 54, 0.04);
-    border: 1px solid rgba(54, 249, 54, 0.12);
-    border-radius: var(--radius-md);
-    padding: 0.8rem 1.1rem;
-    color: var(--color-accent);
-    font-family: var(--font-mono);
-    font-size: 0.9375rem;
-    pointer-events: none;
-}
-
-.buttonRow {
-    margin-top: 2rem;
     display: flex;
+    align-items: center;
     justify-content: center;
-}
-
-.calculateBtn {
-    position: relative;
-    padding: 0.9rem 2.5rem;
-    border-radius: var(--radius-full);
-    background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
-    color: #020617;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--color-text-2);
     font-size: 1rem;
-    font-weight: var(--fw-bold);
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 20px -4px rgba(54, 249, 54, 0.4);
-    transition:
-        transform var(--duration-fast) var(--ease-out),
-        box-shadow var(--duration-normal) var(--ease-out);
+    font-weight: 700;
 }
 
-.calculateBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px -4px rgba(54, 249, 54, 0.5);
-}
-
-.calculateBtn:active {
-    transform: translateY(0);
-}
-
+/* ── Result: prominent display block ─────────────────────────── */
 .resultRow {
-    margin-top: 2rem;
-    padding: 2.5rem;
-    background: linear-gradient(180deg, rgba(54, 249, 54, 0.08) 0%, transparent 100%);
+    margin-top: 1.5rem;
+    padding: 1.5rem 1.25rem;
+    background: linear-gradient(180deg, rgba(54, 249, 54, 0.08) 0%, rgba(10, 12, 18, 0.4) 100%);
     border: 1px solid rgba(54, 249, 54, 0.15);
-    border-radius: var(--radius-xl);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    position: relative;
-    overflow: hidden;
+    gap: 0.75rem;
+    box-shadow: 
+        0 30px 60px -12px rgba(0, 0, 0, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
-.resultRow::after {
-    content: '';
+.resultGlow {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
-    opacity: 0.3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 100px;
+    background: var(--color-accent);
+    filter: blur(80px);
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .formGrid {
         grid-template-columns: 1fr;
-        gap: 1.25rem;
+        gap: 1.5rem;
     }
 }
 
-/* ── Info section: desktop grid vs phone stack vs carousel ─── */
+/* ── Info section ───────────────────────────────────────────── */
 .infoSectionDesktop {
     display: grid;
 }
 
-.infoSectionPhoneStack {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-}
-
 .infoCarouselWrap {
     display: block;
-    margin-top: 3.5rem;
-    padding-top: 3rem;
+    margin-top: 4rem;
+    padding-top: 4rem;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .infoCarouselViewport {
     position: relative;
     width: 100%;
-    min-height: 13.5rem;
 }
 
 .infoCarouselScroll {
     display: flex;
     width: 100%;
-    min-height: 13.5rem;
     overflow-x: auto;
     overflow-y: hidden;
-    gap: var(--info-carousel-gap, 12px);
+    gap: var(--info-carousel-gap, 16px);
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
@@ -140,11 +99,6 @@
     overscroll-behavior-x: contain;
     scrollbar-width: none;
     outline: none;
-}
-
-.infoCarouselScroll:focus-visible {
-    box-shadow: 0 0 0 2px rgba(54, 249, 54, 0.35);
-    border-radius: var(--radius-lg);
 }
 
 .infoCarouselScroll::-webkit-scrollbar {
@@ -156,40 +110,33 @@
     min-width: 0;
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    box-sizing: border-box;
 }
 
 .carouselDots {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
-    margin-top: 1.125rem;
+    gap: 0.75rem;
+    margin-top: 2rem;
 }
 
 .carouselDot,
 .carouselDotActive {
-    width: 7px;
-    height: 7px;
-    border-radius: var(--radius-full);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
     border: none;
     padding: 0;
     cursor: pointer;
-    transition:
-        background var(--duration-fast) var(--ease-out),
-        transform var(--duration-fast) var(--ease-out);
+    transition: all 0.3s var(--ease-out);
 }
 
 .carouselDot {
-    background: rgba(255, 255, 255, 0.22);
-}
-
-.carouselDot:hover {
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .carouselDotActive {
     background: var(--color-accent);
-    transform: scale(1.2);
-    box-shadow: 0 0 12px rgba(54, 249, 54, 0.35);
+    transform: scale(1.4);
+    box-shadow: 0 0 15px rgba(54, 249, 54, 0.5);
 }

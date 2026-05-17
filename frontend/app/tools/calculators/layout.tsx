@@ -37,9 +37,11 @@ export default function CalculatorsLayout({
                     </nav>
                 </aside>
                 <div className={styles.content}>
+                    {children}
+                    
                     <header className={styles.intro}>
                         <div className={styles.introContent}>
-                            <h1 className={styles.introTitle}>Precision Trading Calculators</h1>
+                            <h2 className={styles.introTitle}>Precision Trading Calculators</h2>
                             <p className={styles.introDesc}>
                                 Professional-grade tools designed for institutional risk management, 
                                 precise position sizing, and data-driven trading decisions.
@@ -48,7 +50,6 @@ export default function CalculatorsLayout({
                         
                         <WhyUseCalculatorsSection />
                     </header>
-                    {children}
                 </div>
             </main>
             <Footer />

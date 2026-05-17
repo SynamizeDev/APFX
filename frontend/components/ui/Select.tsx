@@ -10,11 +10,13 @@ export default function Select({
     onChange,
     options,
     id,
+    triggerClassName = '',
 }: {
     value: string
     onChange: (value: string) => void
     options: SelectOption[]
     id?: string
+    triggerClassName?: string
 }) {
     const [open, setOpen] = useState(false)
     const wrapperRef = useRef<HTMLDivElement>(null)
@@ -41,7 +43,7 @@ export default function Select({
             <button
                 type="button"
                 id={id}
-                className={styles.trigger}
+                className={`${styles.trigger} ${triggerClassName}`}
                 onClick={() => setOpen((v) => !v)}
                 aria-haspopup="listbox"
                 aria-expanded={open}

@@ -35,6 +35,34 @@ const ASSET_LIST = [
     "> 'Indices'"
 ]
 
+const CANDLES_DATA = [
+    { x: 30, open: 470, close: 450, high: 440, low: 480 },
+    { x: 70, open: 450, close: 460, high: 435, low: 470 },
+    { x: 110, open: 460, close: 430, high: 420, low: 470 },
+    { x: 150, open: 430, close: 440, high: 415, low: 450 },
+    { x: 190, open: 440, close: 400, high: 390, low: 450 },
+    { x: 230, open: 400, close: 410, high: 395, low: 420 },
+    { x: 270, open: 410, close: 370, high: 360, low: 420 },
+    { x: 310, open: 370, close: 340, high: 330, low: 380 },
+    { x: 350, open: 340, close: 355, high: 335, low: 365 },
+    { x: 390, open: 355, close: 310, high: 300, low: 365 },
+    { x: 430, open: 310, close: 290, high: 280, low: 320 },
+    { x: 470, open: 290, close: 305, high: 285, low: 315 },
+    { x: 510, open: 305, close: 260, high: 250, low: 315 },
+    { x: 550, open: 260, close: 220, high: 210, low: 270 },
+    { x: 590, open: 220, close: 235, high: 215, low: 245 },
+    { x: 630, open: 235, close: 180, high: 170, low: 245 },
+    { x: 670, open: 180, close: 150, high: 140, low: 190 },
+    { x: 710, open: 150, close: 165, high: 145, low: 175 },
+    { x: 750, open: 165, close: 120, high: 110, low: 175 },
+    { x: 790, open: 120, close: 90, high: 80, low: 130 },
+    { x: 830, open: 90, close: 105, high: 85, low: 115 },
+    { x: 870, open: 105, close: 60, high: 50, low: 115 },
+    { x: 910, open: 60, close: 40, high: 30, low: 70 },
+    { x: 950, open: 40, close: 50, high: 35, low: 60 },
+    { x: 990, open: 50, close: 15, high: 5, low: 60 }
+]
+
 export default function HeroSection() {
     const rootRef = useRef<HTMLDivElement>(null)
     const trackRef = useRef<HTMLDivElement>(null)
@@ -87,23 +115,44 @@ export default function HeroSection() {
 
         // ── Slide 2 Specific Animations ───────────────────
         if (currentSlide === 1) {
-            gsap.fromTo(`.${styles.bonusLabel}`, 
+            // Initial resets
+            gsap.set(`.${styles.bonusLabel}`, { opacity: 0, scale: 0.5, y: 40 })
+            gsap.set(`.${styles.candle}`, { opacity: 0, scaleY: 0 })
+            gsap.set(`.${styles.priceTrackerLine}`, { scaleX: 0, opacity: 0 })
+            gsap.set(`.${styles.pulseDotGroup}`, { scale: 0, opacity: 0 })
+
+            const tl = gsap.timeline({ overwrite: 'auto' })
+
+            // 1. Staggered bonus badges reveal
+            tl.fromTo(`.${styles.bonusLabel}`, 
                 { opacity: 0, scale: 0.5, y: 40, rotation: -10 },
-                { opacity: 1, scale: 1, y: 0, rotation: 0, duration: 1, stagger: 0.15, ease: 'back.out(1.7)', overwrite: 'auto' }
+                { opacity: 1, scale: 1, y: 0, rotation: 0, duration: 0.8, stagger: 0.15, ease: 'back.out(1.7)' }
             )
-            gsap.fromTo(`.${styles.graphPath}`,
-                { strokeDashoffset: 4000 },
-                { strokeDashoffset: 0, duration: 4.5, ease: 'power2.inOut', delay: 0.4, overwrite: 'auto' }
+            
+            // 2. Draw candles one by one (highly detailed stagger!)
+            tl.fromTo(`.${styles.candle}`,
+                { opacity: 0, scaleY: 0, transformOrigin: "bottom center" },
+                { opacity: 1, scaleY: 1, duration: 0.45, stagger: 0.08, ease: 'power2.out' },
+                "-=0.6" // start overlapping slightly with the badge animation
             )
-            gsap.fromTo(`.${styles.graphArea}`,
-                { opacity: 0 },
-                { opacity: 0.15, duration: 2, delay: 1.5, ease: 'power1.inOut', overwrite: 'auto' }
+
+            // 3. Price tracker line slices across
+            tl.fromTo(`.${styles.priceTrackerLine}`,
+                { scaleX: 0, opacity: 0, transformOrigin: "left center" },
+                { scaleX: 1, opacity: 0.15, duration: 0.8, ease: 'power2.out' }
+            )
+
+            // 4. Glow pulse scale pop
+            tl.fromTo(`.${styles.pulseDotGroup}`,
+                { scale: 0, opacity: 0, transformOrigin: "center center" },
+                { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(2)' }
             )
         } else {
             // Reset for next time
             gsap.set(`.${styles.bonusLabel}`, { opacity: 0, scale: 0.5, y: 40 })
-            gsap.set(`.${styles.graphPath}`, { strokeDashoffset: 4000 })
-            gsap.set(`.${styles.graphArea}`, { opacity: 0 })
+            gsap.set(`.${styles.candle}`, { opacity: 0, scaleY: 0 })
+            gsap.set(`.${styles.priceTrackerLine}`, { scaleX: 0, opacity: 0 })
+            gsap.set(`.${styles.pulseDotGroup}`, { scale: 0, opacity: 0 })
         }
     }, [currentSlide])
 
@@ -321,23 +370,102 @@ export default function HeroSection() {
                                 <div className={`${styles.bonusLabel} ${styles.label3}`}>WINNER</div>
                                 <div className={`${styles.bonusLabel} ${styles.label4}`}>BONUS</div>
 
-                                {/* Rising Graph */}
+                                {/* Rising Graph — Now with high-fidelity market candles */}
                                 <div className={styles.risingGraph}>
                                     <svg className={styles.graphSvg} viewBox="0 0 1000 500" preserveAspectRatio="none">
-                                        <defs>
-                                            <linearGradient id="graphGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                                <stop offset="0%" stopColor="rgba(54, 249, 54, 0.3)" />
-                                                <stop offset="100%" stopColor="rgba(54, 249, 54, 0)" />
-                                            </linearGradient>
-                                        </defs>
-                                        <path 
-                                            className={styles.graphArea}
-                                            d="M0,480 L40,460 L80,470 L120,420 L160,440 L200,380 L240,400 L280,320 L320,350 L360,280 L400,310 L440,220 L480,250 L520,180 L560,210 L600,120 L640,150 L680,80 L720,110 L760,50 L800,70 L840,30 L880,90 L920,40 L960,80 L1000,20 L1000,500 L0,500 Z"
+                                        {/* 1. Dotted Chart Grid lines */}
+                                        <g opacity="0.04" stroke="#ffffff" strokeWidth="1" strokeDasharray="3 3">
+                                            {/* Horizontal lines */}
+                                            <line x1="0" y1="100" x2="1000" y2="100" />
+                                            <line x1="0" y1="200" x2="1000" y2="200" />
+                                            <line x1="0" y1="300" x2="1000" y2="300" />
+                                            <line x1="0" y1="400" x2="1000" y2="400" />
+                                            {/* Vertical lines */}
+                                            <line x1="200" y1="0" x2="200" y2="500" />
+                                            <line x1="400" y1="0" x2="400" y2="500" />
+                                            <line x1="600" y1="0" x2="600" y2="500" />
+                                            <line x1="800" y1="0" x2="800" y2="500" />
+                                        </g>
+
+                                        {/* 2. Mock Chart Time & Price Axes */}
+                                        <g opacity="0.12" fill="#ffffff" fontSize="9" fontFamily="monospace">
+                                            {/* Price Axis (Right) */}
+                                            <text x="960" y="95">1.1320</text>
+                                            <text x="960" y="195">1.1300</text>
+                                            <text x="960" y="295">1.1280</text>
+                                            <text x="960" y="395">1.1260</text>
+                                            {/* Time Axis (Bottom) */}
+                                            <text x="200" y="485">14:00</text>
+                                            <text x="400" y="485">15:00</text>
+                                            <text x="600" y="485">16:00</text>
+                                            <text x="800" y="485">17:00</text>
+                                        </g>
+
+                                        {/* 3. Live Price Dotted Tracker Line */}
+                                        <line 
+                                            className={styles.priceTrackerLine}
+                                            x1="0" 
+                                            y1="15" 
+                                            x2="990" 
+                                            y2="15" 
+                                            stroke="#36F936" 
+                                            strokeWidth="1" 
+                                            strokeDasharray="4 4"
+                                            opacity="0.15" 
                                         />
-                                        <path 
-                                            className={styles.graphPath}
-                                            d="M0,480 L40,460 L80,470 L120,420 L160,440 L200,380 L240,400 L280,320 L320,350 L360,280 L400,310 L440,220 L480,250 L520,180 L560,210 L600,120 L640,150 L680,80 L720,110 L760,50 L800,70 L840,30 L880,90 L920,40 L960,80 L1000,20" 
-                                        />
+
+                                        {/* 4. Financial Market Candlesticks */}
+                                        {CANDLES_DATA.map((candle, idx) => {
+                                            const isGreen = candle.close < candle.open;
+                                            const color = isGreen ? '#36F936' : '#FF4976';
+                                            const bodyHeight = Math.max(2, Math.abs(candle.open - candle.close));
+                                            const bodyY = Math.min(candle.open, candle.close);
+                                            const bodyWidth = 8;
+                                            return (
+                                                <g key={idx} className={styles.candle}>
+                                                    {/* Shadow/Wick line */}
+                                                    <line
+                                                        x1={candle.x}
+                                                        y1={candle.high}
+                                                        x2={candle.x}
+                                                        y2={candle.low}
+                                                        stroke={color}
+                                                        strokeWidth="1.5"
+                                                        opacity="0.3"
+                                                    />
+                                                    {/* Candle Body */}
+                                                    <rect
+                                                        x={candle.x - bodyWidth / 2}
+                                                        y={bodyY}
+                                                        width={bodyWidth}
+                                                        height={bodyHeight}
+                                                        fill={color}
+                                                        opacity="0.2"
+                                                        rx="1"
+                                                    />
+                                                </g>
+                                            )
+                                        })}
+
+                                        {/* 5. Live Glowing Price Pulse Indicator */}
+                                        <g className={styles.pulseDotGroup}>
+                                            {/* Outer expanding pulse wave */}
+                                            <circle 
+                                                className={styles.pulseOuter}
+                                                cx="990" 
+                                                cy="15" 
+                                                r="12" 
+                                                fill="#36F936" 
+                                                opacity="0.25" 
+                                            />
+                                            {/* Inner solid tracking dot */}
+                                            <circle 
+                                                cx="990" 
+                                                cy="15" 
+                                                r="4" 
+                                                fill="#36F936" 
+                                            />
+                                        </g>
                                     </svg>
                                 </div>
                             </div>

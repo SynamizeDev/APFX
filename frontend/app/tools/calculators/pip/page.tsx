@@ -272,12 +272,22 @@ export default function PipCalculatorPage() {
     return (
         <main className={styles.container}>
             <header className={styles.header}>
-                <h1 className={styles.title}>Professional Pip Value Calculator</h1>
-                <p className={styles.subtitle}>
+                <motion.h1 
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={styles.title}
+                >
+                    Professional Pip Value Calculator
+                </motion.h1>
+                <motion.p 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className={styles.subtitle}
+                >
                     Accurately determine the precise value of a single pip for your specific 
-                    trade size and currency pair. Essential for calculating risk exposure 
-                    and managing position sizing with institutional precision.
-                </p>
+                    trade size and currency pair with institutional precision.
+                </motion.p>
             </header>
 
             <div className={styles.inputPanel}>
@@ -290,15 +300,18 @@ export default function PipCalculatorPage() {
                                 <span className={styles.tooltipText}>The number of pips you want to calculate the value for. Usually 1 for base calculations.</span>
                             </div>
                         </div>
-                        <input
-                            id="pip-pips"
-                            type="number"
-                            className={styles.input}
-                            value={pips}
-                            onChange={(e) => setPips(Number(e.target.value) || 0)}
-                            min={0}
-                            step={1}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <input
+                                id="pip-pips"
+                                type="number"
+                                className={styles.input}
+                                value={pips}
+                                onChange={(e) => setPips(Number(e.target.value) || 0)}
+                                min={0}
+                                step={1}
+                            />
+                            <div className={styles.inputIcon}><Info size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
@@ -308,12 +321,16 @@ export default function PipCalculatorPage() {
                                 <span className={styles.tooltipText}>The currency pair you are trading. Pip size varies between standard pairs (4 digits) and JPY pairs (2 digits).</span>
                             </div>
                         </div>
-                        <Select
-                            id="pip-instrument"
-                            value={instrument}
-                            onChange={setInstrument}
-                            options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <Select
+                                id="pip-instrument"
+                                value={instrument}
+                                onChange={setInstrument}
+                                options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
+                                triggerClassName={styles.selectTrigger}
+                            />
+                            <div className={styles.inputIcon}><Globe size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
@@ -323,15 +340,18 @@ export default function PipCalculatorPage() {
                                 <span className={styles.tooltipText}>Your trade volume. 1 standard lot = 100,000 units of the base currency.</span>
                             </div>
                         </div>
-                        <input
-                            id="pip-lots"
-                            type="number"
-                            className={styles.input}
-                            value={lots}
-                            onChange={(e) => setLots(Number(e.target.value) || 0)}
-                            min={0.01}
-                            step={0.01}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <input
+                                id="pip-lots"
+                                type="number"
+                                className={styles.input}
+                                value={lots}
+                                onChange={(e) => setLots(Number(e.target.value) || 0)}
+                                min={0.01}
+                                step={0.01}
+                            />
+                            <div className={styles.inputIcon}><Zap size={20} /></div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <div className={styles.labelWrapper}>
@@ -341,12 +361,16 @@ export default function PipCalculatorPage() {
                                 <span className={styles.tooltipText}>The base currency of your trading account for the final calculation.</span>
                             </div>
                         </div>
-                        <Select
-                            id="pip-deposit"
-                            value={depositCurrency}
-                            onChange={setDepositCurrency}
-                            options={DEPOSIT_CURRENCIES.map((c) => ({ value: c.value, label: c.label }))}
-                        />
+                        <div className={styles.inputWrapper}>
+                            <Select
+                                id="pip-deposit"
+                                value={depositCurrency}
+                                onChange={setDepositCurrency}
+                                options={DEPOSIT_CURRENCIES.map((c) => ({ value: c.value, label: c.label }))}
+                                triggerClassName={styles.selectTrigger}
+                            />
+                            <div className={styles.inputIcon}><Shield size={20} /></div>
+                        </div>
                     </div>
                 </div>
 
@@ -366,11 +390,15 @@ export default function PipCalculatorPage() {
 
                 <div className={pipStyles.resultRow}>
                     <div className={styles.resultTitle}>Total Pip Value</div>
+                    
+                    {/* High-fidelity background glow */}
+                    <div className={pipStyles.resultGlow} />
+
                     <AnimatePresence mode="wait">
                         <motion.div 
                             key={pipValue}
-                            initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
-                            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                            initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+                            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                             className={styles.resultValue}
                         >
                             {pipValue.toLocaleString('en-US', {
@@ -382,13 +410,20 @@ export default function PipCalculatorPage() {
                 </div>
 
                 <div className={`${styles.infoSection} ${pipStyles.infoSectionDesktop}`}>
-                    {INFO_CARDS.map((card) => (
-                        <div key={card.title} className={infoCardClass(card.variant)}>
+                    {INFO_CARDS.map((card, i) => (
+                        <motion.div 
+                            key={card.title} 
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.1 }}
+                            className={infoCardClass(card.variant)}
+                        >
                             <h3 className={styles.infoTitle}>
                                 {card.icon} {card.title}
                             </h3>
                             <p className={styles.infoText}>{card.body}</p>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
 

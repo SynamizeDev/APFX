@@ -6,26 +6,34 @@ import {
     useRef,
     useLayoutEffect,
     useCallback,
+    type ReactNode,
 } from 'react'
+import { Target, Shield, Zap } from 'lucide-react'
 import styles from './CalculatorsLayout.module.css'
 
-const WHY_ITEMS = [
+type WhyItemDef = {
+    icon: ReactNode
+    title: string
+    body: string
+}
+
+const WHY_ITEMS: WhyItemDef[] = [
     {
-        icon: '🎯',
+        icon: <Target size={28} />,
         title: 'Institutional Precision',
         body: 'In retail trading, a few pips seem small. In institutional trading, they represent millions in exposure. Precision is not optional.',
     },
     {
-        icon: '🛡️',
+        icon: <Shield size={28} />,
         title: 'Risk Control',
         body: 'Calculators strip away emotion, providing cold, hard data to ensure you never over-leverage or exceed your risk parameters.',
     },
     {
-        icon: '⚖️',
+        icon: <Zap size={28} />,
         title: 'Professional Discipline',
-        body: 'Every successful trader calculates their exit and risk before they ever execute an entry. This is the cornerstone of discipline.',
+        body: 'Every successful trader calculates their risk before they ever execute an entry. This is the cornerstone of discipline.',
     },
-] as const
+]
 
 /** Must match `gap` on `.whyCarouselScroll` in CalculatorsLayout.module.css */
 const WHY_CAROUSEL_GAP_PX = 12

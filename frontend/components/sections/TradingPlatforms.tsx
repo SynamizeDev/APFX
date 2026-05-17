@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import { BarChart3, TrendingUp, Globe, Smartphone } from 'lucide-react'
 import styles from './TradingPlatforms.module.css'
 
@@ -156,71 +157,15 @@ export default function TradingPlatforms() {
                 </div>
 
                 <div className={styles.visual} aria-hidden="true">
-                    <div className={styles.mockupContainer} style={{ position: 'relative', width: '100%', height: '100%', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        
-                        {/* Desktop Monitor */}
-                        <div style={{ position: 'absolute', width: '80%', height: '60%', background: '#0B0F1A', border: '2px solid #2A3245', borderRadius: '8px', zIndex: 1, top: '10%', left: '10%', boxShadow: '0 20px 50px rgba(0,0,0,0.5)', overflow: 'hidden' }}>
-                            <div style={{ padding: '0.4rem', background: '#1A2235', borderBottom: '1px solid #2A3245', display: 'flex', gap: '0.3rem' }}>
-                                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ff5f56' }}></div>
-                                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ffbd2e' }}></div>
-                                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#27c93f' }}></div>
-                            </div>
-                            <div style={{ padding: '1rem', height: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                <div style={{ display: 'flex', gap: '8px', height: '60%' }}>
-                                    <div style={{ flex: 2, background: 'rgba(54, 249, 54, 0.05)', border: '1px solid rgba(54, 249, 54, 0.2)', borderRadius: '4px', position: 'relative', overflow: 'hidden' }}>
-                                        {/* Simple CSS Candlesticks representation */}
-                                        <div style={{ position: 'absolute', bottom: '20%', left: '10%', width: '4px', height: '30%', background: '#36F936' }}></div>
-                                        <div style={{ position: 'absolute', bottom: '40%', left: '30%', width: '4px', height: '40%', background: '#36F936' }}></div>
-                                        <div style={{ position: 'absolute', bottom: '30%', left: '50%', width: '4px', height: '25%', background: '#ff4757' }}></div>
-                                        <div style={{ position: 'absolute', bottom: '45%', left: '70%', width: '4px', height: '35%', background: '#36F936' }}></div>
-                                    </div>
-                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                        <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
-                                        <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
-                                    </div>
-                                </div>
-                                <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
-                            </div>
-                        </div>
-
-                        {/* Tablet View */}
-                        <div style={{ position: 'absolute', width: '45%', height: '55%', background: '#03050A', border: '2px solid #2A3245', borderRadius: '12px', zIndex: 2, bottom: '5%', left: '5%', boxShadow: '0 15px 40px rgba(0,0,0,0.6)', overflow: 'hidden' }}>
-                            <div style={{ height: '100%', padding: '0.8rem', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                <div style={{ width: '40%', height: '6px', background: '#1A2235', borderRadius: '3px' }}></div>
-                                <div style={{ flex: 1, background: 'rgba(54, 249, 54, 0.08)', borderRadius: '6px', border: '1px solid rgba(54, 249, 54, 0.15)', display: 'flex', alignItems: 'flex-end', padding: '8px', gap: '4px' }}>
-                                    {/* Line chart mock */}
-                                    <div style={{ width: '20%', height: '30%', background: '#36F936', borderRadius: '2px 2px 0 0' }}></div>
-                                    <div style={{ width: '20%', height: '50%', background: '#36F936', borderRadius: '2px 2px 0 0' }}></div>
-                                    <div style={{ width: '20%', height: '40%', background: '#36F936', borderRadius: '2px 2px 0 0' }}></div>
-                                    <div style={{ width: '20%', height: '70%', background: '#36F936', borderRadius: '2px 2px 0 0' }}></div>
-                                </div>
-                                <div style={{ height: '20%', display: 'flex', gap: '8px' }}>
-                                    <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
-                                    <div style={{ flex: 1, background: '#1A2235', borderRadius: '4px' }}></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Mobile Phone */}
-                        <div style={{ position: 'absolute', width: '25%', height: '60%', background: '#000', border: '3px solid #3A4255', borderRadius: '24px', zIndex: 3, bottom: '10%', right: '10%', boxShadow: '0 25px 50px rgba(0,0,0,0.8)', overflow: 'hidden' }}>
-                            <div style={{ position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%)', width: '40%', height: '12px', background: '#3A4255', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px', zIndex: 4 }}></div>
-                            <div style={{ padding: '1.2rem 0.8rem 0.8rem', height: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <div style={{ width: '40%', height: '16px', background: '#36F936', borderRadius: '4px', opacity: 0.8 }}></div>
-                                    <div style={{ width: '20%', height: '16px', background: '#ff4757', borderRadius: '4px', opacity: 0.8 }}></div>
-                                </div>
-                                <div style={{ flex: 1, background: 'rgba(255, 255, 255, 0.03)', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.05)', display: 'flex', flexDirection: 'column', gap: '4px', padding: '6px' }}>
-                                    <div style={{ width: '100%', height: '12px', background: '#1A2235', borderRadius: '2px' }}></div>
-                                    <div style={{ width: '100%', height: '12px', background: '#1A2235', borderRadius: '2px' }}></div>
-                                    <div style={{ width: '100%', height: '12px', background: '#1A2235', borderRadius: '2px' }}></div>
-                                    <div style={{ width: '100%', height: '12px', background: '#1A2235', borderRadius: '2px' }}></div>
-                                </div>
-                                <div style={{ display: 'flex', gap: '6px', marginTop: 'auto' }}>
-                                    <div style={{ flex: 1, height: '24px', background: '#36F936', borderRadius: '12px' }}></div>
-                                    <div style={{ flex: 1, height: '24px', background: '#ff4757', borderRadius: '12px' }}></div>
-                                </div>
-                            </div>
-                        </div>
+                    <div className={styles.imageContainer}>
+                        <Image 
+                            src="/assets/device-bg.png" 
+                            alt="Trading Platforms" 
+                            width={1200}
+                            height={800}
+                            className={styles.platformImage}
+                            priority
+                        />
                     </div>
                 </div>
             </div>

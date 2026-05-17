@@ -768,12 +768,14 @@
 }
 
 
-@media (max-width: 640px) {
-
-    /* Phone: hide Login / Open Account section in overlay menu */
-    .mobileAuth {
-        display: none;
+@media (max-width: 768px) {
+    .btnIconSolidWhite,
+    .btnSolidWhite {
+        display: none !important;
     }
+}
+
+@media (max-width: 640px) {
 
     /* Keep actions visible, but reduce further */
     .btnIconSolidWhite {
