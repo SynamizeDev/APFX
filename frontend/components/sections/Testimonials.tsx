@@ -1,6 +1,7 @@
 'use client'
 
-import { Star } from 'lucide-react'
+import Link from 'next/link'
+import { Star, ArrowRight } from 'lucide-react'
 import styles from './Testimonials.module.css'
 
 const REVIEWS = [
@@ -8,56 +9,56 @@ const REVIEWS = [
     {
         quote: "APFX has transformed my trading. The execution speed is incredible — no slippage, no requotes. I moved my entire portfolio here within a month.",
         name: 'Rahul M.',
-        role: 'Forex Trader · London',
+        role: 'Forex Trader',
         initials: 'RM',
         stars: 5,
     },
     {
         quote: "The spreads are genuinely tight. I trade gold daily and the difference versus my old broker is measurable. Customer support is also very responsive.",
         name: 'Priya S.',
-        role: 'Scalper · Singapore',
+        role: 'Scalper',
         initials: 'PS',
         stars: 5,
     },
     {
         quote: "Finally a platform that feels institutional. The MT5 integration is seamless and their VPS service keeps my EAs running 24/7 without issues.",
         name: 'James T.',
-        role: 'Algo Trader · London',
+        role: 'Algo Trader',
         initials: 'JT',
         stars: 5,
     },
     {
         quote: "The leverage options and asset variety are exceptional. I can trade indices, forex, and commodities all from one account. Highly recommended.",
         name: 'Ahmed K.',
-        role: 'Portfolio Manager · Riyadh',
+        role: 'Portfolio Manager',
         initials: 'AK',
         stars: 5,
     },
     {
         quote: "Regulation and transparency were my top concerns. APFX checks every box. Withdrawals are fast, reporting is clear, and the team is professional.",
         name: 'Sofia L.',
-        role: 'Prop Firm Trader · Zurich',
+        role: 'Prop Firm Trader',
         initials: 'SL',
         stars: 5,
     },
     {
         quote: "Their mobile app is best-in-class. I manage positions on the go without compromising on charting tools or execution quality. Impressive product.",
         name: 'Kevin O.',
-        role: 'Day Trader · Lagos',
+        role: 'Day Trader',
         initials: 'KO',
         stars: 5,
     },
     {
         quote: "Switched from a major broker after trying APFX's demo. The platform performance, account types, and IB program are all superior.",
         name: 'Maria J.',
-        role: 'IB Partner · São Paulo',
+        role: 'IB Partner',
         initials: 'MJ',
         stars: 5,
     },
     {
         quote: "Excellent for news trading. Their eco system handles high volatility well — execution stays crisp even during major economic events.",
         name: 'Yuki T.',
-        role: 'News Trader · Tokyo',
+        role: 'News Trader',
         initials: 'YT',
         stars: 5,
     },
@@ -89,10 +90,15 @@ export default function Testimonials() {
     return (
         <section className={`${styles.section} apfx-section`} aria-labelledby="testimonials-heading">
             <div className={styles.inner}>
-                <div className={styles.eyebrow}>Client Reviews</div>
-                <h2 id="testimonials-heading" className={styles.title}>
-                    Trusted by Performance‑Driven Traders Worldwide
-                </h2>
+                <div className={styles.headerContent}>
+                    <div className={styles.eyebrow}>Client Reviews</div>
+                    <h2 id="testimonials-heading" className={styles.title}>
+                        Trusted by Performance‑Driven Traders Worldwide
+                    </h2>
+                </div>
+                <Link href="/company/success-stories" className={styles.btnSmall}>
+                    See More Reviews <ArrowRight size={14} />
+                </Link>
             </div>
 
             {/* Row — scrolls left */}

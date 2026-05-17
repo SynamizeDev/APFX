@@ -22,6 +22,7 @@ const FOOTER_LINKS = {
     ],
     Support: [
         { label: 'About Us', href: '/company/about-us' },
+        { label: 'Success Stories', href: '/company/success-stories' },
         { label: 'Support Center', href: '/support' },
         { label: 'FAQ', href: '/faq' },
         { label: 'Contact', href: '/contact' },

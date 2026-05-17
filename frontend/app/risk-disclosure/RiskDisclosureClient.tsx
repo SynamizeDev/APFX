@@ -78,6 +78,35 @@ export default function RiskDisclosureClient() {
                                 <motion.li variants={fadeUp}>Leveraged trading amplifies both gains and losses.</motion.li>
                             </motion.ul>
 
+                            <motion.h3 variants={fadeUp} style={{ marginTop: '3rem', marginBottom: '1.5rem' }}>
+                                Restricted Jurisdictions
+                            </motion.h3>
+
+                            <motion.p variants={fadeUp}>
+                                APFX Global Markets does not provide services to residents of jurisdictions where the offering of leveraged financial products or CFD trading would be contrary to local laws or regulations.
+                            </motion.p>
+
+                            <motion.p variants={fadeUp}>
+                                The Company does not accept clients from certain jurisdictions, including but not limited to:
+                            </motion.p>
+
+                            <motion.ul variants={stagger} style={{ marginBottom: '1.5rem' }}>
+                                <motion.li variants={fadeUp}>United States</motion.li>
+                                <motion.li variants={fadeUp}>Iran</motion.li>
+                                <motion.li variants={fadeUp}>North Korea</motion.li>
+                                <motion.li variants={fadeUp}>Syria</motion.li>
+                                <motion.li variants={fadeUp}>Sudan</motion.li>
+                                <motion.li variants={fadeUp}>Cuba</motion.li>
+                            </motion.ul>
+
+                            <motion.p variants={fadeUp}>
+                                The Company reserves the right to decline account applications or suspend services at its sole discretion in order to comply with applicable laws, sanctions, anti-money laundering obligations, or internal compliance policies.
+                            </motion.p>
+
+                            <motion.p variants={fadeUp} style={{ marginBottom: '3rem' }}>
+                                It is the Client’s responsibility to ensure that accessing and using the Company’s services is permitted under the laws of their country of residence.
+                            </motion.p>
+
                             <motion.div 
                                 className={styles.warningBox} 
                                 variants={fadeUp}

@@ -105,6 +105,7 @@ const MEGA_MENU_DATA = {
                 { label: 'Account Types', href: '/accounts' },
                 { label: 'Become a Partner', href: '/partners' },
                 { label: 'Marketing Materials', href: '/company/marketing-materials' },
+                { label: 'Success Stories', href: '/company/success-stories' },
                 { label: 'Privacy Policy', href: '/privacy-policy' },
                 { label: 'Terms of Service', href: '/terms-of-service' },
                 { label: 'Risk Disclosure', href: '/risk-disclosure' },
@@ -333,13 +334,22 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                                                                     <ul className={styles.megaMenuLinks}>
                                                                         {col.links.map((subLink) => (
                                                                             <li key={subLink.href}>
+                                                                                {/* @ts-ignore - Custom property for divider */}
+                                                                                {subLink.dividerTop && <hr className={styles.menuDivider} />}
                                                                                 <Link
                                                                                     href={subLink.href}
                                                                                     onClick={closeMenu}
-                                                                                    className={subLink.label.toLowerCase().startsWith('view') ? styles.megaMenuViewAll : undefined}
+                                                                                    className={`${subLink.label.toLowerCase().startsWith('view') ? styles.megaMenuViewAll : ''} ${
+                                                                                        // @ts-ignore
+                                                                                        subLink.isFeatured ? styles.megaMenuFeatured : ''
+                                                                                    }`}
                                                                                 >
                                                                                     {subLink.label}
+                                                                                    {/* @ts-ignore */}
+                                                                                    {subLink.isFeatured && <span className={styles.badgeNew}>NEW</span>}
                                                                                 </Link>
+                                                                                {/* @ts-ignore - Custom property for divider */}
+                                                                                {subLink.dividerBottom && <hr className={styles.menuDivider} />}
                                                                             </li>
                                                                         ))}
                                                                     </ul>
@@ -443,9 +453,22 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                                         }}
                                     >
                                         {mobileSubLinks.map((subLink) => (
-                                            <Link key={subLink.href} href={subLink.href} onClick={closeMenu}>
-                                                {subLink.label}
-                                            </Link>
+                                            <div key={subLink.href} className={styles.mobileSubmenuItemWrapper}>
+                                                {/* @ts-ignore */}
+                                                {subLink.dividerTop && <hr className={styles.menuDivider} style={{ margin: '0.25rem 1rem' }} />}
+                                                <Link 
+                                                    href={subLink.href} 
+                                                    onClick={closeMenu}
+                                                    // @ts-ignore
+                                                    className={subLink.isFeatured ? styles.mobileMenuFeatured : ''}
+                                                >
+                                                    {subLink.label}
+                                                    {/* @ts-ignore */}
+                                                    {subLink.isFeatured && <span className={styles.badgeNew} style={{ marginLeft: '0.5rem' }}>NEW</span>}
+                                                </Link>
+                                                {/* @ts-ignore */}
+                                                {subLink.dividerBottom && <hr className={styles.menuDivider} style={{ margin: '0.25rem 1rem' }} />}
+                                            </div>
                                         ))}
                                     </motion.div>
                                 )}

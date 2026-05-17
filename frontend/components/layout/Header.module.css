@@ -380,6 +380,42 @@
     margin-top: 0.25rem;
 }
 
+.menuDivider {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 0.5rem 0;
+}
+
+:global(.light-mode) .menuDivider {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.megaMenuFeatured {
+    color: var(--color-accent) !important;
+    font-weight: var(--fw-bold) !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.badgeNew {
+    font-size: 0.55rem;
+    font-weight: var(--fw-extrabold);
+    background: rgba(54, 249, 54, 0.15);
+    color: var(--color-accent);
+    padding: 0.15rem 0.4rem;
+    border-radius: var(--radius-sm);
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(54, 249, 54, 0.3);
+}
+
+:global(.light-mode) .badgeNew {
+    background: rgba(30, 155, 30, 0.1);
+    color: #1E9B1E;
+    border-color: rgba(30, 155, 30, 0.2);
+}
+
 /* Portal actions — Exact Minimalist Design */
 .btnIconSolidWhite {
     display: inline-flex;
@@ -601,6 +637,19 @@
 
 .mobileSubmenu a:hover {
     color: var(--color-accent-hover);
+}
+
+.mobileSubmenuItemWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.mobileMenuFeatured {
+    color: var(--color-accent) !important;
+    font-weight: var(--fw-bold) !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
 }
 
 .mobileAuth {
