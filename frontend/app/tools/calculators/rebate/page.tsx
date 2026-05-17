@@ -468,8 +468,8 @@ export default function RebateCalculatorPage() {
                                     id="rebate-rate"
                                     type="number"
                                     className={styles.input}
-                                    value={rebatePerLot}
-                                    onChange={(e) => setRebatePerLot(Number(e.target.value) || 0)}
+                                    value={rebatePerLotRaw}
+                                    onChange={(e) => setRebatePerLotRaw(e.target.value)}
                                     min={0}
                                     step={0.1}
                                 />
