@@ -1,8 +1,7 @@
-'use client'
+﻿'use client'
 
 import { motion, Variants } from 'framer-motion'
 import InnerPageHero from '@/components/layout/InnerPageHero'
-import Footer from '@/components/layout/Footer'
 import { Mail, Clock, Headphones, ShieldCheck, Globe, Zap } from 'lucide-react'
 import styles from '@/components/layout/LegalLayout.module.css'
 
@@ -113,7 +112,6 @@ export default function SupportClient() {
                 </section>
             </main>
 
-            <Footer />
         </div>
     )
 }

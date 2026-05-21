@@ -1,8 +1,7 @@
-'use client'
+﻿'use client'
 
 import { motion, Variants } from 'framer-motion'
 import InnerPageHero from '@/components/layout/InnerPageHero'
-import Footer from '@/components/layout/Footer'
 import styles from '@/components/layout/LegalLayout.module.css'
 
 const fadeUp: Variants = {
@@ -74,7 +73,6 @@ export default function PaymentDisclaimerClient() {
                 </section>
             </main>
 
-            <Footer />
         </div>
     )
 }

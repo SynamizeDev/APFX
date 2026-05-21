@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useCallback, useEffect } from 'react'
 import dynamic from 'next/dynamic'
@@ -209,7 +209,6 @@ export default function HomePage() {
             <AnimatedSection>
               <CTABanner />
             </AnimatedSection>
-            {!showAnimation && <BottomBar />}
           </motion.div>
         </>
       )}

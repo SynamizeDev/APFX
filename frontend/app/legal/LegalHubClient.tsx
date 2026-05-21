@@ -1,9 +1,8 @@
-'use client'
+﻿'use client'
 
 import { motion, Variants } from 'framer-motion'
 import Link from 'next/link'
 import InnerPageHero from '@/components/layout/InnerPageHero'
-import Footer from '@/components/layout/Footer'
 import styles from './LegalHub.module.css'
 
 const fadeUp: Variants = {
@@ -130,7 +129,6 @@ export default function LegalHubClient() {
                 </section>
             </main>
 
-            <Footer />
         </div>
     )
 }
