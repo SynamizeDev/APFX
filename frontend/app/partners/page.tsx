@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import {
@@ -13,8 +13,6 @@ import {
   HelpCircle,
 } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import Select from '@/components/ui/Select'
 import styles from './Partners.module.css'
 
@@ -324,8 +322,6 @@ export default function PartnersPage() {
         </section>
       </main>
 
-      <Footer />
-      <BottomBar />
     </div>
   )
 }

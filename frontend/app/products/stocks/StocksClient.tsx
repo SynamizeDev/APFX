@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import CTABanner from '@/components/sections/CTABanner';
 import InnerPageHero from '@/components/layout/InnerPageHero';
@@ -14,8 +14,6 @@ import TradingStrategies from '@/components/sections/stocks/TradingStrategies';
 import ComparisonStrip from '@/components/sections/stocks/ComparisonStrip';
 import StickyCTA from '@/components/sections/stocks/StickyCTA';
 import StocksRiskDisclosure from '@/components/sections/stocks/StocksRiskDisclosure';
-import Footer from '@/components/layout/Footer';
-import BottomBar from '@/components/layout/BottomBar';
 import hubStyles from './stocks-hub.module.css';
 
 export default function StocksClient() {
@@ -42,8 +40,6 @@ export default function StocksClient() {
             <StocksRiskDisclosure />
             <CTABanner />
             <StickyCTA />
-            <Footer />
-            <BottomBar />
         </div>
     );
 }

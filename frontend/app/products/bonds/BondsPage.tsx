@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import {
@@ -20,8 +20,6 @@ import {
 } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import ProductsTabNav from '@/components/navigation/ProductsTabNav'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import styles from './BondsPage.module.css'
 
 /** Angle: fixed income & interest rates — the foundation of macro trading. */
@@ -261,8 +259,6 @@ export default function BondsPage() {
         </section>
       </main>
 
-      <Footer />
-      <BottomBar />
     </div>
   )
 }

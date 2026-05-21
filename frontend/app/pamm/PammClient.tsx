@@ -1,10 +1,8 @@
-'use client'
+﻿'use client'
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import { Activity, Shield, TrendingUp, Users, PieChart, ArrowRight, BarChart3, Lock, Zap, CheckCircle2, ChevronRight } from 'lucide-react'
 import styles from './PammPage.module.css'
 
@@ -261,8 +259,6 @@ export default function PammClient() {
                 </div>
             </section>
 
-            <Footer />
-            <BottomBar />
         </div>
     )
 }

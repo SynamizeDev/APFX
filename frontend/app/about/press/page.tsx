@@ -1,10 +1,8 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { Image, Palette, User } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import styles from './Press.module.css'
 
 const FEATURED = [
@@ -196,8 +194,6 @@ export default function PressPage() {
         </section>
       </main>
 
-      <Footer />
-      <BottomBar />
     </div>
   )
 }

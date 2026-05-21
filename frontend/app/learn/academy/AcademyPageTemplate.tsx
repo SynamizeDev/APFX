@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import AcademyTabNav from '@/components/navigation/AcademyTabNav'
@@ -6,8 +6,6 @@ import styles from './AcademyPage.module.css'
 import { Play, CheckCircle2, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 
 interface AcademyPageProps {
     title: string
@@ -110,8 +108,6 @@ export default function AcademyPage({ title, description, videoTitle, steps, rel
                     </div>
                 </section>
             </main>
-            <Footer />
-            <BottomBar />
         </div>
     )
 }

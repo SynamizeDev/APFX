@@ -1,11 +1,9 @@
-'use client'
+﻿'use client'
 
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Shield, ShieldCheck, Zap, TrendingUp, Globe } from 'lucide-react'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import { RISK_TOOLS } from './tools'
 import styles from './RiskManagementLayout.module.css'
 
@@ -338,8 +336,6 @@ export default function RiskManagementLayout({
           </section>
         </div>
       </main>
-      <Footer />
-      <BottomBar />
     </div>
   )
 }

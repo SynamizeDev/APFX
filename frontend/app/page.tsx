@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useCallback, useEffect } from 'react'
 import dynamic from 'next/dynamic'
@@ -53,8 +53,6 @@ const CTABanner = dynamic(() => import('@/components/sections/CTABanner'), { ssr
    Static Components
    ========================================================= */
 
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import AnimatedSection from '@/components/animations/AnimatedSection'
 import { useHomeEntryNavigation } from '@/context/HomeEntryContext'
 
@@ -211,7 +209,6 @@ export default function HomePage() {
             <AnimatedSection>
               <CTABanner />
             </AnimatedSection>
-            <Footer />
             {!showAnimation && <BottomBar />}
           </motion.div>
         </>

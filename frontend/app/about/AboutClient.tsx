@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
@@ -23,8 +23,6 @@ import {
     Landmark
 } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import styles from './AboutPage.module.css'
 
 const fadeUp: Variants = {
@@ -451,8 +449,6 @@ function AboutContent() {
                 </div>
             </main>
 
-            <Footer />
-            <BottomBar />
         </div>
     )
 }

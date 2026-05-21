@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import {
@@ -18,8 +18,6 @@ import {
 } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import ProductsTabNav from '@/components/navigation/ProductsTabNav'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import styles from './IndicesPage.module.css'
 
 /** Angle: macro trends & benchmark movement — opens with behavior, not definitions. */
@@ -477,8 +475,6 @@ export default function IndicesPage() {
         </section>
       </main>
 
-      <Footer />
-      <BottomBar />
     </div>
   )
 }

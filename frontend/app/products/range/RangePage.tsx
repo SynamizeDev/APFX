@@ -1,9 +1,7 @@
-'use client'
+﻿'use client'
 
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import ProductsTabNav from '@/components/navigation/ProductsTabNav'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import styles from './RangePage.module.css'
 
 export default function RangePage() {
@@ -57,8 +55,6 @@ export default function RangePage() {
                 </section>
             </main>
 
-            <Footer />
-            <BottomBar />
         </div>
     )
 }

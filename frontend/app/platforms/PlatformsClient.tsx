@@ -1,10 +1,8 @@
-'use client'
+﻿'use client'
 
 import { BarChart3, TrendingUp, Globe, Smartphone } from 'lucide-react'
 import { motion, Variants } from 'framer-motion'
 import InnerPageHero from '@/components/layout/InnerPageHero'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import styles from './PlatformsPage.module.css'
 
 // Metadata moved to page.tsx (Server Component)
@@ -163,8 +161,6 @@ export default function PlatformsPage() {
                 </section>
             </main>
 
-            <Footer />
-            <BottomBar />
         </div>
     )
 }

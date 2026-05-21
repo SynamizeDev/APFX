@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -18,8 +18,6 @@ import {
     Maximize2
 } from 'lucide-react'
 import styles from './MarketingMaterials.module.css'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 
 // --- Mock Data ---
 
@@ -355,8 +353,6 @@ export default function MarketingMaterialsPage() {
                 </div>
             </section>
 
-            <Footer />
-            <BottomBar />
         </div>
     )
 }

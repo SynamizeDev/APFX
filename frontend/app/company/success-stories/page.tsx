@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -17,8 +17,6 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import styles from './SuccessStories.module.css'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 
 // --- Mock Data ---
 
@@ -422,8 +420,6 @@ export default function SuccessStoriesPage() {
                 </div>
             </section>
 
-            <Footer />
-            <BottomBar />
         </div>
     )
 }

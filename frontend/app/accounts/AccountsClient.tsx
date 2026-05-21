@@ -1,11 +1,9 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { motion, AnimatePresence, Variants } from 'framer-motion'
 import Link from 'next/link'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import { Check, Plus, Minus, ArrowRight, Zap, Shield, Globe, Cpu, Clock, Wallet } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import styles from './AccountsPage.module.css'
@@ -370,8 +368,6 @@ function AccountsContent() {
                 </>
             )}
 
-            <Footer />
-            <BottomBar />
         </div>
     )
 }

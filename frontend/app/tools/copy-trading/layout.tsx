@@ -1,6 +1,4 @@
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
-import StatsBar from '@/components/sections/StatsBar'
+﻿import StatsBar from '@/components/sections/StatsBar'
 
 /**
  * Copy-trading is outside calculators/risk-management layouts; mirror their shell
@@ -15,8 +13,6 @@ export default function CopyTradingLayout({
         <>
             {children}
             <StatsBar />
-            <Footer />
-            <BottomBar />
         </>
     )
 }

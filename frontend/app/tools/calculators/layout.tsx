@@ -1,9 +1,7 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import { CALCULATORS } from './calculators'
 import WhyUseCalculatorsSection from './WhyUseCalculatorsSection'
 import styles from './CalculatorsLayout.module.css'
@@ -52,8 +50,6 @@ export default function CalculatorsLayout({
                     </header>
                 </div>
             </main>
-            <Footer />
-            <BottomBar />
         </div>
     )
 }

@@ -1,10 +1,8 @@
-'use client'
+﻿'use client'
 
 import { Mail, Phone } from 'lucide-react'
 import { motion, Variants } from 'framer-motion'
 import InnerPageHero from '@/components/layout/InnerPageHero'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import styles from './ContactPage.module.css'
 import ContactForm from './ContactForm'
 
@@ -134,8 +132,6 @@ export default function ContactPage() {
                 </section>
             </main>
 
-            <Footer />
-            <BottomBar />
         </div>
     )
 }

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import {
@@ -20,8 +20,6 @@ import {
   Heart,
 } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import styles from './AboutUs.module.css'
 
 const VALUES = [
@@ -53,10 +51,7 @@ const MILESTONES = [
   { year: '2026', title: 'Today', description: 'Serving traders globally with tools, insights, and a commitment to transparency and security.' },
 ]
 
-const TEAM = [
-  { initials: 'AP', name: 'Abhishek Pandey', role: 'Founder & CEO', bio: 'Over 7 years in financial technology and trading infrastructure.' },
-  { initials: 'SP', name: 'Sushil Pulojwar', role: 'Head of Management', bio: 'Leads platform and tool development with a focus on trader experience.' },
-]
+
 
 export default function AboutUsPage() {
   return (
@@ -172,23 +167,7 @@ export default function AboutUsPage() {
           </div>
         </section>
 
-        {/* Team */}
-        <section className={styles.section} aria-labelledby="team-heading">
-          <div className={styles.container}>
-            <h2 id="team-heading" className={styles.sectionTitle}>Leadership</h2>
-            <p className={styles.sectionSubtitle}>The people behind our platform and vision.</p>
-            <div className={styles.teamGrid}>
-              {TEAM.map((t) => (
-                <div key={t.name} className={styles.teamCard}>
-                  <div className={styles.teamAvatar}>{t.initials}</div>
-                  <h4>{t.name}</h4>
-                  <p className={styles.teamRole}>{t.role}</p>
-                  <p className={styles.teamBio}>{t.bio}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+
 
         {/* Trust and Transparency */}
         <section className={styles.section} aria-labelledby="trust-heading">
@@ -228,8 +207,6 @@ export default function AboutUsPage() {
         </section>
       </main>
 
-      <Footer />
-      <BottomBar />
     </div>
   )
 }
