@@ -1,0 +1,912 @@
+/* ═══════════════════════════════════════════════════════
+   Economic Calendar — Module CSS
+   Shared by both the page and all sub-components.
+   Bloomberg/TradingView-inspired institutional dark terminal.
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Page shell ──────────────────────────────────────── */
+.page {
+    min-height: 100vh;
+    background: var(--color-bg);
+}
+
+/* ── Hero ────────────────────────────────────────────── */
+.hero {
+    padding-block: clamp(5rem, 10vw, 8rem) clamp(2.5rem, 5vw, 3.5rem);
+    background:
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,200,150,0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 30% at 80% 50%, rgba(0,180,255,0.03) 0%, transparent 60%);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.heroInner {
+    max-width: 760px;
+    margin-inline: auto;
+    padding-inline: var(--container-px);
+}
+
+.eyebrow {
+    font-size: var(--text-xs);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: var(--fw-extrabold);
+    color: var(--color-text-1);
+    letter-spacing: var(--ls-tight);
+    margin-bottom: 1.25rem;
+    line-height: 1.1;
+}
+
+.accent {
+    background: linear-gradient(135deg, var(--color-accent), #00e5b0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-2);
+    line-height: var(--lh-relaxed);
+    max-width: 55ch;
+    margin-inline: auto;
+    margin-bottom: 2rem;
+}
+
+/* ── Stats bar ───────────────────────────────────────── */
+.statsBar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 999px;
+    padding: 0.55rem 1.5rem;
+    backdrop-filter: blur(12px);
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+    padding-inline: 1rem;
+}
+
+.statValue {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-1);
+    line-height: 1;
+}
+
+.statLive {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--color-accent) !important;
+}
+
+.liveDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 8px rgba(0,200,150,0.7);
+    animation: livePulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(0,200,150,0.6); }
+    50% { opacity: 0.6; box-shadow: 0 0 14px rgba(0,200,150,1); }
+}
+
+.statLabel {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--color-text-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.statDivider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,0.07);
+    flex-shrink: 0;
+}
+
+/* ── Calendar section ────────────────────────────────── */
+.calendarSection {
+    padding-block: clamp(2rem, 4vw, 3.5rem);
+}
+
+.inner {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-px);
+}
+
+/* ── Countdown widget ────────────────────────────────── */
+.countdownWidget {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    background: rgba(239,68,68,0.05);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 14px;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.3s;
+}
+
+.countdownUrgent {
+    background: rgba(239,68,68,0.1);
+    border-color: rgba(239,68,68,0.4);
+    box-shadow: 0 0 24px rgba(239,68,68,0.08);
+}
+
+.countdownLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.countdownLabel {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-3);
+}
+
+.countdownEvent {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-1);
+}
+
+.countdownMeta {
+    font-size: 0.75rem;
+    color: var(--color-text-3);
+}
+
+.countdownRight {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+    flex-shrink: 0;
+}
+
+.countdownTimer {
+    font-family: var(--font-mono);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #ef4444;
+    letter-spacing: 0.05em;
+    line-height: 1;
+}
+
+.countdownTimerUrgent {
+    animation: urgentFlicker 1s ease-in-out infinite;
+}
+
+@keyframes urgentFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.65; }
+}
+
+/* ── Filter bar ──────────────────────────────────────── */
+.filterBar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    backdrop-filter: blur(16px);
+}
+
+.filterRow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* Search */
+.searchWrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 200px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 0.75rem;
+    width: 15px;
+    height: 15px;
+    color: var(--color-text-3);
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 0.5rem 2rem 0.5rem 2.2rem;
+    font-size: 0.82rem;
+    color: var(--color-text-1);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    font-family: var(--font-body);
+}
+
+.searchInput::placeholder { color: var(--color-text-3); }
+.searchInput:focus {
+    border-color: rgba(0,200,150,0.35);
+    background: rgba(0,200,150,0.04);
+}
+
+.searchClear {
+    position: absolute;
+    right: 0.6rem;
+    font-size: 0.7rem;
+    color: var(--color-text-3);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.2rem;
+    line-height: 1;
+    transition: color 0.2s;
+}
+.searchClear:hover { color: var(--color-text-1); }
+
+/* Date inputs */
+.dateLabel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.dateLabelText {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-3);
+}
+
+.dateInput {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.8rem;
+    color: var(--color-text-1);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    outline: none;
+    font-family: var(--font-mono);
+    transition: border-color 0.2s;
+    cursor: pointer;
+    color-scheme: dark;
+}
+.dateInput:focus { border-color: rgba(0,200,150,0.35); }
+
+/* Refresh button */
+.refreshBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background: rgba(0,200,150,0.08);
+    border: 1px solid rgba(0,200,150,0.25);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    margin-left: auto;
+}
+.refreshBtn:hover:not(:disabled) {
+    background: rgba(0,200,150,0.14);
+    border-color: rgba(0,200,150,0.4);
+}
+.refreshBtn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.refreshIcon { width: 14px; height: 14px; flex-shrink: 0; }
+.refreshSpin { animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Chip groups */
+.chipGroup {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.chipGroupCurrency { flex: 1; overflow: hidden; }
+
+.chipGroupLabel {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-3);
+    margin-right: 0.15rem;
+    flex-shrink: 0;
+}
+
+.chipScroll {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+}
+.chipScroll::-webkit-scrollbar { display: none; }
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.28rem 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--color-text-3);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.chip:hover { color: var(--color-text-1); border-color: rgba(255,255,255,0.12); }
+
+.chipActive {
+    color: var(--color-accent) !important;
+    border-color: rgba(0,200,150,0.35) !important;
+    background: rgba(0,200,150,0.07) !important;
+}
+
+.chipDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Meta row */
+.metaRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.25rem;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.sourceBadge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-text-3);
+}
+
+.lastUpdated {
+    font-size: 0.7rem;
+    color: var(--color-text-3);
+    font-family: var(--font-mono);
+}
+
+/* ── Toolbar ──────────────────────────────────────────── */
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.dateDisplay {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--text-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-2);
+}
+
+.dateDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 8px rgba(0,200,150,0.5);
+    flex-shrink: 0;
+}
+
+.eventCount {
+    font-size: 0.78rem;
+    color: var(--color-text-3);
+}
+.eventCount strong { color: var(--color-text-1); font-weight: 700; }
+
+/* ── Table wrapper ───────────────────────────────────── */
+.tableWrap {
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px;
+    overflow: hidden;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.tableHeader {
+    display: grid;
+    grid-template-columns: 90px 100px 110px 1fr 100px 100px 90px;
+    padding: 0.85rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.025);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    backdrop-filter: blur(20px);
+}
+
+.tableHeader span {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tableBody { display: flex; flex-direction: column; }
+
+/* Date group separator */
+.dateGroup {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.5rem;
+    background: rgba(255,255,255,0.02);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.dateGroupToday { background: rgba(0,200,150,0.04); }
+
+.dateGroupLabel {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--color-text-1);
+    letter-spacing: 0.02em;
+}
+
+.dateGroupDate {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-text-3);
+}
+
+.dateGroupCount {
+    margin-left: auto;
+    font-size: 0.68rem;
+    color: var(--color-text-3);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+}
+
+/* Table rows */
+.tableRow {
+    display: grid;
+    grid-template-columns: 90px 100px 110px 1fr 100px 100px 90px;
+    padding: 0.9rem 1.5rem;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.025);
+    transition: background 0.18s ease;
+    position: relative;
+}
+
+.tableRow:last-child { border-bottom: none; }
+.tableRow:hover { background: rgba(255,255,255,0.02); }
+
+.rowHigh { border-left: 2px solid rgba(239,68,68,0.35); }
+.rowUpcoming { background: rgba(0,200,150,0.03) !important; }
+.rowToday .time { color: var(--color-accent); }
+
+/* Upcoming pip */
+.upcomingPip {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    margin-right: 0.35rem;
+    vertical-align: middle;
+    box-shadow: 0 0 6px rgba(0,200,150,0.7);
+    animation: livePulse 2s ease-in-out infinite;
+}
+
+/* Cell styles */
+.time {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--color-text-2);
+    display: flex;
+    align-items: center;
+}
+
+.timeUtc {
+    font-size: 0.6rem;
+    color: var(--color-text-3);
+    margin-left: 0.3rem;
+    letter-spacing: 0.05em;
+}
+
+.currency { display: flex; align-items: center; }
+
+.impact { display: flex; align-items: center; }
+
+.eventName {
+    font-size: 0.875rem;
+    color: var(--color-text-1);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.demoTag {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f59e0b;
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 999px;
+    padding: 0.1rem 0.45rem;
+    flex-shrink: 0;
+}
+
+.numCol { text-align: right; }
+
+.numVal {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--color-text-2);
+}
+
+.actualValue {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--color-accent);
+    font-weight: 700;
+    text-align: right;
+}
+
+.actualPending {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.2);
+    text-align: right;
+}
+
+/* ── Skeleton loading ─────────────────────────────────── */
+.skeletonWrap { display: flex; flex-direction: column; }
+
+.skeletonRow {
+    display: grid;
+    grid-template-columns: 90px 100px 110px 1fr 100px 100px 90px;
+    gap: 0.75rem;
+    padding: 0.9rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.025);
+    align-items: center;
+    animation: skeletonFade 1.4s ease-in-out infinite both;
+}
+
+.skeletonCell {
+    height: 14px;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.06);
+    animation: shimmer 1.8s ease-in-out infinite;
+}
+
+.skeletonShort { width: 60%; }
+.skeletonMed   { width: 75%; }
+.skeletonLong  { width: 90%; }
+
+@keyframes shimmer {
+    0%   { background: rgba(255,255,255,0.04); }
+    50%  { background: rgba(255,255,255,0.09); }
+    100% { background: rgba(255,255,255,0.04); }
+}
+
+@keyframes skeletonFade {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Empty / Error state ─────────────────────────────── */
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    gap: 0.75rem;
+}
+
+.emptyIcon { font-size: 2.5rem; }
+
+.emptyTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-1);
+}
+
+.emptySubtitle {
+    font-size: 0.85rem;
+    color: var(--color-text-3);
+    max-width: 36ch;
+    line-height: 1.6;
+}
+
+.emptyAction {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background: rgba(0,200,150,0.08);
+    border: 1px solid rgba(0,200,150,0.25);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.emptyAction:hover {
+    background: rgba(0,200,150,0.14);
+    border-color: rgba(0,200,150,0.45);
+}
+
+/* ── Disclaimer ──────────────────────────────────────── */
+.disclaimer {
+    margin-top: 1.5rem;
+    font-size: 0.68rem;
+    color: var(--color-text-3);
+    opacity: 0.65;
+    line-height: 1.7;
+    max-width: 80ch;
+}
+
+/* ── Expansion indicators & Active states ───────────────── */
+.expChevron {
+    display: inline-block;
+    font-size: 0.6rem;
+    color: var(--color-text-3);
+    transition: transform 0.2s ease, color 0.2s ease;
+    margin-right: 0.25rem;
+    line-height: 1;
+}
+
+.expChevronRotated {
+    transform: rotate(90deg);
+    color: var(--color-accent);
+}
+
+.rowExpandedActive {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-bottom-color: transparent !important;
+}
+
+/* ── Event Details Drawer ───────────────────────────────── */
+.drawerWrap {
+    grid-column: 1 / -1;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.025) 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    animation: drawerSlideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+    overflow: hidden;
+}
+
+@keyframes drawerSlideDown {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.drawerInner {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2rem;
+}
+
+.drawerHeader {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 0.4rem;
+}
+
+/* Specs Table */
+.specTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.specTable tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.specTable tr:last-child {
+    border-bottom: none;
+}
+
+.specLabel {
+    padding: 0.5rem 0.5rem 0.5rem 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-text-3);
+    width: 120px;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.specVal {
+    padding: 0.5rem 0;
+    font-size: 0.76rem;
+    color: var(--color-text-2);
+    line-height: 1.4;
+}
+
+.effectText {
+    color: var(--color-text-1);
+    font-weight: 600;
+}
+
+/* History Column */
+.drawerHistoryCol {
+    display: flex;
+    flex-direction: column;
+}
+
+.historyTableWrap {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.historyTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.historyTable th {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--color-text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.historyTable td {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.historyTable tr:last-child td {
+    border-bottom: none;
+}
+
+.histDate {
+    color: var(--color-text-2);
+    font-weight: 500;
+}
+
+.histActual {
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+    font-weight: 700;
+    text-align: right;
+}
+
+.histVal {
+    font-family: var(--font-mono);
+    color: var(--color-text-3);
+    text-align: right;
+}
+
+.noHistory {
+    font-size: 0.76rem;
+    color: var(--color-text-3);
+    font-style: italic;
+    padding: 1rem 0;
+}
+
+/* ── Responsive overrides ─────────────────────────────── */
+@media (max-width: 1024px) {
+    .tableHeader,
+    .tableRow,
+    .skeletonRow {
+        grid-template-columns: 80px 90px 100px 1fr 85px 85px 75px;
+    }
+}
+
+@media (max-width: 768px) {
+    .statsBar { flex-wrap: wrap; gap: 0.5rem; padding: 0.75rem 1rem; }
+    .statDivider { display: none; }
+    .statItem { padding-inline: 0.5rem; }
+
+    .countdownWidget { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .countdownRight { align-items: flex-start; }
+    .countdownTimer { font-size: 1.3rem; }
+
+    .filterRow { flex-direction: column; align-items: stretch; }
+    .searchWrap { min-width: unset; }
+    .refreshBtn { margin-left: 0; }
+
+    .tableHeader { display: none; }
+    .tableRow {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        padding: 0.9rem 1.25rem;
+    }
+    .eventName { grid-column: 1 / -1; }
+    .numCol { text-align: left; }
+    .timeUtc { display: none; }
+
+    .skeletonRow {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .dateGroup { padding-inline: 1.25rem; }
+
+    .drawerInner {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .toolbar { flex-direction: column; align-items: flex-start; }
+    .chipGroupCurrency { width: 100%; }
+}

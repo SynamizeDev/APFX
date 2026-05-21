@@ -74,6 +74,7 @@ const MEGA_MENU_DATA = {
                 { label: 'Calculators', href: '/tools/calculators' },
                 { label: 'Copy Trade', href: '/tools/copy-trading' },
                 { label: 'Risk Management tools', href: '/tools/risk-management' },
+                { label: 'Economic Calendar', href: '/tools/economic-calendar' },
             ],
         },
     ],

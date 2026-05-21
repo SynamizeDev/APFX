@@ -76,6 +76,8 @@ export const metadata: Metadata = {
 import PageTransition from '@/components/animations/PageTransition'
 import ChatWidget from '@/components/ui/ChatWidget'
 import CookieConsent from '@/components/ui/CookieConsent'
+import Footer from '@/components/layout/Footer'
+import BottomBar from '@/components/layout/BottomBar'
 
 export default function RootLayout({
   children,
@@ -157,6 +159,8 @@ export default function RootLayout({
                 <ChatWidget />
                 <CookieConsent />
               </main>
+              <Footer />
+              <BottomBar />
             </SmoothScrollProvider>
           </HomeEntryProvider>
         </PreferencesProvider>
