@@ -78,6 +78,7 @@ import ChatWidget from '@/components/ui/ChatWidget'
 import CookieConsent from '@/components/ui/CookieConsent'
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
+import GlobalEntry from '@/components/animations/GlobalEntry'
 
 export default function RootLayout({
   children,
@@ -101,7 +102,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                if (window.location.pathname === '/' && sessionStorage.getItem('apfx.homeEntryAnimation.shown') !== '1') {
+                if (sessionStorage.getItem('apfx.globalEntryAnimation.shown') !== '1') {
                   document.documentElement.classList.add('hide-header-initially');
                 }
               } catch (e) {}
@@ -135,32 +136,34 @@ export default function RootLayout({
         <PreferencesProvider>
           <HomeEntryProvider>
             <SmoothScrollProvider>
-              {/*
-            ───────────────────────────────────────────────
-            Global Layout Notes
-            Header: ~72px fixed at top
-            BottomBar / Ticker: ~38px fixed at bottom
-            Padding is applied to main to preserve layout
-            and scroll integrity with smooth scrolling.
-            ───────────────────────────────────────────────
-          */}
-              <Header />
-              <main
-                id="main-content"
-                className="main-wrapper"
-                style={{
-                  paddingTop: '72px',
-                  paddingBottom: '38px',
-                  position: 'relative',
-                  isolation: 'isolate',
-                }}
-              >
-                <PageTransition>{children}</PageTransition>
-                <ChatWidget />
-                <CookieConsent />
-              </main>
-              <Footer />
-              <BottomBar />
+              <GlobalEntry>
+                {/*
+              ───────────────────────────────────────────────
+              Global Layout Notes
+              Header: ~72px fixed at top
+              BottomBar / Ticker: ~38px fixed at bottom
+              Padding is applied to main to preserve layout
+              and scroll integrity with smooth scrolling.
+              ───────────────────────────────────────────────
+            */}
+                <Header />
+                <main
+                  id="main-content"
+                  className="main-wrapper"
+                  style={{
+                    paddingTop: '72px',
+                    paddingBottom: '38px',
+                    position: 'relative',
+                    isolation: 'isolate',
+                  }}
+                >
+                  <PageTransition>{children}</PageTransition>
+                  <ChatWidget />
+                  <CookieConsent />
+                </main>
+                <Footer />
+                <BottomBar />
+              </GlobalEntry>
             </SmoothScrollProvider>
           </HomeEntryProvider>
         </PreferencesProvider>
