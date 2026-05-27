@@ -7,7 +7,6 @@ import { logger } from './lib/logger'
 
 // Routes
 import contactRoutes from './routes/contact'
-import pricesRoutes from './routes/prices'
 import subscribeRoutes from './routes/subscribe'
 
 dotenv.config()
@@ -49,7 +48,6 @@ app.get('/health', (_req, res) => {
 
 // ── API Routes ─────────────────────────────────────────────────────
 app.use('/api/contact', contactRoutes)
-app.use('/api/prices', pricesRoutes)
 app.use('/api/subscribe', subscribeRoutes)
 
 // ── 404 Handler ────────────────────────────────────────────────────

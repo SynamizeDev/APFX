@@ -17,10 +17,6 @@ export const ECONOMIC_PROVIDERS = {
         TIMEOUT_MS: 8000,
         PRIORITY: 2,
     },
-    MOCK: {
-        ENABLED: true,
-        PRIORITY: 3,
-    },
 } as const;
 
 // Currencies covered across all providers
