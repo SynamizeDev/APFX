@@ -29,11 +29,6 @@
     min-height: 600px;
 }
 
-/* Globe overlays */
-:global(.apfxGlobeNodeLabel) {
-    display: block;
-}
-
 /* Keep the floating stat overlays off (they can clash/clamp in the layout). */
 :global(.apfxGlobeStat) {
     display: none;

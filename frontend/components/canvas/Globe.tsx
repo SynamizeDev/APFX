@@ -189,57 +189,13 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
 
     const arcsRef = useRef<(any)[]>([])
     const glowRefs = useRef<(THREE.Mesh)[]>([])
-    const nodeGroupRefs = useRef<(THREE.Group | null)[]>([])
-    const [nodeLabelVisible, setNodeLabelVisible] = useState<boolean[]>(() => Array(HUBS.length).fill(true))
-    const prevLabelVisibleRef = useRef<boolean[]>(Array(HUBS.length).fill(true))
-    const centerVec = useMemo(() => new THREE.Vector3(), [])
-    const nodeWorldVec = useMemo(() => new THREE.Vector3(), [])
-    const cameraVec = useMemo(() => new THREE.Vector3(), [])
-    const projectedVec = useMemo(() => new THREE.Vector3(), [])
 
     useFrame((state, _delta) => {
-        const { camera } = state
         if (globeRef.current) {
             globeRef.current.rotation.y += 0.0018
         }
         
         const time = state.clock.elapsedTime
-        
-        // Depth-check: only show labels when node is on the camera-facing side of the globe
-        const globeCenter = globeRef.current
-        if (globeCenter) {
-            globeCenter.getWorldPosition(centerVec)
-            cameraVec.copy(camera.position)
-            let anyChange = false
-            for (let i = 0; i < nodeGroupRefs.current.length; i++) {
-                const group = nodeGroupRefs.current[i]
-                if (!group) continue
-                group.getWorldPosition(nodeWorldVec)
-                const toNode = nodeWorldVec.clone().sub(centerVec)
-                const toCamera = cameraVec.clone().sub(centerVec)
-                const facingCamera = toNode.dot(toCamera) > 0
-
-                // Also hide labels near edges to avoid clipped fragments.
-                // Project to NDC: x/y in [-1, 1] is on-screen; keep a safe margin.
-                projectedVec.copy(nodeWorldVec).project(camera)
-                const margin = 0.88
-                const withinSafeBounds =
-                    Math.abs(projectedVec.x) < margin &&
-                    Math.abs(projectedVec.y) < margin &&
-                    projectedVec.z > -1 &&
-                    projectedVec.z < 1
-
-                const visible = facingCamera && withinSafeBounds
-
-                if (prevLabelVisibleRef.current[i] !== visible) {
-                    anyChange = true
-                }
-                prevLabelVisibleRef.current[i] = visible
-            }
-            if (anyChange) {
-                setNodeLabelVisible([...prevLabelVisibleRef.current])
-            }
-        }
         
         // Pulse active nodes
         glowRefs.current.forEach((mesh, i) => {
@@ -313,11 +269,7 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
 
             {/* ── Network Nodes ──────────────────────────── */}
             {nodes.map((node, i) => (
-                <group
-                    key={i}
-                    position={node.pos as any}
-                    ref={el => { if (el) nodeGroupRefs.current[i] = el }}
-                >
+                <group key={i} position={node.pos as any}>
                     {/* Core point */}
                     <mesh>
                         <sphereGeometry args={[0.045, 18, 18]} />
@@ -336,35 +288,6 @@ function RotatingGlobe({ earthMap = null }: { earthMap?: THREE.Texture | null })
                                 opacity={node.isActive ? 0.5 : 0.2}
                             />
                         </mesh>
-                    
-                    {/* Node label: show when camera-facing; highlight active session */}
-                    {nodeLabelVisible[i] && (
-                        <Html
-                            position={[0.1, 0.1, 0.1]}
-                            center
-                            style={{ pointerEvents: 'none' }}
-                            className="apfxGlobeNodeLabel"
-                        >
-                            <div
-                                style={{
-                                color: node.isActive ? '#36F936' : 'rgba(255, 255, 255, 0.7)',
-                                fontSize: node.isActive ? '10px' : '9px',
-                                textTransform: 'uppercase',
-                                letterSpacing: '2px',
-                                background: 'rgba(3, 5, 10, 0.75)',
-                                padding: '2px 8px',
-                                borderRadius: '4px',
-                                border: node.isActive
-                                  ? '1px solid rgba(54, 249, 54, 0.4)'
-                                  : '1px solid rgba(255, 255, 255, 0.14)',
-                                backdropFilter: 'blur(4px)',
-                                whiteSpace: 'nowrap'
-                                }}
-                            >
-                                {node.name}
-                            </div>
-                        </Html>
-                    )}
                 </group>
             ))}
 
