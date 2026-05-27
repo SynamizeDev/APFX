@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useMemo, useState, useRef, useId } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { fetchMarketData, MarketQuote } from '@/services/marketData'
+import type { MarketQuote } from '@/services/marketData'
+import { useMarketQuotes } from '@/hooks/useMarketQuotes'
 import styles from './MarketsSection.module.css'
 
 const PORTAL_REGISTER_URL = 'https://portal.apfx.com/register'
@@ -71,22 +72,30 @@ type Instrument = {
 }
 
 const Sparkline = ({ data, positive }: { data: number[], positive: boolean }) => {
-    const min = Math.min(...data)
-    const max = Math.max(...data)
-    const range = max - min || 1
     const width = 100
     const height = 30
+    const reactId = useId()
 
-    const points = data.map((val, i) => {
-        const x = (i / (data.length - 1)) * width
-        const y = height - ((val - min) / range) * height
-        return { x, y }
-    })
+    const { linePath, areaPath } = useMemo(() => {
+        const min = Math.min(...data)
+        const max = Math.max(...data)
+        const range = max - min || 1
 
-    const linePath = points.map(p => `${p.x},${p.y}`).join(' ')
-    const areaPath = `M 0,${height} ${linePath} L ${width},${height} Z`
+        const points = data.map((val, i) => {
+            const x = (i / (data.length - 1)) * width
+            const y = height - ((val - min) / range) * height
+            return { x, y }
+        })
+
+        const line = points.map((p) => `${p.x},${p.y}`).join(' ')
+        return {
+            linePath: line,
+            areaPath: `M 0,${height} ${line} L ${width},${height} Z`,
+        }
+    }, [data])
+
     const color = positive ? '#36F936' : '#ff4757'
-    const gradId = `sparkline-grad-${Math.random().toString(36).substring(2, 9)}`
+    const gradId = `sparkline-grad-${reactId}`
 
     return (
         <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className={styles.sparkline}>
@@ -245,40 +254,22 @@ function MarketRow({ inst, liveData }: { inst: Instrument, liveData: MarketQuote
 
 /* ── Component ─────────────────────────────────────────────── */
 export default function MarketsSection() {
+    const { quotes } = useMarketQuotes()
     const [marketData, setMarketData] = useState<Record<string, MarketQuote>>({})
     const [lastUpdated, setLastUpdated] = useState<string>('')
     const [activeCategory, setActiveCategory] = useState('commodities')
     const instruments = INSTRUMENTS[activeCategory] || []
 
     useEffect(() => {
-        let isMounted = true;
+        if (quotes.length === 0) return
 
-        async function loadData() {
-            try {
-                // Now uses centralized, cached, single-cycle fetcher
-                const data = await fetchMarketData();
-
-                if (isMounted && data) {
-                    const dataMap: Record<string, MarketQuote> = {};
-                    data.forEach(quote => {
-                        dataMap[quote.symbol] = quote;
-                    });
-                    setMarketData(dataMap);
-                    setLastUpdated(new Date().toLocaleTimeString());
-                }
-            } catch (error) {
-                console.error('MarketsSection fetch error:', error)
-            }
-        }
-
-        loadData();
-        const interval = setInterval(loadData, 10000); // Poll every 10s for fast UI updates
-
-        return () => {
-            isMounted = false;
-            clearInterval(interval);
-        }
-    }, []);
+        const dataMap: Record<string, MarketQuote> = {}
+        quotes.forEach((quote) => {
+            dataMap[quote.symbol] = quote
+        })
+        setMarketData(dataMap)
+        setLastUpdated(new Date().toLocaleTimeString())
+    }, [quotes])
 
     return (
         <section className={`${styles.section} apfx-section`} aria-labelledby="markets-heading">

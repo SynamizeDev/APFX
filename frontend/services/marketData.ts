@@ -22,6 +22,103 @@ let lastFetchTime = 0;
 let pendingRequest: Promise<MarketQuote[]> | null = null;
 const BROWSER_CACHE_DURATION = 2000; // 2 seconds UI debounce, actual caching is on server
 
+export const POLL_INTERVAL_MS = 10_000;
+
+type MarketDataListener = (quotes: MarketQuote[]) => void;
+
+const listeners = new Set<MarketDataListener>();
+let pollIntervalId: ReturnType<typeof setInterval> | null = null;
+let visibilityListenerAttached = false;
+
+function isDocumentHidden(): boolean {
+    return typeof document !== 'undefined' && document.hidden;
+}
+
+function handleVisibilityChange() {
+    if (isDocumentHidden()) {
+        stopPolling();
+        return;
+    }
+
+    if (listeners.size > 0) {
+        void refreshAndNotify();
+        startPolling();
+    }
+}
+
+function ensureVisibilityListener() {
+    if (visibilityListenerAttached || typeof document === 'undefined') return;
+    visibilityListenerAttached = true;
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+}
+
+function removeVisibilityListener() {
+    if (!visibilityListenerAttached || typeof document === 'undefined') return;
+    document.removeEventListener('visibilitychange', handleVisibilityChange);
+    visibilityListenerAttached = false;
+}
+
+function notifyListeners(quotes: MarketQuote[]) {
+    listeners.forEach((listener) => {
+        try {
+            listener(quotes);
+        } catch (error) {
+            console.error('[MarketData] listener error', error);
+        }
+    });
+}
+
+async function refreshAndNotify() {
+    try {
+        const quotes = await fetchMarketData();
+        if (quotes.length > 0) {
+            notifyListeners(quotes);
+        }
+    } catch (error) {
+        console.warn('[MarketData] poll failed', error);
+    }
+}
+
+function startPolling() {
+    if (pollIntervalId !== null || isDocumentHidden()) return;
+    void refreshAndNotify();
+    pollIntervalId = setInterval(() => {
+        void refreshAndNotify();
+    }, POLL_INTERVAL_MS);
+}
+
+function stopPolling() {
+    if (pollIntervalId !== null) {
+        clearInterval(pollIntervalId);
+        pollIntervalId = null;
+    }
+}
+
+/**
+ * Subscribe to shared market data polling. One interval serves all subscribers.
+ */
+export function subscribeMarketData(listener: MarketDataListener): () => void {
+    listeners.add(listener);
+
+    const cached = Object.values(cachedQuotes);
+    if (cached.length > 0) {
+        listener(cached);
+    }
+
+    if (listeners.size === 1) {
+        ensureVisibilityListener();
+        startPolling();
+    }
+
+    return () => {
+        listeners.delete(listener);
+        if (listeners.size === 0) {
+            stopPolling();
+            removeVisibilityListener();
+        }
+    };
+}
+
 /**
  * Fetches market data from the centralized internal API.
  * This ensures the browser makes only ONE request.
@@ -42,7 +139,6 @@ export async function fetchMarketData(): Promise<MarketQuote[]> {
     // 3. New Fetch
     pendingRequest = (async () => {
         try {
-            console.log("[MarketData] Fetching consolidated data from /api/markets");
             const response = await fetch('/api/markets');
 
             if (!response.ok) {

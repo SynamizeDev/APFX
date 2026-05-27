@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
-import { fetchMarketData, MarketQuote } from '@/services/marketData'
+import { useEffect, useState, useRef, useMemo } from 'react'
+import type { MarketQuote } from '@/services/marketData'
+import { useMarketQuotes } from '@/hooks/useMarketQuotes'
 import styles from './TickerTape.module.css'
 
 // The specific symbols the user requested for the bottom ticker
@@ -41,32 +42,12 @@ function TickerItem({ item }: { item: MarketQuote }) {
 }
 
 export default function TickerTape() {
-    const [prices, setPrices] = useState<MarketQuote[]>([])
+    const { quotes } = useMarketQuotes()
 
-    useEffect(() => {
-        let isMounted = true;
-
-        async function loadPrices() {
-            try {
-                const data = await fetchMarketData()
-
-                if (isMounted && data && data.length > 0) {
-                    const tickerData = data.filter(q => TICKER_SYMBOLS.includes(q.symbol));
-                    setPrices(tickerData)
-                }
-            } catch (error) {
-                console.error('Ticker fetch error:', error)
-            }
-        }
-
-        loadPrices()
-        const interval = setInterval(loadPrices, 10000) // 10s polling
-
-        return () => {
-            isMounted = false
-            clearInterval(interval)
-        }
-    }, [])
+    const prices = useMemo(
+        () => quotes.filter((q) => TICKER_SYMBOLS.includes(q.symbol)),
+        [quotes]
+    )
 
     const items = [...prices, ...prices]
 

@@ -327,7 +327,7 @@ function GlobeWithTexture() {
     return <RotatingGlobe earthMap={earthMap} />
 }
 
-export default function Globe() {
+export default function Globe({ active = true }: { active?: boolean }) {
     const [eventSource, setEventSource] = useState<HTMLElement | null>(null)
 
     return (
@@ -338,6 +338,7 @@ export default function Globe() {
             {eventSource && (
                 <Canvas
                     eventSource={eventSource}
+                    frameloop={active ? 'always' : 'never'}
                     camera={{ position: [0, 0, 6], fov: 45 }}
                     gl={{
                         antialias: false,

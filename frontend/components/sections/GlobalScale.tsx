@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './GlobalScale.module.css'
 
 const Globe = dynamic(() => import('@/components/canvas/Globe'), {
@@ -48,9 +48,46 @@ const TRUST_HIGHLIGHTS = [
     },
 ]
 
+const GLOBE_PLACEHOLDER = (
+    <div
+        style={{
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'var(--color-text-3)',
+            fontSize: 'var(--text-sm)',
+        }}
+    >
+        Initialising global network…
+    </div>
+)
+
 export default function GlobalScale() {
     const prefersReducedMotion = useReducedMotion()
     const highlightsRef = useRef<HTMLDivElement | null>(null)
+    const globeHostRef = useRef<HTMLDivElement | null>(null)
+    const [globeMounted, setGlobeMounted] = useState(false)
+    const [globeActive, setGlobeActive] = useState(false)
+
+    useEffect(() => {
+        if (prefersReducedMotion) return
+
+        const host = globeHostRef.current
+        if (!host) return
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                const visible = entry.isIntersecting
+                setGlobeActive(visible)
+                if (visible) setGlobeMounted(true)
+            },
+            { rootMargin: '200px 0px', threshold: 0.05 },
+        )
+
+        observer.observe(host)
+        return () => observer.disconnect()
+    }, [prefersReducedMotion])
 
     useEffect(() => {
         if (prefersReducedMotion) return
@@ -194,8 +231,12 @@ export default function GlobalScale() {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <div className={styles.glow} />
-                        <div className={styles.canvas}>
-                            <Globe />
+                        <div className={styles.canvas} ref={globeHostRef}>
+                            {prefersReducedMotion
+                                ? GLOBE_PLACEHOLDER
+                                : globeMounted
+                                  ? <Globe active={globeActive} />
+                                  : GLOBE_PLACEHOLDER}
                         </div>
                     </motion.div>
 

@@ -18,6 +18,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
    • Lenis for premium smooth scrolling
    • GSAP ScrollTrigger sync
    • Reduced-motion compliant
+   • Native scroll on touch / narrow viewports (no Lenis RAF)
    • Zero layout or routing side-effects
    ========================================================= */
 
@@ -50,13 +51,14 @@ export function SmoothScrollProvider({
     const lenisRef = useRef<Lenis | null>(null)
 
     useEffect(() => {
-        // ── Accessibility: respect reduced motion ─────────────
+        // ── Skip Lenis when native scroll is preferable ───────
         const prefersReduced = window.matchMedia(
             '(prefers-reduced-motion: reduce)'
         ).matches
+        const prefersCoarsePointer = window.matchMedia('(pointer: coarse)').matches
+        const isNarrowViewport = window.matchMedia('(max-width: 768px)').matches
 
-        if (prefersReduced) {
-            // Ensure ScrollTrigger still behaves correctly
+        if (prefersReduced || prefersCoarsePointer || isNarrowViewport) {
             ScrollTrigger.refresh()
             return
         }
@@ -85,14 +87,36 @@ export function SmoothScrollProvider({
             lenis.raf(time * 1000)
         }
 
-        gsap.ticker.add(tickerCallback)
-        gsap.ticker.lagSmoothing(0)
+        const addTicker = () => {
+            gsap.ticker.add(tickerCallback)
+            gsap.ticker.lagSmoothing(0)
+        }
+
+        const removeTicker = () => {
+            gsap.ticker.remove(tickerCallback)
+        }
+
+        addTicker()
+
+        const onVisibilityChange = () => {
+            if (document.hidden) {
+                removeTicker()
+                return
+            }
+
+            addTicker()
+            lenis.raf(performance.now())
+            ScrollTrigger.refresh()
+        }
+
+        document.addEventListener('visibilitychange', onVisibilityChange)
 
         // Initial refresh ensures correct start positions
         ScrollTrigger.refresh()
 
         return () => {
-            gsap.ticker.remove(tickerCallback)
+            document.removeEventListener('visibilitychange', onVisibilityChange)
+            removeTicker()
             lenis.destroy()
             lenisRef.current = null
         }
