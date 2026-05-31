@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
+import { useInViewport } from '@/hooks/useInViewport'
 import styles from './GlobalScale.module.css'
 
 const Globe = dynamic(() => import('@/components/canvas/Globe'), {
@@ -65,6 +66,7 @@ const GLOBE_PLACEHOLDER = (
 
 export default function GlobalScale() {
     const prefersReducedMotion = useReducedMotion()
+    const { ref: sectionRef, isInViewport } = useInViewport()
     const highlightsRef = useRef<HTMLDivElement | null>(null)
     const globeHostRef = useRef<HTMLDivElement | null>(null)
     const [globeMounted, setGlobeMounted] = useState(false)
@@ -90,7 +92,7 @@ export default function GlobalScale() {
     }, [prefersReducedMotion])
 
     useEffect(() => {
-        if (prefersReducedMotion) return
+        if (prefersReducedMotion || !isInViewport) return
         const slider = highlightsRef.current
         if (!slider) return
 
@@ -183,10 +185,11 @@ export default function GlobalScale() {
             slider.removeEventListener('pointerdown', pauseAuto)
             slider.removeEventListener('wheel', pauseAuto)
         }
-    }, [prefersReducedMotion])
+    }, [prefersReducedMotion, isInViewport])
 
     return (
         <section
+            ref={sectionRef}
             className={`${styles.section} apfx-section`}
             aria-labelledby="globe-heading"
         >

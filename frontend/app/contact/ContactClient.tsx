@@ -88,44 +88,6 @@ export default function ContactPage() {
                                         +44 (0) 20 3000 0000
                                     </motion.div>
                                 </motion.div>
-
-                                <motion.div
-                                    className={styles.officeGrid}
-                                    variants={stagger}
-                                >
-                                    <motion.div
-                                        className={styles.office}
-                                        variants={fadeUp}
-                                    >
-                                        <h5>London (HQ)</h5>
-                                        <p>
-                                            123 Financial District, Canary Wharf,
-                                            London, United Kingdom
-                                        </p>
-                                    </motion.div>
-
-                                    <motion.div
-                                        className={styles.office}
-                                        variants={fadeUp}
-                                    >
-                                        <h5>Frankfurt</h5>
-                                        <p>
-                                            Taunusanlage 12, 60325 Frankfurt am Main,
-                                            Germany
-                                        </p>
-                                    </motion.div>
-
-                                    <motion.div
-                                        className={styles.office}
-                                        variants={fadeUp}
-                                    >
-                                        <h5>Singapore</h5>
-                                        <p>
-                                            Marina Bay Financial Centre, Tower 3,
-                                            Singapore
-                                        </p>
-                                    </motion.div>
-                                </motion.div>
                             </motion.aside>
                         </motion.div>
                     </div>

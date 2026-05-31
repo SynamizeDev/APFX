@@ -101,7 +101,6 @@
 
 /* Inputs */
 .field input,
-.field select,
 .field textarea {
     background: rgba(255, 255, 255, 0.035);
     border: 1px solid var(--color-border);
@@ -123,12 +122,36 @@
 
 /* Focus state = confidence */
 .field input:focus,
-.field select:focus,
 .field textarea:focus {
     outline: none;
     border-color: var(--color-accent);
     background: var(--color-border-subtle);
     box-shadow: 0 0 0 3px rgba(54, 249, 54, 0.15);
+}
+
+/* Custom select — matches input fields, avoids native OS dropdown styling */
+.selectTrigger {
+    background: rgba(255, 255, 255, 0.035) !important;
+    border: 1px solid var(--color-border) !important;
+    padding: 0.9rem 1.05rem !important;
+    border-radius: var(--radius-md) !important;
+    font-family: var(--font-body) !important;
+    font-size: var(--text-sm) !important;
+    font-weight: var(--fw-regular) !important;
+    box-shadow: none !important;
+}
+
+.selectTrigger:hover {
+    border-color: var(--color-border-2) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.selectTriggerPlaceholder span:first-child {
+    color: var(--color-text-3);
+}
+
+.selectTriggerPlaceholder {
+    color: var(--color-text-3);
 }
 
 /* ── Submit Button ─────────────────────────────────────── */
@@ -220,27 +243,6 @@
     transform: translateY(-2px);
     border-color: var(--color-border-2);
     background: var(--color-surface-subtle);
-}
-
-/* Offices */
-.officeGrid {
-    display: flex;
-    flex-direction: column;
-    gap: 2.75rem;
-}
-
-.office h5 {
-    color: var(--color-text-1);
-    font-size: var(--text-base);
-    margin-bottom: 0.5rem;
-    font-weight: var(--fw-medium);
-}
-
-.office p {
-    color: var(--color-text-3);
-    font-size: var(--text-sm);
-    line-height: var(--lh-relaxed);
-    max-width: 44ch;
 }
 
 /* =========================================================

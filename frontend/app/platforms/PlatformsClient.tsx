@@ -1,5 +1,6 @@
 ﻿'use client'
 
+import Link from 'next/link'
 import { BarChart3, TrendingUp, Globe, Smartphone } from 'lucide-react'
 import { motion, Variants } from 'framer-motion'
 import InnerPageHero from '@/components/layout/InnerPageHero'
@@ -153,9 +154,9 @@ export default function PlatformsPage() {
                                 using a single APFX account and unified liquidity
                                 pool.
                             </p>
-                            <button className={styles.btnAccent}>
+                            <Link href="/coming-soon" className={styles.btnAccent}>
                                 Start Trading Now
-                            </button>
+                            </Link>
                         </motion.div>
                     </div>
                 </section>

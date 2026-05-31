@@ -158,6 +158,11 @@
     --z-modal: 400;
     --z-toast: 500;
     --z-top: 9999;
+    --z-fab: 10000;
+
+    --bottom-bar-height: 38px;
+    --fab-bottom: calc(var(--bottom-bar-height) + 1.25rem);
+    --fab-inset-x: 2rem;
 
     /* =========================================================
        GLASS & AMBIENCE

@@ -370,18 +370,16 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                     {/* ── Actions ───────────────────────────────────────── */}
                     <div className={styles.actions}>
                         <Link
-                            href="https://portal.apfx.com/login"
+                            href="/coming-soon"
                             className={styles.btnIconSolidWhite}
-                            prefetch={false}
                             aria-label="Log In"
                         >
                             <User size={20} strokeWidth={1.5} />
                         </Link>
 
                         <Link
-                            href="https://portal.apfx.com/register"
+                            href="/coming-soon"
                             className={styles.btnSolidWhite}
-                            prefetch={false}
                         >
                             Register
                         </Link>
@@ -479,18 +477,16 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                 })}
                 <div className={styles.mobileAuth}>
                     <Link
-                        href="https://portal.apfx.com/login"
+                        href="/coming-soon"
                         className={styles.mobileLogin}
                         onClick={closeMenu}
-                        prefetch={false}
                     >
                         Log In
                     </Link>
                     <Link
-                        href="https://portal.apfx.com/register"
+                        href="/coming-soon"
                         className={styles.mobileCta}
                         onClick={closeMenu}
-                        prefetch={false}
                     >
                         Open Account
                     </Link>

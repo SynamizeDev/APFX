@@ -8,7 +8,7 @@ import type { MarketQuote } from '@/services/marketData'
 import { useMarketQuotes } from '@/hooks/useMarketQuotes'
 import styles from './MarketsSection.module.css'
 
-const PORTAL_REGISTER_URL = 'https://portal.apfx.com/register'
+const TRADE_NOW_URL = '/coming-soon'
 
 /* ── Category Data ─────────────────────────────────────────── */
 const CATEGORIES = [
@@ -238,10 +238,8 @@ function MarketRow({ inst, liveData }: { inst: Instrument, liveData: MarketQuote
             </td>
             <td className={styles.tdAction}>
                 <Link
-                    href={PORTAL_REGISTER_URL}
+                    href={TRADE_NOW_URL}
                     className={styles.tradeBtn}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     aria-label={`Trade now — ${inst.symbol}`}
                 >
                     Trade Now

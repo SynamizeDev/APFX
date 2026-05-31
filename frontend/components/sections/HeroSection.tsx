@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ArrowUpRight, Star, Plus, Search, Info, TrendingUp, ShieldCheck, Activity, Zap } from 'lucide-react'
 import InvestWithAPFX from '@/components/sections/InvestWithAPFX'
+import { useInViewport } from '@/hooks/useInViewport'
 import styles from './HeroSection.module.css'
 
 const NAV_LINKS = [
@@ -63,19 +64,38 @@ const CANDLES_DATA = [
     { x: 990, open: 50, close: 15, high: 5, low: 60 }
 ]
 
+type HeroAmbientAnimations = {
+    tweens: gsap.core.Animation[]
+    handleMouseMove: ((e: MouseEvent) => void) | null
+}
+
 export default function HeroSection() {
     const rootRef = useRef<HTMLDivElement>(null)
     const trackRef = useRef<HTMLDivElement>(null)
     const [currentSlide, setCurrentSlide] = useState(0)
     const hasLoaded = useRef(false)
+    const ambientAnimationsRef = useRef<HeroAmbientAnimations>({
+        tweens: [],
+        handleMouseMove: null,
+    })
+    const { isInViewport } = useInViewport({ targetRef: rootRef })
+    const [tabVisible, setTabVisible] = useState(true)
 
-    // Robust Auto-advance that always respects the current slide
     useEffect(() => {
+        const onVisibilityChange = () => setTabVisible(!document.hidden)
+        document.addEventListener('visibilitychange', onVisibilityChange)
+        return () => document.removeEventListener('visibilitychange', onVisibilityChange)
+    }, [])
+
+    // Auto-advance only while hero is visible and tab is active
+    useEffect(() => {
+        if (!isInViewport || !tabVisible) return
+
         const timer = setTimeout(() => {
             setCurrentSlide((prev) => (prev >= 3 ? 1 : prev + 1))
         }, 6000)
         return () => clearTimeout(timer)
-    }, [currentSlide])
+    }, [currentSlide, isInViewport, tabVisible])
 
     // Main animation driver
     useEffect(() => {
@@ -181,7 +201,6 @@ export default function HeroSection() {
                 '-=0.5'
             )
 
-            // Background Glow Mouse Follow
             const heroCard = document.querySelector(`.${styles.heroCard}`) as HTMLElement
             const handleMouseMove = (e: MouseEvent) => {
                 if (!heroCard) return
@@ -191,50 +210,80 @@ export default function HeroSection() {
                 heroCard.style.setProperty('--x', `${x}%`)
                 heroCard.style.setProperty('--y', `${y}%`)
             }
-            window.addEventListener('mousemove', handleMouseMove)
+            ambientAnimationsRef.current.handleMouseMove = handleMouseMove
 
-            // Subtle floating for the card in Slide 1
-            gsap.to(`.${styles.mockupCard}`, {
-                y: -15,
-                duration: 4,
-                ease: 'sine.inOut',
-                yoyo: true,
-                repeat: -1
-            })
+            const infiniteTweens: gsap.core.Animation[] = [
+                gsap.to(`.${styles.mockupCard}`, {
+                    y: -15,
+                    duration: 4,
+                    ease: 'sine.inOut',
+                    yoyo: true,
+                    repeat: -1,
+                    paused: true,
+                }),
+                gsap.to(`.${styles.chip1}`, { y: -10, x: 5, duration: 3, repeat: -1, yoyo: true, ease: 'sine.inOut', paused: true }),
+                gsap.to(`.${styles.chip2}`, { y: 15, x: -10, duration: 4, repeat: -1, yoyo: true, ease: 'sine.inOut', paused: true }),
+                gsap.to(`.${styles.chip3}`, { y: -12, x: -8, duration: 3.5, repeat: -1, yoyo: true, ease: 'sine.inOut', paused: true }),
+                gsap.to(`.${styles.cubeLeft}`, {
+                    y: -30, x: 10, rotationZ: 5, duration: 5,
+                    repeat: -1, yoyo: true, ease: 'sine.inOut', paused: true,
+                }),
+                gsap.to(`.${styles.cubeRight}`, {
+                    y: 30, x: -10, rotationZ: -5, duration: 6,
+                    repeat: -1, yoyo: true, ease: 'sine.inOut', paused: true,
+                }),
+            ]
 
-            // Floating chips independent motion
-            gsap.to(`.${styles.chip1}`, { y: -10, x: 5, duration: 3, repeat: -1, yoyo: true, ease: 'sine.inOut' })
-            gsap.to(`.${styles.chip2}`, { y: 15, x: -10, duration: 4, repeat: -1, yoyo: true, ease: 'sine.inOut' })
-            gsap.to(`.${styles.chip3}`, { y: -12, x: -8, duration: 3.5, repeat: -1, yoyo: true, ease: 'sine.inOut' })
-
-            // Floating cubes in Slide 3
-            gsap.to(`.${styles.cubeLeft}`, { 
-                y: -30, x: 10, rotationZ: 5, duration: 5, 
-                repeat: -1, yoyo: true, ease: 'sine.inOut' 
-            })
-            gsap.to(`.${styles.cubeRight}`, { 
-                y: 30, x: -10, rotationZ: -5, duration: 6, 
-                repeat: -1, yoyo: true, ease: 'sine.inOut' 
-            })
-
-            // Asset Scroller Animation
             const items = gsap.utils.toArray(`.${styles.assetItem}`)
             if (items.length > 0) {
-                const loop = gsap.timeline({ repeat: -1 })
-                items.forEach((item: any, i) => {
-                    loop.fromTo(item,
+                const loop = gsap.timeline({ repeat: -1, paused: true })
+                items.forEach((item) => {
+                    const target = item as gsap.TweenTarget
+                    loop.fromTo(target,
                         { y: 20, opacity: 0 },
-                        { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }
+                        { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' }
                     )
-                    .to(item,
-                        { y: -20, opacity: 0, duration: 0.8, ease: "power2.in", delay: 1.5 }
+                    .to(target,
+                        { y: -20, opacity: 0, duration: 0.8, ease: 'power2.in', delay: 1.5 }
                     )
                 })
+                infiniteTweens.push(loop)
             }
+
+            ambientAnimationsRef.current.tweens = infiniteTweens
         }, rootRef)
 
-        return () => ctx.revert()
+        return () => {
+            const { handleMouseMove } = ambientAnimationsRef.current
+            if (handleMouseMove) {
+                window.removeEventListener('mousemove', handleMouseMove)
+            }
+            ambientAnimationsRef.current = { tweens: [], handleMouseMove: null }
+            ctx.revert()
+        }
     }, [])
+
+    useEffect(() => {
+        const active = isInViewport && tabVisible
+        const { tweens, handleMouseMove } = ambientAnimationsRef.current
+
+        tweens.forEach((tween) => {
+            if (active) tween.play()
+            else tween.pause()
+        })
+
+        if (!handleMouseMove) return
+
+        if (active) {
+            window.addEventListener('mousemove', handleMouseMove)
+        } else {
+            window.removeEventListener('mousemove', handleMouseMove)
+        }
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove)
+        }
+    }, [isInViewport, tabVisible])
 
     const renderSlide1 = (isClone = false) => (
         <div key={isClone ? 'slide-1-clone' : 'slide-1'} className={styles.slideItem} aria-hidden={isClone}>

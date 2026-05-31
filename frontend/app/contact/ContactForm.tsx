@@ -2,10 +2,20 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Select from '@/components/ui/Select'
 import styles from './ContactPage.module.css'
+
+const SUBJECT_OPTIONS = [
+    { value: '', label: 'Select a subject' },
+    { value: 'General Inquiry', label: 'General Inquiry' },
+    { value: 'Technical Support', label: 'Technical Support' },
+    { value: 'Account Opening', label: 'Account Opening' },
+    { value: 'Institutional Solutions', label: 'Institutional Solutions' },
+]
 
 export default function ContactForm() {
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+    const [subject, setSubject] = useState('')
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -29,6 +39,7 @@ export default function ContactForm() {
 
             if (res.ok) {
                 setStatus('success')
+                setSubject('')
                 ;(e.target as HTMLFormElement).reset()
             } else {
                 setStatus('error')
@@ -102,13 +113,14 @@ export default function ContactForm() {
                         transition={{ duration: 0.45, ease: 'easeOut', delay: 0.08 }}
                     >
                         <label htmlFor="form-subject">Subject</label>
-                        <select id="form-subject" name="subject" required>
-                            <option value="">Select a subject</option>
-                            <option value="General Inquiry">General Inquiry</option>
-                            <option value="Technical Support">Technical Support</option>
-                            <option value="Account Opening">Account Opening</option>
-                            <option value="Institutional Solutions">Institutional Solutions</option>
-                        </select>
+                        <Select
+                            id="form-subject"
+                            value={subject}
+                            onChange={setSubject}
+                            options={SUBJECT_OPTIONS}
+                            triggerClassName={`${styles.selectTrigger} ${subject ? '' : styles.selectTriggerPlaceholder}`}
+                        />
+                        <input type="hidden" name="subject" value={subject} required />
                     </motion.div>
 
                     <motion.div

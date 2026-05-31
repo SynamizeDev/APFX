@@ -1,8 +1,8 @@
 .chatWidgetContainer {
     position: fixed;
-    bottom: 3rem;
-    right: 2rem;
-    z-index: 100;
+    bottom: var(--fab-bottom);
+    right: var(--fab-inset-x);
+    z-index: var(--z-fab);
     display: flex;
     flex-direction: column;
     align-items: flex-end;

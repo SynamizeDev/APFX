@@ -193,7 +193,7 @@ export default function SuccessStoriesPage() {
                         }}>
                             Explore Reviews
                         </button>
-                        <Link href="https://portal.apfx.com/register" className={styles.btnSecondary}>
+                        <Link href="/coming-soon" className={styles.btnSecondary}>
                             Join APFX <ArrowRight size={16} />
                         </Link>
                     </motion.div>
@@ -409,7 +409,7 @@ export default function SuccessStoriesPage() {
                             Experience the execution quality, transparency, and premium support that professionals demand.
                         </p>
                         <div className={styles.ctaActions}>
-                            <Link href="https://portal.apfx.com/register" className={styles.btnPrimary}>
+                            <Link href="/coming-soon" className={styles.btnPrimary}>
                                 Open Live Account
                             </Link>
                             <Link href="/pamm" className={styles.btnSecondary}>

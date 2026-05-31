@@ -70,13 +70,13 @@ export default function AcademyPage({ title, description, videoTitle, steps, rel
                                     <h3>Quick Actions</h3>
                                     <ul className={styles.cardList}>
                                         <li>
-                                            <Link href="https://portal.apfx.com/register" className={styles.cardLink}>
+                                            <Link href="/coming-soon" className={styles.cardLink}>
                                                 <CheckCircle2 size={16} className={styles.accent} />
                                                 Open Live Account
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="https://portal.apfx.com/deposit" className={styles.cardLink}>
+                                            <Link href="/coming-soon" className={styles.cardLink}>
                                                 <CheckCircle2 size={16} className={styles.accent} />
                                                 Make a Deposit
                                             </Link>

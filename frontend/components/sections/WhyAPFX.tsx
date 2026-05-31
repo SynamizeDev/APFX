@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Zap, Landmark, BarChart3, Lock, Globe, Smartphone, Headphones } from 'lucide-react'
+import { useInViewport } from '@/hooks/useInViewport'
 import styles from './WhyAPFX.module.css'
 
 const FEATURES = [
@@ -79,6 +80,7 @@ const FEATURES = [
 
 export default function WhyAPFX() {
     const sliderRef = useRef<HTMLDivElement | null>(null)
+    const { ref: sectionRef, isInViewport } = useInViewport()
     const [activeIndex, setActiveIndex] = useState(0)
 
     const syncIndexFromScroll = useCallback(() => {
@@ -91,6 +93,7 @@ export default function WhyAPFX() {
     }, [])
 
     useEffect(() => {
+        if (!isInViewport) return
         const slider = sliderRef.current
         if (!slider) return
 
@@ -158,10 +161,10 @@ export default function WhyAPFX() {
             slider.removeEventListener('pointerdown', pauseAuto)
             slider.removeEventListener('wheel', pauseAuto)
         }
-    }, [syncIndexFromScroll])
+    }, [syncIndexFromScroll, isInViewport])
 
     return (
-        <section className={`${styles.section} apfx-section`} aria-labelledby="why-heading">
+        <section ref={sectionRef} className={`${styles.section} apfx-section`} aria-labelledby="why-heading">
             <div className={styles.inner}>
                 <header className={styles.header}>
                     <div className={styles.eyebrow}>Why APFX</div>

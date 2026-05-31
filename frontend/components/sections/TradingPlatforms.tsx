@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { BarChart3, TrendingUp, Globe, Smartphone } from 'lucide-react'
+import { useInViewport } from '@/hooks/useInViewport'
 import styles from './TradingPlatforms.module.css'
 
 const PLATFORMS = [
@@ -30,6 +31,7 @@ const PLATFORMS = [
 
 export default function TradingPlatforms() {
     const sliderRef = useRef<HTMLDivElement | null>(null)
+    const { ref: sectionRef, isInViewport } = useInViewport()
     const [activeIndex, setActiveIndex] = useState(0)
 
     const syncIndexFromScroll = useCallback(() => {
@@ -42,6 +44,7 @@ export default function TradingPlatforms() {
     }, [])
 
     useEffect(() => {
+        if (!isInViewport) return
         const slider = sliderRef.current
         if (!slider) return
 
@@ -108,10 +111,10 @@ export default function TradingPlatforms() {
             slider.removeEventListener('pointerdown', pauseAuto)
             slider.removeEventListener('wheel', pauseAuto)
         }
-    }, [syncIndexFromScroll])
+    }, [syncIndexFromScroll, isInViewport])
 
     return (
-        <section className={`${styles.section} apfx-section`} aria-labelledby="platforms-heading">
+        <section ref={sectionRef} className={`${styles.section} apfx-section`} aria-labelledby="platforms-heading">
             <div className={styles.inner}>
                 <div className={styles.content}>
                     <span className={styles.eyebrow}>Award-Winning Tech</span>

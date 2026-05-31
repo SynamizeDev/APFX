@@ -47,7 +47,7 @@ export default function PammClient() {
                             <p className={styles.heroSubtitle}>
                                 Institutional-grade percentage allocation management designed for transparent strategy participation and professional capital distribution.
                             </p>
-                            <Link href="https://portal.apfx.com/register" className={styles.heroCtaBtn}>
+                            <Link href="/coming-soon" className={styles.heroCtaBtn}>
                                 Allocate Capital
                             </Link>
                         </motion.div>
@@ -252,7 +252,7 @@ export default function PammClient() {
                         <h2>Ready for Professional Capital Allocation?</h2>
                         <p>Join the APFX PAMM infrastructure whether you are an investor looking for passive returns or a proven strategy manager seeking capital to scale.</p>
                         <div className={styles.ctaButtons}>
-                            <Link href="https://portal.apfx.com/register" className={styles.btnPrimary}>Open PAMM Account</Link>
+                            <Link href="/coming-soon" className={styles.btnPrimary}>Open PAMM Account</Link>
                             <Link href="/support" className={styles.btnOutline}>Become a Manager</Link>
                         </div>
                     </div>

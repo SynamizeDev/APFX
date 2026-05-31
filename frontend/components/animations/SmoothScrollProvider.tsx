@@ -5,8 +5,10 @@ import {
     useContext,
     useEffect,
     useRef,
+    useCallback,
     ReactNode,
 } from 'react'
+import { usePathname } from 'next/navigation'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -26,15 +28,21 @@ gsap.registerPlugin(ScrollTrigger)
 
 /* ── Context Types ─────────────────────────────────────── */
 interface LenisContextType {
-    lenis: Lenis | null
+    scrollToTop: () => void
 }
 
 const LenisContext = createContext<LenisContextType>({
-    lenis: null,
+    scrollToTop: () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
 })
 
 export function useLenis() {
     return useContext(LenisContext)
+}
+
+export function useScrollToTop() {
+    return useContext(LenisContext).scrollToTop
 }
 
 /* ── Provider Props ────────────────────────────────────── */
@@ -49,6 +57,24 @@ export function SmoothScrollProvider({
     children,
 }: SmoothScrollProviderProps) {
     const lenisRef = useRef<Lenis | null>(null)
+    const scrollToTopRef = useRef(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    })
+    const pathname = usePathname()
+
+    const scrollToTop = useCallback(() => {
+        scrollToTopRef.current()
+    }, [])
+
+    useEffect(() => {
+        const lenis = lenisRef.current
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true })
+        } else {
+            window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+        }
+        ScrollTrigger.refresh()
+    }, [pathname])
 
     useEffect(() => {
         // ── Skip Lenis when native scroll is preferable ───────
@@ -59,6 +85,9 @@ export function SmoothScrollProvider({
         const isNarrowViewport = window.matchMedia('(max-width: 768px)').matches
 
         if (prefersReduced || prefersCoarsePointer || isNarrowViewport) {
+            scrollToTopRef.current = () => {
+                window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' })
+            }
             ScrollTrigger.refresh()
             return
         }
@@ -76,6 +105,9 @@ export function SmoothScrollProvider({
         })
 
         lenisRef.current = lenis
+        scrollToTopRef.current = () => {
+            lenis.scrollTo(0, { duration: prefersReduced ? 0 : 1.2 })
+        }
 
         // ── Sync Lenis → GSAP ScrollTrigger ──────────────────
         lenis.on('scroll', () => {
@@ -119,11 +151,14 @@ export function SmoothScrollProvider({
             removeTicker()
             lenis.destroy()
             lenisRef.current = null
+            scrollToTopRef.current = () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
         }
     }, [])
 
     return (
-        <LenisContext.Provider value={{ lenis: lenisRef.current }}>
+        <LenisContext.Provider value={{ scrollToTop }}>
             {children}
         </LenisContext.Provider>
     )

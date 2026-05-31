@@ -73,12 +73,8 @@ export const metadata: Metadata = {
   },
 }
 
-import PageTransition from '@/components/animations/PageTransition'
-import ChatWidget from '@/components/ui/ChatWidget'
-import CookieConsent from '@/components/ui/CookieConsent'
-import Footer from '@/components/layout/Footer'
-import BottomBar from '@/components/layout/BottomBar'
 import GlobalEntry from '@/components/animations/GlobalEntry'
+import { RouteFooter, RouteFloatingActions, RouteMain } from '@/components/layout/RouteShell'
 
 export default function RootLayout({
   children,
@@ -147,22 +143,9 @@ export default function RootLayout({
               ───────────────────────────────────────────────
             */}
                 <Header />
-                <main
-                  id="main-content"
-                  className="main-wrapper"
-                  style={{
-                    paddingTop: '72px',
-                    paddingBottom: '38px',
-                    position: 'relative',
-                    isolation: 'isolate',
-                  }}
-                >
-                  <PageTransition>{children}</PageTransition>
-                  <ChatWidget />
-                  <CookieConsent />
-                </main>
-                <Footer />
-                <BottomBar />
+                <RouteMain>{children}</RouteMain>
+                <RouteFooter />
+                <RouteFloatingActions />
               </GlobalEntry>
             </SmoothScrollProvider>
           </HomeEntryProvider>

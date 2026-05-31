@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { BookOpen, GraduationCap, Video, ArrowRight } from 'lucide-react'
+import { useInViewport } from '@/hooks/useInViewport'
 import styles from './TradingAcademy.module.css'
 
 const ACADEMY_ITEMS = [
@@ -35,6 +36,7 @@ const ACADEMY_ITEMS = [
 
 export default function TradingAcademy() {
     const sliderRef = useRef<HTMLDivElement | null>(null)
+    const { ref: sectionRef, isInViewport } = useInViewport()
     const [activeIndex, setActiveIndex] = useState(0)
 
     const syncIndexFromScroll = useCallback(() => {
@@ -47,6 +49,7 @@ export default function TradingAcademy() {
     }, [])
 
     useEffect(() => {
+        if (!isInViewport) return
         const slider = sliderRef.current
         if (!slider) return
 
@@ -112,10 +115,10 @@ export default function TradingAcademy() {
             slider.removeEventListener('pointerdown', pauseAuto)
             slider.removeEventListener('wheel', pauseAuto)
         }
-    }, [syncIndexFromScroll])
+    }, [syncIndexFromScroll, isInViewport])
 
     return (
-        <section className={`${styles.section} apfx-section`} aria-labelledby="academy-heading">
+        <section ref={sectionRef} className={`${styles.section} apfx-section`} aria-labelledby="academy-heading">
             <div className={styles.dividerGlow} />
             {/* Background Decorative Text */}
             <div className={styles.bgWatermark} aria-hidden="true">

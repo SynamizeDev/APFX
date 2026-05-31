@@ -1,14 +1,29 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
+import dynamic from 'next/dynamic'
+import { usePathname } from 'next/navigation'
 import { AnimatePresence } from 'framer-motion'
-import EntryAnimation from '@/components/sections/EntryAnimation'
+
+const EntryAnimation = dynamic(
+  () => import('@/components/sections/EntryAnimation'),
+  { ssr: false }
+)
 
 export default function GlobalEntry({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname()
+  const isHome = pathname === '/'
+
   const [showAnimation, setShowAnimation] = useState(false)
-  const [ready, setReady] = useState(false)
+  const [ready, setReady] = useState(!isHome)
 
   useEffect(() => {
+    if (!isHome) {
+      setShowAnimation(false)
+      setReady(true)
+      return
+    }
+
     const key = 'apfx.globalEntryAnimation.shown'
 
     const nav = performance.getEntriesByType?.('navigation')?.[0] as
@@ -16,14 +31,14 @@ export default function GlobalEntry({ children }: { children: React.ReactNode })
       | undefined
     const navType = nav?.type
 
-    // Always show on hard reload.
+    // Branding entry only on homepage hard reload.
     if (navType === 'reload') {
       setShowAnimation(true)
       setReady(false)
       return
     }
 
-    // Only show once per tab session on normal navigation.
+    // Once per tab session on normal homepage navigation.
     let shouldShow = true
     try {
       shouldShow = sessionStorage.getItem(key) !== '1'
@@ -33,7 +48,7 @@ export default function GlobalEntry({ children }: { children: React.ReactNode })
 
     setShowAnimation(shouldShow)
     setReady(!shouldShow)
-  }, [])
+  }, [isHome])
 
   const handleReadyToReveal = useCallback(() => {
     setReady(true)
@@ -65,8 +80,8 @@ export default function GlobalEntry({ children }: { children: React.ReactNode })
 
       <AnimatePresence>
         {showAnimation && (
-          <EntryAnimation 
-            onComplete={handleAnimationComplete} 
+          <EntryAnimation
+            onComplete={handleAnimationComplete}
             onReadyToReveal={handleReadyToReveal}
           />
         )}

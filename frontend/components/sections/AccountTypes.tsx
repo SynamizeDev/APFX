@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
+import { useInViewport } from '@/hooks/useInViewport'
 import styles from './AccountTypes.module.css'
 
 const ACCOUNTS = [
@@ -53,6 +54,7 @@ const ACCOUNTS = [
 
 export default function AccountTypes() {
     const sliderRef = useRef<HTMLDivElement | null>(null)
+    const { ref: sectionRef, isInViewport } = useInViewport()
     const [activeIndex, setActiveIndex] = useState(0)
     const activeIndexRef = useRef(0)
     activeIndexRef.current = activeIndex
@@ -67,6 +69,7 @@ export default function AccountTypes() {
     }, [])
 
     useEffect(() => {
+        if (!isInViewport) return
         const slider = sliderRef.current
         if (!slider) return
 
@@ -129,10 +132,10 @@ export default function AccountTypes() {
             slider.removeEventListener('pointerdown', pauseAuto)
             slider.removeEventListener('wheel', pauseAuto)
         }
-    }, [syncIndexFromScroll])
+    }, [syncIndexFromScroll, isInViewport])
 
     return (
-        <section className={`${styles.section} apfx-section`} aria-labelledby="accounts-heading">
+        <section ref={sectionRef} className={`${styles.section} apfx-section`} aria-labelledby="accounts-heading">
             <div className={styles.inner}>
                 <header className={styles.header}>
                     <h2 id="accounts-heading" className={styles.title}>Professional Trading Account Structures</h2>
@@ -162,7 +165,7 @@ export default function AccountTypes() {
                             </ul>
 
                             <Link
-                                href="/open-account"
+                                href="/coming-soon"
                                 className={`${styles.cta} ${acc.featured ? styles.ctaMain : styles.ctaOutline}`}
                             >
                                 {acc.cta}

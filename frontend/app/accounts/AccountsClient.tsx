@@ -31,7 +31,7 @@ const ACCOUNT_DATA = [
             'Min. deposit: $50'
         ],
         btnText: 'Get Started',
-        btnHref: '/register',
+        btnHref: '/coming-soon',
         isPopular: false
     },
     {
@@ -47,7 +47,7 @@ const ACCOUNT_DATA = [
             'Min. deposit: $1,000'
         ],
         btnText: 'Open Premium',
-        btnHref: '/register',
+        btnHref: '/coming-soon',
         isPopular: true
     },
     {
@@ -63,7 +63,7 @@ const ACCOUNT_DATA = [
             'Min. deposit: $5,000'
         ],
         btnText: 'Contact Sales',
-        btnHref: '/support',
+        btnHref: '/coming-soon',
         isPopular: false
     }
 ]
@@ -222,7 +222,7 @@ function AccountsContent() {
                                     ? "Keep it simple with the APFX Standard account. Experience all the benefits of our institutional pricing with an all-inclusive spread and no commissions."
                                     : `Optimize your edge with the APFX ${tierName} account. Engineered for professional traders who demand the lowest latency and deepest liquidity pools.`}
                             </p>
-                            <Link href="/register" className={styles.heroCtaBtn}>Open Account</Link>
+                            <Link href="/coming-soon" className={styles.heroCtaBtn}>Open Account</Link>
                         </motion.div>
                     </div>
                 </section>
@@ -269,7 +269,7 @@ function AccountsContent() {
                                         <li><Check size={14} /> Deep Liquidity</li>
                                         <li><Check size={14} /> MetaTrader 4 & 5</li>
                                     </ul>
-                                    <Link href="/register" className={styles.summaryBtn}>Open Account</Link>
+                                    <Link href="/coming-soon" className={styles.summaryBtn}>Open Account</Link>
                                 </div>
                             </div>
                         </section>
