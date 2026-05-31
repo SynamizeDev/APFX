@@ -194,6 +194,53 @@
     margin-top: 0.25rem;
 }
 
+/* ── Light theme ─────────────────────────────────────────── */
+:global(.light-mode) .page {
+    background: var(--color-bg);
+}
+
+:global(.light-mode) .page::before {
+    background:
+        radial-gradient(ellipse 80% 55% at 50% -10%, rgba(54, 249, 54, 0.08), transparent 65%),
+        radial-gradient(ellipse 50% 40% at 85% 80%, rgba(54, 249, 54, 0.04), transparent 70%);
+}
+
+:global(.light-mode) .page::after {
+    background: radial-gradient(
+        circle at 50% 50%,
+        transparent 55%,
+        rgba(255, 255, 255, 0.65) 100%
+    );
+}
+
+:global(.light-mode) .card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    box-shadow:
+        0 24px 50px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 0 80px -20px rgba(54, 249, 54, 0.1);
+}
+
+:global(.light-mode) .field input,
+:global(.light-mode) .field textarea {
+    background: rgba(0, 0, 0, 0.025);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-1);
+}
+
+:global(.light-mode) .field input::placeholder,
+:global(.light-mode) .field textarea::placeholder {
+    color: var(--color-text-3);
+}
+
+:global(.light-mode) .field input:focus,
+:global(.light-mode) .field textarea:focus {
+    background: #ffffff;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(54, 249, 54, 0.15);
+}
+
 @media (max-width: 640px) {
     .row {
         grid-template-columns: 1fr;
