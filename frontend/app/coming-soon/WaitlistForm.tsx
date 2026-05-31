@@ -57,7 +57,6 @@ export default function WaitlistForm() {
         try {
             const response = await fetch(waitlistUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     fullName: trimmedName,
                     email: trimmedEmail,
@@ -65,6 +64,9 @@ export default function WaitlistForm() {
                     message: formData.message.trim(),
                 }),
             })
+
+            const result = await response.text()
+            console.log(result)
 
             if (response.ok) {
                 setFormData(INITIAL_FORM)
