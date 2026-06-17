@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation'
 import { useScroll, useTransform, motion, AnimatePresence, useMotionTemplate } from 'framer-motion'
 import { usePreferences } from '@/context/PreferencesContext'
 
-import { PORTAL_LINK_PROPS } from '@/config/urls'
+import { PORTAL_LINK_PROPS, PORTAL_SIGNUP_LINK_PROPS } from '@/config/urls'
 import styles from './Header.module.css'
 import ThemeToggle from '@/components/ui/ThemeToggle'
 
@@ -379,7 +379,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                         </Link>
 
                         <Link
-                            {...PORTAL_LINK_PROPS}
+                            {...PORTAL_SIGNUP_LINK_PROPS}
                             className={styles.btnSolidWhite}
                         >
                             Register
@@ -485,7 +485,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                         Log In
                     </Link>
                     <Link
-                        {...PORTAL_LINK_PROPS}
+                        {...PORTAL_SIGNUP_LINK_PROPS}
                         className={styles.mobileCta}
                         onClick={closeMenu}
                     >
