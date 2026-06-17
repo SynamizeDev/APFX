@@ -6,9 +6,8 @@ import { ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { MarketQuote } from '@/services/marketData'
 import { useMarketQuotes } from '@/hooks/useMarketQuotes'
+import { PORTAL_LINK_PROPS } from '@/config/urls'
 import styles from './MarketsSection.module.css'
-
-const TRADE_NOW_URL = '/coming-soon'
 
 /* ── Category Data ─────────────────────────────────────────── */
 const CATEGORIES = [
@@ -238,7 +237,7 @@ function MarketRow({ inst, liveData }: { inst: Instrument, liveData: MarketQuote
             </td>
             <td className={styles.tdAction}>
                 <Link
-                    href={TRADE_NOW_URL}
+                    {...PORTAL_LINK_PROPS}
                     className={styles.tradeBtn}
                     aria-label={`Trade now — ${inst.symbol}`}
                 >

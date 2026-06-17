@@ -526,7 +526,6 @@ export default function HeroSection() {
                                     <p className={styles.slideSubheadline}>
                                         Plus 50% Extra Every Time You Top Up*.
                                     </p>
-                                    <button className={styles.ctaButtonGreen}>Learn More</button>
                                 </div>
                             </div>
                         </div>
@@ -556,7 +555,6 @@ export default function HeroSection() {
                                     <p className={styles.slideSubheadline}>
                                         New account types designed to support your trading strategy and execution style.
                                     </p>
-                                    <button className={styles.ctaButtonGreen}>Learn More</button>
                                 </div>
                             </div>
                         </div>

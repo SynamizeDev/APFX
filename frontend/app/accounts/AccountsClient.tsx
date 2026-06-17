@@ -6,6 +6,7 @@ import { motion, AnimatePresence, Variants } from 'framer-motion'
 import Link from 'next/link'
 import { Check, Plus, Minus, ArrowRight, Zap, Shield, Globe, Cpu, Clock, Wallet } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
+import { PORTAL_LINK_PROPS } from '@/config/urls'
 import styles from './AccountsPage.module.css'
 
 const fadeUp: Variants = {
@@ -31,7 +32,6 @@ const ACCOUNT_DATA = [
             'Min. deposit: $50'
         ],
         btnText: 'Get Started',
-        btnHref: '/coming-soon',
         isPopular: false
     },
     {
@@ -47,7 +47,6 @@ const ACCOUNT_DATA = [
             'Min. deposit: $1,000'
         ],
         btnText: 'Open Premium',
-        btnHref: '/coming-soon',
         isPopular: true
     },
     {
@@ -63,7 +62,6 @@ const ACCOUNT_DATA = [
             'Min. deposit: $5,000'
         ],
         btnText: 'Contact Sales',
-        btnHref: '/coming-soon',
         isPopular: false
     }
 ]
@@ -160,7 +158,7 @@ function AccountsContent() {
                                         </li>
                                     ))}
                                 </ul>
-                                <Link href={acc.btnHref} className={`${styles.cardBtn} ${acc.isPopular ? styles.cardBtnActive : ''}`}>
+                                <Link {...PORTAL_LINK_PROPS} className={`${styles.cardBtn} ${acc.isPopular ? styles.cardBtnActive : ''}`}>
                                     {acc.btnText}
                                 </Link>
                             </motion.div>
@@ -222,7 +220,7 @@ function AccountsContent() {
                                     ? "Keep it simple with the APFX Standard account. Experience all the benefits of our institutional pricing with an all-inclusive spread and no commissions."
                                     : `Optimize your edge with the APFX ${tierName} account. Engineered for professional traders who demand the lowest latency and deepest liquidity pools.`}
                             </p>
-                            <Link href="/coming-soon" className={styles.heroCtaBtn}>Open Account</Link>
+                            <Link {...PORTAL_LINK_PROPS} className={styles.heroCtaBtn}>Open Account</Link>
                         </motion.div>
                     </div>
                 </section>
@@ -269,7 +267,7 @@ function AccountsContent() {
                                         <li><Check size={14} /> Deep Liquidity</li>
                                         <li><Check size={14} /> MetaTrader 4 & 5</li>
                                     </ul>
-                                    <Link href="/coming-soon" className={styles.summaryBtn}>Open Account</Link>
+                                    <Link {...PORTAL_LINK_PROPS} className={styles.summaryBtn}>Open Account</Link>
                                 </div>
                             </div>
                         </section>

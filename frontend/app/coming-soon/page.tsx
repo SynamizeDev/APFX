@@ -1,16 +1,6 @@
-import type { Metadata } from 'next'
-import ComingSoonClient from './ComingSoonClient'
-
-export const metadata: Metadata = {
-    title: 'Coming Soon — APFX',
-    description:
-        'Join the APFX waitlist to receive launch updates and be the first to know when we go live.',
-    robots: {
-        index: false,
-        follow: false,
-    },
-}
+import { redirect } from 'next/navigation'
+import { PORTAL_URL } from '@/config/urls'
 
 export default function ComingSoonPage() {
-    return <ComingSoonClient />
+    redirect(PORTAL_URL)
 }

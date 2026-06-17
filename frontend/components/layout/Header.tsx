@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation'
 import { useScroll, useTransform, motion, AnimatePresence, useMotionTemplate } from 'framer-motion'
 import { usePreferences } from '@/context/PreferencesContext'
 
+import { PORTAL_LINK_PROPS } from '@/config/urls'
 import styles from './Header.module.css'
 import ThemeToggle from '@/components/ui/ThemeToggle'
 
@@ -370,7 +371,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                     {/* ── Actions ───────────────────────────────────────── */}
                     <div className={styles.actions}>
                         <Link
-                            href="/coming-soon"
+                            {...PORTAL_LINK_PROPS}
                             className={styles.btnIconSolidWhite}
                             aria-label="Log In"
                         >
@@ -378,7 +379,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                         </Link>
 
                         <Link
-                            href="/coming-soon"
+                            {...PORTAL_LINK_PROPS}
                             className={styles.btnSolidWhite}
                         >
                             Register
@@ -477,14 +478,14 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                 })}
                 <div className={styles.mobileAuth}>
                     <Link
-                        href="/coming-soon"
+                        {...PORTAL_LINK_PROPS}
                         className={styles.mobileLogin}
                         onClick={closeMenu}
                     >
                         Log In
                     </Link>
                     <Link
-                        href="/coming-soon"
+                        {...PORTAL_LINK_PROPS}
                         className={styles.mobileCta}
                         onClick={closeMenu}
                     >

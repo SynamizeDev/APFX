@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { useInViewport } from '@/hooks/useInViewport'
+import { PORTAL_LINK_PROPS } from '@/config/urls'
 import styles from './AccountTypes.module.css'
 
 const ACCOUNTS = [
@@ -165,7 +166,7 @@ export default function AccountTypes() {
                             </ul>
 
                             <Link
-                                href="/coming-soon"
+                                {...PORTAL_LINK_PROPS}
                                 className={`${styles.cta} ${acc.featured ? styles.ctaMain : styles.ctaOutline}`}
                             >
                                 {acc.cta}

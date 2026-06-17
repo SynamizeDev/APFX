@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Activity, Shield, TrendingUp, Users, PieChart, ArrowRight, BarChart3, Lock, Zap, CheckCircle2, ChevronRight } from 'lucide-react'
+import { PORTAL_LINK_PROPS } from '@/config/urls'
 import styles from './PammPage.module.css'
 
 export default function PammClient() {
@@ -47,7 +48,7 @@ export default function PammClient() {
                             <p className={styles.heroSubtitle}>
                                 Institutional-grade percentage allocation management designed for transparent strategy participation and professional capital distribution.
                             </p>
-                            <Link href="/coming-soon" className={styles.heroCtaBtn}>
+                            <Link {...PORTAL_LINK_PROPS} className={styles.heroCtaBtn}>
                                 Allocate Capital
                             </Link>
                         </motion.div>
@@ -252,7 +253,7 @@ export default function PammClient() {
                         <h2>Ready for Professional Capital Allocation?</h2>
                         <p>Join the APFX PAMM infrastructure whether you are an investor looking for passive returns or a proven strategy manager seeking capital to scale.</p>
                         <div className={styles.ctaButtons}>
-                            <Link href="/coming-soon" className={styles.btnPrimary}>Open PAMM Account</Link>
+                            <Link {...PORTAL_LINK_PROPS} className={styles.btnPrimary}>Open PAMM Account</Link>
                             <Link href="/support" className={styles.btnOutline}>Become a Manager</Link>
                         </div>
                     </div>

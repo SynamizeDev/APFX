@@ -5,6 +5,7 @@ import AcademyTabNav from '@/components/navigation/AcademyTabNav'
 import styles from './AcademyPage.module.css'
 import { Play, CheckCircle2, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import { PORTAL_LINK_PROPS } from '@/config/urls'
 
 
 interface AcademyPageProps {
@@ -70,13 +71,13 @@ export default function AcademyPage({ title, description, videoTitle, steps, rel
                                     <h3>Quick Actions</h3>
                                     <ul className={styles.cardList}>
                                         <li>
-                                            <Link href="/coming-soon" className={styles.cardLink}>
+                                            <Link {...PORTAL_LINK_PROPS} className={styles.cardLink}>
                                                 <CheckCircle2 size={16} className={styles.accent} />
                                                 Open Live Account
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/coming-soon" className={styles.cardLink}>
+                                            <Link {...PORTAL_LINK_PROPS} className={styles.cardLink}>
                                                 <CheckCircle2 size={16} className={styles.accent} />
                                                 Make a Deposit
                                             </Link>

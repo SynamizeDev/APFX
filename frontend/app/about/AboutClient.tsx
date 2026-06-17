@@ -1,6 +1,7 @@
 ﻿'use client'
 
 import { useState, useEffect, Suspense } from 'react'
+import Link from 'next/link'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { motion, AnimatePresence, Variants } from 'framer-motion'
 import { 
@@ -20,7 +21,12 @@ import {
     TrendingUp,
     Zap,
     BarChart3,
-    Landmark
+    Landmark,
+    User,
+    Route,
+    Server,
+    Gauge,
+    Network,
 } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import styles from './AboutPage.module.css'
@@ -33,6 +39,364 @@ const fadeUp: Variants = {
         transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
     },
 }
+
+type WhyAPFXNarrativeSection = {
+    kicker: string
+    headingBefore: string
+    headingAccent: string
+    body: string[]
+    bullets: string[]
+    stat: { value: string; label: string; desc: string; phrase?: boolean }
+    closing?: boolean
+}
+
+const WHY_APFX_NARRATIVES: WhyAPFXNarrativeSection[] = [
+    {
+        kicker: 'Broker Architecture',
+        headingBefore: 'Your Broker\'s Incentives ',
+        headingAccent: 'Shape Your Outcomes',
+        body: [
+            'Most retail traders evaluate platforms by spread and leverage. Institutional desks evaluate counterparty structure first — because the model a broker operates under determines whether your order is routed to the market or absorbed on an internal book.',
+            'In a principal (dealing desk) model, the broker is your counterparty. Your gain is their loss. That structural tension does not require malice — it is arithmetic. In an agency model, the broker transmits your order to external liquidity and earns from transparent, volume-based economics. The alignment is structural, not rhetorical.',
+        ],
+        bullets: [
+            'Principal desks internalize flow; agency models pass orders to external liquidity pools',
+            'Revenue from client losses creates a statistical incentive misaligned with long-term trader retention',
+            'STP (Straight-Through Processing) removes the broker as counterparty to your position',
+            'APFX operates on an agency execution model with 30+ Tier-1 liquidity providers',
+            'When the broker does not take the other side, execution quality becomes the product — not client attrition',
+        ],
+        stat: {
+            value: '30+',
+            label: 'Tier-1 LPs',
+            desc: 'Orders routed externally. APFX does not operate a principal dealing desk against client flow.',
+        },
+    },
+    {
+        kicker: 'Execution Quality',
+        headingBefore: 'Invisible Costs Compound Faster Than ',
+        headingAccent: 'Visible Spreads',
+        body: [
+            'Advertised spreads are only one line item in total trading cost. Slippage, requotes, widened spreads during volatility, and delayed fills often exceed the nominal spread — particularly for active traders, funded account holders, and those running systematic or news-driven strategies.',
+            'These frictions are rarely disclosed in marketing materials because they are difficult to measure without execution reporting. They are, however, precisely what separates institutional-grade infrastructure from retail convenience layers. APFX is engineered to minimize each vector: no requotes on eligible order types, aggregated top-of-book pricing, and sub-millisecond internal routing to liquidity hubs.',
+        ],
+        bullets: [
+            'Slippage: the delta between quoted and filled price, amplified during high-impact events',
+            'Requotes: order rejection or repricing that disrupts strategy timing and invalidates risk parameters',
+            'Spread widening: temporary markup during volatility, often invisible until fill confirmation',
+            'Execution delay: latency that turns a limit order into a market order by the time it arrives',
+            'APFX Smart Order Routing scans 30+ liquidity sources in under 150 microseconds before routing',
+        ],
+        stat: {
+            value: '< 5ms',
+            label: 'Round-Trip Latency',
+            desc: 'From order entry to LP confirmation across co-located infrastructure.',
+        },
+    },
+    {
+        kicker: 'Technical Foundation',
+        headingBefore: 'Execution Infrastructure Is Not a Feature — ',
+        headingAccent: 'It Is the Product',
+        body: [
+            'Retail platforms optimize for onboarding speed. Institutional infrastructure optimizes for proximity to liquidity — data center co-location, cross-connects to prime brokers and LP feeds, and routing engines designed for microsecond-level decision cycles.',
+            'APFX maintains cross-connects in Equinix LD4 (London) and NY4 (New York) — the same financial data center ecosystems used by global banks and proprietary trading firms. Your orders do not traverse public internet congestion to reach a liquidity hub. They travel through dedicated fiber to aggregated pools spanning tier-1 banks and non-bank market makers.',
+        ],
+        bullets: [
+            'Co-located trade servers in Equinix LD4 and NY4 financial hubs',
+            'Direct cross-connects to 30+ Tier-1 liquidity providers and prime brokerage feeds',
+            'Smart Order Routing (SOR) engine with sub-150μs top-of-book scan cycles',
+            'Aggregated deep pool combining bank and non-bank liquidity into a unified order book',
+            '99.9% fill rate across eligible orders to reduce partial-fill strategy disruption',
+        ],
+        stat: {
+            value: '< 1ms',
+            label: 'Internal Latency',
+            desc: 'Cross-connect routing bypasses public network congestion entirely.',
+        },
+    },
+    {
+        kicker: 'Capital Preservation',
+        headingBefore: 'Disciplined Risk Architecture for ',
+        headingAccent: 'Unpredictable Markets',
+        body: [
+            'Professional traders do not rely on luck during volatility events — they rely on systems. A robust risk framework must operate in real time: monitoring margin utilization, enforcing exposure limits, and preventing catastrophic account outcomes when markets gap beyond stop levels.',
+            'APFX deploys an automated risk engine that continuously evaluates account margin against open exposure. Negative balance protection ensures your liability is capped at account equity — a safeguard that became industry-standard post-2015 but remains inconsistently applied across retail brokers.',
+        ],
+        bullets: [
+            'Real-time margin monitoring with automated liquidation protocols before critical thresholds',
+            'Negative balance protection: account equity cannot fall below zero during extreme gap events',
+            'Segregated client funds held at top-tier banking institutions, separate from operational capital',
+            'Configurable exposure limits aligned to account tier and trading profile',
+            'Pre-trade margin checks to prevent order submission beyond available collateral',
+        ],
+        stat: {
+            value: 'Zero',
+            label: 'Negative Balance Liability',
+            desc: 'Automated risk engine caps downside at account equity during extreme volatility.',
+        },
+    },
+    {
+        kicker: 'Aligned Economics',
+        headingBefore: 'When Revenue Depends on Volume, ',
+        headingAccent: 'Conflicts Disappear',
+        body: [
+            'The most durable broker-client relationships are built on aligned economics. When a firm\'s revenue is derived from client losses, retention strategy and trader success become opposing forces. When revenue is derived from transparent commissions and raw spread markups on executed volume, the incentive shifts: the broker succeeds when the trader continues to operate — profitably or not — with trust intact.',
+            'APFX publishes its pricing structure without hidden markups layered into quoted spreads. There are no performance hurdles designed to trigger internalization. There are no dealing desk interventions on eligible flow. What you see in the order book is what the aggregated liquidity pool offers.',
+        ],
+        bullets: [
+            'Revenue from volume-based commissions and disclosed raw spread markups — not client P&L',
+            'No hidden spread inflation during news events or low-liquidity sessions',
+            'Segregated client funds with mandatory regulatory audit requirements',
+            'Full regulatory licensing with operational transparency obligations',
+            'Long-term relationship model: trader retention through execution quality, not account churn',
+        ],
+        stat: {
+            value: '0',
+            label: 'Hidden Conflicts',
+            desc: 'Revenue alignment through disclosed, volume-based economics.',
+        },
+    },
+    {
+        kicker: 'The Institutional Bridge',
+        headingBefore: 'Retail Access. Institutional Standards. ',
+        headingAccent: 'No Compromise.',
+        body: [
+            'The gap between retail brokerage and institutional execution has persisted for decades — not because the technology was unavailable, but because the retail model was more profitable for brokers operating principal desks. APFX was founded to close that gap deliberately: to give serious retail traders, funded professionals, and high-net-worth individuals access to the same execution architecture, liquidity depth, and structural transparency that institutional desks have relied on for years.',
+            'We are not a platform optimized for casual speculation. We are infrastructure for traders who measure execution in milliseconds, evaluate brokers by counterparty structure, and understand that the spread is only the beginning of the cost equation. If that describes how you operate, APFX was built for you.',
+        ],
+        bullets: [
+            'Agency STP execution — never your counterparty on eligible flow',
+            '30+ Tier-1 liquidity providers aggregated into a single deep pool',
+            'Sub-millisecond routing via Equinix co-location and dedicated cross-connects',
+            'Automated risk framework with negative balance protection and segregated funds',
+            'Transparent, volume-aligned revenue model with no dealing desk conflicts',
+        ],
+        stat: {
+            value: 'Institutional',
+            label: 'Retail-Accessible',
+            desc: 'The execution stack professionals expect, without the prime brokerage minimums.',
+            phrase: true,
+        },
+        closing: true,
+    },
+]
+
+const HOW_IT_WORKS_TIMELINE = [
+    {
+        marker: '01',
+        title: 'Order Entry',
+        body: 'You submit a buy or sell instruction through the APFX terminal — desktop, web, or mobile. The request is validated against your available margin, encrypted, and transmitted over dedicated fiber to our co-located trade server. No manual intervention. No dealing desk review.',
+        detail: 'Pre-trade checks confirm collateral before the order enters the execution pipeline.',
+    },
+    {
+        marker: '02',
+        title: 'Smart Order Routing (SOR)',
+        body: 'Our routing engine scans the aggregated top-of-book across 30+ Tier-1 liquidity providers in under 150 microseconds. It evaluates bid/ask prices, available depth, and routing logic to identify the optimal destination for your order — not simply the first available quote.',
+        detail: 'Dynamic routing adapts in real time as liquidity conditions shift across providers.',
+    },
+    {
+        marker: '03',
+        title: 'Liquidity Matching',
+        body: 'Your order is matched against the selected liquidity provider at the best available price. For larger volumes, the engine sweeps across multiple providers to achieve the best volume-weighted average price (VWAP), minimizing market impact and slippage.',
+        detail: 'Partial fills are aggregated and reported as a single execution where applicable.',
+    },
+    {
+        marker: '04',
+        title: 'Confirmation',
+        body: 'The liquidity provider confirms the fill. APFX records the transaction, updates your account balance and open positions, and reflects the execution in your terminal — typically within 5 milliseconds of your original click.',
+        detail: 'Full audit trail maintained for every order from entry to confirmation.',
+    },
+]
+
+const HOW_IT_WORKS_FLOW = [
+    {
+        icon: User,
+        title: 'Trader',
+        desc: 'You click Buy or Sell. The order enters the APFX ecosystem with a defined size, direction, and order type.',
+    },
+    {
+        icon: Server,
+        title: 'APFX Execution Engine',
+        desc: 'Our co-located trade server validates margin, normalizes the order, and prepares it for routing — all in sub-millisecond time.',
+    },
+    {
+        icon: Route,
+        title: 'Smart Order Router',
+        desc: 'The SOR engine scans 30+ liquidity sources simultaneously, applying best-execution logic to determine optimal routing.',
+    },
+    {
+        icon: Network,
+        title: 'Liquidity Providers',
+        desc: 'Tier-1 banks and non-bank market makers compete to fill your order at their best available price.',
+    },
+    {
+        icon: Gauge,
+        title: 'Best Price Selection',
+        desc: 'The engine selects the tightest bid or ask with sufficient depth, splitting volume across providers when needed.',
+    },
+    {
+        icon: CheckCircle2,
+        title: 'Execution Confirmation',
+        desc: 'Fill confirmed, account updated, terminal refreshed. Total round-trip: typically under 5ms.',
+    },
+]
+
+type HowItWorksNarrative = {
+    kicker: string
+    headingBefore: string
+    headingAccent: string
+    body: string[]
+    bullets?: string[]
+    insight?: { title: string; quote: string }
+    callout?: { value: string; label: string; desc: string; phrase?: boolean }
+    cards?: { icon: typeof Globe; title: string; desc: string }[]
+    stats?: { value: string; label: string }[]
+}
+
+const HOW_IT_WORKS_NARRATIVES: HowItWorksNarrative[] = [
+    {
+        kicker: 'Execution Economics',
+        headingBefore: 'Why Execution Quality ',
+        headingAccent: 'Matters',
+        body: [
+            'Strategy determines what you trade. Execution determines what you pay. Over hundreds or thousands of transactions, small inefficiencies — a fractionally wider spread, a pip of slippage, a delayed fill — compound into measurable drag on performance.',
+            'Institutional desks treat execution as a core competency, not an afterthought. They measure transaction cost analysis (TCA), monitor slippage against benchmarks, and select infrastructure accordingly. APFX brings that same discipline to traders who previously had no visibility into what happened after they clicked.',
+        ],
+        bullets: [
+            'Spread: the visible cost — but only the starting point of total transaction expense',
+            'Slippage: the difference between expected and actual fill price, amplified during volatility',
+            'Latency: delay between instruction and market arrival — critical for time-sensitive strategies',
+            'Requotes: order rejection or repricing that invalidates entry logic and risk parameters',
+            'Market impact: price movement caused by your own order size against available depth',
+        ],
+        insight: {
+            title: 'Institutional Insight',
+            quote: 'A strategy with positive expectancy can still produce negative results if execution costs exceed edge. Professionals measure both.',
+        },
+    },
+    {
+        kicker: 'Routing Intelligence',
+        headingBefore: 'Smart Order Routing Is Not a Feature — ',
+        headingAccent: 'It Is Infrastructure',
+        body: [
+            'Smart Order Routing (SOR) is the decision layer between your click and the market. It does not simply send orders to a single liquidity source. It continuously evaluates price, depth, latency, and fill probability across an aggregated pool of providers to route each order optimally.',
+            'When conditions change — a provider widens spreads, depth thins, or latency spikes — the router adapts dynamically. This is the same class of technology used by institutional trading desks, adapted for direct market access at retail scale.',
+        ],
+        bullets: [
+            'Multiple liquidity providers scanned simultaneously for every eligible order',
+            'Real-time price discovery across aggregated top-of-book feeds',
+            'Intelligent order splitting for large volumes to minimize market impact',
+            'Best execution methodology applied consistently, not selectively',
+            'Dynamic routing that responds to shifting liquidity conditions in microseconds',
+        ],
+        callout: {
+            value: 'Best Execution',
+            label: 'Infrastructure Advantage',
+            desc: 'Best execution is not a feature. It is an infrastructure advantage.',
+            phrase: true,
+        },
+    },
+    {
+        kicker: 'Liquidity Architecture',
+        headingBefore: 'Deep Liquidity Is Built, ',
+        headingAccent: 'Not Claimed',
+        body: [
+            'Liquidity depth determines how much volume you can execute at a given price before the market moves against you. Shallow liquidity means wider effective spreads, higher slippage, and greater vulnerability during news events.',
+            'APFX aggregates feeds from tier-1 global banks and established non-bank liquidity providers into a unified deep pool. Multiple sources compete for your flow at the top of book — compressing spreads and improving fill quality across market conditions.',
+        ],
+        cards: [
+            {
+                icon: Landmark,
+                title: 'Tier-1 Banks',
+                desc: 'Direct connectivity to major global financial institutions providing primary market liquidity across FX, indices, and commodities.',
+            },
+            {
+                icon: BarChart3,
+                title: 'Non-Bank LPs',
+                desc: 'Specialist market makers and electronic liquidity providers adding depth, diversity, and competitive pricing to the aggregated pool.',
+            },
+            {
+                icon: PieChart,
+                title: 'Aggregated Order Books',
+                desc: 'Individual provider feeds merged into a single unified book — presenting the best bid and ask from across the entire pool.',
+            },
+            {
+                icon: Scale,
+                title: 'Bid/Ask Competition',
+                desc: 'Providers compete in real time to offer the tightest prices, driving spread compression without manual intervention.',
+            },
+            {
+                icon: Globe,
+                title: 'Institutional Depth',
+                desc: 'Sufficient volume at each price level to absorb professional-sized orders with minimal market impact.',
+            },
+        ],
+    },
+    {
+        kicker: 'Low-Latency Infrastructure',
+        headingBefore: 'Speed Without ',
+        headingAccent: 'Compromise',
+        body: [
+            'In electronic markets, latency is not abstract — it is the difference between receiving the price you see and receiving the price that existed 50 milliseconds ago. During volatile conditions, that gap can mean several pips.',
+            'APFX infrastructure is co-located in Equinix LD4 (London) and NY4 (New York) — the same data center ecosystems used by global banks and proprietary trading firms. Cross-connects to liquidity providers bypass public internet routing entirely, delivering sub-millisecond internal latency and continuous platform monitoring.',
+        ],
+        stats: [
+            { value: '< 1ms', label: 'Internal Routing' },
+            { value: '99.9%', label: 'Platform Uptime' },
+            { value: '30+', label: 'Liquidity Sources' },
+            { value: '24/7', label: 'Infrastructure Monitoring' },
+        ],
+    },
+    {
+        kicker: 'Trade Integrity',
+        headingBefore: 'Risk Controls That Protect ',
+        headingAccent: 'Your Capital',
+        body: [
+            'Execution quality means little if capital is not protected. APFX operates an automated risk framework that monitors every account in real time — evaluating margin utilization, open exposure, and account equity against defined thresholds.',
+            'Negative balance protection ensures your liability never exceeds deposited funds, even during extreme gap events. Pre-trade margin checks prevent orders from entering the market without sufficient collateral. These safeguards operate continuously, without manual intervention.',
+        ],
+        bullets: [
+            'Real-time margin monitoring with automated alerts and liquidation protocols',
+            'Negative balance protection capping liability at account equity',
+            'Exposure management across open positions and asset classes',
+            'Pre-trade collateral validation before order submission',
+            'Automated safeguards active 24/5 across all trading sessions',
+        ],
+    },
+]
+
+const HOW_IT_WORKS_COMPARISON = [
+    {
+        topic: 'Order Handling',
+        traditional: 'Internalized on broker dealing desk (B-Book) or selectively routed',
+        apfx: 'Agency STP — orders passed directly to external liquidity providers',
+    },
+    {
+        topic: 'Liquidity Access',
+        traditional: 'Single internal book or limited LP relationships',
+        apfx: '30+ Tier-1 banks and non-bank LPs in aggregated deep pool',
+    },
+    {
+        topic: 'Revenue Model',
+        traditional: 'Profit from client losses and spread markups',
+        apfx: 'Volume-based commissions and disclosed raw spread markups',
+    },
+    {
+        topic: 'Conflict of Interest',
+        traditional: 'Broker is counterparty — your gain is their loss',
+        apfx: 'No dealing desk — structurally aligned with trader activity',
+    },
+    {
+        topic: 'Transparency',
+        traditional: 'Opaque execution, hidden internalization',
+        apfx: 'Direct market access with auditable order-to-fill trail',
+    },
+    {
+        topic: 'Execution Quality',
+        traditional: 'Variable — subject to desk intervention and requotes',
+        apfx: 'Sub-millisecond routing with 99.9% fill rate on eligible orders',
+    },
+]
 
 // Instruments list removed as it's now inline in the renderMarkets function
 
@@ -144,6 +508,54 @@ function AboutContent() {
                         <p>Our automated risk engine monitors your margin in real-time, preventing your account from ever falling below zero during extreme volatility.</p>
                     </div>
                 </div>
+
+                {/* ── EXPANDED NARRATIVE SECTIONS ── */}
+                {WHY_APFX_NARRATIVES.map((section) => (
+                    <article key={section.kicker} className={styles.narrativeSection}>
+                        <span className={styles.kicker}>{section.kicker}</span>
+                        <h2 className={styles.articleHeading}>
+                            {section.headingBefore}<span>{section.headingAccent}</span>
+                        </h2>
+                        {section.body.map((paragraph) => (
+                            <p key={paragraph.slice(0, 48)} className={styles.narrativeBody}>
+                                {paragraph}
+                            </p>
+                        ))}
+                        <ul className={styles.narrativeBullets}>
+                            {section.bullets.map((bullet) => (
+                                <li key={bullet}>{bullet}</li>
+                            ))}
+                        </ul>
+                        {section.stat.phrase ? (
+                            <div className={`${styles.statCallout} ${styles.statCalloutPhrase}`}>
+                                <p className={styles.statCalloutPhraseHeadline}>
+                                    <span className={styles.statCalloutValue}>{section.stat.value}</span>
+                                    <span className={styles.statCalloutPhraseSep} aria-hidden="true">·</span>
+                                    <span className={styles.statCalloutValue}>{section.stat.label}</span>
+                                </p>
+                                <p className={styles.statCalloutDesc}>{section.stat.desc}</p>
+                            </div>
+                        ) : (
+                            <div className={styles.statCallout}>
+                                <span className={styles.statCalloutValue}>{section.stat.value}</span>
+                                <div className={styles.statCalloutContent}>
+                                    <span className={styles.statCalloutLabel}>{section.stat.label}</span>
+                                    <p className={styles.statCalloutDesc}>{section.stat.desc}</p>
+                                </div>
+                            </div>
+                        )}
+                        {section.closing && (
+                            <div className={styles.narrativeCta}>
+                                <Link href="/accounts" className={styles.ctaBtnPrimary}>
+                                    Open Account <ArrowRight size={16} />
+                                </Link>
+                                <Link href="/about?type=how-it-works" className={styles.ctaBtnSecondary}>
+                                    Review Execution Model
+                                </Link>
+                            </div>
+                        )}
+                    </article>
+                ))}
             </motion.div>
         </section>
     )
@@ -151,75 +563,211 @@ function AboutContent() {
     const renderHowItWorks = () => (
         <section className={styles.sectionHero}>
             <motion.div variants={fadeUp} initial="hidden" animate="visible">
+                {/* ── SECTION 1: ANATOMY OF A TRADE ── */}
                 <span className={styles.kicker}>Market Microstructure</span>
                 <h2 className={styles.articleHeading}>The Anatomy of a <span>High-Frequency Trade</span></h2>
                 <p className={styles.heroLead}>
-                    Understanding what happens behind the screen is the first step to mastering execution. APFX provides a direct line to the world's most sophisticated liquidity hubs.
+                    Every click initiates a sequence — from terminal validation to liquidity provider confirmation — that completes in milliseconds. Understanding this pipeline is the foundation of execution-aware trading.
                 </p>
 
-                {/* ── TIMELINE ── */}
                 <div className={styles.timeline}>
-                    <div className={styles.timelineItem}>
-                        <div className={styles.timelineMarker}>01</div>
-                        <div className={styles.timelineContent}>
-                            <h4>Order Entry</h4>
-                            <p>You execute a trade via the APFX platform. Your request is encrypted and transmitted via fiber-optic lines to our central trade server.</p>
+                    {HOW_IT_WORKS_TIMELINE.map((step) => (
+                        <div key={step.marker} className={styles.timelineItem}>
+                            <div className={styles.timelineMarker}>{step.marker}</div>
+                            <div className={styles.timelineContent}>
+                                <h4>{step.title}</h4>
+                                <p>{step.body}</p>
+                                <p className={styles.timelineDetail}>{step.detail}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.timelineItem}>
-                        <div className={styles.timelineMarker}>02</div>
-                        <div className={styles.timelineContent}>
-                            <h4>Smart Order Routing (SOR)</h4>
-                            <p>Our SOR engine scans the "Top of Book" across 30+ Tier-1 banks in less than 150 microseconds to find the absolute best bid/ask.</p>
-                        </div>
-                    </div>
-                    <div className={styles.timelineItem}>
-                        <div className={styles.timelineMarker}>03</div>
-                        <div className={styles.timelineContent}>
-                            <h4>Liquidity Matching</h4>
-                            <p>Your volume is matched against the selected Liquidity Provider (LP). If you are trading large volume, the order is "swept" across multiple providers for the best VWAP.</p>
-                        </div>
-                    </div>
-                    <div className={styles.timelineItem}>
-                        <div className={styles.timelineMarker}>04</div>
-                        <div className={styles.timelineContent}>
-                            <h4>Confirmation</h4>
-                            <p>The fill is confirmed by the LP and reflected in your terminal. Total round-trip latency: &lt; 5ms.</p>
-                        </div>
-                    </div>
+                    ))}
                 </div>
 
-                {/* ── DIAGRAM PLACEHOLDER ── */}
                 <div className={styles.diagramWrapper}>
                     <div className={styles.diagramOverlay} />
                     <div style={{ textAlign: 'center', paddingBlock: 'var(--space-8)' }}>
                         <Cpu size={48} className={styles.accent} style={{ marginBottom: '1rem' }} />
                         <h4 style={{ color: '#fff', marginBottom: '0.5rem' }}>Visualizing the Aggregated Order Book</h4>
                         <p style={{ color: 'var(--color-text-3)', fontSize: 'var(--text-sm)' }}>
-                            Imagine 30 banks all shouting their best prices at once. Our engine picks the two best ones (Bid and Ask) and presents them to you as a single, raw spread.
+                            Thirty liquidity providers publish their best prices simultaneously. Our engine identifies the optimal bid and ask across the entire pool and presents them as a single, unified spread.
                         </p>
                     </div>
                 </div>
 
-                {/* ── STAT GRID ── */}
-                <div className={styles.instStatGrid}>
-                    <div className={styles.instStatCard}>
-                        <span className={styles.instStatValue}>30+</span>
-                        <span className={styles.instStatLabel}>Tier-1 LPs</span>
+                {/* ── SECTION 2: FROM CLICK TO MARKET ── */}
+                <article className={styles.narrativeSection}>
+                    <span className={styles.kicker}>Order Flow Pipeline</span>
+                    <h2 className={styles.articleHeading}>From Click to <span>Market</span></h2>
+                    <p className={styles.narrativeBody}>
+                        The path from your terminal to the liquidity provider is not a straight line — it is a governed sequence of validation, routing, matching, and confirmation. Each stage is engineered to preserve price integrity and minimize latency.
+                    </p>
+                    <div className={styles.flowJourney}>
+                        {HOW_IT_WORKS_FLOW.map((stage, i) => {
+                            const Icon = stage.icon
+                            return (
+                                <div key={stage.title} className={styles.flowStage}>
+                                    <div className={styles.flowStageIcon}>
+                                        <Icon size={22} />
+                                    </div>
+                                    <div className={styles.flowStageContent}>
+                                        <span className={styles.flowStageStep}>Stage {String(i + 1).padStart(2, '0')}</span>
+                                        <h4>{stage.title}</h4>
+                                        <p>{stage.desc}</p>
+                                    </div>
+                                </div>
+                            )
+                        })}
                     </div>
-                    <div className={styles.instStatCard}>
-                        <span className={styles.instStatValue}>&lt; 1ms</span>
-                        <span className={styles.instStatLabel}>Internal Latency</span>
+                </article>
+
+                {/* ── SECTIONS 3–7: NARRATIVE BLOCKS ── */}
+                {HOW_IT_WORKS_NARRATIVES.map((section) => (
+                    <article key={section.kicker} className={styles.narrativeSection}>
+                        <span className={styles.kicker}>{section.kicker}</span>
+                        <h2 className={styles.articleHeading}>
+                            {section.headingBefore}<span>{section.headingAccent}</span>
+                        </h2>
+                        {section.body.map((paragraph) => (
+                            <p key={paragraph.slice(0, 48)} className={styles.narrativeBody}>
+                                {paragraph}
+                            </p>
+                        ))}
+                        {section.bullets && (
+                            <ul className={styles.narrativeBullets}>
+                                {section.bullets.map((bullet) => (
+                                    <li key={bullet}>{bullet}</li>
+                                ))}
+                            </ul>
+                        )}
+                        {section.insight && (
+                            <div className={styles.insightBox}>
+                                <div className={styles.insightIcon}><Activity size={32} /></div>
+                                <div className={styles.insightText}>
+                                    <h4>{section.insight.title}</h4>
+                                    <p>&ldquo;{section.insight.quote}&rdquo;</p>
+                                </div>
+                            </div>
+                        )}
+                        {section.callout && (
+                            section.callout.phrase ? (
+                                <div className={`${styles.statCallout} ${styles.statCalloutPhrase}`}>
+                                    <p className={styles.statCalloutPhraseHeadline}>
+                                        <span className={styles.statCalloutValue}>{section.callout.value}</span>
+                                        <span className={styles.statCalloutPhraseSep} aria-hidden="true">·</span>
+                                        <span className={styles.statCalloutValue}>{section.callout.label}</span>
+                                    </p>
+                                    <p className={styles.statCalloutDesc}>{section.callout.desc}</p>
+                                </div>
+                            ) : (
+                                <div className={styles.statCallout}>
+                                    <span className={styles.statCalloutValue}>{section.callout.value}</span>
+                                    <div className={styles.statCalloutContent}>
+                                        <span className={styles.statCalloutLabel}>{section.callout.label}</span>
+                                        <p className={styles.statCalloutDesc}>{section.callout.desc}</p>
+                                    </div>
+                                </div>
+                            )
+                        )}
+                        {section.cards && (
+                            <div className={styles.storyGrid}>
+                                {section.cards.map((card) => {
+                                    const CardIcon = card.icon
+                                    return (
+                                        <div key={card.title} className={styles.storyCard}>
+                                            <CardIcon size={24} className={styles.accent} />
+                                            <h3>{card.title}</h3>
+                                            <p>{card.desc}</p>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        )}
+                        {section.stats && (
+                            <div className={styles.instStatGrid}>
+                                {section.stats.map((stat) => (
+                                    <div key={stat.label} className={styles.instStatCard}>
+                                        <span className={styles.instStatValue}>{stat.value}</span>
+                                        <span className={styles.instStatLabel}>{stat.label}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </article>
+                ))}
+
+                {/* ── SECTION 8: COMPARISON ── */}
+                <article className={styles.narrativeSection}>
+                    <span className={styles.kicker}>Structural Comparison</span>
+                    <h2 className={styles.articleHeading}>What Makes APFX <span>Different</span></h2>
+                    <p className={styles.narrativeBody}>
+                        The difference between APFX and a traditional retail broker is not marketing language — it is architecture. Order handling, liquidity access, and revenue alignment are structural decisions that directly affect every trade you execute.
+                    </p>
+                    <div className={styles.comparisonMatrix}>
+                        <div className={styles.comparisonMatrixHeader}>
+                            <span className={styles.comparisonMatrixTopic}>Dimension</span>
+                            <span>Traditional Broker</span>
+                            <span className={styles.comparisonMatrixApfx}>APFX Institutional Model</span>
+                        </div>
+                        {HOW_IT_WORKS_COMPARISON.map((row) => (
+                            <div key={row.topic} className={styles.comparisonMatrixRow}>
+                                <span className={styles.comparisonMatrixTopic}>{row.topic}</span>
+                                <span className={styles.comparisonMatrixCell}>{row.traditional}</span>
+                                <span className={`${styles.comparisonMatrixCell} ${styles.comparisonMatrixCellActive}`}>{row.apfx}</span>
+                            </div>
+                        ))}
                     </div>
-                    <div className={styles.instStatCard}>
-                        <span className={styles.instStatValue}>99.9%</span>
-                        <span className={styles.instStatLabel}>Fill Rate</span>
+                </article>
+
+                {/* ── SECTION 9: CLOSING THESIS ── */}
+                <article className={styles.narrativeSection}>
+                    <span className={styles.kicker}>The Execution Thesis</span>
+                    <h2 className={styles.articleHeading}>Strategy Gets the Attention. <span>Execution Gets the Results.</span></h2>
+                    <p className={styles.narrativeBody}>
+                        Most traders focus on strategy — entries, exits, indicators, and risk-reward ratios. Professionals focus on execution — the infrastructure, liquidity access, and structural transparency that determine whether edge survives contact with the market.
+                    </p>
+                    <p className={styles.narrativeBody}>
+                        Market access is not a commodity. The broker you choose determines whether your orders reach genuine liquidity or an internal book. Whether your fills reflect the market or a desk&apos;s preference. Whether the firm succeeds when you trade or when you lose.
+                    </p>
+                    <p className={styles.narrativeBody}>
+                        APFX exists to eliminate that uncertainty. We provide the execution architecture, deep liquidity, and aligned economics that institutional desks have relied on for decades — accessible without prime brokerage minimums or proprietary desk gatekeeping.
+                    </p>
+                    <div className={`${styles.statCallout} ${styles.statCalloutPhrase}`}>
+                        <p className={styles.statCalloutPhraseHeadline}>
+                            <span className={styles.statCalloutValue}>Retail Access</span>
+                            <span className={styles.statCalloutPhraseSep} aria-hidden="true">·</span>
+                            <span className={styles.statCalloutValue}>Institutional Infrastructure</span>
+                        </p>
+                        <p className={styles.statCalloutDesc}>
+                            The bridge between accessible markets and institutional-grade execution — built for traders who understand the difference.
+                        </p>
                     </div>
-                    <div className={styles.instStatCard}>
-                        <span className={styles.instStatValue}>0.0</span>
-                        <span className={styles.instStatLabel}>Min Spread</span>
+                    <div className={styles.instStatGrid}>
+                        <div className={styles.instStatCard}>
+                            <span className={styles.instStatValue}>30+</span>
+                            <span className={styles.instStatLabel}>Tier-1 LPs</span>
+                        </div>
+                        <div className={styles.instStatCard}>
+                            <span className={styles.instStatValue}>&lt; 1ms</span>
+                            <span className={styles.instStatLabel}>Internal Latency</span>
+                        </div>
+                        <div className={styles.instStatCard}>
+                            <span className={styles.instStatValue}>99.9%</span>
+                            <span className={styles.instStatLabel}>Fill Rate</span>
+                        </div>
+                        <div className={styles.instStatCard}>
+                            <span className={styles.instStatValue}>&lt; 5ms</span>
+                            <span className={styles.instStatLabel}>Round-Trip</span>
+                        </div>
                     </div>
-                </div>
+                    <div className={styles.narrativeCta}>
+                        <Link href="/accounts" className={styles.ctaBtnPrimary}>
+                            Open Account <ArrowRight size={16} />
+                        </Link>
+                        <Link href="/about?type=why-apfx" className={styles.ctaBtnSecondary}>
+                            Why APFX
+                        </Link>
+                    </div>
+                </article>
             </motion.div>
         </section>
     )

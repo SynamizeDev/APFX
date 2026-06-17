@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { BarChart3, TrendingUp, Globe, Smartphone } from 'lucide-react'
 import { motion, Variants } from 'framer-motion'
 import InnerPageHero from '@/components/layout/InnerPageHero'
+import { PORTAL_LINK_PROPS } from '@/config/urls'
 import styles from './PlatformsPage.module.css'
 
 // Metadata moved to page.tsx (Server Component)
@@ -154,7 +155,7 @@ export default function PlatformsPage() {
                                 using a single APFX account and unified liquidity
                                 pool.
                             </p>
-                            <Link href="/coming-soon" className={styles.btnAccent}>
+                            <Link {...PORTAL_LINK_PROPS} className={styles.btnAccent}>
                                 Start Trading Now
                             </Link>
                         </motion.div>

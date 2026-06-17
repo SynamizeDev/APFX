@@ -16,6 +16,7 @@ import {
     TrendingUp
 } from 'lucide-react'
 import Link from 'next/link'
+import { PORTAL_LINK_PROPS } from '@/config/urls'
 import styles from './SuccessStories.module.css'
 
 // --- Mock Data ---
@@ -193,7 +194,7 @@ export default function SuccessStoriesPage() {
                         }}>
                             Explore Reviews
                         </button>
-                        <Link href="/coming-soon" className={styles.btnSecondary}>
+                        <Link {...PORTAL_LINK_PROPS} className={styles.btnSecondary}>
                             Join APFX <ArrowRight size={16} />
                         </Link>
                     </motion.div>
@@ -409,7 +410,7 @@ export default function SuccessStoriesPage() {
                             Experience the execution quality, transparency, and premium support that professionals demand.
                         </p>
                         <div className={styles.ctaActions}>
-                            <Link href="/coming-soon" className={styles.btnPrimary}>
+                            <Link {...PORTAL_LINK_PROPS} className={styles.btnPrimary}>
                                 Open Live Account
                             </Link>
                             <Link href="/pamm" className={styles.btnSecondary}>

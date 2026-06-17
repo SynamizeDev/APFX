@@ -282,6 +282,15 @@
     max-width: 600px;
 }
 
+.timelineDetail {
+    font-size: var(--text-xs) !important;
+    color: var(--color-text-3) !important;
+    opacity: 0.75;
+    margin-top: var(--space-2) !important;
+    font-style: italic;
+    max-width: 600px;
+}
+
 /* Insight Callout */
 .insightBox {
     background: linear-gradient(135deg, var(--color-section-band) 0%, #0d1425 100%);
@@ -491,5 +500,355 @@
 @media (max-width: 1024px) {
     .theoryGrid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ── WHY APFX NARRATIVE SECTIONS ─────────────────────── */
+.narrativeSection {
+    width: 100%;
+    padding-top: var(--space-20);
+    margin-top: var(--space-20);
+    border-top: 1px solid var(--color-border);
+}
+
+.narrativeBody {
+    font-size: var(--text-base);
+    color: var(--color-text-2);
+    max-width: 760px;
+    line-height: 1.7;
+    margin-bottom: var(--space-6);
+}
+
+.narrativeBody:last-of-type {
+    margin-bottom: var(--space-10);
+}
+
+.narrativeBullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-12);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 820px;
+}
+
+.narrativeBullets li {
+    position: relative;
+    padding-left: var(--space-8);
+    font-size: var(--text-sm);
+    color: var(--color-text-2);
+    line-height: 1.6;
+}
+
+.narrativeBullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    opacity: 0.85;
+}
+
+.statCallout {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-6) var(--space-10);
+    padding: var(--space-10) var(--space-12);
+    background: var(--color-section-band);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent);
+    border-radius: var(--radius-xl);
+    width: 100%;
+    margin-bottom: var(--space-4);
+}
+
+.statCalloutValue {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, var(--text-3xl));
+    color: var(--color-accent);
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.statCalloutContent {
+    min-width: 0;
+}
+
+.statCalloutLabel {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-1);
+    font-weight: var(--fw-bold);
+    margin-bottom: var(--space-2);
+}
+
+.statCalloutDesc {
+    font-size: var(--text-sm);
+    color: var(--color-text-3);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.narrativeCta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
+}
+
+.ctaBtnPrimary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.9rem 1.75rem;
+    background: linear-gradient(135deg, var(--color-accent) 0%, #28D128 100%);
+    color: #020617;
+    font-weight: var(--fw-bold);
+    font-size: var(--text-sm);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    box-shadow: 0 4px 20px -4px rgba(54, 249, 54, 0.4);
+    transition: transform var(--duration-fast), box-shadow var(--duration-normal);
+}
+
+.ctaBtnPrimary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px -4px rgba(54, 249, 54, 0.5);
+}
+
+.ctaBtnSecondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.9rem 1.75rem;
+    background: transparent;
+    color: var(--color-accent);
+    font-weight: var(--fw-semibold);
+    font-size: var(--text-sm);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    border: 1px solid rgba(54, 249, 54, 0.4);
+    transition: background var(--duration-fast), border-color var(--duration-fast);
+}
+
+.ctaBtnSecondary:hover {
+    background: rgba(54, 249, 54, 0.08);
+    border-color: var(--color-accent);
+}
+
+.statCalloutPhrase {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+}
+
+.statCalloutPhraseHeadline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin: 0;
+}
+
+.statCalloutPhraseHeadline .statCalloutValue {
+    font-size: clamp(1.25rem, 2.5vw, var(--text-xl));
+    white-space: normal;
+}
+
+.statCalloutPhraseSep {
+    color: var(--color-text-3);
+    font-size: var(--text-xl);
+    line-height: 1;
+    user-select: none;
+}
+
+.statCalloutPhrase .statCalloutDesc {
+    margin-top: var(--space-1);
+}
+
+@media (max-width: 768px) {
+    .statCallout {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+
+    .statCalloutValue {
+        white-space: normal;
+    }
+}
+
+/* ── HOW TRADING WORKS: FLOW JOURNEY ─────────────────── */
+.flowJourney {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+    width: 100%;
+    margin-bottom: var(--space-4);
+}
+
+.flowStage {
+    position: relative;
+    padding: var(--space-8);
+    background: var(--color-section-band);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    transition: border-color var(--duration-normal) var(--ease-out);
+}
+
+.flowStage:hover {
+    border-color: var(--color-accent);
+}
+
+.flowStageIcon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent-subtle);
+    border: 1px solid rgba(54, 249, 54, 0.2);
+    border-radius: var(--radius-lg);
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+}
+
+.flowStageStep {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    font-weight: var(--fw-bold);
+    display: block;
+    margin-bottom: var(--space-2);
+}
+
+.flowStageContent h4 {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    color: var(--color-text-1);
+    margin-bottom: var(--space-2);
+}
+
+.flowStageContent p {
+    font-size: var(--text-xs);
+    color: var(--color-text-3);
+    line-height: 1.55;
+    margin: 0;
+}
+
+.flowConnector {
+    display: none;
+}
+
+/* ── HOW TRADING WORKS: COMPARISON MATRIX ────────────── */
+.comparisonMatrix {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    margin-bottom: var(--space-4);
+}
+
+.comparisonMatrixHeader,
+.comparisonMatrixRow {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1.2fr;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    align-items: start;
+}
+
+.comparisonMatrixHeader {
+    background: var(--color-section-band);
+    border-bottom: 1px solid var(--color-border);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-3);
+    font-weight: var(--fw-bold);
+}
+
+.comparisonMatrixApfx {
+    color: var(--color-accent) !important;
+}
+
+.comparisonMatrixRow {
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--text-xs);
+    color: var(--color-text-3);
+    line-height: 1.5;
+}
+
+.comparisonMatrixRow:last-child {
+    border-bottom: none;
+}
+
+.comparisonMatrixTopic {
+    font-weight: var(--fw-bold);
+    color: var(--color-text-1);
+    font-size: var(--text-sm);
+}
+
+.comparisonMatrixCell {
+    color: var(--color-text-3);
+}
+
+.comparisonMatrixCellActive {
+    color: var(--color-text-2);
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--space-4);
+}
+
+@media (max-width: 1024px) {
+    .flowJourney {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .flowJourney {
+        grid-template-columns: 1fr;
+    }
+
+    .comparisonMatrixHeader {
+        display: none;
+    }
+
+    .comparisonMatrixRow {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+        padding: var(--space-6);
+        background: var(--color-section-band);
+        margin-bottom: var(--space-4);
+        border-radius: var(--radius-lg);
+        border-bottom: none;
+    }
+
+    .comparisonMatrixRow:last-child {
+        margin-bottom: 0;
+    }
+
+    .comparisonMatrixCellActive {
+        border-left: none;
+        padding-left: 0;
+        padding-top: var(--space-2);
+        border-top: 1px solid var(--color-border);
+    }
+
+    .comparisonMatrixCellActive::before {
+        content: 'APFX: ';
+        color: var(--color-accent);
+        font-weight: var(--fw-bold);
+    }
+
+    .comparisonMatrixCell:not(.comparisonMatrixCellActive)::before {
+        content: 'Traditional: ';
+        color: var(--color-text-3);
+        font-weight: var(--fw-bold);
     }
 }
