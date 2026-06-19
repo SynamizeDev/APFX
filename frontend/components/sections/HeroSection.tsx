@@ -7,6 +7,7 @@ import { gsap } from 'gsap'
 import { ArrowUpRight, Star, Plus, Search, Info, TrendingUp, ShieldCheck, Activity, Zap } from 'lucide-react'
 import InvestWithAPFX from '@/components/sections/InvestWithAPFX'
 import { useInViewport } from '@/hooks/useInViewport'
+import { PORTAL_SIGNUP_LINK_PROPS } from '@/config/urls'
 import styles from './HeroSection.module.css'
 
 const NAV_LINKS = [
@@ -296,6 +297,9 @@ export default function HeroSection() {
                             Faster Execution.<br />
                             <span className={styles.highlight}>Better Profits.</span>
                         </h1>
+                        <p className={styles.speedTagline}>
+                            Start trading in <span className={styles.highlight}>3 minutes</span>
+                        </p>
                         <div className={styles.subHeadlineArea}>
                             <p className={styles.subheadline}>Trade with APFX</p>
                             <div className={styles.assetScroller}>
@@ -526,6 +530,9 @@ export default function HeroSection() {
                                     <p className={styles.slideSubheadline}>
                                         Plus 50% Extra Every Time You Top Up*.
                                     </p>
+                                    <Link {...PORTAL_SIGNUP_LINK_PROPS} className={styles.ctaButtonGreen}>
+                                        Open Account Now
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -555,6 +562,9 @@ export default function HeroSection() {
                                     <p className={styles.slideSubheadline}>
                                         New account types designed to support your trading strategy and execution style.
                                     </p>
+                                    <Link href="/accounts" className={styles.ctaButtonOutline}>
+                                        Learn More
+                                    </Link>
                                 </div>
                             </div>
                         </div>

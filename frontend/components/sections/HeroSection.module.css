@@ -306,6 +306,7 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='1' fill='%23000' /%3E%3C/svg%3E");
     background-size: 40px 40px;
     z-index: 1;
+    pointer-events: none;
 }
 
 /* ── Integrated Navbar ────────────────────────────────────── */
@@ -395,7 +396,7 @@
 /* ── Slider Wrapper & Track ─────────────────────────────────────── */
 .sliderWrapper {
     position: relative;
-    z-index: 0;
+    z-index: 3;
     overflow: hidden;
     width: 100%;
     flex: 1;
@@ -454,6 +455,14 @@
 .highlight {
     color: #36F936;
     /* Teal accent */
+}
+
+.speedTagline {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    margin: -0.5rem 0 0.25rem;
+    letter-spacing: 0.01em;
 }
 
 .subHeadlineArea {
@@ -998,12 +1007,16 @@
 }
 
 .ctaButtonGreen {
+    display: inline-block;
+    position: relative;
+    z-index: 15;
     background: #36F936;
     color: #000;
     padding: 1.2rem 3rem;
     border-radius: 99px;
     font-size: 1.1rem;
     font-weight: 700;
+    text-decoration: none;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1014,6 +1027,28 @@
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 15px 40px rgba(54, 249, 54, 0.5);
     background: #4AFA4A;
+}
+
+.ctaButtonOutline {
+    display: inline-block;
+    position: relative;
+    z-index: 15;
+    background: transparent;
+    color: #fff;
+    padding: 1.15rem 2.75rem;
+    border-radius: 99px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ctaButtonOutline:hover {
+    border-color: #36F936;
+    color: #36F936;
+    transform: translateY(-3px);
 }
 
 .ctaButtonTeal {
@@ -1090,6 +1125,7 @@
     text-align: center;
     line-height: 1.2;
     z-index: 5;
+    pointer-events: none;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
     transform-style: preserve-3d;
 }
