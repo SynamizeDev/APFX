@@ -301,7 +301,9 @@ export default function HeroSection() {
                             Start trading in <span className={styles.highlight}>3 minutes</span>
                         </p>
                         <div className={styles.subHeadlineArea}>
-                            <p className={styles.subheadline}>Trade with APFX</p>
+                            <Link href="https://portal.apfxglobal.com/login" className={styles.subheadline}>
+                                Trade with APFX
+                            </Link>
                             <div className={styles.assetScroller}>
                                 {ASSET_LIST.map((asset, i) => (
                                     <div key={i} className={styles.assetItem}>

@@ -482,6 +482,20 @@
     padding: 0.5rem 1rem;
     display: inline-block;
     width: fit-content;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-out);
+}
+
+.subheadline:hover {
+    background: rgba(54, 249, 54, 0.2);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 20px rgba(54, 249, 54, 0.3);
+    transform: translateY(-1.5px);
+}
+
+.subheadline:active {
+    transform: scale(0.98);
 }
 
 .assetScroller {

@@ -129,7 +129,7 @@ export default function Footer() {
             <div className={styles.bottom}>
                 <div className={styles.disclosure}>
                     <p>
-                        APFX is the trading names of APFX Global Markets Ltd, which is regulated by the Saint Lucia Financial Services Regulatory Authority.
+                        APFX is a trading name of APFX Global Markets Ltd., an International Business Company incorporated in Saint Lucia under Registration No. 2026-00357.
                     </p>
                     <p>
                         <span className={styles.disclosureLabel}>Risk Warning:</span> Trading in securities involves significant risk. Prices may fluctuate and securities can become entirely valueless. You may incur losses that exceed your potential profits, and in some cases, losses may exceed the amount you have deposited. Securities, futures, options, and contracts for differences are complex financial instruments and are not suitable for all investors. Engaging in such transactions requires a sound understanding of the associated risks. Please read and ensure you fully understand our <Link href="/risk-disclosure" className={styles.accentLink}>Risk Disclosure</Link>.
