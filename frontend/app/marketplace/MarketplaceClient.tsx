@@ -35,7 +35,8 @@ export default function MarketplaceClient() {
     return (
         <div className={styles.page}>
             <InnerPageHero
-                title="cTrader Marketplace"
+                title="APFX Marketplace"
+                badge="Powered by cTrader"
                 subtitle="Discover professional trading robots, indicators, and plugins."
                 breadcrumbs={[]}
                 omitBottomBorder={true}

@@ -12,10 +12,11 @@ interface Breadcrumb {
 interface InnerPageHeroProps {
     title: string
     subtitle?: string
-    description?: string // Add alias for description
-    accent?: string // Add alias for accent
-    breadcrumbs?: Breadcrumb[] // Make optional
+    description?: string
+    accent?: string
+    breadcrumbs?: Breadcrumb[]
     accentLine?: string
+    badge?: string
     /** When true, removes the default bottom border (e.g. when CTAs sit directly below the hero). */
     omitBottomBorder?: boolean
 }
@@ -27,6 +28,7 @@ export default function InnerPageHero({
     accent,
     breadcrumbs = [],
     accentLine,
+    badge,
     omitBottomBorder = false,
 }: InnerPageHeroProps) {
     const prefersReducedMotion = useReducedMotion()
@@ -90,6 +92,10 @@ export default function InnerPageHero({
                             </>
                         )}
                     </h1>
+
+                    {badge && (
+                        <div className={styles.badge}>{badge}</div>
+                    )}
 
                     {displaySubtitle && (
                         <motion.p
