@@ -72,12 +72,13 @@ const MEGA_MENU_DATA = {
         {
             title: '',
             links: [
-                { label: 'Calculators', href: '/tools/calculators' },
-                { label: 'Copy Trade', href: '/tools/copy-trading' },
-                { label: 'APFX Marketplace', href: '/marketplace' },
-                { label: 'Risk Management tools', href: '/tools/risk-management' },
-                { label: 'Economic Calendar', href: '/tools/economic-calendar' },
-            ],
+                    { label: 'Trade Terminal', href: '/ctrader' },
+                    { label: 'Calculators', href: '/tools/calculators' },
+                    { label: 'Copy Trade', href: '/tools/copy-trading' },
+                    { label: 'APFX Marketplace', href: '/marketplace' },
+                    { label: 'Risk Management tools', href: '/tools/risk-management' },
+                    { label: 'Economic Calendar', href: '/tools/economic-calendar' },
+                ],
         },
     ],
     Learn: [

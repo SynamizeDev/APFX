@@ -24,10 +24,10 @@ const TRADERS = [
 const LEADERBOARD_CAROUSEL_SLIDE_COUNT = TRADERS.length + 1
 
 const STEPS = [
-  { step: 1, title: 'Strategy Screening', description: 'Analyze vetted performance profiles and historical metrics to find providers that match your ROI goals.', icon: User },
-  { step: 2, title: 'Capital Allocation', description: 'Choose your deployment amount while maintaining 24/7 control over your account equity.', icon: Wallet },
-  { step: 3, title: 'Instant Replication', description: 'Every trade is mirrored in real-time using our ultra-low latency bridging infrastructure.', icon: Copy },
-  { step: 4, title: 'Performance Oversight', description: 'Monitor your portfolio live, adjust risk settings, or rotate providers with a single click.', icon: BarChart3 },
+  { step: 1, title: 'Open a Live account', description: '', icon: UserCheck },
+  { step: 2, title: 'Deposit funds', description: '', icon: Wallet },
+  { step: 3, title: 'Launch cTrader on your mobile or web', description: '', icon: Zap },
+  { step: 4, title: 'Choose a strategy and click Copy', description: '', icon: Copy },
 ]
 
 const BENEFITS = [
@@ -509,6 +509,7 @@ function BenefitIcon({ Icon }: { Icon: any }) {
 export default function CopyTradingPage() {
   const benefitsLayout = usePhoneSectionLayout()
   const leaderboardLayout = usePhoneSectionLayout()
+  const [iframeLoaded, setIframeLoaded] = useState(false)
 
   const [investment, setInvestment] = useState('10000')
   const [monthlyReturnPct, setMonthlyReturnPct] = useState('2')
@@ -547,7 +548,7 @@ export default function CopyTradingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          Copy Proven Trading Strategies with Precision
+          Copy Trade
         </motion.h1>
         <motion.p 
           className={styles.heroDesc}
@@ -555,192 +556,47 @@ export default function CopyTradingPage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
         >
-          Leverage the expertise of vetted strategy providers through high-fidelity trade synchronization. 
-          Our professional infrastructure ensures sub-millisecond execution for seamless portfolio growth.
+          Build your portfolio by following proven strategy providers. 
+          Every trade is synchronized automatically, allowing you to participate in the markets with confidence.
         </motion.p>
         
-        <motion.div 
-          className={styles.heroTrustLine}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          <span>Fully automated</span>
-          <div className={styles.trustSeparator} />
-          <span>Real-time execution</span>
-          <div className={styles.trustSeparator} />
-          <span>Full control of funds</span>
-        </motion.div>
+      </section>
 
-        <motion.div 
-          className={styles.heroActions}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <a href="#top-traders" className={styles.heroCtaSecondary}>View Top Traders</a>
-        </motion.div>
+      {/* ── Official cTrader Copy Trading Widget ────────────────── */}
+      <section className={styles.widgetSection} aria-label="Live cTrader Copy Trading">
+        <div className={styles.widgetInner}>
+          <div className={styles.widgetCard}>
+            <div className={styles.widgetCardHeader}>
+              <div className={styles.widgetDots}>
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f57', display: 'inline-block' }} />
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#febc2e', display: 'inline-block' }} />
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#28c840', display: 'inline-block' }} />
+              </div>
+              <span className={styles.widgetCardLabel}>APFX · Live Copy Strategies</span>
+            </div>
+            <div className={styles.widgetIframeWrap}>
+              {!iframeLoaded && (
+                <div className={styles.widgetLoader}>
+                  <div className={styles.widgetSpinner} />
+                  <p className={styles.widgetLoaderText}>Loading live strategies…</p>
+                </div>
+              )}
+              <iframe
+                src="https://app.apfxglobal.com/multiple-strategies/?lang=en&theme=dark&u=falmoguera&strategyIdList=106768,95145"
+                className={styles.widgetIframe}
+                onLoad={() => setIframeLoaded(true)}
+                allow="clipboard-read; clipboard-write"
+                title="APFX cTrader Copy Trading Strategies"
+              />
+            </div>
+          </div>
+        </div>
       </section>
 
       <div className={styles.container}>
-        {/* Profit Calculator */}
-        <section className={styles.section} aria-labelledby="profit-calc-title">
-          <h2 id="profit-calc-title" className={styles.sectionTitle}>Yield Projection Modeling</h2>
-          <p className={styles.sectionSubtitle}>
-            Forecast potential portfolio growth based on historical performance metrics.
-          </p>
-          <div className={styles.inputPanel}>
-            <div className={styles.formGrid}>
-              <div className={calcLayout.formGroup}>
-                <label className={calcLayout.label} htmlFor="ct-investment">Investment amount</label>
-                <input
-                  id="ct-investment"
-                  type="number"
-                  min="0"
-                  step="100"
-                  className={calcLayout.input}
-                  value={investment}
-                  onChange={(e) => setInvestment(e.target.value)}
-                />
-              </div>
-              <div className={calcLayout.formGroup}>
-                <label className={calcLayout.label} htmlFor="ct-monthly">Avg. monthly return (%)</label>
-                <input
-                  id="ct-monthly"
-                  type="number"
-                  min="-100"
-                  step="0.1"
-                  className={calcLayout.input}
-                  value={monthlyReturnPct}
-                  onChange={(e) => setMonthlyReturnPct(e.target.value)}
-                />
-              </div>
-              <div className={calcLayout.formGroup}>
-                <label className={calcLayout.label} htmlFor="ct-months">Time period (months)</label>
-                <input
-                  id="ct-months"
-                  type="number"
-                  min="1"
-                  max="360"
-                  className={calcLayout.input}
-                  value={months}
-                  onChange={(e) => setMonths(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className={styles.resultRow}>
-              <p className={styles.resultLabel}>Estimated portfolio value</p>
-              <motion.p 
-                key={profitResults.portfolioValue} 
-                initial={{ opacity: 0, scale: 0.95 }} 
-                animate={{ opacity: 1, scale: 1 }}
-                className={styles.resultValue}
-              >
-                {profitResults.portfolioValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </motion.p>
-              <div className={styles.resultGrid}>
-                <div className={styles.resultGridItem}>
-                  <p className={styles.resultLabel}>Total profit</p>
-                  <motion.p className={`${styles.resultValue} ${styles.profitPositive}`}>
-                    {profitResults.totalProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                  </motion.p>
-                </div>
-                <div className={styles.resultGridItem}>
-                  <p className={styles.resultLabel}>Growth</p>
-                  <p className={styles.resultValue}>{profitResults.growthPct.toFixed(1)}%</p>
-                </div>
-              </div>
-              
-              <p className={styles.howThisWorks}>
-                <Info size={14} style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                Calculated using compound interest based on average monthly returns. Yields are indicative of potential performance scenarios and are not guarantees of future results.
-              </p>
-              <p className={styles.microDisclaimer}>Returns are indicative and not guaranteed.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Top Traders */}
-        <section className={styles.section} id="top-traders" aria-labelledby="leaderboard-title">
-          <h2 id="leaderboard-title" className={styles.sectionTitle}>Strategic Performance Hub</h2>
-          <p className={styles.sectionSubtitle}>
-            Compare strategy providers based on performance, consistency, and risk profiles.
-          </p>
-          {leaderboardLayout === 'desktop' && (
-            <div className={styles.leaderboardGrid}>
-              {TRADERS.map((t) => (
-                <motion.article
-                  key={t.id}
-                  className={styles.traderCard}
-                  whileHover={{ scale: 1.02, translateY: -5 }}
-                >
-                  <div className={styles.traderHeader}>
-                    <div className={styles.traderAvatar}>{t.initials}</div>
-                    <div>
-                      <div className={styles.traderName}>{t.name}</div>
-                      <span className={styles.traderStyle}>{t.style}</span>
-                      <span className={`${styles.riskPill} ${riskPillClass(t.riskLevel)}`}>
-                        {t.riskLevel} Risk
-                      </span>
-                    </div>
-                  </div>
-                  <div className={styles.traderStats}>
-                    <span className={styles.traderStat}>ROI <strong>{t.averageRoiPct}%</strong></span>
-                    <span className={styles.traderStat}>Win rate <strong>{t.winRatePct}%</strong></span>
-                  </div>
-                  <div className={styles.traderSecondaryStats}>
-                    <span className={styles.traderStat}>Max DD <strong>{t.maxDrawdown}%</strong></span>
-                    <span className={styles.traderStat}>
-                      Followers <strong>{t.followersCount.toLocaleString()}</strong>
-                    </span>
-                  </div>
-                </motion.article>
-              ))}
-              <LeaderboardMoreCard />
-            </div>
-          )}
-          {leaderboardLayout === 'phoneStack' && (
-            <div className={`${styles.leaderboardGrid} ${styles.leaderboardPhoneStack}`}>
-              {TRADERS.map((t) => (
-                <motion.article
-                  key={`stack-${t.id}`}
-                  className={styles.traderCard}
-                  whileHover={{ scale: 1.02, translateY: -5 }}
-                >
-                  <div className={styles.traderHeader}>
-                    <div className={styles.traderAvatar}>{t.initials}</div>
-                    <div>
-                      <div className={styles.traderName}>{t.name}</div>
-                      <span className={styles.traderStyle}>{t.style}</span>
-                      <span className={`${styles.riskPill} ${riskPillClass(t.riskLevel)}`}>
-                        {t.riskLevel} Risk
-                      </span>
-                    </div>
-                  </div>
-                  <div className={styles.traderStats}>
-                    <span className={styles.traderStat}>ROI <strong>{t.averageRoiPct}%</strong></span>
-                    <span className={styles.traderStat}>Win rate <strong>{t.winRatePct}%</strong></span>
-                  </div>
-                  <div className={styles.traderSecondaryStats}>
-                    <span className={styles.traderStat}>Max DD <strong>{t.maxDrawdown}%</strong></span>
-                    <span className={styles.traderStat}>
-                      Followers <strong>{t.followersCount.toLocaleString()}</strong>
-                    </span>
-                  </div>
-                </motion.article>
-              ))}
-              <LeaderboardMoreCard />
-            </div>
-          )}
-          {leaderboardLayout === 'phoneCarousel' && <LeaderboardCarousel />}
-        </section>
-
         {/* How it works */}
         <section className={styles.section} aria-labelledby="how-title">
-          <h2 id="how-title" className={styles.sectionTitle}>Operational Workflow</h2>
-          <p className={styles.sectionSubtitle}>
-            Four structured steps to synchronize your portfolio with professional trade signals. You stay in control at every step.
-          </p>
+          <h2 id="how-title" className={styles.sectionTitle}>Get Started in 4 Steps</h2>
           <div className={styles.stepsWrap}>
             {STEPS.map((s, idx) => (
               <motion.div 
@@ -758,160 +614,54 @@ export default function CopyTradingPage() {
               </motion.div>
             ))}
           </div>
-        </section>
-
-        {/* Risk Simulator */}
-        <section className={styles.section} aria-labelledby="risk-title">
-          <h2 id="risk-title" className={styles.sectionTitle}>Exposure & Drawdown Simulator</h2>
-          <p className={styles.sectionSubtitle}>
-            Model worst-case scenarios based on maximum drawdown parameters to size your capital allocations responsibly.
-          </p>
-          <div className={styles.inputPanel}>
-            <div className={styles.formGrid}>
-              <div className={calcLayout.formGroup}>
-                <label className={calcLayout.label} htmlFor="risk-investment">Investment amount</label>
-                <input
-                  id="risk-investment"
-                  type="number"
-                  min="0"
-                  step="100"
-                  className={calcLayout.input}
-                  value={riskInvestment}
-                  onChange={(e) => setRiskInvestment(e.target.value)}
-                />
-              </div>
-              <div className={calcLayout.formGroup}>
-                <label className={calcLayout.label} htmlFor="risk-drawdown">Maximum drawdown (%)</label>
-                <input
-                  id="risk-drawdown"
-                  type="number"
-                  min="0"
-                  max="100"
-                  step="1"
-                  className={calcLayout.input}
-                  value={maxDrawdownPct}
-                  onChange={(e) => setMaxDrawdownPct(e.target.value)}
-                />
-              </div>
-              <div className={calcLayout.formGroup}>
-                <label className={calcLayout.label} htmlFor="risk-level">Risk level</label>
-                <select
-                  id="risk-level"
-                  className={calcLayout.input}
-                  value={riskLevel}
-                  onChange={(e) => setRiskLevel(e.target.value)}
-                >
-                  {RISK_LEVELS.map((o) => (
-                    <option key={o.value} value={o.value}>{o.label}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className={styles.resultRow}>
-              <p className={styles.resultLabel}>Worst-case loss (at max drawdown)</p>
-              <motion.p 
-                key={riskResults.worstCaseLoss}
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`${styles.resultValue} ${styles.riskResultLoss}`}
-              >
-                {riskResults.worstCaseLoss.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </motion.p>
-              <p className={styles.resultLabel} style={{ marginTop: '1rem' }}>Remaining capital after loss</p>
-              <motion.p 
-                key={riskResults.remainingCapital}
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`${styles.resultValue} ${styles.riskResultRemain}`}
-              >
-                {riskResults.remainingCapital.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </motion.p>
-
-              <div className={styles.insightCard}>
-                 <p><strong><AlertTriangle size={14} style={{ verticalAlign: 'middle', marginRight: '4px' }} /> What this means for your capital:</strong> Even top-tier professional strategies experience drawdowns. This simulator helps you visualize the necessary "capital cushion" required to survive volatility cycles without compromising your long-term tactical edge.</p>
-              </div>
-            </div>
+          
+          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+            <Link href="https://portal.apfxglobal.com/signup" target="_blank" rel="noopener noreferrer" className={styles.heroCtaSecondary}>
+              GO TRADE
+            </Link>
           </div>
         </section>
 
-        {/* Performance insights */}
-        <section className={styles.section} aria-labelledby="insights-title">
-          <h2 id="insights-title" className={styles.sectionTitle}>Trader Performance Insights</h2>
-          <p className={styles.sectionSubtitle}>
-            Audited transparency is the foundation of institutional copy trading. Learn how to interpret performance data beyond simple ROI.
-          </p>
-          <div className={styles.insightsCard}>
-             <div className={styles.insightCard} style={{ marginBottom: '2rem', background: 'rgba(54, 249, 54, 0.05)', borderLeft: '3px solid var(--color-accent)' }}>
-                <p><strong><Info size={14} style={{ verticalAlign: 'middle', marginRight: '4px' }} /> How to Read This Data:</strong> While monthly returns fluctuate, consistency and capital preservation are the true indicators of a professional edge. Prioritize providers with stable equity curves and managed drawdown history over those with isolated "ROI spikes."</p>
-             </div>
-            <p className={styles.chartTitle}>Monthly returns (example)</p>
-            <div className={styles.barsWrap}>
-              {MONTHLY_RETURNS.map((r) => (
-                <div key={r.month} className={styles.barItem}>
-                  <div
-                    className={r.returnPct >= 0 ? styles.bar : `${styles.bar} ${styles.barNegative}`}
-                    style={{ height: `${(Math.abs(r.returnPct) / maxBarPct) * 80}px` }}
-                    title={`${r.returnPct}%`}
-                  />
-                  <span className={styles.barLabel}>{r.month}</span>
-                </div>
-              ))}
-            </div>
-            <p className={styles.chartTitle}>Equity growth (example)</p>
-            <div className={styles.equityCurve}>
-              <svg className={styles.equityLine} viewBox="0 0 400 80" preserveAspectRatio="none" aria-hidden>
-                <path d="M0 70 Q50 65 100 58 T200 45 T300 28 T400 15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-            </div>
-            <div className={styles.riskScoreWrap}>
-              <span className={styles.riskScoreBadge}>Risk score: Low</span>
-              <span className={styles.stepDesc}>Based on volatility and drawdown history.</span>
-            </div>
-            
-            <p className={styles.microDisclaimer} style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-               Example analytics. Past performance is not indicative of future results.
-            </p>
-          </div>
-        </section>
 
-        {/* Benefits */}
+
+        {/* Flexible Investment Platform */}
         <section className={styles.section} aria-labelledby="benefits-title">
-          <h2 id="benefits-title" className={styles.sectionTitle}>Capital Efficiency & Diversification</h2>
-          <p className={styles.sectionSubtitle}>
-             Advanced strategy replication provides a systematic edge for institutional and retail portfolios.
-          </p>
-          {benefitsLayout === 'desktop' && (
-            <div className={styles.benefitsGrid}>
-              {BENEFITS.map((b) => (
-                <div key={b.title} className={styles.benefitCard}>
-                  <div className={styles.benefitIcon}>
-                    <BenefitIcon Icon={b.icon} />
-                  </div>
-                  <h3 className={styles.benefitTitle}>{b.title}</h3>
-                  <p className={styles.benefitDesc}>{b.shortDescription}</p>
+          <h3 style={{ fontSize: '1.2rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontWeight: 400 }}>Invest for Your Success</h3>
+          <h2 id="benefits-title" className={styles.sectionTitle} style={{ textAlign: 'left', margin: '0 0 1.5rem 0' }}>A Flexible Investment Platform</h2>
+          <div style={{ width: '40px', height: '3px', background: 'var(--color-accent)', marginBottom: '2rem' }} />
+          
+          <div style={{ maxWidth: '800px' }}>
+            <p className={styles.sectionSubtitle} style={{ textAlign: 'left', marginBottom: '1.5rem' }}>
+              cTrader Copy is a copy trading solution tailored for commitment-free investing.
+            </p>
+            <p className={styles.sectionSubtitle} style={{ textAlign: 'left', marginBottom: '2.5rem' }}>
+              Any trader can become an investor or strategy provider. *
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                <div style={{ color: 'var(--color-accent)', flexShrink: 0, marginTop: '0.2rem' }}>
+                  <CheckCircle2 size={24} />
                 </div>
-              ))}
-            </div>
-          )}
-          {benefitsLayout === 'phoneStack' && (
-            <div className={`${styles.benefitsGrid} ${styles.benefitsPhoneStack}`}>
-              {BENEFITS.map((b) => (
-                <div key={`stack-${b.title}`} className={styles.benefitCard}>
-                  <div className={styles.benefitIcon}>
-                    <BenefitIcon Icon={b.icon} />
-                  </div>
-                  <h3 className={styles.benefitTitle}>{b.title}</h3>
-                  <p className={styles.benefitDesc}>{b.shortDescription}</p>
+                <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.1rem', lineHeight: 1.6, margin: 0 }}>
+                  Strategy providers can broadcast their trading signals to followers for a performance, management, and volume fee
+                </p>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                <div style={{ color: 'var(--color-accent)', flexShrink: 0, marginTop: '0.2rem' }}>
+                  <CheckCircle2 size={24} />
                 </div>
-              ))}
+                <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.1rem', lineHeight: 1.6, margin: 0 }}>
+                  Investors can discover strategies and copy them without any long-term commitment
+                </p>
+              </div>
             </div>
-          )}
-          {benefitsLayout === 'phoneCarousel' && <BenefitsCarousel />}
+          </div>
         </section>
 
         {/* Who is it for */}
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Who is Copy Trading For?</h2>
+          <h2 className={styles.sectionTitle}>Find Your Trading Style</h2>
           <p className={styles.sectionSubtitle}>Tailored solutions for every stage of the trading journey.</p>
           <div className={styles.personaGrid}>
              <div className={styles.personaCard}>

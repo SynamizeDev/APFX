@@ -35,15 +35,6 @@
   letter-spacing: var(--ls-snug);
 }
 
-.heroTitle::after {
-  content: '';
-  display: block;
-  width: 3rem;
-  height: 3px;
-  background: linear-gradient(90deg, var(--color-accent), transparent);
-  border-radius: var(--radius-full);
-  margin: 0.75rem auto 0;
-}
 
 .heroDesc {
   color: var(--color-text-2);
@@ -1013,3 +1004,118 @@
     flex-direction: column;
   }
 }
+
+/* ── Official cTrader Widget Section ─────────────────────────── */
+.widgetSection {
+  padding: 0 0 3rem;
+  background: var(--color-bg);
+}
+
+.widgetInner {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 var(--container-px, 1.5rem);
+}
+
+.widgetCard {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(54, 249, 54, 0.15);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 4px 60px rgba(0, 0, 0, 0.45),
+    0 0 40px rgba(54, 249, 54, 0.05);
+  background: #0d0f14;
+  display: flex;
+  flex-direction: column;
+  height: 540px;
+}
+
+.widgetCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  background: #111318;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.widgetDots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.widgetCardLabel {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-left: 4px;
+}
+
+.widgetIframeWrap {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+.widgetIframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.widgetLoader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: #0d0f14;
+  z-index: 5;
+}
+
+.widgetSpinner {
+  width: 36px;
+  height: 36px;
+  border: 2.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  border-top-color: var(--color-accent, #36F936);
+  animation: widgetSpin 0.9s linear infinite;
+}
+
+.widgetLoaderText {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+@keyframes widgetSpin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 1024px) {
+  .widgetCard { height: 520px; }
+}
+
+@media (max-width: 768px) {
+  .widgetCard {
+    height: 500px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .widgetCard { height: 480px; }
+}
+
