@@ -477,22 +477,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                         </div>
                     )
                 })}
-                <div className={styles.mobileAuth}>
-                    <Link
-                        {...PORTAL_LINK_PROPS}
-                        className={styles.mobileLogin}
-                        onClick={closeMenu}
-                    >
-                        Log In
-                    </Link>
-                    <Link
-                        {...PORTAL_SIGNUP_LINK_PROPS}
-                        className={styles.mobileCta}
-                        onClick={closeMenu}
-                    >
-                        Open Account
-                    </Link>
-                </div>
+
             </nav>
         </>
     )

@@ -642,6 +642,7 @@
 .mobileSubmenuItemWrapper {
     display: flex;
     flex-direction: column;
+    margin-bottom: 0.5rem;
 }
 
 .mobileMenuFeatured {
@@ -652,79 +653,6 @@
     justify-content: center;
 }
 
-.mobileAuth {
-    width: 100%;
-    max-width: 420px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.65rem;
-    margin-top: 1.5rem;
-    padding-inline: 1.5rem;
-}
-
-.mobileLogin {
-    display: block;
-    text-align: center;
-    font-family: var(--font-display);
-    font-size: var(--text-lg);
-    font-weight: var(--fw-semibold);
-    color: var(--color-text-1);
-    text-decoration: none;
-    padding: 0.65rem 1.25rem;
-    border-radius: var(--radius-md);
-    border: 1px solid rgba(54, 249, 54, 0.45);
-    background: var(--color-accent-subtle);
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-        opacity var(--duration-slower) 0.35s var(--ease-out),
-        transform var(--duration-slower) 0.35s var(--ease-out),
-        color var(--duration-normal) var(--ease-out),
-        background var(--duration-normal) var(--ease-out),
-        border-color var(--duration-normal) var(--ease-out);
-}
-
-.mobileLogin:hover {
-    color: var(--color-text-1);
-    background: rgba(54, 249, 54, 0.16);
-    border-color: rgba(0, 230, 170, 0.55);
-}
-
-.mobileMenu.open .mobileLogin {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.mobileCta {
-    margin-top: 0;
-    padding: 0.9rem 2.6rem;
-    text-align: center;
-    text-decoration: none;
-    background: linear-gradient(135deg, var(--color-accent-hover) 0%, var(--color-accent) 48%, #36F936 100%);
-    color: #020617 !important;
-    border-radius: var(--radius-md);
-    font-size: var(--text-lg) !important;
-    font-weight: var(--fw-bold);
-    border: 1px solid rgba(180, 255, 229, 0.35);
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-        opacity var(--duration-slower) 0.38s var(--ease-out),
-        transform var(--duration-slower) 0.38s var(--ease-out),
-        background var(--duration-normal) var(--ease-out),
-        box-shadow var(--duration-normal) var(--ease-out);
-}
-
-.mobileCta:hover {
-    background: linear-gradient(135deg, #28D128 0%, var(--color-accent-hover) 45%, var(--color-accent) 100%);
-    box-shadow: 0 12px 34px rgba(54, 249, 54, 0.42);
-}
-
-.mobileMenu.open .mobileCta {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 
 @media (max-width: 1024px) {
@@ -769,9 +697,9 @@
 
 
 @media (max-width: 768px) {
-    .btnIconSolidWhite,
-    .btnSolidWhite {
-        display: none !important;
+    .logo {
+        transform: scale(0.85);
+        transform-origin: left center;
     }
 }
 
