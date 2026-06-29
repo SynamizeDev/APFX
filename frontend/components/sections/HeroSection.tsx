@@ -301,7 +301,7 @@ export default function HeroSection() {
                             Start trading in <span className={styles.highlight}>3 minutes</span>
                         </p>
                         <div className={styles.subHeadlineArea}>
-                            <Link href="https://portal.apfxglobal.com/login" className={styles.subheadline}>
+                            <Link href="https://portal.apfxglobal.com/signup" target="_blank" rel="noopener noreferrer" className={styles.subheadline}>
                                 Trade with APFX
                             </Link>
                             <div className={styles.assetScroller}>
