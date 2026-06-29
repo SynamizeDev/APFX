@@ -202,7 +202,7 @@
 .nav a:hover,
 .nav button:hover {
     color: var(--color-nav-text-active);
-    background: rgba(255, 255, 255, 0.08);
+    background: transparent;
 }
 
 .nav a.navActive,
@@ -223,7 +223,7 @@
 
 :global(.light-mode) .nav a:hover,
 :global(.light-mode) .nav button:hover {
-    background: rgba(0, 0, 0, 0.08);
+    background: transparent;
     color: #000000;
 }
 
@@ -365,7 +365,6 @@
 
 .megaMenuLinks a:hover {
     color: var(--color-text-1);
-    background: var(--color-nav-hover-bg);
     text-decoration: none !important;
 }
 

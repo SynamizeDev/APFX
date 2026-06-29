@@ -50,8 +50,8 @@
 .dot {
     width: 6px;
     height: 6px;
-    background-color: #ffffff; /* Changed to white */
+    background-color: var(--color-accent, #36F936);
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    opacity: 0.15; /* Low base opacity for better sequential contrast */
+    box-shadow: 0 0 10px rgba(54, 249, 54, 0.5);
+    opacity: 0.3; /* Low base opacity for better sequential contrast */
 }

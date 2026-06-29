@@ -16,7 +16,7 @@ interface PreferencesContextType {
 const PreferencesContext = createContext<PreferencesContextType | undefined>(undefined)
 
 export const PreferencesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [theme, setThemeState] = useState<Theme>('dark')
+    const [theme, setThemeState] = useState<Theme>('light')
     const [animationsEnabled, setAnimationsEnabledState] = useState(true)
     const [kpiMode, setKpiModeState] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
@@ -28,6 +28,7 @@ export const PreferencesProvider: React.FC<{ children: React.ReactNode }> = ({ c
         const savedKpi = localStorage.getItem('apfx-kpi')
 
         if (savedTheme) setThemeState(savedTheme)
+        else setThemeState('light')
         if (savedAnimations !== null) setAnimationsEnabledState(savedAnimations === 'true')
         if (savedKpi !== null) setKpiModeState(savedKpi === 'true')
         
