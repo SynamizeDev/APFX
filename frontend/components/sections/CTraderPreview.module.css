@@ -1,0 +1,196 @@
+/* ============================================================
+   CTrader Preview Section — homepage teaser above WhyAPFX
+   ============================================================ */
+
+.section {
+    padding: 5rem 1.5rem 4rem;
+    background: var(--color-bg, #0a0b0d);
+    position: relative;
+    overflow: hidden;
+}
+
+/* subtle radial glow behind the frame */
+.section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 500px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(54, 249, 54, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #36F936;
+    margin-bottom: 1rem;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: #36F936;
+    opacity: 0.5;
+}
+
+.title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.15;
+    margin: 0 0 0.875rem;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.65;
+    max-width: 520px;
+    margin: 0 auto 1.75rem;
+}
+
+.ctaLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.5rem;
+    background: #36F936;
+    color: #000;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.ctaLink:hover {
+    background: #2ce62c;
+    transform: translateY(-2px);
+}
+
+/* ── Terminal Frame ──────────────────────────────────────── */
+.frame {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(54, 249, 54, 0.15);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.04),
+        0 8px 60px rgba(0, 0, 0, 0.55),
+        0 0 60px rgba(54, 249, 54, 0.04);
+}
+
+/* faux browser chrome */
+.frameBar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    background: #111318;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dots {
+    display: flex;
+    gap: 6px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    opacity: 0.85;
+}
+
+.frameLabel {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* iframe wrapper — fixed aspect ratio so it never collapses */
+.iframeWrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    background: #0d0f14;
+    min-height: 320px;
+}
+
+.iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* ── Loader ─────────────────────────────────────────────── */
+.loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: #0d0f14;
+    z-index: 5;
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 2.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    border-top-color: #36F936;
+    animation: spin 0.9s linear infinite;
+}
+
+.loaderText {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.04em;
+    margin: 0;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .section { padding: 3.5rem 1rem 3rem; }
+    .iframeWrap { aspect-ratio: 4 / 3; min-height: 260px; }
+}
+
+@media (max-width: 480px) {
+    .iframeWrap { aspect-ratio: 1 / 1; min-height: 280px; }
+}

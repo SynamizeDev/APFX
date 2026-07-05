@@ -109,77 +109,115 @@
 
 .profGrid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 360px));
     gap: var(--space-8);
+    justify-content: center;
 }
 
 .profCard {
-    background: #0b0f1a;
-    border: 1px solid #1A2235;
-    padding: var(--space-12) var(--space-10);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    padding: 3rem 2rem;
     border-radius: var(--radius-2xl);
     display: flex;
     flex-direction: column;
     position: relative;
+    transition: transform var(--duration-normal) var(--ease-out),
+                border-color var(--duration-normal) var(--ease-out),
+                box-shadow var(--duration-normal) var(--ease-out);
 }
 
-:global(.light-mode) .profCard {
-    background: #fff;
-    border-color: #eee;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+.profCard:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(54, 249, 54, 0.5);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(54, 249, 54, 0.15);
+}
+
+/* top highlight line on hover */
+.profCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(54, 249, 54, 0.3), transparent);
+    opacity: 0;
+    transition: opacity var(--duration-slow) var(--ease-out);
+}
+
+.profCard:hover::before {
+    opacity: 1;
+}
+
+/* bottom-right glow dot */
+.profCard::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(54, 249, 54, 0.08), transparent 70%);
+    transition: transform var(--duration-slow) var(--ease-out);
+    pointer-events: none;
+}
+
+.profCard:hover::after {
+    transform: scale(1.5);
 }
 
 .profCardActive {
     border-color: var(--color-accent);
-    background: #0d1425;
-}
-
-:global(.light-mode) .profCardActive {
-    background: #fff;
-    border-color: var(--color-accent);
-    box-shadow: 0 10px 30px rgba(54, 249, 54, 0.1);
+    background: linear-gradient(180deg, var(--color-accent-subtle) 0%, transparent 100%), var(--color-bg);
 }
 
 .profBadge {
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    background: var(--color-accent-subtle);
-    color: var(--color-accent);
-    font-size: 10px;
+    background: var(--color-accent);
+    color: #000;
+    font-size: 0.65rem;
     font-weight: 800;
     padding: 0.25rem 0.75rem;
-    border-radius: 4px;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .cardTitle {
-    color: #fff;
+    color: var(--color-text-1);
     font-family: var(--font-display);
     font-size: var(--text-2xl);
-    margin-bottom: var(--space-10);
-}
-
-:global(.light-mode) .cardTitle {
-    color: #000;
+    font-weight: var(--fw-bold);
+    margin-bottom: 0.5rem;
 }
 
 .cardPriceArea {
-    margin-bottom: var(--space-12);
+    margin-bottom: var(--space-6);
 }
 
 .priceFlex {
     display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.currencySymbol {
+    font-size: var(--text-sm);
+    color: var(--color-text-3);
+    font-weight: var(--fw-medium);
+    align-self: flex-start;
+    padding-top: 0.5rem;
 }
 
 .priceAmount {
-    font-size: 4.5rem;
-    font-weight: 700;
-    color: #fff;
+    font-size: var(--text-4xl);
+    font-weight: var(--fw-extrabold);
+    color: var(--color-text-1);
     line-height: 1;
-}
-
-:global(.light-mode) .priceAmount {
-    color: #000;
 }
 
 .priceSubText {
@@ -192,22 +230,26 @@
 .featureList {
     list-style: none;
     padding: 0;
-    margin: 0 0 var(--space-12) 0;
+    margin: 0 0 var(--space-8) 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    gap: var(--space-3);
+    flex-grow: 1;
 }
 
 .featureList li {
     display: flex;
-    align-items: center;
-    gap: var(--space-4);
+    align-items: flex-start;
+    gap: var(--space-3);
     color: var(--color-text-2);
-    font-size: var(--text-sm);
+    font-size: 0.875rem;
+    line-height: 1.4;
 }
 
 .checkIcon {
     color: var(--color-accent);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
 }
 
 .cardBtn {
@@ -215,21 +257,37 @@
     text-align: center;
     padding: 1rem;
     border-radius: var(--radius-full);
-    border: 1px solid #1A2235;
-    color: #fff;
-    font-weight: 600;
+    border: 1px solid var(--color-border-2);
+    color: var(--color-text-1);
+    font-weight: var(--fw-bold);
     text-decoration: none;
+    transition: border-color var(--duration-normal) var(--ease-out),
+                background var(--duration-normal) var(--ease-out),
+                transform var(--duration-normal) var(--ease-out);
 }
 
-:global(.light-mode) .cardBtn {
-    border-color: #eee;
-    color: #000;
+.cardBtn:hover {
+    border-color: var(--color-accent);
+    background: var(--color-accent-subtle);
 }
 
 .cardBtnActive {
     background: var(--color-accent);
     color: #000;
     border-color: var(--color-accent);
+}
+
+.cardBtnActive:hover {
+    background: var(--color-accent-hover);
+    box-shadow: 0 0 25px rgba(54, 249, 54, 0.45);
+    transform: translateY(-2px);
+}
+
+@media (hover: none) {
+    .profCard:hover {
+        transform: none;
+        box-shadow: none;
+    }
 }
 
 /* ── TABLE ───────────────────────────────────────────── */
@@ -254,8 +312,8 @@
 
 .tableWrapper {
     overflow-x: auto;
-    background: #0b0f1a;
-    border: 1px solid #1A2235;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-2xl);
 }
 
@@ -273,7 +331,7 @@
 .compTable th, .compTable td {
     padding: var(--space-6) var(--space-8);
     text-align: center;
-    border-bottom: 1px solid #1A2235;
+    border-bottom: 1px solid var(--color-border);
     color: var(--color-text-2);
 }
 
@@ -302,7 +360,7 @@
 
 /* ── DETAIL VIEW ─────────────────────────────────────── */
 .detailHero {
-    background: #03050A;
+    background: var(--color-bg);
     padding-top: 120px; /* Offset for fixed header */
     padding-bottom: var(--space-24);
     text-align: center;
@@ -390,8 +448,8 @@
 }
 
 .summaryCard {
-    background: #0b0f1a;
-    border: 1px solid #1A2235;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
     padding: var(--space-10) var(--space-8);
 }
@@ -457,8 +515,8 @@
 }
 
 .detailFullWidth {
-    background: #0b0f1a;
-    border: 1px solid #1A2235;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
     padding: var(--space-16);
     border-radius: var(--radius-2xl);
     text-align: center;

@@ -131,6 +131,178 @@
     color: var(--color-error);
 }
 
+/* ── Prohibited Practices — numbered item rows ──────────── */
+.prohibitedList {
+    list-style: none;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.prohibitedItem {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 0 1rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    align-items: flex-start;
+}
+
+.prohibitedItem:last-child {
+    border-bottom: none;
+}
+
+.prohibitedItem::before {
+    display: none; /* override the default li::before dot */
+}
+
+.prohibitedNum {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: rgba(54, 249, 54, 0.08);
+    border: 1px solid rgba(54, 249, 54, 0.2);
+    color: var(--color-accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+
+.prohibitedBody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.prohibitedTitle {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-1);
+    line-height: 1.3;
+}
+
+.prohibitedDesc {
+    font-size: var(--text-sm);
+    color: var(--color-text-2);
+    line-height: var(--lh-relaxed);
+    margin: 0;
+    max-width: 100%;
+}
+
+/* ── Company Rights — Shield Info Card ─────────────────── */
+.shieldBox {
+    background: linear-gradient(
+        145deg,
+        rgba(54, 249, 54, 0.05) 0%,
+        rgba(54, 249, 54, 0.02) 60%,
+        transparent 100%
+    );
+    border: 1px solid rgba(54, 249, 54, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 2.25rem 2.5rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03),
+        0 16px 40px rgba(0, 0, 0, 0.2),
+        0 0 60px rgba(54, 249, 54, 0.04);
+    position: relative;
+    overflow: hidden;
+}
+
+/* subtle corner glow */
+.shieldBox::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(54, 249, 54, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.shieldBoxHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.shieldIcon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-md);
+    background: rgba(54, 249, 54, 0.1);
+    border: 1px solid rgba(54, 249, 54, 0.25);
+    color: var(--color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.shieldBoxTitle {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--fw-bold);
+    color: var(--color-text-1);
+    letter-spacing: -0.01em;
+}
+
+.shieldBoxIntro {
+    font-size: var(--text-sm);
+    color: var(--color-text-2);
+    line-height: var(--lh-relaxed);
+    margin-bottom: 1.5rem;
+    max-width: 100%;
+}
+
+.shieldList {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.shieldList li {
+    padding-left: 1.5rem;
+    font-size: var(--text-sm);
+    color: var(--color-text-2);
+    line-height: var(--lh-relaxed);
+    margin-bottom: 0;
+    position: relative;
+}
+
+.shieldList li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 5px;
+    height: 5px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--color-accent-glow);
+}
+
+@media (max-width: 768px) {
+    .shieldBox {
+        padding: 1.5rem;
+    }
+    .prohibitedItem {
+        grid-template-columns: 1.75rem 1fr;
+        gap: 0 0.75rem;
+    }
+}
+
 /* ── Support Info ──────────────────────────────────────── */
 .supportGrid {
     display: grid;

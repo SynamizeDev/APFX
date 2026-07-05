@@ -3,6 +3,7 @@
     padding-block: var(--section-py);
     background-color: var(--color-section-band);
     position: relative;
+    overflow: hidden; /* clip the full-bleed slider on mobile */
 }
 
 .inner {
@@ -26,8 +27,9 @@
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 360px));
     gap: 1.5rem;
+    justify-content: center;
 }
 
 .card {
@@ -80,7 +82,7 @@
     font-size: var(--text-4xl);
     font-weight: var(--fw-extrabold);
     color: var(--color-text-1);
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
     display: flex;
     align-items: baseline;
     gap: 0.5rem;
@@ -94,22 +96,25 @@
 
 .features {
     list-style: none;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     flex-grow: 1;
 }
 
 .feature {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: var(--text-sm);
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.875rem;
     color: var(--color-text-2);
-    margin-bottom: 1rem;
+    margin-bottom: 0.55rem;
+    line-height: 1.4;
 }
 
 .check {
     color: var(--color-accent);
-    font-size: 1rem;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
 }
 
 .cta {
@@ -143,44 +148,45 @@
     background: var(--color-accent-subtle);
 }
 
-@media (max-width: 1024px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+
+
 
 @media (max-width: 768px) {
+    /* Pull the slider out of the padded inner container
+       so snap points align with the true viewport edge */
     .grid {
         display: flex;
         overflow-x: auto;
         overflow-y: visible;
         gap: 1rem;
-        padding-top: 0.75rem;
-        padding-bottom: 0.5rem;
+        /* full-bleed: negate the section's container padding */
+        margin-inline: calc(-1 * var(--container-px, 1.5rem));
+        padding-inline: var(--container-px, 1.5rem);
+        /* snap */
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-        width: 100%;
+        scroll-padding-inline: var(--container-px, 1.5rem);
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        /* stop the grid from also applying justify-content */
+        justify-content: flex-start;
     }
 
     .grid::-webkit-scrollbar {
         display: none;
     }
 
-    .grid::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    .grid::-webkit-scrollbar-thumb {
-        background: var(--color-border-2);
-        border-radius: var(--radius-full);
-    }
-
     .card {
-        flex: 0 0 92%;
-        min-width: 92%;
+        /* Card width = viewport minus the two side gutters */
+        flex: 0 0 calc(100vw - (var(--container-px, 1.5rem) * 2) - 2rem);
+        min-width: calc(100vw - (var(--container-px, 1.5rem) * 2) - 2rem);
+        max-width: 400px;
         scroll-snap-align: start;
-        padding: 2.5rem 1.5rem;
+        padding: 2rem 1.5rem;
+        /* prevent any overflow clipping inside card */
+        overflow: visible;
+        box-sizing: border-box;
     }
 }
 

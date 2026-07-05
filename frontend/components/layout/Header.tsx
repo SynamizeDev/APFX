@@ -12,474 +12,473 @@ import { PORTAL_LINK_PROPS, PORTAL_SIGNUP_LINK_PROPS } from '@/config/urls'
 import styles from './Header.module.css'
 import ThemeToggle from '@/components/ui/ThemeToggle'
 
-
-
-
 const NAV_LINKS = [
-    { label: 'Introduction', href: '/about?type=why-apfx', hasMegaMenu: true },
-    { label: 'Trade & Invest', href: '/trade&invest/platforms', hasMegaMenu: true },
-    { label: 'Products', href: '/products/range', hasMegaMenu: true },
-    { label: 'Tools', href: '/tools', hasMegaMenu: true },
-    { label: 'Learn', href: '/learn', hasMegaMenu: true },
-    { label: 'Company', href: '/company', hasMegaMenu: true },
+  { label: 'Introduction', href: '/about?type=why-apfx', hasMegaMenu: true },
+  { label: 'Trade & Invest', href: '/trade&invest/platforms', hasMegaMenu: true },
+  { label: 'Products', href: '/products/range', hasMegaMenu: true },
+  { label: 'Tools', href: '/tools', hasMegaMenu: true },
+  { label: 'Learn', href: '/learn', hasMegaMenu: true },
+  { label: 'Company', href: '/company', hasMegaMenu: true },
 ]
 
 const MEGA_MENU_DATA = {
-    'Introduction': [
-        {
-            title: '',
-            links: [
-                { label: 'Why APFX', href: '/about?type=why-apfx' },
-                { label: 'How Trading Works', href: '/about?type=how-it-works' },
-                { label: 'Markets Overview', href: '/about?type=markets' },
-                { label: 'Trading Basics', href: '/about?type=basics' },
-                { label: 'Account Types', href: '/accounts' },
-                { label: 'Demo Account', href: '/about?type=demo' },
-                { label: 'Security & Regulation', href: '/about?type=security' },
-            ],
-        },
-    ],
-    'Trade & Invest': [
-        {
-            title: '',
-            links: [
-                { label: 'Accounts Overview', href: '/accounts?type=overview' },
-                { label: 'Premium Account', href: '/accounts?type=premium' },
-                { label: 'Standard Account', href: '/accounts?type=standard' },
-                { label: 'Elite Account', href: '/accounts?type=elite' },
-                { label: 'Copy Trading', href: '/tools/copy-trading' },
-                { label: 'PAMM', href: '/pamm' },
-                { label: 'Social Trading', href: '/social-trading' },
-            ],
-        },
-    ],
-    Products: [
-        {
-            title: '',
-            links: [
-                { label: 'Range of Products', href: '/products/range' },
-                { label: 'Forex CFDs', href: '/products/forex' },
-                { label: 'Commodities CFDs', href: '/products/commodities' },
-                { label: 'Indices CFDs', href: '/products/indices' },
-                { label: 'Bonds CFDs', href: '/products/bonds' },
-                { label: 'Cryptocurrency CFDs', href: '/products/cryptocurrencies' },
-                { label: 'Stocks CFDs', href: '/products/stocks' },
-                { label: 'Futures CFDs', href: '/products/futures' },
-            ],
-        },
-    ],
-    Tools: [
-        {
-            title: '',
-            links: [
-                    { label: 'Trade Terminal', href: '/ctrader' },
-                    { label: 'Calculators', href: '/tools/calculators' },
-                    { label: 'Copy Trade', href: '/tools/copy-trading' },
-                    { label: 'APFX Marketplace', href: '/marketplace' },
-                    { label: 'Risk Management tools', href: '/tools/risk-management' },
-                    { label: 'Economic Calendar', href: '/tools/economic-calendar' },
-                ],
-        },
-    ],
-    Learn: [
-        {
-            title: 'APFX Academy',
-            links: [
-                { label: 'How to open account?', href: '/learn/academy/open-account' },
-                { label: 'How to deposit?', href: '/learn/academy/deposit' },
-                { label: 'How to withdraw?', href: '/learn/academy/withdraw' },
-                { label: 'How to refer clients as IB?', href: '/learn/academy/refer-ib' },
-                { label: 'How to get Bonus?', href: '/learn/academy/get-bonus' },
-                { label: 'How copy trading works?', href: '/learn/academy/copy-trading' },
-            ],
-        },
-        {
-            title: 'Resources',
-            links: [
-                { label: 'Blog', href: '/learn/blog' },
-                { label: 'Glossary', href: '/learn/glossary' },
-            ],
-        },
-    ],
-    Company: [
-        {
-            title: '',
-            links: [
-                { label: 'About Us', href: '/company/about-us' },
-                { label: 'Account Types', href: '/accounts' },
-                { label: 'Become a Partner', href: '/partners' },
-                { label: 'Marketing Materials', href: '/company/marketing-materials' },
-                { label: 'Success Stories', href: '/company/success-stories' },
-                { label: 'Privacy Policy', href: '/privacy-policy' },
-                { label: 'Terms of Service', href: '/terms-of-service' },
-                { label: 'Risk Disclosure', href: '/risk-disclosure' },
-                { label: 'Support', href: '/support' },
-            ],
-        },
-    ],
+  Introduction: [
+    {
+      title: '',
+      links: [
+        { label: 'Why APFX', href: '/about?type=why-apfx' },
+        { label: 'How Trading Works', href: '/about?type=how-it-works' },
+        { label: 'Markets Overview', href: '/about?type=markets' },
+        { label: 'Trading Basics', href: '/about?type=basics' },
+        { label: 'Account Types', href: '/accounts' },
+        { label: 'Demo Account', href: '/about?type=demo' },
+        { label: 'Security & Regulation', href: '/about?type=security' },
+      ],
+    },
+  ],
+  'Trade & Invest': [
+    {
+      title: '',
+      links: [
+        { label: 'Accounts Overview', href: '/accounts?type=overview' },
+        { label: 'Premium Account', href: '/accounts?type=premium' },
+        { label: 'Standard Account', href: '/accounts?type=standard' },
+        { label: 'Copy Trading', href: '/tools/copy-trading' },
+        { label: 'PAMM', href: '/pamm' },
+        { label: 'Social Trading', href: '/social-trading' },
+      ],
+    },
+  ],
+  Products: [
+    {
+      title: '',
+      links: [
+        { label: 'Range of Products', href: '/products/range' },
+        { label: 'Forex CFDs', href: '/products/forex' },
+        { label: 'Commodities CFDs', href: '/products/commodities' },
+        { label: 'Indices CFDs', href: '/products/indices' },
+        { label: 'Bonds CFDs', href: '/products/bonds' },
+        { label: 'Cryptocurrency CFDs', href: '/products/cryptocurrencies' },
+        { label: 'Stocks CFDs', href: '/products/stocks' },
+        { label: 'Futures CFDs', href: '/products/futures' },
+      ],
+    },
+  ],
+  Tools: [
+    {
+      title: '',
+      links: [
+        { label: 'Trade Terminal', href: '/ctrader' },
+        { label: 'Calculators', href: '/tools/calculators' },
+        { label: 'Copy Trade', href: '/tools/copy-trading' },
+        { label: 'APFX Marketplace', href: '/marketplace' },
+        { label: 'Risk Management tools', href: '/tools/risk-management' },
+        { label: 'Economic Calendar', href: '/tools/economic-calendar' },
+      ],
+    },
+  ],
+  Learn: [
+    {
+      title: 'APFX Academy',
+      links: [
+        { label: 'How to open account?', href: '/learn/academy/open-account' },
+        { label: 'How to deposit?', href: '/learn/academy/deposit' },
+        { label: 'How to withdraw?', href: '/learn/academy/withdraw' },
+        { label: 'How to refer clients as IB?', href: '/learn/academy/refer-ib' },
+        { label: 'How to get Bonus?', href: '/learn/academy/get-bonus' },
+        { label: 'How copy trading works?', href: '/learn/academy/copy-trading' },
+      ],
+    },
+    {
+      title: 'Resources',
+      links: [
+        { label: 'Blog', href: '/learn/blog' },
+        { label: 'Glossary', href: '/learn/glossary' },
+      ],
+    },
+  ],
+  Company: [
+    {
+      title: '',
+      links: [
+        { label: 'About Us', href: '/company/about-us' },
+        { label: 'Account Types', href: '/accounts' },
+        { label: 'Become a Partner', href: '/partners' },
+        { label: 'Marketing Materials', href: '/company/marketing-materials' },
+        { label: 'Success Stories', href: '/company/success-stories' },
+        { label: 'Privacy Policy', href: '/privacy-policy' },
+        { label: 'Terms of Service', href: '/terms-of-service' },
+        { label: 'Risk Disclosure', href: '/risk-disclosure' },
+        { label: 'Support', href: '/support' },
+      ],
+    },
+  ],
 }
 
 export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
-    const [scrolled, setScrolled] = useState(false)
-    const [menuOpen, setMenuOpen] = useState(false)
-    const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
-    const [mobileExpandedDropdown, setMobileExpandedDropdown] = useState<string | null>(null)
-    const pathname = usePathname()
-    const headerRef = useRef<HTMLElement>(null)
-    const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [mobileExpandedDropdown, setMobileExpandedDropdown] = useState<string | null>(null)
+  const pathname = usePathname()
+  const headerRef = useRef<HTMLElement>(null)
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-    // ── Scroll-driven animations ─────────────────────────────
-    const { scrollY } = useScroll()
-    const { theme } = usePreferences()
-    const isLight = theme === 'light'
-    
-    // Smooth scroll progress (0 to 1)
-    const scrollProgress = useTransform(scrollY, [0, 150], [0, 1])
+  // ── Scroll-driven animations ─────────────────────────────
+  const { scrollY } = useScroll()
+  const { theme } = usePreferences()
+  const isLight = theme === 'light'
 
-    
-    // Header Animations
-    const headerBgOpacity = useTransform(scrollProgress, [0.1, 1], [0, isLight ? 0.7 : 0.85])
+  // Smooth scroll progress (0 to 1)
+  const scrollProgress = useTransform(scrollY, [0, 150], [0, 1])
 
-    const headerBg = useMotionTemplate`rgba(${isLight ? '255, 255, 255' : '3, 5, 10'}, ${headerBgOpacity})`
+  // Header Animations
+  const headerBgOpacity = useTransform(scrollProgress, [0.1, 1], [0, isLight ? 0.7 : 0.85])
 
+  const headerBg = useMotionTemplate`rgba(${isLight ? '255, 255, 255' : '3, 5, 10'}, ${headerBgOpacity})`
 
-    
-    const headerBorderOpacity = useTransform(scrollProgress, [0, 1], [0, 0.08])
-    const headerBorder = useMotionTemplate`rgba(${isLight ? '0, 0, 0' : '255, 255, 255'}, ${headerBorderOpacity})`
-    
-    const headerBlurAmount = useTransform(scrollProgress, [0, 1], [0, 20])
-    const headerBlur = useMotionTemplate`blur(${headerBlurAmount}px)`
-    
-    // Nav Pill Animations
-    const pillBgOpacity = useTransform(scrollProgress, [0, 1], [isLight ? 0.04 : 0.06, isLight ? 0.02 : 0.05])
+  const headerBorderOpacity = useTransform(scrollProgress, [0, 1], [0, 0.08])
+  const headerBorder = useMotionTemplate`rgba(${isLight ? '0, 0, 0' : '255, 255, 255'}, ${headerBorderOpacity})`
 
-    const pillBg = useMotionTemplate`rgba(0, 0, 0, ${pillBgOpacity})`
-    
-    const pillBorderOpacity = useTransform(scrollProgress, [0, 1], [isLight ? 0.08 : 0.1, 0])
-    const pillBorder = useMotionTemplate`rgba(${isLight ? '0, 0, 0' : '255, 255, 255'}, ${pillBorderOpacity})`
+  const headerBlurAmount = useTransform(scrollProgress, [0, 1], [0, 20])
+  const headerBlur = useMotionTemplate`blur(${headerBlurAmount}px)`
 
-    
-    const pillShadowOpacity = useTransform(scrollProgress, [0, 1], [isLight ? 0.05 : 0.3, 0])
-    const pillShadow = useMotionTemplate`0 ${isLight ? '2px 10px' : '4px 20px'} rgba(0, 0, 0, ${pillShadowOpacity})`
+  // Nav Pill Animations
+  const pillBgOpacity = useTransform(
+    scrollProgress,
+    [0, 1],
+    [isLight ? 0.04 : 0.06, isLight ? 0.02 : 0.05]
+  )
 
+  const pillBg = useMotionTemplate`rgba(0, 0, 0, ${pillBgOpacity})`
 
+  const pillBorderOpacity = useTransform(scrollProgress, [0, 1], [isLight ? 0.08 : 0.1, 0])
+  const pillBorder = useMotionTemplate`rgba(${isLight ? '0, 0, 0' : '255, 255, 255'}, ${pillBorderOpacity})`
 
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 40)
-        window.addEventListener('scroll', onScroll, { passive: true })
-        return () => window.removeEventListener('scroll', onScroll)
-    }, [])
+  const pillShadowOpacity = useTransform(scrollProgress, [0, 1], [isLight ? 0.05 : 0.3, 0])
+  const pillShadow = useMotionTemplate`0 ${isLight ? '2px 10px' : '4px 20px'} rgba(0, 0, 0, ${pillShadowOpacity})`
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
-    // ── Lock body scroll when mobile menu open ─────────────────
-    useEffect(() => {
-        document.body.style.overflow = menuOpen ? 'hidden' : ''
-        return () => { document.body.style.overflow = '' }
-    }, [menuOpen])
+  // ── Lock body scroll when mobile menu open ─────────────────
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
 
-    // ── Close menu on Escape ───────────────────────────────────
-    useEffect(() => {
-        const onKey = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') {
-                setMenuOpen(false)
-                setActiveDropdown(null)
-            }
-        }
-        window.addEventListener('keydown', onKey)
-        return () => window.removeEventListener('keydown', onKey)
-    }, [])
-
-    // ── Route change: close any open dropdown/menu ─────────────
-    // Prevents the mega menu from staying open after navigation (e.g. when
-    // clicking Trade & Invest → Stocks).
-    useEffect(() => {
+  // ── Close menu on Escape ───────────────────────────────────
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
         setMenuOpen(false)
         setActiveDropdown(null)
-        setMobileExpandedDropdown(null)
-    }, [pathname])
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
 
-    // ── Click outside to close dropdown ─────────────────────────
-    useEffect(() => {
-        if (!activeDropdown) return
-        const handleClickOutside = (e: MouseEvent) => {
-            if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
-                setActiveDropdown(null)
-            }
-        }
-        document.addEventListener('mousedown', handleClickOutside)
-        return () => document.removeEventListener('mousedown', handleClickOutside)
-    }, [activeDropdown])
+  // ── Route change: close any open dropdown/menu ─────────────
+  // Prevents the mega menu from staying open after navigation (e.g. when
+  // clicking Trade & Invest → Stocks).
+  useEffect(() => {
+    setMenuOpen(false)
+    setActiveDropdown(null)
+    setMobileExpandedDropdown(null)
+  }, [pathname])
 
-    const closeMenu = () => {
-        setMenuOpen(false)
+  // ── Click outside to close dropdown ─────────────────────────
+  useEffect(() => {
+    if (!activeDropdown) return
+    const handleClickOutside = (e: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
         setActiveDropdown(null)
-        setMobileExpandedDropdown(null)
+      }
     }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [activeDropdown])
 
-    const handleMouseEnter = (label: string) => {
-        if (dropdownTimeoutRef.current) {
-            clearTimeout(dropdownTimeoutRef.current)
-            dropdownTimeoutRef.current = null
-        }
-        setActiveDropdown(label)
+  const closeMenu = () => {
+    setMenuOpen(false)
+    setActiveDropdown(null)
+    setMobileExpandedDropdown(null)
+  }
+
+  const handleMouseEnter = (label: string) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current)
+      dropdownTimeoutRef.current = null
     }
+    setActiveDropdown(label)
+  }
 
-    const handleMouseLeave = () => {
-        dropdownTimeoutRef.current = setTimeout(() => {
-            setActiveDropdown(null)
-        }, 200)
-    }
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null)
+    }, 200)
+  }
 
-    return (
-        <>
-            <motion.header
-                ref={headerRef}
-                className={`${styles.header} ${scrolled ? styles.scrolled : ''} ${activeDropdown ? styles.menuActive : ''}`}
-                role="banner"
-                style={{
-                    backgroundColor: headerBg,
-                    borderBottomColor: headerBorder,
-                    backdropFilter: headerBlur,
-                    WebkitBackdropFilter: headerBlur
-                }}
+  return (
+    <>
+      <motion.header
+        ref={headerRef}
+        className={`${styles.header} ${scrolled ? styles.scrolled : ''} ${activeDropdown ? styles.menuActive : ''}`}
+        role="banner"
+        style={{
+          backgroundColor: headerBg,
+          borderBottomColor: headerBorder,
+          backdropFilter: headerBlur,
+          WebkitBackdropFilter: headerBlur,
+        }}
+      >
+        <div className={styles.inner}>
+          {/* ── Hamburger (mobile/tablet only) ───────────────── */}
+          <button
+            className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            type="button"
+          >
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+          </button>
+
+          {/* ── Logo ──────────────────────────────────────────── */}
+          <Link
+            href="/"
+            className={styles.logo}
+            aria-label="APFX Home"
+            onClick={closeMenu}
+            style={{ opacity: hideLogo ? 0 : 1 }}
+          >
+            <Logo id="header-logo" size="sm" />
+          </Link>
+
+          {/* ── Desktop Navigation ────────────────────────────── */}
+          <nav aria-label="Main navigation" onMouseLeave={handleMouseLeave}>
+            <motion.ul
+              className={styles.nav}
+              role="list"
+              style={{
+                backgroundColor: pillBg,
+                borderColor: pillBorder,
+                boxShadow: pillShadow,
+              }}
             >
-
-                <div className={styles.inner}>
-                    {/* ── Hamburger (mobile/tablet only) ───────────────── */}
-                    <button
-                        className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
-                        onClick={() => setMenuOpen((v) => !v)}
-                        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-                        aria-expanded={menuOpen}
-                        aria-controls="mobile-menu"
-                        type="button"
-                    >
-                        <span aria-hidden="true" />
-                        <span aria-hidden="true" />
-                        <span aria-hidden="true" />
-                    </button>
-
-                    {/* ── Logo ──────────────────────────────────────────── */}
-                    <Link 
-                        href="/" 
-                        className={styles.logo} 
-                        aria-label="APFX Home" 
-                        onClick={closeMenu}
-                        style={{ opacity: hideLogo ? 0 : 1 }}
-                    >
-                        <Logo id="header-logo" size="sm" />
-                    </Link>
-
-                    {/* ── Desktop Navigation ────────────────────────────── */}
-                    <nav aria-label="Main navigation" onMouseLeave={handleMouseLeave}>
-                        <motion.ul 
-                            className={styles.nav} 
-                            role="list"
-                            style={{
-                                backgroundColor: pillBg,
-                                borderColor: pillBorder,
-                                boxShadow: pillShadow
-                            }}
-                        >
-
-                            {NAV_LINKS.map((link) => (
-                                <li
-                                    key={link.href}
-                                    onMouseEnter={
-                                        link.hasMegaMenu
-                                            ? () => handleMouseEnter(link.label)
-                                            : () => setActiveDropdown(null)
-                                    }
-                                >
-                                    {link.hasMegaMenu ? (
-                                        <button
-                                            type="button"
-                                            className={activeDropdown === link.label ? styles.navActive : undefined}
-                                            onClick={() => setActiveDropdown((prev) => (prev === link.label ? null : link.label))}
-                                            aria-expanded={activeDropdown === link.label}
-                                            aria-haspopup="true"
-                                        >
-                                            {link.label}
-                                            <ChevronDown
-                                                className={styles.navChevron}
-                                                aria-hidden
-                                            />
-                                        </button>
-                                    ) : (
-                                        <Link
-                                            href={link.href}
-                                            prefetch={true}
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    )}
-
-                                    <AnimatePresence>
-                                        {link.hasMegaMenu && activeDropdown === link.label && (
-                                            <motion.div
-                                                className={styles.megaMenu}
-                                                onMouseEnter={() => handleMouseEnter(link.label)}
-                                                initial={{ opacity: 0, y: -8, scaleY: 0.98 }}
-                                                animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                                                exit={{ opacity: 0, y: -4, scaleY: 0.98 }}
-                                                transition={{
-                                                    duration: 0.2,
-                                                    ease: [0.16, 1, 0.3, 1],
-                                                }}
-                                                style={{ transformOrigin: 'top center' }}
-                                            >
-                                                {(() => {
-                                                    const columns = MEGA_MENU_DATA[link.label as keyof typeof MEGA_MENU_DATA] ?? []
-                                                    return (
-                                                        <div className={styles.megaMenuInner}>
-                                                            {columns.map((col, i) => (
-                                                                <div key={col.title || `col-${i}`} className={styles.megaMenuColumn}>
-                                                                    {col.title && <h3 className={styles.megaMenuTitle}>{col.title}</h3>}
-                                                                    <ul className={styles.megaMenuLinks}>
-                                                                        {col.links.map((subLink) => (
-                                                                            <li key={subLink.href}>
-                                                                                {/* @ts-ignore - Custom property for divider */}
-                                                                                {subLink.dividerTop && <hr className={styles.menuDivider} />}
-                                                                                <Link
-                                                                                    href={subLink.href}
-                                                                                    onClick={closeMenu}
-                                                                                    className={`${subLink.label.toLowerCase().startsWith('view') ? styles.megaMenuViewAll : ''} ${
-                                                                                        // @ts-ignore
-                                                                                        subLink.isFeatured ? styles.megaMenuFeatured : ''
-                                                                                    }`}
-                                                                                >
-                                                                                    {subLink.label}
-                                                                                    {/* @ts-ignore */}
-                                                                                    {subLink.isFeatured && <span className={styles.badgeNew}>NEW</span>}
-                                                                                </Link>
-                                                                                {/* @ts-ignore - Custom property for divider */}
-                                                                                {subLink.dividerBottom && <hr className={styles.menuDivider} />}
-                                                                            </li>
-                                                                        ))}
-                                                                    </ul>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    )
-                                                })()}
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </li>
-                            ))}
-                        </motion.ul>
-                    </nav>
-
-                    {/* ── Actions ───────────────────────────────────────── */}
-                    <div className={styles.actions}>
-                        <Link
-                            {...PORTAL_LINK_PROPS}
-                            className={styles.btnIconSolidWhite}
-                            aria-label="Log In"
-                        >
-                            <User size={20} strokeWidth={1.5} />
-                        </Link>
-
-                        <Link
-                            {...PORTAL_SIGNUP_LINK_PROPS}
-                            className={styles.btnSolidWhite}
-                        >
-                            Register
-                        </Link>
-                        <ThemeToggle />
-                    </div>
-                </div>
-            </motion.header>
-
-            {/* ── Mobile Overlay Menu ──────────────────────────────── */}
-            <nav
-                id="mobile-menu"
-                className={`${styles.mobileMenu} ${menuOpen ? styles.open : ''}`}
-                aria-label="Mobile navigation"
-                aria-hidden={!menuOpen}
-            >
-                <button
-                    type="button"
-                    className={styles.mobileClose}
-                    onClick={closeMenu}
-                    aria-label="Close menu"
+              {NAV_LINKS.map((link) => (
+                <li
+                  key={link.href}
+                  onMouseEnter={
+                    link.hasMegaMenu
+                      ? () => handleMouseEnter(link.label)
+                      : () => setActiveDropdown(null)
+                  }
                 >
-                    <X size={20} aria-hidden="true" />
-                </button>
-                {NAV_LINKS.map((link) => {
-                    const mobileColumns = MEGA_MENU_DATA[link.label as keyof typeof MEGA_MENU_DATA] ?? []
-                    const mobileSubLinks = mobileColumns.flatMap((col) => col.links)
-                    const isExpanded = mobileExpandedDropdown === link.label
-                    const submenuId = `mobile-submenu-${link.label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+                  {link.hasMegaMenu ? (
+                    <button
+                      type="button"
+                      className={activeDropdown === link.label ? styles.navActive : undefined}
+                      onClick={() =>
+                        setActiveDropdown((prev) => (prev === link.label ? null : link.label))
+                      }
+                      aria-expanded={activeDropdown === link.label}
+                      aria-haspopup="true"
+                    >
+                      {link.label}
+                      <ChevronDown className={styles.navChevron} aria-hidden />
+                    </button>
+                  ) : (
+                    <Link href={link.href} prefetch={true}>
+                      {link.label}
+                    </Link>
+                  )}
 
-                    if (!link.hasMegaMenu || mobileSubLinks.length === 0) {
-                        return (
-                            <Link key={link.href} href={link.href} onClick={closeMenu}>
-                                {link.label}
-                            </Link>
-                        )
-                    }
+                  <AnimatePresence>
+                    {link.hasMegaMenu && activeDropdown === link.label && (
+                      <motion.div
+                        className={styles.megaMenu}
+                        onMouseEnter={() => handleMouseEnter(link.label)}
+                        initial={{ opacity: 0, y: -8, scaleY: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                        exit={{ opacity: 0, y: -4, scaleY: 0.98 }}
+                        transition={{
+                          duration: 0.2,
+                          ease: [0.16, 1, 0.3, 1],
+                        }}
+                        style={{ transformOrigin: 'top center' }}
+                      >
+                        {(() => {
+                          const columns =
+                            MEGA_MENU_DATA[link.label as keyof typeof MEGA_MENU_DATA] ?? []
+                          return (
+                            <div className={styles.megaMenuInner}>
+                              {columns.map((col, i) => (
+                                <div
+                                  key={col.title || `col-${i}`}
+                                  className={styles.megaMenuColumn}
+                                >
+                                  {col.title && (
+                                    <h3 className={styles.megaMenuTitle}>{col.title}</h3>
+                                  )}
+                                  <ul className={styles.megaMenuLinks}>
+                                    {col.links.map((subLink) => (
+                                      <li key={subLink.href}>
+                                        {/* @ts-ignore - Custom property for divider */}
+                                        {subLink.dividerTop && (
+                                          <hr className={styles.menuDivider} />
+                                        )}
+                                        <Link
+                                          href={subLink.href}
+                                          onClick={closeMenu}
+                                          className={`${subLink.label.toLowerCase().startsWith('view') ? styles.megaMenuViewAll : ''} ${
+                                            // @ts-ignore
+                                            subLink.isFeatured ? styles.megaMenuFeatured : ''
+                                          }`}
+                                        >
+                                          {subLink.label}
+                                          {/* @ts-ignore */}
+                                          {subLink.isFeatured && (
+                                            <span className={styles.badgeNew}>NEW</span>
+                                          )}
+                                        </Link>
+                                        {/* @ts-ignore - Custom property for divider */}
+                                        {subLink.dividerBottom && (
+                                          <hr className={styles.menuDivider} />
+                                        )}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          )
+                        })()}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </li>
+              ))}
+            </motion.ul>
+          </nav>
 
-                    return (
-                        <div key={link.href} className={styles.mobileMenuGroup}>
-                            <button
-                                type="button"
-                                className={styles.mobileMenuTrigger}
-                                onClick={() =>
-                                    setMobileExpandedDropdown((prev) =>
-                                        prev === link.label ? null : link.label
-                                    )
-                                }
-                                aria-expanded={isExpanded}
-                                aria-controls={submenuId}
-                            >
-                                <span>{link.label}</span>
-                                <ChevronDown
-                                    size={18}
-                                    className={`${styles.mobileChevron} ${isExpanded ? styles.mobileChevronOpen : ''}`}
-                                    aria-hidden="true"
-                                />
-                            </button>
+          {/* ── Actions ───────────────────────────────────────── */}
+          <div className={styles.actions}>
+            <Link {...PORTAL_LINK_PROPS} className={styles.btnIconSolidWhite} aria-label="Log In">
+              <User size={20} strokeWidth={1.5} />
+            </Link>
 
-                            <AnimatePresence initial={false}>
-                                {isExpanded && (
-                                    <motion.div
-                                        id={submenuId}
-                                        className={styles.mobileSubmenu}
-                                        initial={{ height: 0, opacity: 0, y: -8 }}
-                                        animate={{ height: 'auto', opacity: 1, y: 0 }}
-                                        exit={{ height: 0, opacity: 0, y: -8 }}
-                                        transition={{
-                                            duration: 0.32,
-                                            ease: [0.22, 1, 0.36, 1],
-                                        }}
-                                    >
-                                        {mobileSubLinks.map((subLink) => (
-                                            <div key={subLink.href} className={styles.mobileSubmenuItemWrapper}>
-                                                {/* @ts-ignore */}
-                                                {subLink.dividerTop && <hr className={styles.menuDivider} style={{ margin: '0.25rem 1rem' }} />}
-                                                <Link 
-                                                    href={subLink.href} 
-                                                    onClick={closeMenu}
-                                                    // @ts-ignore
-                                                    className={subLink.isFeatured ? styles.mobileMenuFeatured : ''}
-                                                >
-                                                    {subLink.label}
-                                                    {/* @ts-ignore */}
-                                                    {subLink.isFeatured && <span className={styles.badgeNew} style={{ marginLeft: '0.5rem' }}>NEW</span>}
-                                                </Link>
-                                                {/* @ts-ignore */}
-                                                {subLink.dividerBottom && <hr className={styles.menuDivider} style={{ margin: '0.25rem 1rem' }} />}
-                                            </div>
-                                        ))}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    )
-                })}
+            <Link {...PORTAL_SIGNUP_LINK_PROPS} className={styles.btnSolidWhite}>
+              Register
+            </Link>
+            <ThemeToggle />
+          </div>
+        </div>
+      </motion.header>
 
-            </nav>
-        </>
-    )
+      {/* ── Mobile Overlay Menu ──────────────────────────────── */}
+      <nav
+        id="mobile-menu"
+        className={`${styles.mobileMenu} ${menuOpen ? styles.open : ''}`}
+        aria-label="Mobile navigation"
+        aria-hidden={!menuOpen}
+      >
+        <button
+          type="button"
+          className={styles.mobileClose}
+          onClick={closeMenu}
+          aria-label="Close menu"
+        >
+          <X size={20} aria-hidden="true" />
+        </button>
+        {NAV_LINKS.map((link) => {
+          const mobileColumns = MEGA_MENU_DATA[link.label as keyof typeof MEGA_MENU_DATA] ?? []
+          const mobileSubLinks = mobileColumns.flatMap((col) => col.links)
+          const isExpanded = mobileExpandedDropdown === link.label
+          const submenuId = `mobile-submenu-${link.label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+
+          if (!link.hasMegaMenu || mobileSubLinks.length === 0) {
+            return (
+              <Link key={link.href} href={link.href} onClick={closeMenu}>
+                {link.label}
+              </Link>
+            )
+          }
+
+          return (
+            <div key={link.href} className={styles.mobileMenuGroup}>
+              <button
+                type="button"
+                className={styles.mobileMenuTrigger}
+                onClick={() =>
+                  setMobileExpandedDropdown((prev) => (prev === link.label ? null : link.label))
+                }
+                aria-expanded={isExpanded}
+                aria-controls={submenuId}
+              >
+                <span>{link.label}</span>
+                <ChevronDown
+                  size={18}
+                  className={`${styles.mobileChevron} ${isExpanded ? styles.mobileChevronOpen : ''}`}
+                  aria-hidden="true"
+                />
+              </button>
+
+              <AnimatePresence initial={false}>
+                {isExpanded && (
+                  <motion.div
+                    id={submenuId}
+                    className={styles.mobileSubmenu}
+                    initial={{ height: 0, opacity: 0, y: -8 }}
+                    animate={{ height: 'auto', opacity: 1, y: 0 }}
+                    exit={{ height: 0, opacity: 0, y: -8 }}
+                    transition={{
+                      duration: 0.32,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    {mobileSubLinks.map((subLink) => (
+                      <div key={subLink.href} className={styles.mobileSubmenuItemWrapper}>
+                        {/* @ts-ignore */}
+                        {subLink.dividerTop && (
+                          <hr className={styles.menuDivider} style={{ margin: '0.25rem 1rem' }} />
+                        )}
+                        <Link
+                          href={subLink.href}
+                          onClick={closeMenu}
+                          // @ts-ignore
+                          className={subLink.isFeatured ? styles.mobileMenuFeatured : ''}
+                        >
+                          {subLink.label}
+                          {/* @ts-ignore */}
+                          {subLink.isFeatured && (
+                            <span className={styles.badgeNew} style={{ marginLeft: '0.5rem' }}>
+                              NEW
+                            </span>
+                          )}
+                        </Link>
+                        {/* @ts-ignore */}
+                        {subLink.dividerBottom && (
+                          <hr className={styles.menuDivider} style={{ margin: '0.25rem 1rem' }} />
+                        )}
+                      </div>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )
+        })}
+      </nav>
+    </>
+  )
 }
