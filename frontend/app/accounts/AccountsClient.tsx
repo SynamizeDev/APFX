@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import React, { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
@@ -17,7 +17,7 @@ import {
   Wallet,
 } from 'lucide-react'
 import InnerPageHero from '@/components/layout/InnerPageHero'
-import { PORTAL_SIGNUP_LINK_PROPS } from '@/config/urls'
+import { PORTAL_SIGNUP_LINK_PROPS, PORTAL_LINK_PROPS } from '@/config/urls'
 import styles from './AccountsPage.module.css'
 
 const fadeUp: Variants = {
