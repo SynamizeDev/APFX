@@ -6,8 +6,6 @@ export interface MarketQuote {
     change: number;
     percent_change: number;
     up: boolean;
-    // Used internally to mark fallback/mock quotes when provider APIs fail.
-    mock?: boolean;
 }
 
 export const DEFAULT_SYMBOLS = [
@@ -22,7 +20,7 @@ let lastFetchTime = 0;
 let pendingRequest: Promise<MarketQuote[]> | null = null;
 const BROWSER_CACHE_DURATION = 2000; // 2 seconds UI debounce, actual caching is on server
 
-export const POLL_INTERVAL_MS = 10_000;
+export const POLL_INTERVAL_MS = 60_000; // Match server cache TTL (60s) to avoid redundant requests
 
 type MarketDataListener = (quotes: MarketQuote[]) => void;
 

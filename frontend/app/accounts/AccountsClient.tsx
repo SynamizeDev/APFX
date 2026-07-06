@@ -62,9 +62,6 @@ const ACCOUNT_DATA: {
         Commission: <span style={{ color: G, fontWeight: 600 }}>None</span>
       </>,
       <>
-        Rebate: <span style={{ color: G, fontWeight: 600 }}>$6 per Lot</span> (EUR/USD)
-      </>,
-      <>
         Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
       </>,
       <>
@@ -73,7 +70,7 @@ const ACCOUNT_DATA: {
       <>
         Maximum Deposit: <span style={{ color: G, fontWeight: 600 }}>No Limit</span>
       </>,
-      <>Market Analysis Included</>,
+
     ],
     btnText: 'Open Standard Account',
     isPopular: false,
@@ -100,9 +97,6 @@ const ACCOUNT_DATA: {
         Commission: <span style={{ color: G, fontWeight: 600 }}>$8 per Lot</span>
       </>,
       <>
-        Rebate: <span style={{ color: G, fontWeight: 600 }}>$3 per Lot</span> (EUR/USD)
-      </>,
-      <>
         Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
       </>,
       <>
@@ -111,7 +105,7 @@ const ACCOUNT_DATA: {
       <>
         Maximum Deposit: <span style={{ color: G, fontWeight: 600 }}>No Limit</span>
       </>,
-      <>Market Analysis Included</>,
+
     ],
     btnText: 'Open Premium Account',
     isPopular: true,
@@ -124,11 +118,11 @@ const COMPARISON_ROWS = [
   { label: 'Tradable Instruments', values: ['1,200+', '1,200+'] },
   { label: 'Spreads from', values: ['1.8–2.0 pips', '0.8–1.0 pips'] },
   { label: 'Commission', values: ['None', '$8 per Lot'] },
-  { label: 'Rebate (EUR/USD)', values: ['$6 per Lot', '$3 per Lot'] },
+
   { label: 'Expert Advisors', values: ['Supported', 'Supported'] },
   { label: 'Minimum Deposit', values: ['$50', '$1,000'] },
   { label: 'Maximum Deposit', values: ['No Limit', 'No Limit'] },
-  { label: 'Market Analysis', values: [true, true] },
+
   { label: 'Dedicated Support', values: [false, true] },
 ]
 

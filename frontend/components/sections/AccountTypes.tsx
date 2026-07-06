@@ -38,9 +38,6 @@ const ACCOUNTS: {
         Commission: <span style={{ color: G, fontWeight: 600 }}>None</span>
       </>,
       <>
-        Rebate: <span style={{ color: G, fontWeight: 600 }}>$6 per Lot</span> (EUR/USD)
-      </>,
-      <>
         Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
       </>,
       <>
@@ -49,7 +46,7 @@ const ACCOUNTS: {
       <>
         Maximum Deposit: <span style={{ color: G, fontWeight: 600 }}>No Limit</span>
       </>,
-      <>Market Analysis Included</>,
+
     ],
     cta: 'Open Standard Account',
     featured: false,
@@ -75,9 +72,6 @@ const ACCOUNTS: {
         Commission: <span style={{ color: G, fontWeight: 600 }}>$8 per Lot</span>
       </>,
       <>
-        Rebate: <span style={{ color: G, fontWeight: 600 }}>$3 per Lot</span> (EUR/USD)
-      </>,
-      <>
         Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
       </>,
       <>
@@ -86,7 +80,7 @@ const ACCOUNTS: {
       <>
         Maximum Deposit: <span style={{ color: G, fontWeight: 600 }}>No Limit</span>
       </>,
-      <>Market Analysis Included</>,
+
     ],
     badge: 'Most Popular',
     cta: 'Open Premium Account',

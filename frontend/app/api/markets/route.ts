@@ -3,14 +3,14 @@ import { NextResponse } from 'next/server';
 import NodeCache from 'node-cache';
 import { getAggregatedMarketData } from '@/services/marketAggregator';
 
-// Cache with 10 second TTL, checking for expiry every 2 seconds
-const marketCache = new NodeCache({ stdTTL: 10, checkperiod: 2 });
+// Cache with 60 second TTL — keeps TwelveData calls to ≤1/min (free tier: 8/min)
+const marketCache = new NodeCache({ stdTTL: 60, checkperiod: 10 });
 const CACHE_KEY = 'aggregatedData';
 
 // Prevent Next.js from aggressively statically caching this route
 export const dynamic = 'force-dynamic';
-// Revalidate every 5 seconds (this tells Next.js ISR)
-export const revalidate = 5;
+// Revalidate every 60 seconds
+export const revalidate = 60;
 
 export async function GET() {
     try {

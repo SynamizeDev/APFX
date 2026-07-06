@@ -9,10 +9,11 @@ export function useMarketQuotes() {
 
     useEffect(() => {
         const unsubscribe = subscribeMarketData((data) => {
-            if (data.length > 0) {
-                setQuotes(data)
-                setIsLoading(false)
-            }
+            // Always update quotes — including empty arrays.
+            // If we skip empty updates, stale prices (e.g. old mock data)
+            // stay on screen when the API is rate-limited or unavailable.
+            setQuotes(data)
+            setIsLoading(false)
         })
 
         return unsubscribe

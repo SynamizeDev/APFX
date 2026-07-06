@@ -32,9 +32,10 @@ export const SYMBOL_MAPPINGS = {
         { display: 'USD/CNY', finnhub: 'OANDA:USD_CNY', polygon: 'C:USDCNY', twelvedata: 'USD/CNY' },
     ],
     commodities: [
-        { display: 'XAU/USD', finnhub: 'OANDA:XAU_USD', polygon: 'C:XAUUSD', twelvedata: 'XAU/USD' },
-        { display: 'XAG/USD', finnhub: 'OANDA:XAG_USD', polygon: 'C:XAGUSD', twelvedata: 'XAG/USD' },
-        { display: 'WTI Oil', finnhub: 'OANDA:WTICO_USD', polygon: '', twelvedata: 'USOIL' }, // Mapping varies
+        // TwelveData free tier returns XAU & XAG per GRAM — multiply by 31.1035 to get per troy ounce
+        { display: 'XAU/USD', finnhub: 'OANDA:XAU_USD', polygon: 'C:XAUUSD', twelvedata: 'XAU/USD', priceMultiplier: 31.1035 },
+        { display: 'XAG/USD', finnhub: 'OANDA:XAG_USD', polygon: 'C:XAGUSD', twelvedata: 'XAG/USD', priceMultiplier: 31.1035 },
+        { display: 'WTI Oil', finnhub: 'OANDA:WTICO_USD', polygon: '', twelvedata: 'USOIL' },
         { display: 'Brent Oil', finnhub: 'OANDA:BCO_USD', polygon: '', twelvedata: 'UKOIL' },
         { display: 'Natural Gas', finnhub: 'OANDA:NATGAS_USD', polygon: '', twelvedata: 'NATGAS' },
         { display: 'Copper', finnhub: 'OANDA:XCU_USD', polygon: '', twelvedata: 'COPPER' },

@@ -257,9 +257,21 @@ export default function MarketsSection() {
     const [activeCategory, setActiveCategory] = useState('commodities')
     const instruments = INSTRUMENTS[activeCategory] || []
 
-    useEffect(() => {
-        if (quotes.length === 0) return
+    const hasReceivedRealData = useRef(false)
 
+    useEffect(() => {
+        if (quotes.length === 0) {
+            // Only clear on first load (before we've ever had real data).
+            // If we already showed real prices, keep them visible during
+            // temporary rate-limits or API failures — avoids the flash back
+            // to static placeholders on every failed poll cycle.
+            if (!hasReceivedRealData.current) {
+                setMarketData({})
+            }
+            return
+        }
+
+        hasReceivedRealData.current = true
         const dataMap: Record<string, MarketQuote> = {}
         quotes.forEach((quote) => {
             dataMap[quote.symbol] = quote

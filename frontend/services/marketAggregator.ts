@@ -1,118 +1,137 @@
 // frontend/services/marketAggregator.ts
+//
+// Strategy (rate-limit aware):
+//  PRIMARY  — TwelveData /quote BATCH endpoint
+//             All symbols fetched in ONE HTTP request (comma-separated).
+//             Free tier: 8 req/min, 800/day — a single batch call is safe.
+//
+// Polygon removed from fallback: free tier is 5 req/min and blocks
+//   indices (I:SPX, I:DJI) with 403. Parallel fallback calls cause 429s.
+// Finnhub removed: free tier returns 403 for OANDA (Forex/Commodity) symbols.
+
 import axios from 'axios';
 import { PROVIDERS, SYMBOL_MAPPINGS } from '../config/providers';
 import { MarketQuote } from './marketData';
 
-// Polyfill mapping iteration
 const ALL_SYMBOLS = [
     ...SYMBOL_MAPPINGS.forex,
     ...SYMBOL_MAPPINGS.commodities,
     ...SYMBOL_MAPPINGS.crypto,
     ...SYMBOL_MAPPINGS.indices,
-    ...SYMBOL_MAPPINGS.stocks
+    ...SYMBOL_MAPPINGS.stocks,
 ];
 
-async function fetchFromFinnhub(symbolConfig: any): Promise<MarketQuote | null> {
-    if (!PROVIDERS.FINNHUB.KEY || !symbolConfig.finnhub) return null;
-    try {
-        const res = await axios.get(`${PROVIDERS.FINNHUB.BASE_URL}/quote?symbol=${symbolConfig.finnhub}&token=${PROVIDERS.FINNHUB.KEY}`);
-        const data = res.data;
-        if (data && data.c) { // Current price is 'c' in Finnhub
-            return {
-                symbol: symbolConfig.display,
-                price: data.c,
-                change: data.d, // Change
-                percent_change: data.dp, // Percent change
-                up: data.d >= 0
-            };
-        }
-    } catch (error) {
-        console.warn(`Finnhub fetch failed for ${symbolConfig.display}`, error);
+// ── Rate-limit guard (module-level, survives NodeCache misses) ────────────────
+// TwelveData free tier: 8 req/min. We enforce a minimum of 65s between calls
+// so dev server hot-reloads (which wipe NodeCache) don't cause hammering.
+const MIN_CALL_INTERVAL_MS = 65_000;
+let lastCallTime = 0;
+let lastSuccessfulResult: Record<string, MarketQuote> = {};
+
+// ── 1. TwelveData BATCH fetch ──────────────────────────────────────────────────
+async function fetchBatchFromTwelveData(): Promise<Record<string, MarketQuote>> {
+    const key = PROVIDERS.TWELVEDATA.KEY;
+    if (!key) return {};
+
+    // Guard: don't call if less than 65 seconds since last call
+    const now = Date.now();
+    if (now - lastCallTime < MIN_CALL_INTERVAL_MS) {
+        console.log(`[MarketAggregator] Rate-limit guard: returning cached result (next call in ${Math.ceil((MIN_CALL_INTERVAL_MS - (now - lastCallTime)) / 1000)}s).`);
+        return lastSuccessfulResult;
     }
-    return null;
+    lastCallTime = now;
+    const symbolConfigs = ALL_SYMBOLS.filter(s => s.twelvedata);
+    const symbolParam = symbolConfigs.map(s => s.twelvedata).join(',');
+
+    try {
+        // NOTE: Do NOT encodeURIComponent the whole symbolParam — that encodes commas
+        // to %2C and TwelveData treats the entire string as one symbol.
+        // Only encode individual symbols (for the slash in e.g. XAU/USD) then join with literal commas.
+        const encodedSymbols = symbolConfigs.map(s => encodeURIComponent(s.twelvedata)).join(',');
+        const res = await axios.get(
+            `${PROVIDERS.TWELVEDATA.BASE_URL}/quote?symbol=${encodedSymbols}&apikey=${key}`,
+            { timeout: 15_000 }
+        );
+
+        const data = res.data;
+        if (!data) return {};
+
+        const result: Record<string, MarketQuote> = {};
+        const isMultiple = symbolConfigs.length > 1;
+
+        if (isMultiple) {
+            for (const config of symbolConfigs) {
+                const entry = data[config.twelvedata];
+                if (!entry || entry.status === 'error' || !entry.close) continue;
+
+                const multiplier = (config as any).priceMultiplier ?? 1;
+                const price = parseFloat(entry.close) * multiplier;
+                const change = parseFloat(entry.change ?? '0') * multiplier;
+                const pct = parseFloat(entry.percent_change ?? '0');
+                result[config.display] = { symbol: config.display, price, change, percent_change: pct, up: change >= 0 };
+            }
+        } else {
+            const config = symbolConfigs[0];
+            if (config && data.close) {
+                const price = parseFloat(data.close);
+                const change = parseFloat(data.change ?? '0');
+                const pct = parseFloat(data.percent_change ?? '0');
+                result[config.display] = { symbol: config.display, price, change, percent_change: pct, up: change >= 0 };
+            }
+        }
+
+        // Cache the result for rate-limit fallback
+        if (Object.keys(result).length > 0) {
+            lastSuccessfulResult = result;
+        }
+        return result;
+    } catch (error: any) {
+        if (error?.response?.status === 429) {
+            console.warn('[MarketAggregator] TwelveData rate-limited (429). Returning last successful result.');
+            // Return last known good data instead of empty — prevents UI from clearing
+            return lastSuccessfulResult;
+        } else {
+            console.warn('[MarketAggregator] TwelveData batch failed:', error?.message);
+        }
+        return lastSuccessfulResult; // Always return last good data on error
+    }
 }
 
+// ── 2. Polygon individual FALLBACK ─────────────────────────────────────────────
 async function fetchFromPolygon(symbolConfig: any): Promise<MarketQuote | null> {
-    if (!PROVIDERS.POLYGON.KEY || !symbolConfig.polygon) return null;
+    const key = PROVIDERS.POLYGON.KEY;
+    if (!key || !symbolConfig.polygon) return null;
+
     try {
-        const res = await axios.get(`${PROVIDERS.POLYGON.BASE_URL}/aggs/ticker/${symbolConfig.polygon}/prev?apiKey=${PROVIDERS.POLYGON.KEY}`);
+        const res = await axios.get(
+            `${PROVIDERS.POLYGON.BASE_URL}/aggs/ticker/${symbolConfig.polygon}/prev?apiKey=${key}`,
+            { timeout: 10_000 }
+        );
         const data = res.data;
-        if (data && data.results && data.results.length > 0) {
-            const result = data.results[0];
-            const change = result.c - result.o;
-            const percent_change = (change / result.o) * 100;
-            return {
-                symbol: symbolConfig.display,
-                price: result.c,
-                change: change,
-                percent_change: percent_change,
-                up: change >= 0
-            };
+        if (data?.results?.length > 0) {
+            const r = data.results[0];
+            const change = r.c - r.o;
+            const pct = (change / r.o) * 100;
+            return { symbol: symbolConfig.display, price: r.c, change, percent_change: pct, up: change >= 0 };
         }
-    } catch (error) {
-        console.warn(`Polygon fetch failed for ${symbolConfig.display}`, error);
+    } catch (error: any) {
+        console.warn(`[MarketAggregator] Polygon failed for ${symbolConfig.display}:`, error?.message);
     }
     return null;
 }
 
-async function fetchFromTwelveData(symbolConfig: any): Promise<MarketQuote | null> {
-    if (!PROVIDERS.TWELVEDATA.KEY || !symbolConfig.twelvedata) return null;
-    try {
-        const res = await axios.get(`${PROVIDERS.TWELVEDATA.BASE_URL}/quote?symbol=${symbolConfig.twelvedata}&apikey=${PROVIDERS.TWELVEDATA.KEY}`);
-        const data = res.data;
-        if (data && data.close) {
-            const price = parseFloat(data.close);
-            const change = parseFloat(data.change);
-            const percent_change = parseFloat(data.percent_change);
-            return {
-                symbol: symbolConfig.display,
-                price: price,
-                change: change,
-                percent_change: percent_change,
-                up: change >= 0
-            };
-        }
-    } catch (error) {
-        console.warn(`TwelveData fetch failed for ${symbolConfig.display}`, error);
-    }
-    return null;
-}
-
-// Single asset aggregation logic
-export async function getMarketQuoteForAsset(symbolConfig: any): Promise<MarketQuote | null> {
-    // 1. Primary: Finnhub (Forex/Indices usually better here)
-    let quote = await fetchFromFinnhub(symbolConfig);
-    if (quote) return quote;
-
-    // 2. Secondary: Polygon (Stocks/Crypto usually better here)
-    quote = await fetchFromPolygon(symbolConfig);
-    if (quote) return quote;
-
-    // 3. Fallback: TwelveData
-    quote = await fetchFromTwelveData(symbolConfig);
-    if (quote) return quote;
-
-    return null;
-}
-
-// Fetch all market data at once
+// ── Main export ────────────────────────────────────────────────────────────────
 export async function getAggregatedMarketData(): Promise<MarketQuote[]> {
-    const promises = ALL_SYMBOLS.map(async (config) => {
-        let quote = await getMarketQuoteForAsset(config);
-        if (!quote) {
-            // Give a mock fallback if ALL APIs fail/are unconfigured so the site never crashes
-            quote = {
-                symbol: config.display,
-                price: 100 + (Math.random() * 50),
-                change: Math.random() * 2 - 1,
-                percent_change: Math.random() * 2,
-                up: Math.random() > 0.5
-            };
-            quote.mock = true; // Mark as mock so we know it's fallback
-        }
-        return quote;
-    });
+    // Single batch call — one request for all symbols.
+    // No Polygon fallback (rate limits + 403 on indices on free tier).
+    console.log('[MarketAggregator] Fetching batch from TwelveData...');
+    const results = await fetchBatchFromTwelveData();
+    const count = Object.keys(results).length;
+    console.log(`[MarketAggregator] TwelveData returned ${count}/${ALL_SYMBOLS.length} quotes.`);
+    return Object.values(results);
+}
 
-    const results = await Promise.all(promises);
-    return results.filter(q => q !== null) as MarketQuote[];
+// Kept for backward compatibility
+export async function getMarketQuoteForAsset(symbolConfig: any): Promise<MarketQuote | null> {
+    return fetchFromPolygon(symbolConfig);
 }
