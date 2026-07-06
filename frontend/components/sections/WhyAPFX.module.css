@@ -64,8 +64,10 @@
 }
 
 .bentoItem {
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
+    background: rgba(20, 20, 20, 0.4);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-xl);
     padding: 2rem;
     position: relative;
@@ -74,15 +76,74 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    transition: border-color var(--duration-normal) var(--ease-out),
-        transform var(--duration-normal) var(--ease-out),
+    transition:
+        border-color var(--duration-normal) var(--ease-out),
+        transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1),
         box-shadow var(--duration-normal) var(--ease-out);
 }
 
 .bentoItem:hover {
     border-color: rgba(54, 249, 54, 0.4);
-    transform: translateY(-5px) scale(1.01);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 20px rgba(54, 249, 54, 0.1);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow:
+        0 24px 64px rgba(0, 0, 0, 0.6),
+        0 0 32px rgba(54, 249, 54, 0.15),
+        inset 0 0 20px rgba(255, 255, 255, 0.02);
+    z-index: 2;
+}
+
+.bentoHighlighted {
+  border-color: rgba(54, 249, 54, 0.4);
+  box-shadow: 0 0 24px rgba(54, 249, 54, 0.05);
+}
+
+.bentoLight {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  color: #111827;
+}
+
+.bentoLight .bentoTitle {
+  color: #111827;
+}
+
+.bentoLight .bentoDesc {
+  color: #4b5563;
+}
+
+.bentoLight::before {
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+}
+
+.bentoLight::after {
+  display: none;
+}
+
+/* Invert the contrast cards when in global Light Mode */
+:global(.light-mode) .bentoItem {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+:global(.light-mode) .bentoLight {
+  background: rgba(17, 17, 17, 0.9);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+}
+
+:global(.light-mode) .bentoLight .bentoTitle {
+  color: #ffffff;
+}
+
+:global(.light-mode) .bentoLight .bentoDesc {
+  color: #a1a1aa;
+}
+
+:global(.light-mode) .bentoLight::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
 }
 
 /* Large featured tile */
@@ -95,19 +156,26 @@
 }
 
 .bentoItem::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(54, 249, 54, 0.3), transparent);
-    opacity: 0;
-    transition: opacity var(--duration-slow) var(--ease-out);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+    rgba(255, 255, 255, 0.08),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .bentoItem:hover::before {
-    opacity: 1;
+  opacity: 1;
 }
 
 .bentoIcon {

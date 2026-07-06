@@ -2,19 +2,26 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  Headphones,
   Clock,
   Sparkles,
   BarChart2,
-  Bot,
   Monitor,
   Globe,
+  Handshake,
+  Headphones,
+  Bot,
   Users,
   ShieldCheck,
-  Handshake,
 } from 'lucide-react'
 import { useInViewport } from '@/hooks/useInViewport'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 import styles from './WhyAPFX.module.css'
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger)
+}
 
 const FEATURES: {
   icon: React.ReactNode
@@ -25,6 +32,8 @@ const FEATURES: {
   iconBg: string
   iconBorder: string
   glow: string
+  highlight?: boolean
+  theme?: 'light' | 'dark'
 }[] = [
   {
     icon: <Headphones size={24} />,
@@ -32,9 +41,10 @@ const FEATURES: {
     title: '24/7 Human Support',
     desc: 'Talk to real trading experts anytime via live chat, email, or phone. Fast, reliable human assistance whenever you need it.',
     large: true,
+    theme: 'dark',
     iconBg: 'rgba(54, 249, 54, 0.1)',
     iconBorder: 'rgba(54, 249, 54, 0.2)',
-    glow: 'rgba(54, 249, 54, 0.12)',
+    glow: 'rgba(54, 249, 54, 0.1)',
   },
   {
     icon: <Clock size={24} />,
@@ -48,6 +58,7 @@ const FEATURES: {
       </>
     ),
     large: false,
+    theme: 'light',
     iconBg: 'rgba(54, 249, 54, 0.1)',
     iconBorder: 'rgba(54, 249, 54, 0.2)',
     glow: 'rgba(54, 249, 54, 0.1)',
@@ -58,6 +69,7 @@ const FEATURES: {
     title: 'AI-Powered Trading Assistance',
     desc: 'Trade smarter using ChatGPT, DeepSeek, AI Agents, and intelligent automation to assist with market research and trading decisions.',
     large: false,
+    theme: 'dark',
     iconBg: 'rgba(99, 102, 241, 0.1)',
     iconBorder: 'rgba(99, 102, 241, 0.2)',
     glow: 'rgba(99, 102, 241, 0.1)',
@@ -74,6 +86,7 @@ const FEATURES: {
       </>
     ),
     large: false,
+    theme: 'light',
     iconBg: 'rgba(54, 249, 54, 0.1)',
     iconBorder: 'rgba(54, 249, 54, 0.2)',
     glow: 'rgba(54, 249, 54, 0.1)',
@@ -90,9 +103,10 @@ const FEATURES: {
       </>
     ),
     large: false,
-    iconBg: 'rgba(201, 168, 76, 0.1)',
-    iconBorder: 'rgba(201, 168, 76, 0.2)',
-    glow: 'rgba(201, 168, 76, 0.1)',
+    theme: 'dark',
+    iconBg: 'rgba(54, 249, 54, 0.1)',
+    iconBorder: 'rgba(54, 249, 54, 0.2)',
+    glow: 'rgba(54, 249, 54, 0.1)',
   },
   {
     icon: <Monitor size={24} />,
@@ -100,6 +114,7 @@ const FEATURES: {
     title: 'Advanced cTrader Trading Platform',
     desc: 'Trade on the powerful cTrader platform with advanced charting, lightning-fast execution, algorithmic trading, and professional-grade tools.',
     large: false,
+    theme: 'light',
     iconBg: 'rgba(59, 130, 246, 0.1)',
     iconBorder: 'rgba(59, 130, 246, 0.2)',
     glow: 'rgba(59, 130, 246, 0.1)',
@@ -116,6 +131,7 @@ const FEATURES: {
       </>
     ),
     large: false,
+    theme: 'dark',
     iconBg: 'rgba(249, 115, 22, 0.1)',
     iconBorder: 'rgba(249, 115, 22, 0.2)',
     glow: 'rgba(249, 115, 22, 0.1)',
@@ -126,6 +142,8 @@ const FEATURES: {
     title: 'Advanced Copy Trading & PAMM Solutions',
     desc: 'Follow experienced traders or invest through professional PAMM solutions with complete transparency and flexibility.',
     large: false,
+    highlight: true,
+    theme: 'dark',
     iconBg: 'rgba(99, 102, 241, 0.1)',
     iconBorder: 'rgba(99, 102, 241, 0.2)',
     glow: 'rgba(99, 102, 241, 0.1)',
@@ -136,6 +154,7 @@ const FEATURES: {
     title: 'Advanced Risk Management Tools',
     desc: 'Protect your capital using built-in calculators, position sizing tools, risk analysis, and trade management features.',
     large: false,
+    theme: 'dark',
     iconBg: 'rgba(54, 249, 54, 0.1)',
     iconBorder: 'rgba(54, 249, 54, 0.2)',
     glow: 'rgba(54, 249, 54, 0.1)',
@@ -151,6 +170,7 @@ const FEATURES: {
       </>
     ),
     large: true,
+    theme: 'light',
     iconBg: 'rgba(201, 168, 76, 0.1)',
     iconBorder: 'rgba(201, 168, 76, 0.2)',
     glow: 'rgba(201, 168, 76, 0.12)',
@@ -245,6 +265,53 @@ export default function WhyAPFX() {
     }
   }, [syncIndexFromScroll, isInViewport])
 
+  // GSAP scroll animation
+  useGSAP(
+    () => {
+      const cards = gsap.utils.toArray(`.${styles.bentoItem}`) as HTMLElement[]
+      if (!cards.length) return
+
+      const mm = gsap.matchMedia()
+
+      // Only animate on big screens (desktop)
+      mm.add('(min-width: 769px)', () => {
+        cards.forEach((card, index) => {
+          // Calculate a slight stagger delay based on column position (0, 1, 2)
+          // Since it's a 3-column grid, we can just use index % 3
+          const colIndex = index % 3
+          
+          gsap.from(card, {
+            y: 80,
+            scale: 0.9,
+            opacity: 0,
+            duration: 0.8,
+            delay: colIndex * 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+          })
+        })
+      })
+
+      return () => mm.revert()
+    },
+    { scope: sectionRef }
+  )
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const cards = document.querySelectorAll(`.${styles.bentoItem}`) as NodeListOf<HTMLElement>
+    for (const card of cards) {
+      const rect = card.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+      card.style.setProperty('--mouse-x', `${x}px`)
+      card.style.setProperty('--mouse-y', `${y}px`)
+    }
+  }
+
   return (
     <section
       ref={sectionRef}
@@ -263,11 +330,13 @@ export default function WhyAPFX() {
           </p>
         </header>
 
-        <div className={styles.bento} ref={sliderRef}>
+        <div className={styles.bento} ref={sliderRef} onMouseMove={handleMouseMove}>
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              className={`${styles.bentoItem} ${f.large ? styles.bentoLarge : ''}`}
+              className={`${styles.bentoItem} ${f.large ? styles.bentoLarge : ''} ${
+                f.highlight ? styles.bentoHighlighted : ''
+              } ${f.theme === 'light' ? styles.bentoLight : ''}`}
               style={
                 {
                   '--glow-color': f.glow,
