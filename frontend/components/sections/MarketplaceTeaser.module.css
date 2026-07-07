@@ -1,0 +1,226 @@
+/* ============================================================
+   Marketplace Teaser Section
+   ============================================================ */
+
+.section {
+    padding: 5rem 1.5rem;
+    background: var(--color-bg, #0a0b0d);
+    position: relative;
+    overflow: hidden;
+}
+
+.inner {
+    max-width: 1500px;
+    width: 95%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 460px minmax(0, 1fr);
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Left Side: Text & CTAs ─────────────────────────────── */
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #36F936;
+    margin-bottom: 1rem;
+}
+
+.eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: #36F936;
+    opacity: 0.5;
+}
+
+.title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+}
+
+.description {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.65;
+    margin: 0 0 2rem;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.primaryLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: #36F936;
+    color: #000;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.primaryLink:hover {
+    background: #2ce62c;
+    transform: translateY(-2px);
+}
+
+
+
+/* ── Right Side: Live Marketplace Window ──────────────── */
+.carouselWrap {
+    position: relative;
+    width: auto;
+    /* Full bleed right edge */
+    margin-right: calc(50% - 50vw);
+    
+    /* Crop the iframe to only show the first row (approx 360px height) */
+    height: 380px;
+    overflow: hidden;
+    border-radius: 12px 0 0 12px;
+    background: #0d0f14;
+    /* subtle border to separate from background */
+    box-shadow: -1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+.carouselWrap::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    background: linear-gradient(to right, transparent, var(--color-bg, #0a0b0d));
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* We also fade the bottom so the cutoff doesn't look harsh */
+.carouselWrap::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 80px;
+    background: linear-gradient(to top, var(--color-bg, #0a0b0d), transparent);
+    pointer-events: none;
+    z-index: 3;
+}
+
+.iframe {
+    position: absolute;
+    top: -20px; /* shift up slightly to hide widget headers if any */
+    left: 0;
+    width: 100%;
+    /* We make the iframe taller than the wrapper so it doesn't try to squash its internal grid */
+    height: 800px;
+    border: none;
+    display: block;
+    z-index: 1;
+}
+
+.previewOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    cursor: pointer;
+    /* slight dim effect on hover to indicate it's clickable */
+    transition: background 0.2s ease;
+}
+
+.previewOverlay:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* ── Loader ─────────────────────────────────────────────── */
+.loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: #0d0f14;
+    z-index: 5;
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 2.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    border-top-color: #36F936;
+    animation: spin 0.9s linear infinite;
+}
+
+.loaderText {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.04em;
+    margin: 0;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    .content {
+        align-items: center;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .eyebrow::before {
+        display: none;
+    }
+    .carouselWrap {
+        margin-right: -2.5vw; /* Just a small bleed on tablet/mobile */
+        border-radius: 0;
+    }
+    .carouselWrap::after {
+        width: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 4rem 1rem;
+    }
+    .actions {
+        justify-content: center;
+    }
+}

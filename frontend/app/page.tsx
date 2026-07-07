@@ -34,6 +34,7 @@ const GlobalScale = dynamic(() => import('@/components/sections/GlobalScale'), {
 
 const StatsBar = dynamic(() => import('@/components/sections/StatsBar'), { ssr: true })
 const MarketsSection = dynamic(() => import('@/components/sections/MarketsSection'), { ssr: true })
+const MarketplaceTeaser = dynamic(() => import('@/components/sections/MarketplaceTeaser'), { ssr: true })
 const WhyAPFX = dynamic(() => import('@/components/sections/WhyAPFX'), { ssr: true })
 const CTraderPreview = dynamic(() => import('@/components/sections/CTraderPreview'), { ssr: false })
 const TradingPlatforms = dynamic(() => import('@/components/sections/TradingPlatforms'), {
@@ -87,9 +88,11 @@ export default function HomePage() {
           <StatsBar />
         </AnimatedSection>
 
+        {/* 
         <AnimatedSection>
           <MarketsSection />
         </AnimatedSection>
+        */}
 
         <AnimatedSection>
           <CTraderPreview />
@@ -104,6 +107,10 @@ export default function HomePage() {
         </AnimatedSection>
 
         <AnimatedSection className="bg-alternate-1">
+          <MarketplaceTeaser />
+        </AnimatedSection>
+
+        <AnimatedSection>
           <AccountTypes />
         </AnimatedSection>
 

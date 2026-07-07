@@ -194,3 +194,14 @@
 @media (max-width: 480px) {
     .iframeWrap { aspect-ratio: 1 / 1; min-height: 280px; }
 }
+
+@media (min-width: 1280px) {
+    .inner {
+        max-width: 1800px;
+        width: 98%;
+    }
+    .iframeWrap {
+        aspect-ratio: 16 / 9;
+        min-height: 750px;
+    }
+}
