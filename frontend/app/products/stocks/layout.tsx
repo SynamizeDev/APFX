@@ -1,11 +1,7 @@
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Stocks Trading',
-  description:
-    'Trade global stocks with APFX—education, tools, and institutional-style access. CFDs and equities where available.',
-}
-
+/**
+ * Stocks layout — intentionally has no metadata export.
+ * Metadata is defined at the page level in page.tsx to avoid conflicts.
+ */
 export default function StocksLayout({ children }: { children: React.ReactNode }) {
-  return children
+  return <>{children}</>
 }

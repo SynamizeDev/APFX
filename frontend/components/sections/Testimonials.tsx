@@ -96,7 +96,7 @@ export default function Testimonials() {
                         Trusted by Performance‑Driven Traders Worldwide
                     </h2>
                 </div>
-                <Link href="/company/success-stories" className={styles.btnSmall}>
+                <Link href="/about/success-stories" className={styles.btnSmall}>
                     See More Reviews <ArrowRight size={14} />
                 </Link>
             </div>

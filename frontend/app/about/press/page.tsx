@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import Link from 'next/link'
 import { Image, Palette, User } from 'lucide-react'
@@ -187,7 +187,7 @@ export default function PressPage() {
             <p className={styles.ctaSubtitle}>Interested in interviews, collaborations, or more information? Get in touch.</p>
             <div className={styles.ctaButtons}>
               <a href="mailto:press@apfx.com" className={styles.ctaBtnPrimary}>Contact Media Team</a>
-              <Link href="/company/about-us" className={styles.ctaBtnSecondary}>About Us</Link>
+              <Link href="/about/about-us" className={styles.ctaBtnSecondary}>About Us</Link>
               <Link href="/contact" className={styles.ctaBtnSecondary}>General Contact</Link>
             </div>
           </div>

@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Link from 'next/link'
@@ -251,7 +251,7 @@ export default function RiskManagementLayout({
   return (
     <div className={styles.wrapper}>
       <header className={styles.hero}>
-        <h1 className={styles.heroTitle}>Professional Risk Management</h1>
+        <div role="heading" aria-level={2} className={styles.heroTitle}>Professional Risk Management</div>
         <p className={styles.heroDesc}>
           Precision risk control is the cornerstone of institutional trading. 
           Use these tools to align your strategy with mathematical survival.

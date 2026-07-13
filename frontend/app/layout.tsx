@@ -46,7 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'APFX',
+    site: '@apfx',
+    creator: '@apfx',
+    title: 'APFX — Global Trading Platform',
     description:
       'Premium global trading platform with institutional-grade execution.',
     images: ['/og-image.jpg'],
@@ -114,16 +116,55 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Organization',
+              '@id': `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com'}/#organization`,
               name: 'APFX',
-              url: process.env.NEXT_PUBLIC_SITE_URL || 'https://apfx.com',
-              logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://apfx.com'
-                }/logo.svg`,
+              legalName: 'APFX Global Markets Ltd',
+              url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com',
+              logo: {
+                '@type': 'ImageObject',
+                url: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com'}/assets/apfx-icon.png`,
+                width: 512,
+                height: 512,
+              },
               description:
                 'Premium global trading platform for Forex, Commodities, Indices, and Metals.',
+              foundingDate: '2020',
+              contactPoint: {
+                '@type': 'ContactPoint',
+                contactType: 'customer support',
+                availableLanguage: 'English',
+                url: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com'}/contact`,
+              },
               sameAs: [
                 'https://twitter.com/apfx',
                 'https://linkedin.com/company/apfx',
               ],
+            }),
+          }}
+        />
+
+        {/* ── Structured Data (WebSite + Sitelinks Searchbox) ── */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              '@id': `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com'}/#website`,
+              name: 'APFX',
+              url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com',
+              description: 'Institutional-grade global trading platform for Forex, Commodities, Indices, and Metals.',
+              publisher: {
+                '@id': `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com'}/#organization`,
+              },
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com'}/academy/blog?q={search_term_string}`,
+                },
+                'query-input': 'required name=search_term_string',
+              },
             }),
           }}
         />

@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import Link from 'next/link'
 import {
@@ -201,7 +201,7 @@ export default function AboutUsPage() {
             <p className={styles.ctaSubtitle}>Start trading, explore our tools, or continue learning.</p>
             <div className={styles.ctaButtons}>
               <Link href="/tools/calculators" className={styles.ctaBtnSecondary}>Explore Our Tools</Link>
-              <Link href="/learn/blog" className={styles.ctaBtnSecondary}>Learn More</Link>
+              <Link href="/academy/blog" className={styles.ctaBtnSecondary}>Learn More</Link>
             </div>
           </div>
         </section>

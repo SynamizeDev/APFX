@@ -419,7 +419,7 @@ export default function GlossaryPage() {
             practice.
           </p>
           <div className={styles.ctaButtons}>
-            <Link href="/learn/blog" className={styles.ctaBtnPrimary}>
+            <Link href="/academy/blog" className={styles.ctaBtnPrimary}>
               Explore Trading Guides
             </Link>
             <Link href="/tools/calculators" className={styles.ctaBtnSecondary}>

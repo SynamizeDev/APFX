@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import Link from 'next/link'
 import {
@@ -451,9 +451,9 @@ export default function IndicesPage() {
               Continue learning
             </h2>
             <div className={styles.relatedLinks}>
-              <Link href="/trade&invest/stocks">Single-name equities</Link>
+              <Link href="/products/stocks">Single-name equities</Link>
               <Link href="/tools/risk-management">Risk tools</Link>
-              <Link href="/learn/blog">Blog</Link>
+              <Link href="/academy/blog">Blog</Link>
             </div>
           </div>
         </section>

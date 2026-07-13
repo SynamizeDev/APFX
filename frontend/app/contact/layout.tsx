@@ -1,15 +1,18 @@
 import type { Metadata } from 'next'
+import { buildMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-    title: 'Contact APFX — Global Support & Institutional Relations',
-    description:
-        'Get in touch with our global support team or institutional representatives. We are available 24/7 to assist with your trading requirements.',
-}
+export const metadata: Metadata = buildMetadata({
+  title: 'Contact APFX — 24/5 Global Support & Institutional Relations',
+  description:
+    'Get in touch with APFX global support team or our institutional relations desk. Available 24/5 via live chat, email, and dedicated account manager lines.',
+  path: '/contact',
+  keywords: ['contact APFX', 'forex broker support', 'trading support', 'APFX help'],
+})
 
 export default function ContactLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode
 }) {
-    return <>{children}</>
+  return <>{children}</>
 }

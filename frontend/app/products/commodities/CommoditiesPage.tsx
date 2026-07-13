@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import Link from 'next/link'
 import {
@@ -514,9 +514,9 @@ export default function CommoditiesPage() {
               Keep exploring
             </h2>
             <div className={styles.relatedLinks}>
-              <Link href="/trade&invest/futures">Futures hub</Link>
+              <Link href="/products/futures">Futures hub</Link>
               <Link href="/tools/calculators/margin">Margin calculator</Link>
-              <Link href="/learn/glossary">Glossary</Link>
+              <Link href="/academy/glossary">Glossary</Link>
             </div>
           </div>
         </section>

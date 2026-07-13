@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import Link from 'next/link'
 import {
@@ -435,9 +435,9 @@ export default function FuturesPage() {
               Cross-links
             </h2>
             <div className={styles.relatedLinks}>
-              <Link href="/trade&invest/commodities">Commodities</Link>
-              <Link href="/trade&invest/indices">Indices</Link>
-              <Link href="/learn/glossary">Glossary</Link>
+              <Link href="/products/commodities">Commodities</Link>
+              <Link href="/products/indices">Indices</Link>
+              <Link href="/academy/glossary">Glossary</Link>
             </div>
           </div>
         </section>

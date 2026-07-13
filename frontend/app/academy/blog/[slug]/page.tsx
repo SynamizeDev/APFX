@@ -1,74 +1,108 @@
-'use client'
+import type { Metadata } from 'next'
+import { buildMetadata, buildArticleJsonLd } from '@/lib/seo'
+import BlogArticleClient from './BlogArticleClient'
 
-import Link from 'next/link'
-import { useParams } from 'next/navigation'
-import ArticleCallout from '../ArticleCallout'
-import styles from '../Article.module.css'
+/* =========================================================
+   Article data store — matches the client-side ARTICLES map.
+   In production this would be fetched from a CMS/API.
+   ========================================================= */
 
-const ARTICLES: Record<string, { title: string; description: string; readTime: string; date: string; category: string; body: React.ReactNode }> = {}
-
-function formatDate(iso: string) {
-  try {
-    return new Date(iso).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-  } catch {
-    return iso
-  }
+const ARTICLE_META: Record<
+  string,
+  { title: string; description: string; datePublished: string; category: string }
+> = {
+  // Placeholder entries — populate from CMS in production
+  'getting-started-with-forex': {
+    title: 'Getting Started with Forex Trading',
+    description:
+      'A complete beginner guide to Forex trading. Learn currency pairs, pips, spreads, and how to place your first trade.',
+    datePublished: '2024-01-15',
+    category: 'Trading Basics',
+  },
+  'risk-management-fundamentals': {
+    title: 'Risk Management Fundamentals for Traders',
+    description:
+      'Master the risk management techniques used by professional Forex traders. Stop loss placement, position sizing, and the 2% rule explained.',
+    datePublished: '2024-02-01',
+    category: 'Risk Management',
+  },
+  'technical-analysis-guide': {
+    title: 'Technical Analysis Guide — Reading Charts Like a Pro',
+    description:
+      'Learn how to read Forex charts using technical analysis. Support and resistance, trend lines, candlestick patterns, and key indicators.',
+    datePublished: '2024-02-20',
+    category: 'Technical Analysis',
+  },
 }
 
-function DefaultBody({ slug }: { slug: string }) {
+/* =========================================================
+   generateMetadata — per-article server metadata
+   ========================================================= */
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const article = ARTICLE_META[slug]
+
+  if (article) {
+    return buildMetadata({
+      title: article.title,
+      description: article.description,
+      path: `/academy/blog/${slug}`,
+      keywords: [article.category, 'forex trading', 'trading education', 'APFX blog'],
+    })
+  }
+
+  // Fallback for unknown slugs — generate from slug string
+  const humanTitle = slug
+    .split('-')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ')
+
+  return buildMetadata({
+    title: `${humanTitle} — Trading Insights`,
+    description: `${humanTitle}: expert trading education and market insights from the APFX team.`,
+    path: `/academy/blog/${slug}`,
+    keywords: ['trading education', 'forex insights', 'APFX blog'],
+  })
+}
+
+/* =========================================================
+   JSON-LD — Article schema
+   ========================================================= */
+
+export default async function BlogArticlePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const article = ARTICLE_META[slug]
+
+  const title = article?.title ?? slug.replace(/-/g, ' ')
+  const description =
+    article?.description ?? 'Trading and investing insights from the APFX editorial team.'
+  const datePublished = article?.datePublished ?? new Date().toISOString().slice(0, 10)
+
+  const articleJsonLd = buildArticleJsonLd({
+    title,
+    description,
+    path: `/academy/blog/${slug}`,
+    datePublished,
+    authorName: 'APFX Editorial Team',
+  })
+
   return (
     <>
-      <p>
-        This is a placeholder for the article &ldquo;{slug}&rdquo;. In production, content would be loaded from a CMS or markdown. Below are example tool callouts you can embed in any article.
-      </p>
-      <h2>Key takeaways</h2>
-      <ul>
-        <li>Always manage risk with a stop loss.</li>
-        <li>Use position sizing so no single trade can wipe out your account.</li>
-        <li>Keep a trading journal to improve over time.</li>
-      </ul>
-      <ArticleCallout tool="risk-management" />
-      <p>
-        Our risk management tools help you calculate risk per trade, see how much return you need to recover from a drawdown, and estimate the probability of ruin given your win rate and reward-to-risk ratio.
-      </p>
-      <ArticleCallout tool="pip" />
-      <ArticleCallout tool="position-size" message="Try our Position Size Calculator to size your trades based on your account balance and risk per trade." />
-      <div className={styles.ctaBlock}>
-        <p className={styles.ctaBlockTitle}>Use our tools while you learn</p>
-        <div className={styles.ctaBlockLinks}>
-          <Link href="/tools/calculators/pip">Pip Calculator</Link>
-          <Link href="/tools/calculators/position-size">Position Size Calculator</Link>
-          <Link href="/tools/risk-management">Risk Management Tools</Link>
-        </div>
-      </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <BlogArticleClient slug={slug} />
     </>
   )
 }
 
-export default function BlogArticlePage() {
-  const params = useParams()
-  const slug = typeof params?.slug === 'string' ? params.slug : ''
-  const article = slug ? ARTICLES[slug] : null
-  const title = article?.title ?? (slug ? slug.replace(/-/g, ' ') : 'Article')
-  const description = article?.description ?? 'Trading and investing insights from APFX.'
-  const readTime = article?.readTime ?? '5 min'
-  const date = article?.date ?? new Date().toISOString().slice(0, 10)
-  const category = article?.category ?? 'Trading Basics'
-  const body = article?.body ?? <DefaultBody slug={slug} />
-
-  return (
-    <article className={styles.wrapper}>
-      <Link href="/learn/blog" className={styles.backLink}>
-        ← Back to Blog
-      </Link>
-      <header className={styles.articleHeader}>
-        <p className={styles.meta}>
-          {category} · {readTime} · <time dateTime={date}>{formatDate(date)}</time>
-        </p>
-        <h1 className={styles.title}>{title}</h1>
-        <p className={styles.description}>{description}</p>
-      </header>
-      <div className={styles.prose}>{body}</div>
-    </article>
-  )
-}

@@ -1,14 +1,10 @@
-'use client'
+import { redirect } from 'next/navigation'
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-
+/**
+ * /tools/calculators — server-side redirect to canonical first sub-page.
+ * Using server redirect() instead of client router.replace() so Googlebot
+ * receives a proper HTTP 307 response and follows the canonical URL.
+ */
 export default function CalculatorsIndexPage() {
-    const router = useRouter()
-
-    useEffect(() => {
-        router.replace('/tools/calculators/pip')
-    }, [router])
-
-    return null
+  redirect('/tools/calculators/pip')
 }

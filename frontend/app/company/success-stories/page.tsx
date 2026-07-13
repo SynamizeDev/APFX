@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -16,6 +16,7 @@ import {
     TrendingUp
 } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { PORTAL_LINK_PROPS } from '@/config/urls'
 import styles from './SuccessStories.module.css'
 
@@ -307,28 +308,28 @@ export default function SuccessStoriesPage() {
                 </div>
                 <div className={styles.photoGrid}>
                     <div className={styles.photoItem}>
-                        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=600&auto=format&fit=crop" alt="Trading Desk" />
+                        <Image src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=600&auto=format&fit=crop" alt="Trading Desk" width={600} height={400} style={{ width: '100%', height: 'auto' }} />
                         <div className={styles.photoOverlay}>
                             <span className={styles.photoAuthor}>London Office Setup</span>
                             <span className={styles.photoDesc}>Multi-monitor APFX MT5 Terminal</span>
                         </div>
                     </div>
                     <div className={styles.photoItem}>
-                        <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=600&auto=format&fit=crop" alt="IB Seminar" />
+                        <Image src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=600&auto=format&fit=crop" alt="IB Seminar" width={600} height={400} style={{ width: '100%', height: 'auto' }} />
                         <div className={styles.photoOverlay}>
                             <span className={styles.photoAuthor}>Dubai IB Seminar</span>
                             <span className={styles.photoDesc}>Networking with Top Partners</span>
                         </div>
                     </div>
                     <div className={styles.photoItem}>
-                        <img src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?q=80&w=600&auto=format&fit=crop" alt="Mobile Trading" />
+                        <Image src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?q=80&w=600&auto=format&fit=crop" alt="Mobile Trading" width={600} height={400} style={{ width: '100%', height: 'auto' }} />
                         <div className={styles.photoOverlay}>
                             <span className={styles.photoAuthor}>Trading on the Go</span>
                             <span className={styles.photoDesc}>APFX Mobile Experience</span>
                         </div>
                     </div>
                     <div className={styles.photoItem}>
-                        <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=600&auto=format&fit=crop" alt="Event" />
+                        <Image src="https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=600&auto=format&fit=crop" alt="Event" width={600} height={400} style={{ width: '100%', height: 'auto' }} />
                         <div className={styles.photoOverlay}>
                             <span className={styles.photoAuthor}>Global Traders Summit 2024</span>
                             <span className={styles.photoDesc}>Keynote Presentation</span>
