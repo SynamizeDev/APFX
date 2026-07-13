@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
    ========================================================= */
 
 export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ?? 'https://apfx.com'
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ?? 'https://apfxglobal.com'
 
 export const defaultOgImage = `${siteUrl}/og-image.jpg`
 

@@ -11,7 +11,7 @@ import { HomeEntryProvider } from '@/context/HomeEntryContext'
    ========================================================= */
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://apfx.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://apfxglobal.com'),
   title: {
     default: 'APFX',
     template: '%s | APFX',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://apfx.com',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://apfxglobal.com',
     siteName: 'APFX',
     title: 'APFX',
     description:
@@ -116,13 +116,13 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Organization',
-              '@id': `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com'}/#organization`,
+              '@id': `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfxglobal.com'}/#organization`,
               name: 'APFX',
               legalName: 'APFX Global Markets Ltd',
-              url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com',
+              url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfxglobal.com',
               logo: {
                 '@type': 'ImageObject',
-                url: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com'}/assets/apfx-icon.png`,
+                url: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfxglobal.com'}/assets/apfx-icon.png`,
                 width: 512,
                 height: 512,
               },
@@ -133,7 +133,7 @@ export default function RootLayout({
                 '@type': 'ContactPoint',
                 contactType: 'customer support',
                 availableLanguage: 'English',
-                url: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com'}/contact`,
+                url: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfxglobal.com'}/contact`,
               },
               sameAs: [
                 'https://twitter.com/apfx',
@@ -150,18 +150,18 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              '@id': `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com'}/#website`,
+              '@id': `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfxglobal.com'}/#website`,
               name: 'APFX',
-              url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com',
+              url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfxglobal.com',
               description: 'Institutional-grade global trading platform for Forex, Commodities, Indices, and Metals.',
               publisher: {
-                '@id': `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com'}/#organization`,
+                '@id': `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfxglobal.com'}/#organization`,
               },
               potentialAction: {
                 '@type': 'SearchAction',
                 target: {
                   '@type': 'EntryPoint',
-                  urlTemplate: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfx.com'}/academy/blog?q={search_term_string}`,
+                  urlTemplate: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://apfxglobal.com'}/academy/blog?q={search_term_string}`,
                 },
                 'query-input': 'required name=search_term_string',
               },
