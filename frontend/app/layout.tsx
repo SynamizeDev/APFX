@@ -75,6 +75,7 @@ export const metadata: Metadata = {
 
 import GlobalEntry from '@/components/animations/GlobalEntry'
 import { RouteFooter, RouteFloatingActions, RouteMain } from '@/components/layout/RouteShell'
+import { Analytics } from '@vercel/analytics/next'
 
 export default function RootLayout({
   children,
@@ -150,6 +151,7 @@ export default function RootLayout({
             </SmoothScrollProvider>
           </HomeEntryProvider>
         </PreferencesProvider>
+        <Analytics />
       </body>
     </html>
   )
