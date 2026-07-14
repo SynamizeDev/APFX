@@ -40,6 +40,8 @@ const ACCOUNT_DATA: {
   description?: React.ReactNode
   btnText?: string
   isPopular: boolean
+  isElite?: boolean
+  eliteFeatures?: { label: string; value: string }[]
 }[] = [
   {
     id: 'standard',
@@ -63,15 +65,14 @@ const ACCOUNT_DATA: {
         Commission: <span style={{ color: G, fontWeight: 600 }}>None</span>
       </>,
       <>
-        Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
-      </>,
-      <>
         Minimum Deposit: <span style={{ color: G, fontWeight: 600 }}>$20</span>
       </>,
       <>
         Maximum Deposit: <span style={{ color: G, fontWeight: 600 }}>No Limit</span>
       </>,
-
+      <>
+        Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
+      </>,
     ],
     btnText: 'Open Standard Account',
     isPopular: false,
@@ -98,15 +99,14 @@ const ACCOUNT_DATA: {
         Commission: <span style={{ color: G, fontWeight: 600 }}>$8 per Lot</span>
       </>,
       <>
-        Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
-      </>,
-      <>
         Minimum Deposit: <span style={{ color: G, fontWeight: 600 }}>$1,000</span>
       </>,
       <>
         Maximum Deposit: <span style={{ color: G, fontWeight: 600 }}>No Limit</span>
       </>,
-
+      <>
+        Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
+      </>,
     ],
     btnText: 'Open Premium Account',
     isPopular: true,
@@ -116,14 +116,32 @@ const ACCOUNT_DATA: {
     name: 'Elite',
     commission: 'Custom',
     commissionLabel: 'Solutions',
-    description: (
-      <>
-        Enjoy a <span style={{ color: G, fontWeight: 600 }}>fully customized</span> trading experience
-        with <span style={{ color: G, fontWeight: 600 }}>flexible leverage, spreads, lot sizes</span>,
-        and account conditions designed around your <span style={{ color: G, fontWeight: 600 }}>trading style</span>.
-      </>
-    ),
+    btnText: 'Open Elite Account',
     isPopular: false,
+    isElite: true,
+    features: [
+      <>
+        Leverage: <span style={{ color: '#E5B742', fontWeight: 600 }}>Customized</span>
+      </>,
+      <>
+        Tradable Instruments: <span style={{ color: '#E5B742', fontWeight: 600 }}>1,200+</span>
+      </>,
+      <>
+        Spreads: <span style={{ color: '#E5B742', fontWeight: 600 }}>Customized</span>
+      </>,
+      <>
+        Commission: <span style={{ color: '#E5B742', fontWeight: 600 }}>Customized</span>
+      </>,
+      <>
+        Minimum Deposit: <span style={{ color: '#E5B742', fontWeight: 600 }}>$2,000</span>
+      </>,
+      <>
+        Maximum Deposit: <span style={{ color: '#E5B742', fontWeight: 600 }}>No Limit</span>
+      </>,
+      <>
+        Expert Advisors (EAs/Bots): <span style={{ color: '#E5B742', fontWeight: 600 }}>Allowed (Subject to execution style and risk assessment)</span>
+      </>,
+    ],
   },
 ]
 
@@ -195,13 +213,14 @@ function AccountsContent() {
             {ACCOUNT_DATA.map((acc) => (
               <motion.div
                 key={acc.id}
-                className={`${styles.profCard} ${acc.isPopular ? styles.profCardActive : ''}`}
+                className={`${styles.profCard} ${acc.isPopular ? styles.profCardActive : ''} ${acc.isElite ? styles.cardElite : ''}`}
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
               >
                 {acc.isPopular && <span className={styles.profBadge}>MOST POPULAR</span>}
+                {acc.isElite && <span className={styles.profBadge}>ELITE</span>}
                 <h3 className={styles.cardTitle}>{acc.name}</h3>
                 <div className={styles.cardPriceArea}>
                   <div className={styles.priceFlex}>
@@ -212,13 +231,13 @@ function AccountsContent() {
                   </div>
                   <span className={styles.priceSubText}>{acc.commissionLabel}</span>
                 </div>
-                {acc.description ? (
-                  <p className={styles.description}>{acc.description}</p>
-                ) : (
+                {acc.description && <p className={styles.description}>{acc.description}</p>}
+                
+                {acc.features && (
                   <ul className={styles.featureList}>
-                    {acc.features?.map((feat, i) => (
+                    {acc.features.map((feat, i) => (
                       <li key={i}>
-                        <Check size={16} className={styles.checkIcon} />
+                        <Check size={16} className={`${styles.checkIcon} ${acc.isElite ? styles.checkElite : ''}`} />
                         <span>{feat}</span>
                       </li>
                     ))}

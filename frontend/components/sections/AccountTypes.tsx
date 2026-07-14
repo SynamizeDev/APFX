@@ -17,6 +17,8 @@ const ACCOUNTS: {
   badge?: string
   cta?: string
   featured: boolean
+  isElite?: boolean
+  eliteFeatures?: { label: string; value: string }[]
 }[] = [
   {
     name: 'Standard Account',
@@ -39,15 +41,14 @@ const ACCOUNTS: {
         Commission: <span style={{ color: G, fontWeight: 600 }}>None</span>
       </>,
       <>
-        Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
-      </>,
-      <>
         Minimum Deposit: <span style={{ color: G, fontWeight: 600 }}>$20</span>
       </>,
       <>
         Maximum Deposit: <span style={{ color: G, fontWeight: 600 }}>No Limit</span>
       </>,
-
+      <>
+        Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
+      </>,
     ],
     cta: 'Open Standard Account',
     featured: false,
@@ -73,15 +74,14 @@ const ACCOUNTS: {
         Commission: <span style={{ color: G, fontWeight: 600 }}>$8 per Lot</span>
       </>,
       <>
-        Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
-      </>,
-      <>
         Minimum Deposit: <span style={{ color: G, fontWeight: 600 }}>$1,000</span>
       </>,
       <>
         Maximum Deposit: <span style={{ color: G, fontWeight: 600 }}>No Limit</span>
       </>,
-
+      <>
+        Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
+      </>,
     ],
     badge: 'Most Popular',
     cta: 'Open Premium Account',
@@ -91,14 +91,33 @@ const ACCOUNTS: {
     name: 'Elite',
     price: 'Custom',
     suffix: 'Solutions',
-    description: (
-      <>
-        Enjoy a <span style={{ color: G, fontWeight: 600 }}>fully customized</span> trading experience
-        with <span style={{ color: G, fontWeight: 600 }}>flexible leverage, spreads, lot sizes</span>,
-        and account conditions designed around your <span style={{ color: G, fontWeight: 600 }}>trading style</span>.
-      </>
-    ),
+    badge: 'ELITE',
+    cta: 'Open Elite Account',
     featured: false,
+    isElite: true,
+    features: [
+      <>
+        Leverage: <span style={{ color: '#E5B742', fontWeight: 600 }}>Customized</span>
+      </>,
+      <>
+        Tradable Instruments: <span style={{ color: '#E5B742', fontWeight: 600 }}>1,200+</span>
+      </>,
+      <>
+        Spreads: <span style={{ color: '#E5B742', fontWeight: 600 }}>Customized</span>
+      </>,
+      <>
+        Commission: <span style={{ color: '#E5B742', fontWeight: 600 }}>Customized</span>
+      </>,
+      <>
+        Minimum Deposit: <span style={{ color: '#E5B742', fontWeight: 600 }}>$2,000</span>
+      </>,
+      <>
+        Maximum Deposit: <span style={{ color: '#E5B742', fontWeight: 600 }}>No Limit</span>
+      </>,
+      <>
+        Expert Advisors (EAs/Bots): <span style={{ color: '#E5B742', fontWeight: 600 }}>Allowed (Subject to execution style and risk assessment)</span>
+      </>,
+    ],
   },
 ]
 
@@ -210,9 +229,13 @@ export default function AccountTypes() {
           {ACCOUNTS.map((acc) => (
             <div
               key={acc.name}
-              className={`${styles.card} ${acc.featured ? styles.cardFeatured : ''}`}
+              className={`${styles.card} ${acc.featured ? styles.cardFeatured : ''} ${acc.isElite ? styles.cardElite : ''}`}
             >
-              {acc.badge && <span className={styles.badge}>{acc.badge}</span>}
+              {acc.badge && (
+                <span className={`${styles.badge} ${acc.isElite ? styles.badgeElite : ''}`}>
+                  {acc.badge}
+                </span>
+              )}
               <h3 className={styles.name}>{acc.name}</h3>
               <div className={styles.price}>
                 {acc.price === 'Custom' ? (
@@ -226,13 +249,13 @@ export default function AccountTypes() {
                 <span>{acc.suffix}</span>
               </div>
 
-              {acc.description ? (
-                <p className={styles.description}>{acc.description}</p>
-              ) : (
+              {acc.description && <p className={styles.description}>{acc.description}</p>}
+              
+              {acc.features && (
                 <ul className={styles.features}>
-                  {acc.features?.map((f, fi) => (
+                  {acc.features.map((f, fi) => (
                     <li key={fi} className={styles.feature}>
-                      <span className={styles.check}>✓</span>
+                      <span className={`${styles.check} ${acc.isElite ? styles.checkElite : ''}`}>✓</span>
                       {f}
                     </li>
                   ))}

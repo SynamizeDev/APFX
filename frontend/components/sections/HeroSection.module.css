@@ -560,20 +560,35 @@
 }
 
 /* ── Right Column & Card UI ───────────────────────────────── */
-.mockupCard {
-    background: #0D0F11;
-    border-radius: 40px;
-    padding: 3.5rem;
-    color: #fff;
+.contentRight {
     position: relative;
-    box-shadow:
-        0 40px 80px rgba(0, 0, 0, 0.4),
-        0 0 100px rgba(135, 229, 165, 0.1);
-    border-top-right-radius: 120px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mockupImageWrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -10%;
+    width: 120%;
+    display: flex;
+    align-items: center;
     transform-style: preserve-3d;
     transition: transform 0.1s ease-out;
     z-index: 5;
+    pointer-events: none;
+}
+
+.mockupImage {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.4));
 }
 
 .profitIndicator {
@@ -875,6 +890,7 @@
         margin: 0.4rem auto;
         text-align: center;
         width: 100%;
+        align-self: stretch;
     }
 
     .valuePoints {
@@ -884,14 +900,19 @@
         margin-top: 2rem;
     }
 
-    .mockupCard {
-        padding: 2rem;
-        max-width: 460px;
+    .mockupImageWrapper {
+        position: relative;
+        right: auto;
+        width: 100%;
         margin: 0 auto;
+        top: auto;
+        bottom: auto;
     }
 
-    .mockupBalance {
-        font-size: 2.2rem;
+    .mockupImage {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
     }
 
     /* Hide heavy overlapping absolute shapes on tablet & mobile */
@@ -938,7 +959,7 @@
     }
 
     .content {
-        padding: 5.5rem 4% 2rem;
+        padding: 9.5rem 4% 2rem;
         gap: 2rem;
     }
 
@@ -952,19 +973,13 @@
         display: none !important;
     }
 
-    .mockupCard {
-        padding: 1.25rem;
-        border-top-right-radius: 40px;
-        max-width: 320px;
+    .mockupImageWrapper {
+        margin-top: 1rem;
     }
 
-    .mockupBalance {
-        font-size: 1.6rem;
-        margin: 0.2rem 0 0.5rem;
-    }
-
-    .mockupFooter {
-        margin-top: 2rem;
+    .mockupImage {
+        max-width: 100%;
+        padding: 0 1rem;
     }
 
     .miniGraph {

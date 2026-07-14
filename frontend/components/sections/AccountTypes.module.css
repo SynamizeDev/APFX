@@ -156,8 +156,74 @@
     background: var(--color-accent-subtle);
 }
 
+/* ── Elite Card Styles ────────────────────────────────────────── */
+.cardElite {
+    background: linear-gradient(145deg, rgba(23, 25, 28, 0.95), rgba(13, 15, 17, 0.98));
+    border: 1px solid rgba(229, 183, 66, 0.2);
+    box-shadow: 0 8px 32px rgba(229, 183, 66, 0.08);
+    position: relative;
+    overflow: hidden;
+}
 
+.cardElite::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(229, 183, 66, 0.8), transparent);
+    opacity: 0.6;
+}
 
+.cardElite:hover {
+    border-color: rgba(229, 183, 66, 0.4);
+    box-shadow: 0 12px 40px rgba(229, 183, 66, 0.15);
+}
+
+.badgeElite {
+    background: rgba(229, 183, 66, 0.15) !important;
+    color: #E5B742 !important;
+    border: 1px solid rgba(229, 183, 66, 0.3) !important;
+    box-shadow: 0 2px 10px rgba(229, 183, 66, 0.1);
+}
+
+.checkElite {
+    color: #E5B742 !important;
+}
+
+.eliteFeaturesList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    flex-grow: 1;
+}
+
+.eliteFeatureRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.eliteFeatureRow:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.eliteFeatureLabel {
+    color: var(--color-text-2);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.eliteFeatureValue {
+    color: #FFFFFF;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
 
 @media (max-width: 768px) {
     /* Pull the slider out of the padded inner container
