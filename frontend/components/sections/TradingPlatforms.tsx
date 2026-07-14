@@ -10,22 +10,18 @@ const PLATFORMS = [
     {
         icon: <BarChart3 size={24} />,
         name: 'Advanced Web Terminal',
-        desc: 'Institution-grade browser platform with advanced charting, one-click trading, and deep liquidity access.',
     },
     {
         icon: <TrendingUp size={24} />,
         name: 'TradingView Integration',
-        desc: 'Trade directly from TradingView charts with powerful technical analysis and social trading tools.',
     },
     {
         icon: <Globe size={24} />,
         name: 'WebTrader',
-        desc: 'Access the markets instantly from any modern browser with no installation required.',
     },
     {
         icon: <Smartphone size={24} />,
         name: 'Mobile Trading App',
-        desc: 'Full trading functionality on iOS and Android with real-time synchronization across devices.',
     },
 ]
 
@@ -133,7 +129,6 @@ export default function TradingPlatforms() {
                                     {p.icon}
                                 </span>
                                 <h3 className={styles.platformName}>{p.name}</h3>
-                                <p className={styles.platformDesc}>{p.desc}</p>
                             </div>
                         ))}
                     </div>
