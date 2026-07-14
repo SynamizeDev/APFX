@@ -36,8 +36,9 @@ const ACCOUNT_DATA: {
   name: string
   commission: string
   commissionLabel: string
-  features: React.ReactNode[]
-  btnText: string
+  features?: React.ReactNode[]
+  description?: React.ReactNode
+  btnText?: string
   isPopular: boolean
 }[] = [
   {
@@ -109,6 +110,20 @@ const ACCOUNT_DATA: {
     ],
     btnText: 'Open Premium Account',
     isPopular: true,
+  },
+  {
+    id: 'elite',
+    name: 'Elite',
+    commission: 'Custom',
+    commissionLabel: 'Solutions',
+    description: (
+      <>
+        Enjoy a <span style={{ color: G, fontWeight: 600 }}>fully customized</span> trading experience
+        with <span style={{ color: G, fontWeight: 600 }}>flexible leverage, spreads, lot sizes</span>,
+        and account conditions designed around your <span style={{ color: G, fontWeight: 600 }}>trading style</span>.
+      </>
+    ),
+    isPopular: false,
   },
 ]
 
@@ -197,20 +212,26 @@ function AccountsContent() {
                   </div>
                   <span className={styles.priceSubText}>{acc.commissionLabel}</span>
                 </div>
-                <ul className={styles.featureList}>
-                  {acc.features.map((feat, i) => (
-                    <li key={i}>
-                      <Check size={16} className={styles.checkIcon} />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  {...PORTAL_SIGNUP_LINK_PROPS}
-                  className={`${styles.cardBtn} ${acc.isPopular ? styles.cardBtnActive : ''}`}
-                >
-                  {acc.btnText}
-                </Link>
+                {acc.description ? (
+                  <p className={styles.description}>{acc.description}</p>
+                ) : (
+                  <ul className={styles.featureList}>
+                    {acc.features?.map((feat, i) => (
+                      <li key={i}>
+                        <Check size={16} className={styles.checkIcon} />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {acc.btnText && (
+                  <Link
+                    {...PORTAL_SIGNUP_LINK_PROPS}
+                    className={`${styles.cardBtn} ${acc.isPopular ? styles.cardBtnActive : ''}`}
+                  >
+                    {acc.btnText}
+                  </Link>
+                )}
               </motion.div>
             ))}
           </div>

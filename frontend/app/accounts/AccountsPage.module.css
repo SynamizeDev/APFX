@@ -109,7 +109,7 @@
 
 .profGrid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 360px));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 360px));
     gap: var(--space-8);
     justify-content: center;
 }
@@ -225,6 +225,14 @@
     color: var(--color-text-3);
     font-size: var(--text-sm);
     margin-top: var(--space-2);
+}
+
+.description {
+    font-size: 1.1rem;
+    color: var(--color-text-2);
+    line-height: 1.6;
+    margin-bottom: var(--space-8);
+    flex-grow: 1;
 }
 
 .featureList {

@@ -27,7 +27,7 @@
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 360px));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 360px));
     gap: 1.5rem;
     justify-content: center;
 }
@@ -96,6 +96,14 @@
 
 .features {
     list-style: none;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+}
+
+.description {
+    font-size: 1.1rem;
+    color: var(--color-text-2);
+    line-height: 1.6;
     margin-bottom: 2rem;
     flex-grow: 1;
 }
@@ -171,6 +179,7 @@
         padding-bottom: 0.75rem;
         /* stop the grid from also applying justify-content */
         justify-content: flex-start;
+        align-items: stretch;
     }
 
     .grid::-webkit-scrollbar {
@@ -187,6 +196,7 @@
         /* prevent any overflow clipping inside card */
         overflow: visible;
         box-sizing: border-box;
+        height: auto;
     }
 }
 

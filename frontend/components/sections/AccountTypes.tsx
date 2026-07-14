@@ -12,9 +12,10 @@ const ACCOUNTS: {
   name: string
   price: string
   suffix: string
-  features: React.ReactNode[]
+  features?: React.ReactNode[]
+  description?: React.ReactNode
   badge?: string
-  cta: string
+  cta?: string
   featured: boolean
 }[] = [
   {
@@ -85,6 +86,19 @@ const ACCOUNTS: {
     badge: 'Most Popular',
     cta: 'Open Premium Account',
     featured: true,
+  },
+  {
+    name: 'Elite',
+    price: 'Custom',
+    suffix: 'Solutions',
+    description: (
+      <>
+        Enjoy a <span style={{ color: G, fontWeight: 600 }}>fully customized</span> trading experience
+        with <span style={{ color: G, fontWeight: 600 }}>flexible leverage, spreads, lot sizes</span>,
+        and account conditions designed around your <span style={{ color: G, fontWeight: 600 }}>trading style</span>.
+      </>
+    ),
+    featured: false,
   },
 ]
 
@@ -212,21 +226,27 @@ export default function AccountTypes() {
                 <span>{acc.suffix}</span>
               </div>
 
-              <ul className={styles.features}>
-                {acc.features.map((f, fi) => (
-                  <li key={fi} className={styles.feature}>
-                    <span className={styles.check}>✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
+              {acc.description ? (
+                <p className={styles.description}>{acc.description}</p>
+              ) : (
+                <ul className={styles.features}>
+                  {acc.features?.map((f, fi) => (
+                    <li key={fi} className={styles.feature}>
+                      <span className={styles.check}>✓</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              )}
 
-              <Link
-                {...PORTAL_SIGNUP_LINK_PROPS}
-                className={`${styles.cta} ${acc.featured ? styles.ctaMain : styles.ctaOutline}`}
-              >
-                {acc.cta}
-              </Link>
+              {acc.cta && (
+                <Link
+                  {...PORTAL_SIGNUP_LINK_PROPS}
+                  className={`${styles.cta} ${acc.featured ? styles.ctaMain : styles.ctaOutline}`}
+                >
+                  {acc.cta}
+                </Link>
+              )}
             </div>
           ))}
         </div>
