@@ -50,7 +50,7 @@ const ACCOUNT_DATA: {
         Account Currencies: <span style={{ color: G, fontWeight: 600 }}>USD / GBP / EUR</span>
       </>,
       <>
-        Leverage: Up to <span style={{ color: G, fontWeight: 600 }}>1:500</span>
+        Leverage: Up to <span style={{ color: G, fontWeight: 600 }}>1:300</span>
       </>,
       <>
         <span style={{ color: G, fontWeight: 600 }}>1,200+</span> Tradable Instruments
@@ -65,7 +65,7 @@ const ACCOUNT_DATA: {
         Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
       </>,
       <>
-        Minimum Deposit: <span style={{ color: G, fontWeight: 600 }}>$50</span>
+        Minimum Deposit: <span style={{ color: G, fontWeight: 600 }}>$20</span>
       </>,
       <>
         Maximum Deposit: <span style={{ color: G, fontWeight: 600 }}>No Limit</span>
@@ -114,13 +114,13 @@ const ACCOUNT_DATA: {
 
 const COMPARISON_ROWS = [
   { label: 'Account Currencies', values: ['USD / GBP / EUR', 'USD / GBP / EUR'] },
-  { label: 'Leverage', values: ['Up to 1:500', 'Up to 1:500'] },
+  { label: 'Leverage', values: ['Up to 1:300', 'Up to 1:500'] },
   { label: 'Tradable Instruments', values: ['1,200+', '1,200+'] },
   { label: 'Spreads from', values: ['1.8–2.0 pips', '0.8–1.0 pips'] },
   { label: 'Commission', values: ['None', '$8 per Lot'] },
 
   { label: 'Expert Advisors', values: ['Supported', 'Supported'] },
-  { label: 'Minimum Deposit', values: ['$50', '$1,000'] },
+  { label: 'Minimum Deposit', values: ['$20', '$1,000'] },
   { label: 'Maximum Deposit', values: ['No Limit', 'No Limit'] },
 
   { label: 'Dedicated Support', values: [false, true] },

@@ -26,7 +26,7 @@ const ACCOUNTS: {
         Account Currencies: <span style={{ color: G, fontWeight: 600 }}>USD / GBP / EUR</span>
       </>,
       <>
-        Leverage: Up to <span style={{ color: G, fontWeight: 600 }}>1:500</span>
+        Leverage: Up to <span style={{ color: G, fontWeight: 600 }}>1:300</span>
       </>,
       <>
         <span style={{ color: G, fontWeight: 600 }}>1,200+</span> Tradable Instruments
@@ -41,7 +41,7 @@ const ACCOUNTS: {
         Expert Advisors (EA/Bots): <span style={{ color: G, fontWeight: 600 }}>Supported</span>
       </>,
       <>
-        Minimum Deposit: <span style={{ color: G, fontWeight: 600 }}>$50</span>
+        Minimum Deposit: <span style={{ color: G, fontWeight: 600 }}>$20</span>
       </>,
       <>
         Maximum Deposit: <span style={{ color: G, fontWeight: 600 }}>No Limit</span>
