@@ -52,7 +52,7 @@
 .title {
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
-    color: #ffffff;
+    color: var(--color-text-1);
     line-height: 1.15;
     margin: 0 0 1rem;
     letter-spacing: -0.02em;
@@ -60,7 +60,7 @@
 
 .description {
     font-size: 1.05rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--color-text-2);
     line-height: 1.65;
     margin: 0 0 2rem;
 }

@@ -165,6 +165,28 @@
     overflow: hidden;
 }
 
+/* Force text to remain light in Elite card since background is always dark */
+.cardElite .name,
+.cardElite .price,
+.cardElite .feature {
+    color: #FFFFFF;
+}
+
+.cardElite .price span {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.cardElite .ctaOutline {
+    color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.cardElite .ctaOutline:hover {
+    border-color: #E5B742;
+    background: rgba(229, 183, 66, 0.1);
+    color: #E5B742;
+}
+
 .cardElite::before {
     content: '';
     position: absolute;

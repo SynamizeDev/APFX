@@ -196,6 +196,30 @@
     overflow: hidden;
 }
 
+/* Force text to remain light in Elite card since background is always dark */
+.cardElite .cardTitle,
+.cardElite .priceAmount,
+.cardElite .featureList li {
+    color: #FFFFFF;
+}
+
+.cardElite .currencySymbol,
+.cardElite .priceSubText,
+.cardElite .description {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.cardElite .cardBtn {
+    color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.cardElite .cardBtn:hover {
+    border-color: #E5B742;
+    background: rgba(229, 183, 66, 0.1);
+    color: #E5B742;
+}
+
 .cardElite::before {
     content: '';
     position: absolute;
