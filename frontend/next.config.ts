@@ -60,6 +60,13 @@ const nextConfig: NextConfig = {
     ]
   },
 
+  // ── Redirects to fix 404s ─────────────────────────────────────
+  async redirects() {
+    return [
+      { source: '/faq', destination: '/support', permanent: false },
+    ]
+  },
+
   // ── Experimental ─────────────────────────────────────────────
   experimental: {
     optimizeCss: false,
