@@ -29,13 +29,13 @@ const ACCOUNTS: {
         Account Currencies: <span style={{ color: G, fontWeight: 600 }}>USD / GBP / EUR</span>
       </>,
       <>
-        Leverage: Up to <span style={{ color: G, fontWeight: 600 }}>1:300</span>
+        Leverage: Up to <span style={{ color: G, fontWeight: 600 }}>1:500</span>
       </>,
       <>
         <span style={{ color: G, fontWeight: 600 }}>1,200+</span> Tradable Instruments
       </>,
       <>
-        Spreads: From <span style={{ color: G, fontWeight: 600 }}>1.8–2.0 pips</span>
+        Spreads: Starts From <span style={{ color: G, fontWeight: 600 }}>0.8 pips</span>
       </>,
       <>
         Commission: <span style={{ color: G, fontWeight: 600 }}>None</span>
@@ -68,7 +68,7 @@ const ACCOUNTS: {
         <span style={{ color: G, fontWeight: 600 }}>1,200+</span> Tradable Instruments
       </>,
       <>
-        Spreads: From <span style={{ color: G, fontWeight: 600 }}>0.8–1.0 pips</span>
+        Spreads: Starts From <span style={{ color: G, fontWeight: 600 }}>0 pips</span>
       </>,
       <>
         Commission: <span style={{ color: G, fontWeight: 600 }}>$8 per Lot</span>

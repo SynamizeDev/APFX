@@ -53,13 +53,13 @@ const ACCOUNT_DATA: {
         Account Currencies: <span style={{ color: G, fontWeight: 600 }}>USD / GBP / EUR</span>
       </>,
       <>
-        Leverage: Up to <span style={{ color: G, fontWeight: 600 }}>1:300</span>
+        Leverage: Up to <span style={{ color: G, fontWeight: 600 }}>1:500</span>
       </>,
       <>
         <span style={{ color: G, fontWeight: 600 }}>1,200+</span> Tradable Instruments
       </>,
       <>
-        Spreads: From <span style={{ color: G, fontWeight: 600 }}>1.8–2.0 pips</span>
+        Spreads: Starts From <span style={{ color: G, fontWeight: 600 }}>0.8 pips</span>
       </>,
       <>
         Commission: <span style={{ color: G, fontWeight: 600 }}>None</span>
@@ -93,7 +93,7 @@ const ACCOUNT_DATA: {
         <span style={{ color: G, fontWeight: 600 }}>1,200+</span> Tradable Instruments
       </>,
       <>
-        Spreads: From <span style={{ color: G, fontWeight: 600 }}>0.8–1.0 pips</span>
+        Spreads: Starts From <span style={{ color: G, fontWeight: 600 }}>0 pips</span>
       </>,
       <>
         Commission: <span style={{ color: G, fontWeight: 600 }}>$8 per Lot</span>
@@ -147,9 +147,9 @@ const ACCOUNT_DATA: {
 
 const COMPARISON_ROWS = [
   { label: 'Account Currencies', values: ['USD / GBP / EUR', 'USD / GBP / EUR'] },
-  { label: 'Leverage', values: ['Up to 1:300', 'Up to 1:500'] },
+  { label: 'Leverage', values: ['Up to 1:500', 'Up to 1:500'] },
   { label: 'Tradable Instruments', values: ['1,200+', '1,200+'] },
-  { label: 'Spreads from', values: ['1.8–2.0 pips', '0.8–1.0 pips'] },
+  { label: 'Spreads', values: ['Starts From 0.8 pips', 'Starts From 0 pips'] },
   { label: 'Commission', values: ['None', '$8 per Lot'] },
 
   { label: 'Expert Advisors', values: ['Supported', 'Supported'] },
