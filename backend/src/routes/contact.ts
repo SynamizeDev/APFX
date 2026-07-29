@@ -36,8 +36,8 @@ router.post('/', async (req: Request, res: Response) => {
         const resend = getResend()
         if (resend) {
             await resend.emails.send({
-                from: 'APFX Contact <noreply@apfx.com>',
-                to: process.env.CONTACT_EMAIL || 'support@apfx.com',
+                from: 'APFX Contact <noreply@apfxglobal.com>',
+                to: process.env.CONTACT_EMAIL || 'support@apfxglobal.com',
                 replyTo: email,
                 subject: `[APFX Contact] ${subject}`,
                 html: `

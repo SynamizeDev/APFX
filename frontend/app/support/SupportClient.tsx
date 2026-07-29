@@ -55,7 +55,7 @@ export default function SupportClient() {
                                         Email Support
                                     </h4>
                                     <p>For all general inquiries and platform assistance:</p>
-                                    <p><strong>support@apfx.com</strong></p>
+                                    <p><strong>support@apfxglobal.com</strong></p>
                                 </div>
                                 <div className={styles.supportCard}>
                                     <h4>

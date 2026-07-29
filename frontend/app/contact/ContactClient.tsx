@@ -76,7 +76,7 @@ export default function ContactPage() {
                                         transition={{ duration: 0.2 }}
                                     >
                                         <Mail size={18} />
-                                        support@apfx.com
+                                        support@apfxglobal.com
                                     </motion.div>
 
                                     <motion.div

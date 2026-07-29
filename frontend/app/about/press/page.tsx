@@ -173,7 +173,7 @@ export default function PressPage() {
             <div className={styles.contactBlock}>
               <h4>Media relations</h4>
               <p className={styles.contactEmail}>
-                <a href="mailto:press@apfx.com">press@apfx.com</a>
+                <a href="mailto:press@apfxglobal.com">press@apfxglobal.com</a>
               </p>
               <p>For urgent requests, please include “Press” in the subject line. We aim to respond to media inquiries within one business day.</p>
             </div>
@@ -186,7 +186,7 @@ export default function PressPage() {
             <h2 id="cta-heading" className={styles.ctaTitle}>Work with us</h2>
             <p className={styles.ctaSubtitle}>Interested in interviews, collaborations, or more information? Get in touch.</p>
             <div className={styles.ctaButtons}>
-              <a href="mailto:press@apfx.com" className={styles.ctaBtnPrimary}>Contact Media Team</a>
+              <a href="mailto:press@apfxglobal.com" className={styles.ctaBtnPrimary}>Contact Media Team</a>
               <Link href="/about/about-us" className={styles.ctaBtnSecondary}>About Us</Link>
               <Link href="/contact" className={styles.ctaBtnSecondary}>General Contact</Link>
             </div>

@@ -161,8 +161,8 @@ APFX/
 ---
 
 ## 6. Project Constraints & Operational Notes
-- **Redirects**: "Login" and "Open Account" buttons are currently configured to redirect to external client portal URLs (`https://portal.apfx.com`) rather than local routes.
-- **Customer Support**: All form submissions and queries are routed via the backend to the primary customer service email (`support@apfx.com`) using the Resend integration.
+- **Redirects**: "Login" and "Open Account" buttons are currently configured to redirect to external client portal URLs (`https://portal.apfxglobal.com`) rather than local routes.
+- **Customer Support**: All form submissions and queries are routed via the backend to the primary customer service email (`support@apfxglobal.com`) using the Resend integration.
 - **Market Data**: Liquidity stats and ticker values are currently **mocked** for visual consistency. Future phases will explore free-tier financial APIs (e.g., Alpha Vantage, Finnhub) to provide live data overlays.
 
 ---
