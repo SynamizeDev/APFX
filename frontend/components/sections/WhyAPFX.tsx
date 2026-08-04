@@ -94,11 +94,11 @@ const FEATURES: {
   {
     icon: <Bot size={24} />,
     label: 'Automation',
-    title: '100+ Free Trading Bots',
+    title: '1000+ Free Trading Bots',
     desc: (
       <>
         Automate your strategies with over{' '}
-        <span style={{ color: '#36F936', fontWeight: 600 }}>100 free trading bots</span> designed to
+        <span style={{ color: '#36F936', fontWeight: 600 }}>1000+ free trading bots</span> designed to
         improve execution and trading efficiency.
       </>
     ),
