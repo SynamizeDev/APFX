@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import AcademyTabNav from '@/components/navigation/AcademyTabNav'
@@ -24,7 +24,7 @@ export default function AcademyPage({ title, description, videoTitle, steps, rel
                 accent="Academy"
                 description={description}
                 breadcrumbs={[
-                    { label: 'Learn', href: '/learn/blog' },
+                    { label: 'Courses', href: '/learn/courses' },
                     { label: 'Academy', href: '/learn/academy/open-account' },
                     { label: title }
                 ]}

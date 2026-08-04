@@ -33,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/about/press', priority: 0.6, changeFrequency: 'weekly' },
 
     // ── Learn / Academy (canonical paths under /academy) ────────
-    { path: '/academy/blog', priority: 0.8, changeFrequency: 'daily' },
+    { path: '/academy/courses', priority: 0.8, changeFrequency: 'daily' },
     { path: '/academy/glossary', priority: 0.7, changeFrequency: 'monthly' },
 
     // ── Marketplace ─────────────────────────────────────────────

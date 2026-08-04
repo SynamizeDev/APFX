@@ -9,7 +9,7 @@
 /* ── Hero ───────────────────────────────────────────────────── */
 .hero {
   text-align: center;
-  padding: 4rem var(--container-px, 1.5rem) 4rem;
+  padding: 4rem var(--container-px, 1.5rem) 2rem;
   background: linear-gradient(180deg, rgba(54, 249, 54, 0.04) 0%, transparent 50%);
 }
 
@@ -41,7 +41,7 @@
 
 /* ── Section titles ─────────────────────────────────────────── */
 .section {
-  padding: 3rem 0;
+  padding: 1.5rem 0;
 }
 
 .sectionTitle {

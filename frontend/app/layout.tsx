@@ -168,7 +168,7 @@ export default function RootLayout({
                 '@type': 'SearchAction',
                 target: {
                   '@type': 'EntryPoint',
-                  urlTemplate: `${'https://apfxglobal.com'}/academy/blog?q={search_term_string}`,
+                  urlTemplate: `${'https://apfxglobal.com'}/academy/courses?q={search_term_string}`,
                 },
                 'query-input': 'required name=search_term_string',
               },

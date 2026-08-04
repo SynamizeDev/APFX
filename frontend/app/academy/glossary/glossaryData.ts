@@ -62,7 +62,7 @@ const UNSORTED_GLOSSARY_ENTRIES: GlossaryEntry[] = [
     relatedTermIds: ['margin', 'lot', 'equity'],
     detailedExplanation: 'Leverage is a "force multiplier." While it can accelerate portfolio growth, it equally amplifies the impact of adverse price movements on your capital.',
     example: 'With 100:1 leverage, a $1,000 deposit can control a $100,000 position.',
-    blogLinks: [{ label: 'Understanding Leverage', href: '/learn/blog/understanding-leverage' }],
+    blogLinks: [{ label: 'Understanding Leverage', href: '/learn/courses/understanding-leverage' }],
   },
   {
     id: 'margin',

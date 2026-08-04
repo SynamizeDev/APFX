@@ -453,7 +453,7 @@ export default function IndicesPage() {
             <div className={styles.relatedLinks}>
               <Link href="/products/stocks">Single-name equities</Link>
               <Link href="/tools/risk-management">Risk tools</Link>
-              <Link href="/academy/blog">Blog</Link>
+              <Link href="/academy/courses">Courses</Link>
             </div>
           </div>
         </section>

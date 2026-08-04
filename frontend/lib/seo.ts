@@ -173,7 +173,7 @@ export function buildArticleJsonLd({
         url: `${siteUrl}/assets/apfx-icon.png`,
       },
     },
-    isPartOf: { '@id': `${siteUrl}/academy/blog#webpage` },
+    isPartOf: { '@id': `${siteUrl}/academy/courses#webpage` },
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${url}#webpage`,

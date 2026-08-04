@@ -2,10 +2,10 @@ import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Trading & Investing Insights — APFX Blog',
+  title: 'Trading & Investing Insights — APFX Courses',
   description:
     'Expert trading education, strategies, market analysis, and platform guides. Learn Forex fundamentals, technical analysis, risk management, and how to use professional trading tools.',
-  path: '/academy/blog',
+  path: '/academy/courses',
   keywords: [
     'trading blog',
     'forex education',
@@ -17,7 +17,7 @@ export const metadata: Metadata = buildMetadata({
   ],
 })
 
-export default function BlogLayout({ children }: { children: React.ReactNode }) {
+export default function CoursesLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {children}

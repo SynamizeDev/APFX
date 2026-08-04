@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { buildMetadata, buildArticleJsonLd } from '@/lib/seo'
-import BlogArticleClient from './BlogArticleClient'
+import CourseArticleClient from './CourseArticleClient'
 
 /* =========================================================
    Article data store — matches the client-side ARTICLES map.
@@ -51,8 +51,8 @@ export async function generateMetadata({
     return buildMetadata({
       title: article.title,
       description: article.description,
-      path: `/academy/blog/${slug}`,
-      keywords: [article.category, 'forex trading', 'trading education', 'APFX blog'],
+      path: `/academy/courses/${slug}`,
+      keywords: [article.category, 'forex trading', 'trading education', 'APFX courses'],
     })
   }
 
@@ -65,8 +65,8 @@ export async function generateMetadata({
   return buildMetadata({
     title: `${humanTitle} — Trading Insights`,
     description: `${humanTitle}: expert trading education and market insights from the APFX team.`,
-    path: `/academy/blog/${slug}`,
-    keywords: ['trading education', 'forex insights', 'APFX blog'],
+    path: `/academy/courses/${slug}`,
+    keywords: ['trading education', 'forex insights', 'APFX courses'],
   })
 }
 
@@ -74,7 +74,7 @@ export async function generateMetadata({
    JSON-LD — Article schema
    ========================================================= */
 
-export default async function BlogArticlePage({
+export default async function CourseArticlePage({
   params,
 }: {
   params: Promise<{ slug: string }>
@@ -90,7 +90,7 @@ export default async function BlogArticlePage({
   const articleJsonLd = buildArticleJsonLd({
     title,
     description,
-    path: `/academy/blog/${slug}`,
+    path: `/academy/courses/${slug}`,
     datePublished,
     authorName: 'APFX Editorial Team',
   })
@@ -101,7 +101,7 @@ export default async function BlogArticlePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
-      <BlogArticleClient slug={slug} />
+      <CourseArticleClient slug={slug} />
     </>
   )
 }

@@ -26,7 +26,7 @@ const NAV_LINKS = [
   { label: 'Service', href: '/service' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Business', href: '/business' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Courses', href: '/learn/courses' },
 ]
 
 const PAYMENT_LOGOS = [

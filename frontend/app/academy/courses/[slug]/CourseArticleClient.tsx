@@ -68,13 +68,13 @@ function DefaultBody({ slug }: { slug: string }) {
 }
 
 /* =========================================================
-   BlogArticleClient
+   CourseArticleClient
    Receives `slug` as a prop from the server page — avoids
    hydration mismatch from calling useParams() client-side
    when the server has already resolved the slug.
    ========================================================= */
 
-export default function BlogArticleClient({ slug }: { slug: string }) {
+export default function CourseArticleClient({ slug }: { slug: string }) {
   const article = slug ? ARTICLES[slug] : null
   const title = article?.title ?? (slug ? slug.replace(/-/g, ' ') : 'Article')
   const description = article?.description ?? 'Trading and investing insights from APFX.'
@@ -85,8 +85,8 @@ export default function BlogArticleClient({ slug }: { slug: string }) {
 
   return (
     <article className={styles.wrapper}>
-      <Link href="/academy/blog" className={styles.backLink}>
-        ← Back to Blog
+      <Link href="/learn/courses" className={styles.backLink}>
+        ← Back to Courses
       </Link>
       <header className={styles.articleHeader}>
         <p className={styles.meta}>
