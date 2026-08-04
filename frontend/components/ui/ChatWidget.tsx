@@ -75,7 +75,7 @@ export default function ChatWidget() {
       case 'Trading Platforms':
         appendBotMessage(
           'APFX provides powerful trading platforms designed for speed and reliability.',
-          ['Web Terminal', 'TradingView', 'Mobile Trading', 'Copy Trading', 'Back to Menu']
+          ['Web Terminal', 'cTrader', 'Mobile Trading', 'Copy Trading', 'Back to Menu']
         )
         break
       case 'Deposits & Withdrawals':
@@ -146,9 +146,9 @@ export default function ChatWidget() {
           ['Back to Menu']
         )
         break
-      case 'TradingView':
+      case 'cTrader':
         appendBotMessage(
-          'TradingView\n\nTrade directly from TradingView charts using professional analysis tools.',
+          'cTrader\n\nTrade directly from cTrader charts using professional analysis tools.',
           ['Back to Menu']
         )
         break

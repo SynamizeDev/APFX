@@ -4,7 +4,7 @@ import { buildMetadata } from '@/lib/seo'
 export const metadata: Metadata = buildMetadata({
   title: 'Trading Platforms — Web Terminal, Mobile & cTrader',
   description:
-    'Access global markets from any device with APFX trading platforms. Advanced Web Terminal, full TradingView integration, WebTrader, cTrader, and mobile apps for iOS and Android.',
+    'Access global markets from any device with APFX trading platforms. Advanced Web Terminal, full cTrader integration, WebTrader, and mobile apps for iOS and Android.',
   path: '/platforms',
   keywords: [
     'trading platform',

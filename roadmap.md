@@ -65,7 +65,7 @@ APFX/
 | **Animation (UI)** | Framer Motion | Page transitions, component-level motion |
 | **Smooth scroll** | Lenis | Buttery scroll feel, syncs with GSAP |
 | **Particles** | Custom Three.js | Hero background, depth layers |
-| **Charts** | TradingView Widget | Live price tickers, market charts |
+| **Charts** | cTrader Widget | Live price tickers, market charts |
 | **Auth (portal)** | NextAuth.js | Client portal authentication |
 | **Backend** | Node.js + Express | REST API for forms, CRM, alerts |
 | **Database** | PostgreSQL | User data, form submissions |
@@ -155,7 +155,7 @@ APFX/
 - Client Portal (Dashboard/Login)
 - Multi-language support (Arabic, Hindi, etc.)
 - Dark/Light mode toggle
-- TradingView embedded charts
+- cTrader embedded charts
 - Push notifications for market alerts
 
 ---

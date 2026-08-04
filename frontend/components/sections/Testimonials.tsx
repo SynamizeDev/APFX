@@ -21,7 +21,7 @@ const REVIEWS = [
         stars: 5,
     },
     {
-        quote: "Finally a platform that feels institutional. The MT5 integration is seamless and their VPS service keeps my EAs running 24/7 without issues.",
+        quote: "Finally a platform that feels institutional. The cTrader integration is seamless and their VPS service keeps my EAs running 24/7 without issues.",
         name: 'James T.',
         role: 'Algo Trader',
         initials: 'JT',

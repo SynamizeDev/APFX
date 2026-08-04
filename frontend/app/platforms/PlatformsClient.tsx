@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import Link from 'next/link'
 import { BarChart3, TrendingUp, Globe, Smartphone } from 'lucide-react'
@@ -23,9 +23,9 @@ const PLATFORMS = [
         icon: <BarChart3 size={42} strokeWidth={1.6} />,
     },
     {
-        name: 'TradingView Integration',
+        name: 'cTrader Integration',
         tag: 'Chart Your Way',
-        desc: 'Trade directly from TradingView charts with powerful technical analysis, custom scripts, and a massive community of social trading tools.',
+        desc: 'Trade directly from cTrader charts with powerful technical analysis, custom scripts, and a massive community of social trading tools.',
         features: [
             'Direct Execution',
             'Custom Pine Scripts',

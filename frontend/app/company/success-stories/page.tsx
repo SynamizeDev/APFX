@@ -98,7 +98,7 @@ const REVIEWS = [
         type: 'High Volume Trader',
         verified: true,
         rating: 5,
-        text: 'Funding large amounts is seamless and secure. The MT5 integration is perfectly optimized, showing zero latency. APFX is the only broker I trust with my primary capital.',
+        text: 'Funding large amounts is seamless and secure. The cTrader integration is perfectly optimized, showing zero latency. APFX is the only broker I trust with my primary capital.',
         category: 'Trading Platform'
     }
 ]
@@ -311,7 +311,7 @@ export default function SuccessStoriesPage() {
                         <Image src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=600&auto=format&fit=crop" alt="Trading Desk" width={600} height={400} style={{ width: '100%', height: 'auto' }} />
                         <div className={styles.photoOverlay}>
                             <span className={styles.photoAuthor}>London Office Setup</span>
-                            <span className={styles.photoDesc}>Multi-monitor APFX MT5 Terminal</span>
+                            <span className={styles.photoDesc}>Multi-monitor APFX cTrader Terminal</span>
                         </div>
                     </div>
                     <div className={styles.photoItem}>

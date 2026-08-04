@@ -13,7 +13,7 @@ const PLATFORMS = [
     },
     {
         icon: <TrendingUp size={24} />,
-        name: 'TradingView Integration',
+        name: 'cTrader Integration',
     },
     {
         icon: <Globe size={24} />,

@@ -6,7 +6,7 @@ APFX is a premium, institutional-grade trading platform designed for the modern 
 
 - **Dynamic Markets Dashboard**: Real-time pricing across major asset classes powered by **Finnhub**.
 - **Consolidated Updates**: Advanced server-side aggregation ensures only one API request is sent from the browser per minute.
-- **Institutional UI/UX**: Professional fintech aesthetic inspired by industry leaders (Stripe, Revolut, TradingView).
+- **Institutional UI/UX**: Professional fintech aesthetic inspired by industry leaders (Stripe, Revolut, cTrader).
 - **Cinematic Animations**: Smooth page transitions and Yahoo Finance-style real-time price blinks.
 
 ## 🛠️ Technology Stack

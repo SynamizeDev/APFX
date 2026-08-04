@@ -10,7 +10,7 @@ export default function OpenAccountPage() {
                 { title: 'Register Your Details', description: 'Fill out the secure registration form with your personal and contact information.' },
                 { title: 'Verify Your Identity', description: 'Upload your ID and proof of address for our fast-tracked KYC compliance process.' },
                 { title: 'Choose Account Type', description: 'Select between Standard, ECN, or Professional accounts based on your trading style.' },
-                { title: 'Receive Credentials', description: 'Once verified, your MT5/TradingView login credentials will be sent to your secure portal.' },
+                { title: 'Receive Credentials', description: 'Once verified, your cTrader login credentials will be sent to your secure portal.' },
             ]}
             relatedLinks={[
                 { label: 'How to deposit?', href: '/learn/academy/deposit' },

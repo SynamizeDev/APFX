@@ -17,7 +17,7 @@ const FOOTER_LINKS = {
     Platforms: [
         { label: 'All Platforms', href: '/platforms' },
         { label: 'Web Terminal', href: '/platforms' },
-        { label: 'TradingView', href: '/platforms' },
+        { label: 'cTrader', href: '/platforms' },
         { label: 'Mobile App', href: '/platforms' },
     ],
     Support: [
