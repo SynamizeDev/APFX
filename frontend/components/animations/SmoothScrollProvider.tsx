@@ -67,13 +67,21 @@ export function SmoothScrollProvider({
     }, [])
 
     useEffect(() => {
-        const lenis = lenisRef.current
-        if (lenis) {
-            lenis.scrollTo(0, { immediate: true })
-        } else {
-            window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
-        }
-        ScrollTrigger.refresh()
+        // Wait two rAF ticks so the new page DOM has fully painted
+        // before Lenis/ScrollTrigger read the page height.
+        // Without this, Lenis scrolls to 0 against the *old* layout
+        // causing the "lands at footer" bug on navigation.
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                const lenis = lenisRef.current
+                if (lenis) {
+                    lenis.scrollTo(0, { immediate: true })
+                } else {
+                    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+                }
+                ScrollTrigger.refresh()
+            })
+        })
     }, [pathname])
 
     useEffect(() => {
