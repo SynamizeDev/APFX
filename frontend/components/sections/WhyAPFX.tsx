@@ -36,17 +36,6 @@ const FEATURES: {
   theme?: 'light' | 'dark'
 }[] = [
   {
-    icon: <Headphones size={24} />,
-    label: 'Support',
-    title: '24/7 Human Support',
-    desc: 'Talk to real trading experts anytime via live chat, email, or phone. Fast, reliable human assistance whenever you need it.',
-    large: true,
-    theme: 'dark',
-    iconBg: 'rgba(54, 249, 54, 0.1)',
-    iconBorder: 'rgba(54, 249, 54, 0.2)',
-    glow: 'rgba(54, 249, 54, 0.1)',
-  },
-  {
     icon: <Clock size={24} />,
     label: 'Withdrawals',
     title: 'Withdrawals in as Little as 15 Minutes',
@@ -57,6 +46,17 @@ const FEATURES: {
         <span style={{ color: '#36F936', fontWeight: 600 }}>15 minutes</span>.
       </>
     ),
+    large: true,
+    theme: 'dark',
+    iconBg: 'rgba(54, 249, 54, 0.1)',
+    iconBorder: 'rgba(54, 249, 54, 0.2)',
+    glow: 'rgba(54, 249, 54, 0.1)',
+  },
+  {
+    icon: <Headphones size={24} />,
+    label: 'Support',
+    title: '24/7 Human Support',
+    desc: 'Talk to real trading experts anytime via live chat, email, or phone. Fast, reliable human assistance whenever you need it.',
     large: false,
     theme: 'light',
     iconBg: 'rgba(54, 249, 54, 0.1)',
