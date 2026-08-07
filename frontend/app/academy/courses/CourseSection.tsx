@@ -28,21 +28,40 @@ export default function CourseSection({ course }: CourseSectionProps) {
             href={video.youtubeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={styles.articleCard}
+            className={`${styles.articleCard} ${styles.videoCard}`}
             style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column' }}
           >
+            {/* Thumbnail with overlays */}
             <div className={styles.articleImage} style={{ padding: 0, position: 'relative', overflow: 'hidden' }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src={video.thumbnail} 
-
-                alt={video.title} 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              <img
+                src={video.thumbnail}
+                alt={video.title}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }}
+                className={styles.videoThumb}
               />
-              <div style={{ position: 'absolute', bottom: '8px', right: '8px', background: 'rgba(0,0,0,0.8)', padding: '2px 6px', borderRadius: '4px', fontSize: '0.75rem', color: '#fff', fontWeight: 'bold' }}>
+
+              {/* Play button overlay */}
+              <div className={styles.playOverlay} aria-hidden="true">
+                <div className={styles.playBtn}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Episode badge */}
+              <div className={styles.episodeBadge}>
+                Ep. {String(video.episode).padStart(2, '0')}
+              </div>
+
+              {/* Duration badge */}
+              <div className={styles.durationBadge}>
                 {video.duration}
               </div>
             </div>
+
+            {/* Card body */}
             <div className={styles.articleBody} style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
               <h3 style={{ marginBottom: '0', flex: 1 }}>{video.title}</h3>
               <div style={{ marginTop: '1.25rem' }}>
@@ -55,7 +74,7 @@ export default function CourseSection({ course }: CourseSectionProps) {
 
       {hasMore && (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
-          <button 
+          <button
             onClick={handleLoadMore}
             className={styles.ctaBtnSecondary}
             style={{ cursor: 'pointer', fontFamily: 'inherit' }}
