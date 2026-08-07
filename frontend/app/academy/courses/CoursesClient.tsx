@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import styles from './Courses.module.css'
 import CourseSection from './CourseSection'
 import type { Course, CourseVideo } from './coursesData'
@@ -39,60 +39,6 @@ function ErrorBlock({ msg }: { msg: string }) {
   )
 }
 
-// ── Single course module block ───────────────────────────────────
-interface CourseBlockProps {
-  course: Course
-  level: string
-  levelColor?: string
-}
-
-function CourseBlock({ course, level, levelColor = 'var(--color-accent)' }: CourseBlockProps) {
-  const firstVideoUrl = course.videos[0]?.youtubeUrl
-  const videoCount = course.videos.length
-
-  return (
-    <div className={styles.courseModule}>
-      <div className={styles.moduleHeader}>
-        <div className={styles.moduleHeaderLeft}>
-          <span className={styles.levelBadge} style={{ borderColor: levelColor, color: levelColor }}>
-            {level}
-          </span>
-          <h2 className={styles.moduleTitle}>
-            {course.title.includes('APFX') ? (
-              <>
-                {course.title.split('APFX')[0]}
-                <span style={{ color: 'var(--color-accent)' }}>APFX</span>
-                {course.title.split('APFX')[1]}
-              </>
-            ) : course.title}
-          </h2>
-          <p className={styles.moduleSubtitle}>{course.subtitle}</p>
-          <div className={styles.moduleStats}>
-            <span className={styles.moduleStat}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-              {videoCount} videos
-            </span>
-            <span className={styles.moduleStatDivider}>·</span>
-            <span className={styles.moduleStat}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Self-paced
-            </span>
-            <span className={styles.moduleStatDivider}>·</span>
-            <span className={styles.moduleStat} style={{ color: 'var(--color-accent)' }}>Free</span>
-          </div>
-        </div>
-        {firstVideoUrl && (
-          <a href={firstVideoUrl} target="_blank" rel="noopener noreferrer" className={styles.startCourseBtn}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            Start Course
-          </a>
-        )}
-      </div>
-      <CourseSection course={course} />
-    </div>
-  )
-}
-
 // ── Search results list ──────────────────────────────────────────
 function SearchResults({ videos, query }: { videos: EnrichedVideo[]; query: string }) {
   if (videos.length === 0) {
@@ -108,7 +54,7 @@ function SearchResults({ videos, query }: { videos: EnrichedVideo[]; query: stri
   }
 
   return (
-    <>
+    <div className={styles.searchResultsContainer}>
       <p className={styles.searchResultCount}>
         {videos.length} result{videos.length !== 1 ? 's' : ''} for <strong>&quot;{query}&quot;</strong>
       </p>
@@ -145,19 +91,36 @@ function SearchResults({ videos, query }: { videos: EnrichedVideo[]; query: stri
           </a>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 
 // ── Main client component ────────────────────────────────────────
-const FILTERS = ['All', 'Beginner', 'Advanced'] as const
-type FilterType = typeof FILTERS[number]
-
 export default function CoursesClient({ forexCourse, algoCourse }: CoursesClientProps) {
   const [query, setQuery] = useState('')
-  const [activeFilter, setActiveFilter] = useState<FilterType>('All')
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const videoSectionRef = useRef<HTMLDivElement>(null)
 
-  // Build enriched video pool from available courses
+  // Build the array of dynamic playlists/courses
+  const courses = useMemo(() => {
+    const list: Course[] = []
+    if (isCourse(forexCourse)) list.push(forexCourse)
+    if (isCourse(algoCourse)) list.push(algoCourse)
+    return list
+  }, [forexCourse, algoCourse])
+
+  // Track the active selected course ID
+  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(() => {
+    return courses[0]?.id || null
+  })
+
+  // Fade transition states
+  const [fadeState, setFadeState] = useState<'in' | 'out'>('in')
+  const [transitionCourseId, setTransitionCourseId] = useState<string | null>(() => {
+    return courses[0]?.id || null
+  })
+
+  // Build enriched video pool from available courses for search
   const allVideos = useMemo<EnrichedVideo[]>(() => {
     const pool: EnrichedVideo[] = []
     if (isCourse(forexCourse)) {
@@ -171,67 +134,171 @@ export default function CoursesClient({ forexCourse, algoCourse }: CoursesClient
 
   const filteredVideos = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return allVideos.filter(v => {
-      const matchesQuery = !q || v.title.toLowerCase().includes(q)
-      const matchesFilter = activeFilter === 'All' || v.courseLevel === activeFilter
-      return matchesQuery && matchesFilter
-    })
-  }, [allVideos, query, activeFilter])
+    return allVideos.filter(v => !q || v.title.toLowerCase().includes(q))
+  }, [allVideos, query])
 
-  const isSearching = query.trim().length > 0 || activeFilter !== 'All'
+  const isSearching = query.trim().length > 0
+
+
+
+  // Intercept and translate vertical mouse wheel scroll to horizontal scroll
+  useEffect(() => {
+    const el = carouselRef.current
+    if (!el) return
+
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault()
+        el.scrollLeft += e.deltaY
+      }
+    }
+
+    el.addEventListener('wheel', onWheel, { passive: false })
+    return () => {
+      el.removeEventListener('wheel', onWheel)
+    }
+  }, [])
+
+  // Handle selected course click
+  const handleSelectCourse = (courseId: string) => {
+    if (courseId === selectedCourseId) return
+    
+    // Step 1: Fade out
+    setFadeState('out')
+    setSelectedCourseId(courseId)
+    
+    // Step 2: Swap content and Fade in after animation completes
+    setTimeout(() => {
+      setTransitionCourseId(courseId)
+      setFadeState('in')
+      
+      // Step 3: Smoothly scroll if target section is below viewport fold
+      setTimeout(() => {
+        if (videoSectionRef.current) {
+          const rect = videoSectionRef.current.getBoundingClientRect()
+          if (rect.top > window.innerHeight) {
+            videoSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
+        }
+      }, 50)
+    }, 200)
+  }
+
+  const currentCourse = useMemo(() => {
+    return courses.find(c => c.id === transitionCourseId) || null
+  }, [courses, transitionCourseId])
 
   return (
     <div className={styles.container}>
-      {/* ── Search + Filter bar ── */}
-      <div className={styles.searchBar}>
-        <div className={styles.searchInputWrap}>
-          <svg className={styles.searchIcon} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <input
-            id="course-search"
-            type="search"
-            className={styles.searchInput}
-            placeholder="Search videos across all courses…"
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            aria-label="Search course videos"
-          />
-          {query && (
-            <button className={styles.searchClear} onClick={() => setQuery('')} aria-label="Clear search">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          )}
-        </div>
-
-        {/* Filter pills */}
-        <div className={styles.filterPills} role="group" aria-label="Filter by course level">
-          {FILTERS.map(f => (
-            <button
-              key={f}
-              className={activeFilter === f ? styles.filterPillActive : styles.filterPill}
-              onClick={() => setActiveFilter(f)}
-              aria-pressed={activeFilter === f}
-              data-level={f.toLowerCase()}
-            >
-              {f}
-            </button>
-          ))}
+      {/* ── Academy Hero ── */}
+      <div className={styles.heroSection}>
+        <h1 className={styles.heroTitle}>
+          Learn.<br />
+          Trade.<br />
+          <span className={styles.accentText}>Master the Markets.</span>
+        </h1>
+        
+        {/* Search Bar inside Hero */}
+        <div className={styles.searchBar}>
+          <div className={styles.searchInputWrap}>
+            <svg className={styles.searchIcon} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input
+              id="course-search"
+              type="search"
+              className={styles.searchInput}
+              placeholder="Search videos across all courses…"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              aria-label="Search course videos"
+            />
+            {query && (
+              <button className={styles.searchClear} onClick={() => setQuery('')} aria-label="Clear search">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* ── Content ── */}
+      {/* ── Dynamic Course Carousel ── */}
+      {!isSearching && courses.length > 0 && (
+        <div className={styles.carouselWrapper}>
+          <div className={styles.carouselHeader}>
+            <h2 className={styles.carouselSectionTitle}>Our Learning Paths</h2>
+          </div>
+
+          <div 
+            ref={carouselRef}
+            className={styles.carouselScroll}
+          >
+            {courses.map((course) => {
+              const isSelected = selectedCourseId === course.id
+              const thumbnail = course.videos[0]?.thumbnail || ''
+              const desc = course.subtitle || ''
+              const trimmedDesc = desc.length > 140 ? desc.substring(0, 140) + '...' : desc
+
+              return (
+                <div
+                  key={course.id}
+                  onClick={() => handleSelectCourse(course.id)}
+                  className={`${styles.carouselCard} ${isSelected ? styles.carouselCardActive : ''}`}
+                >
+                  <div className={styles.cardImageContainer}>
+                    {thumbnail ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={thumbnail} alt={course.title} className={styles.cardImage} />
+                    ) : (
+                      <div className={styles.cardImageFallback} />
+                    )}
+                    <div className={styles.cardOverlay} />
+                    {isSelected && (
+                      <div className={styles.activeLabelBadge}>
+                        Active
+                      </div>
+                    )}
+                  </div>
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.cardTitle}>{course.title}</h3>
+                    <p className={styles.cardDescription}>{trimmedDesc}</p>
+                    <div className={styles.cardMeta}>
+                      <span className={styles.cardMetaItem}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                        {course.videos.length} Videos
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ── Content View ── */}
       {isSearching ? (
-        <SearchResults videos={filteredVideos} query={query || activeFilter} />
+        <SearchResults videos={filteredVideos} query={query} />
       ) : (
         <>
-          {isCourse(forexCourse)
-            ? <CourseBlock course={forexCourse} level="Beginner" />
-            : <ErrorBlock msg={(forexCourse as { error: string }).error} />}
+          {/* Main Selected Course Video Grid */}
+          {currentCourse && (
+            <div 
+              ref={videoSectionRef}
+              className={`${styles.videoSectionWrapper} ${fadeState === 'out' ? styles.fadeOut : styles.fadeIn}`}
+            >
+              <div className={styles.activeCourseHeader}>
+                <span className={styles.activeCourseBadge}>Active Course</span>
+                <h2 className={styles.activeCourseTitle}>{currentCourse.title}</h2>
+                <p className={styles.activeCourseDescription}>{currentCourse.subtitle}</p>
+              </div>
+              <CourseSection key={currentCourse.id} course={currentCourse} />
+            </div>
+          )}
 
-          {isCourse(algoCourse)
-            ? <CourseBlock course={algoCourse} level="Advanced" levelColor="#a78bfa" />
-            : <ErrorBlock msg={(algoCourse as { error: string }).error} />}
+          {/* Show error blocks for any failed API loads at the bottom */}
+          {!isCourse(forexCourse) && <ErrorBlock msg={forexCourse.error} />}
+          {!isCourse(algoCourse) && <ErrorBlock msg={algoCourse.error} />}
         </>
       )}
     </div>

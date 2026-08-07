@@ -1027,3 +1027,357 @@
   box-shadow: 0 6px 20px rgba(40, 209, 40, 0.35);
 }
 
+/* ── Redesigned Courses Carousel and Hero styles ── */
+
+.heroSection {
+  text-align: center;
+  padding: 5rem 1rem 1.5rem;
+  background: radial-gradient(circle at top, rgba(54, 249, 54, 0.07) 0%, transparent 60%);
+  margin-bottom: 1rem;
+}
+
+.heroSection :global(.searchBar) {
+  margin-bottom: 1rem;
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 850;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 2.5rem;
+  color: var(--color-text-1);
+}
+
+.accentText {
+  color: var(--color-accent);
+  text-shadow: 0 0 40px rgba(54, 249, 54, 0.2);
+}
+
+.carouselWrapper {
+  margin-bottom: 4.5rem;
+  padding: 0 0.5rem;
+}
+
+.carouselHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.carouselSectionTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-2);
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.carouselSectionTitle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  height: 70%;
+  width: 3px;
+  background: var(--color-accent);
+  border-radius: 99px;
+  box-shadow: 0 0 8px var(--color-accent);
+}
+
+.carouselControls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.carouselArrow {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--color-text-2);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.carouselArrow:hover {
+  background: rgba(54, 249, 54, 0.1);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  box-shadow: 0 0 15px rgba(54, 249, 54, 0.2);
+}
+
+.carouselScroll {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 0.5rem 0.25rem 1.5rem;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+}
+
+.carouselScroll::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.carouselCard {
+  flex: 0 0 calc(33.333% - 1rem); /* Desktop: around 3 cards */
+  scroll-snap-align: start;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.carouselCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.carouselCardActive {
+  border-color: var(--color-accent) !important;
+  background: linear-gradient(135deg, rgba(54, 249, 54, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+  box-shadow: 0 0 30px rgba(54, 249, 54, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+.cardImageContainer {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.carouselCard:hover .cardImage {
+  transform: scale(1.04);
+}
+
+.cardImageFallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(54, 249, 54, 0.1), rgba(255, 255, 255, 0.02));
+}
+
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 10, 15, 0.8) 0%, transparent 80%);
+}
+
+.activeLabelBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #020617;
+  box-shadow: 0 0 12px var(--color-accent);
+}
+
+.cardContent {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  font-weight: 750;
+  color: var(--color-text-1);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.cardDescription {
+  font-size: 0.875rem;
+  color: var(--color-text-2);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 1rem;
+}
+
+.cardMetaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-3);
+}
+
+.cardMetaItem svg {
+  color: var(--color-accent);
+}
+
+.videoSectionWrapper {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.fadeIn {
+  opacity: 1;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+.searchResultsContainer {
+  margin-top: 1rem;
+}
+
+/* ── Light Mode compatibility ── */
+:global(.light-mode) .heroSection {
+  background: radial-gradient(circle at top, rgba(54, 249, 54, 0.12) 0%, transparent 60%);
+}
+
+:global(.light-mode) .carouselCard {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.005) 100%);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+:global(.light-mode) .carouselCard:hover {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+:global(.light-mode) .carouselCardActive {
+  border-color: #28D128 !important;
+  background: linear-gradient(135deg, rgba(40, 209, 40, 0.06) 0%, rgba(0, 0, 0, 0.005) 100%) !important;
+  box-shadow: 0 0 25px rgba(40, 209, 40, 0.1) !important;
+}
+
+:global(.light-mode) .activeLabelBadge {
+  background: linear-gradient(135deg, #28D128 0%, #166534 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(40, 209, 40, 0.2);
+}
+
+:global(.light-mode) .carouselArrow {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #4b5563;
+}
+
+:global(.light-mode) .carouselArrow:hover {
+  background: rgba(40, 209, 40, 0.08);
+  border-color: #28D128;
+  color: #28D128;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .carouselCard {
+    flex: 0 0 calc(50% - 0.75rem); /* Tablet: 2 cards */
+  }
+}
+
+@media (max-width: 640px) {
+  .heroSection {
+    padding: 3.5rem 0.5rem 2rem;
+  }
+  
+  .carouselCard {
+    flex: 0 0 85%; /* Mobile: 1 card peeking */
+  }
+
+  .carouselScroll {
+    gap: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* ── Active Course Header styling ── */
+.activeCourseHeader {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding: 2rem 2.25rem;
+  background: linear-gradient(135deg, rgba(54, 249, 54, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.activeCourseHeader::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent);
+}
+
+.activeCourseBadge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.activeCourseTitle {
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: 800;
+  color: var(--color-text-1);
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+
+.activeCourseDescription {
+  font-size: 0.95rem;
+  color: var(--color-text-2);
+  line-height: 1.6;
+  max-width: 700px;
+}
+
+/* Light mode adapter */
+:global(.light-mode) .activeCourseHeader {
+  background: linear-gradient(135deg, rgba(40, 209, 40, 0.03) 0%, rgba(0, 0, 0, 0.005) 100%);
+  border-color: rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+:global(.light-mode) .activeCourseBadge {
+  color: #166534;
+}
+
+
+

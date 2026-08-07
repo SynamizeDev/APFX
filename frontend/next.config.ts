@@ -56,7 +56,11 @@ const nextConfig: NextConfig = {
       { source: '/company', destination: '/about' },
       { source: '/company/:path*', destination: '/about/:path*' },
       { source: '/learn', destination: '/academy' },
-      { source: '/learn/:path*', destination: '/academy/:path*' },
+      { source: '/learn/academy/:path*', destination: '/academy/academy/:path*' },
+      { source: '/learn/glossary/:path*', destination: '/academy/glossary/:path*' },
+      { source: '/learn/glossary', destination: '/academy/glossary' },
+      // NOTE: /learn/courses and /learn/courses/:path* are intentionally NOT
+      // rewritten here — they are served directly by app/learn/courses/
     ]
   },
 

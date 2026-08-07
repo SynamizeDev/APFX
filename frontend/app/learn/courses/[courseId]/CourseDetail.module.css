@@ -1,0 +1,454 @@
+/* ── Course Detail — Premium Player Layout ── */
+
+.wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+/* ── Back link row — inside player column ── */
+.playerTopRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-3);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.backLink:hover {
+  color: var(--color-accent);
+  transform: translateX(-3px);
+}
+
+.courseBreadcrumb {
+  font-size: 0.875rem;
+  color: var(--color-text-3);
+  padding-left: 1rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 600px;
+}
+
+:global(.light-mode) .courseBreadcrumb {
+  border-left-color: rgba(0, 0, 0, 0.1);
+}
+
+/* ── Two-panel layout ── */
+.playerLayout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ── LEFT: Player column ── */
+.playerCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+/* Video embed frame */
+.playerFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+.iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 1rem;
+}
+
+.playerPlaceholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.2);
+  background: #0a0a0f;
+}
+
+/* Meta below video */
+.playerMeta {
+  padding: 1.5rem 0.25rem 0;
+}
+
+.playerEpBadge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.6rem;
+}
+
+.playerTitle {
+  font-size: clamp(1.35rem, 2.5vw, 1.9rem);
+  font-weight: 800;
+  color: var(--color-text-1);
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.playerMetaRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.playerMetaChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-3);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+}
+
+:global(.light-mode) .playerMetaChip {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.watchYtBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-decoration: none;
+  margin-left: auto;
+  transition: opacity 0.2s ease;
+}
+
+.watchYtBtn:hover {
+  opacity: 0.75;
+}
+
+/* Course info bar */
+.courseInfoBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+}
+
+:global(.light-mode) .courseInfoBar {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.courseInfoLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.25rem;
+}
+
+.courseInfoTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-1);
+}
+
+.courseInfoStats {
+  display: flex;
+  gap: 1rem;
+}
+
+.courseInfoStat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-3);
+}
+
+.courseInfoStat svg {
+  color: var(--color-accent);
+}
+
+/* ── RIGHT: Sidebar ── */
+.sidebarCol {
+  position: sticky;
+  top: 90px;
+  max-height: calc(100vh - 110px);
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+:global(.light-mode) .sidebarCol {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.sidebarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.25rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+:global(.light-mode) .sidebarHeader {
+  border-bottom-color: rgba(0, 0, 0, 0.07);
+}
+
+.sidebarTitle {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-2);
+}
+
+.sidebarCount {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-3);
+}
+
+/* Episode list — scrollable */
+.episodeList {
+  max-height: min(560px, calc(100vh - 180px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(54, 249, 54, 0.35) transparent;
+}
+
+.episodeList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.episodeList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.episodeList::-webkit-scrollbar-thumb {
+  background: rgba(54, 249, 54, 0.35);
+  border-radius: 99px;
+}
+
+.episodeList::-webkit-scrollbar-thumb:hover {
+  background: rgba(54, 249, 54, 0.65);
+}
+
+/* Individual episode row */
+.episodeItem {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.episodeItem:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+:global(.light-mode) .episodeItem:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.episodeItemActive {
+  background: rgba(54, 249, 54, 0.06) !important;
+  border-left: 3px solid var(--color-accent);
+}
+
+:global(.light-mode) .episodeItemActive {
+  background: rgba(40, 209, 40, 0.07) !important;
+}
+
+/* Thumbnail */
+.epThumbWrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 88px;
+  height: 54px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.epThumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.episodeItem:hover .epThumb {
+  transform: scale(1.05);
+}
+
+.epThumbOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.episodeItem:hover .epThumbOverlay,
+.episodeItemActive .epThumbOverlay {
+  opacity: 1;
+}
+
+/* Animated playing bars for active episode */
+.playingBars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+
+.playingBars span {
+  display: block;
+  width: 3px;
+  background: var(--color-accent);
+  border-radius: 2px;
+  animation: bar 0.8s ease-in-out infinite alternate;
+}
+
+.playingBars span:nth-child(1) { height: 8px; animation-delay: 0s; }
+.playingBars span:nth-child(2) { height: 14px; animation-delay: 0.2s; }
+.playingBars span:nth-child(3) { height: 6px; animation-delay: 0.4s; }
+
+@keyframes bar {
+  from { transform: scaleY(0.4); }
+  to   { transform: scaleY(1); }
+}
+
+/* Episode text info */
+.epInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.epNum {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.epTitle {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--color-text-1);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+}
+
+.episodeItemActive .epTitle {
+  color: var(--color-accent);
+}
+
+.epDuration {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-3);
+  margin-top: 0.15rem;
+}
+
+/* Error block */
+.errorBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  padding: 3rem 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  margin-top: 2rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .playerLayout {
+    grid-template-columns: 1fr 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .playerLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebarCol {
+    position: static;
+    height: 480px;
+    max-height: 480px;
+  }
+
+  .wrapper {
+    padding: 1rem 1rem 3rem;
+  }
+}
