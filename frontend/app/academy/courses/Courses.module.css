@@ -21,15 +21,7 @@
   letter-spacing: var(--ls-snug);
 }
 
-.heroTitle::after {
-  content: '';
-  display: block;
-  width: 3rem;
-  height: 3px;
-  background: linear-gradient(90deg, var(--color-accent), transparent);
-  border-radius: var(--radius-full);
-  margin: 0.75rem auto 0;
-}
+
 
 .heroDesc {
   color: var(--color-text-2);

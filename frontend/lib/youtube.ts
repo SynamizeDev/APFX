@@ -19,7 +19,11 @@ function parseDuration(duration: string) {
   return `${m}:${s}`;
 }
 
-export async function fetchYoutubePlaylist(playlistId: string): Promise<Course | { error: string }> {
+export async function fetchYoutubePlaylist(
+  playlistId: string,
+  title = 'Learn to Trade Forex with APFX × cTrader',
+  subtitle = 'Complete beginner video course designed to help traders understand Forex markets and the cTrader platform.'
+): Promise<Course | { error: string }> {
   const apiKey = process.env.YOUTUBE_API_KEY;
   if (!apiKey) {
     return { error: 'The playlist cannot be fetched because the API key is not configured.' };
@@ -43,8 +47,8 @@ export async function fetchYoutubePlaylist(playlistId: string): Promise<Course |
     if (items.length === 0) {
        return {
           id: playlistId,
-          title: 'Learn to Trade Forex with APFX × cTrader',
-          subtitle: 'Complete beginner video course designed to help traders understand Forex markets and the cTrader platform.',
+          title,
+          subtitle,
           playlistId: playlistId,
           videos: []
        };
@@ -88,8 +92,8 @@ export async function fetchYoutubePlaylist(playlistId: string): Promise<Course |
 
     return {
       id: playlistId,
-      title: 'Learn to Trade Forex with APFX × cTrader',
-      subtitle: 'Complete beginner video course designed to help traders understand Forex markets and the cTrader platform.',
+      title,
+      subtitle,
       playlistId: playlistId,
       videos
     };
