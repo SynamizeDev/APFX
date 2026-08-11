@@ -17,7 +17,6 @@ import {
 } from 'lucide-react'
 import InvestWithAPFX from '@/components/sections/InvestWithAPFX'
 import { useInViewport } from '@/hooks/useInViewport'
-import { PORTAL_SIGNUP_LINK_PROPS } from '@/config/urls'
 import styles from './HeroSection.module.css'
 
 const NAV_LINKS = [
@@ -45,34 +44,6 @@ const ASSET_LIST = [
   "> 'Stocks (CFDs)'",
   "> 'Cryptocurrencies'",
   "> 'Indices'",
-]
-
-const CANDLES_DATA = [
-  { x: 30, open: 470, close: 450, high: 440, low: 480 },
-  { x: 70, open: 450, close: 460, high: 435, low: 470 },
-  { x: 110, open: 460, close: 430, high: 420, low: 470 },
-  { x: 150, open: 430, close: 440, high: 415, low: 450 },
-  { x: 190, open: 440, close: 400, high: 390, low: 450 },
-  { x: 230, open: 400, close: 410, high: 395, low: 420 },
-  { x: 270, open: 410, close: 370, high: 360, low: 420 },
-  { x: 310, open: 370, close: 340, high: 330, low: 380 },
-  { x: 350, open: 340, close: 355, high: 335, low: 365 },
-  { x: 390, open: 355, close: 310, high: 300, low: 365 },
-  { x: 430, open: 310, close: 290, high: 280, low: 320 },
-  { x: 470, open: 290, close: 305, high: 285, low: 315 },
-  { x: 510, open: 305, close: 260, high: 250, low: 315 },
-  { x: 550, open: 260, close: 220, high: 210, low: 270 },
-  { x: 590, open: 220, close: 235, high: 215, low: 245 },
-  { x: 630, open: 235, close: 180, high: 170, low: 245 },
-  { x: 670, open: 180, close: 150, high: 140, low: 190 },
-  { x: 710, open: 150, close: 165, high: 145, low: 175 },
-  { x: 750, open: 165, close: 120, high: 110, low: 175 },
-  { x: 790, open: 120, close: 90, high: 80, low: 130 },
-  { x: 830, open: 90, close: 105, high: 85, low: 115 },
-  { x: 870, open: 105, close: 60, high: 50, low: 115 },
-  { x: 910, open: 60, close: 40, high: 30, low: 70 },
-  { x: 950, open: 40, close: 50, high: 35, low: 60 },
-  { x: 990, open: 50, close: 15, high: 5, low: 60 },
 ]
 
 type HeroAmbientAnimations = {
@@ -103,20 +74,20 @@ export default function HeroSection() {
     if (!isInViewport || !tabVisible) return
 
     const timer = setTimeout(() => {
-      setCurrentSlide((prev) => (prev >= 3 ? 1 : prev + 1))
+      setCurrentSlide((prev) => (prev >= 2 ? 1 : prev + 1))
     }, 6000)
     return () => clearTimeout(timer)
   }, [currentSlide, isInViewport, tabVisible])
 
   // Main animation driver
   useEffect(() => {
-    const targetPercent = -(currentSlide * 25)
+    const targetPercent = -(currentSlide * (100 / 3))
     const currentX = gsap.getProperty(trackRef.current, 'xPercent') as number
 
     let duration = 1.2
 
-    // If we are moving to Slide 0 and the track is still at -75% (clone), instantly snap it
-    if (currentSlide === 0 && currentX <= -74) {
+    // If we are moving to Slide 0 and the track is still at clone position, instantly snap it
+    if (currentSlide === 0 && currentX <= -65) {
       gsap.set(trackRef.current, { xPercent: 0 })
       duration = 0
     }
@@ -127,8 +98,8 @@ export default function HeroSection() {
       ease: 'power4.inOut',
       overwrite: 'auto',
       onComplete: () => {
-        // Once we hit the clone, silently snap back to 0
-        if (currentSlide === 3) {
+        // Once we hit the clone (slide index 2), silently snap back to 0
+        if (currentSlide === 2) {
           gsap.set(trackRef.current, { xPercent: 0 })
           setCurrentSlide(0)
         }
@@ -143,60 +114,6 @@ export default function HeroSection() {
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', overwrite: 'auto' }
       )
-    }
-
-    // ── Slide 2 Specific Animations ───────────────────
-    if (currentSlide === 1) {
-      // Initial resets
-      gsap.set(`.${styles.bonusLabel}`, { opacity: 0, scale: 0.5, y: 40 })
-      gsap.set(`.${styles.candle}`, { opacity: 0, scaleY: 0 })
-      gsap.set(`.${styles.priceTrackerLine}`, { scaleX: 0, opacity: 0 })
-      gsap.set(`.${styles.pulseDotGroup}`, { scale: 0, opacity: 0 })
-
-      const tl = gsap.timeline({ overwrite: 'auto' })
-
-      // 1. Staggered bonus badges reveal
-      tl.fromTo(
-        `.${styles.bonusLabel}`,
-        { opacity: 0, scale: 0.5, y: 40, rotation: -10 },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          rotation: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'back.out(1.7)',
-        }
-      )
-
-      // 2. Draw candles one by one (highly detailed stagger!)
-      tl.fromTo(
-        `.${styles.candle}`,
-        { opacity: 0, scaleY: 0, transformOrigin: 'bottom center' },
-        { opacity: 1, scaleY: 1, duration: 0.45, stagger: 0.08, ease: 'power2.out' },
-        '-=0.6' // start overlapping slightly with the badge animation
-      )
-
-      // 3. Price tracker line slices across
-      tl.fromTo(
-        `.${styles.priceTrackerLine}`,
-        { scaleX: 0, opacity: 0, transformOrigin: 'left center' },
-        { scaleX: 1, opacity: 0.15, duration: 0.8, ease: 'power2.out' }
-      )
-
-      // 4. Glow pulse scale pop
-      tl.fromTo(
-        `.${styles.pulseDotGroup}`,
-        { scale: 0, opacity: 0, transformOrigin: 'center center' },
-        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(2)' }
-      )
-    } else {
-      // Reset for next time
-      gsap.set(`.${styles.bonusLabel}`, { opacity: 0, scale: 0.5, y: 40 })
-      gsap.set(`.${styles.candle}`, { opacity: 0, scaleY: 0 })
-      gsap.set(`.${styles.priceTrackerLine}`, { scaleX: 0, opacity: 0 })
-      gsap.set(`.${styles.pulseDotGroup}`, { scale: 0, opacity: 0 })
     }
   }, [currentSlide])
 
@@ -402,148 +319,6 @@ export default function HeroSection() {
 
             {/* ── Slide 2 ─────────────────────── */}
             <div className={styles.slideItem}>
-              <div className={`${styles.slideBg} ${styles.slideBg2}`}>
-                <div className={styles.bgGridPattern} />
-                <div className={styles.bgOrb1} />
-                <div className={styles.bgOrb2} />
-
-                {/* Floating Bonus Labels */}
-                <div className={`${styles.bonusLabel} ${styles.label1}`}>+$1,000</div>
-                <div className={`${styles.bonusLabel} ${styles.label2}`}>+100%</div>
-                <div className={`${styles.bonusLabel} ${styles.label3}`}>WINNER</div>
-                <div className={`${styles.bonusLabel} ${styles.label4}`}>BONUS</div>
-
-                {/* Rising Graph — Now with high-fidelity market candles */}
-                <div className={styles.risingGraph}>
-                  <svg
-                    className={styles.graphSvg}
-                    viewBox="0 0 1000 500"
-                    preserveAspectRatio="none"
-                  >
-                    {/* 1. Dotted Chart Grid lines */}
-                    <g opacity="0.04" stroke="#ffffff" strokeWidth="1" strokeDasharray="3 3">
-                      {/* Horizontal lines */}
-                      <line x1="0" y1="100" x2="1000" y2="100" />
-                      <line x1="0" y1="200" x2="1000" y2="200" />
-                      <line x1="0" y1="300" x2="1000" y2="300" />
-                      <line x1="0" y1="400" x2="1000" y2="400" />
-                      {/* Vertical lines */}
-                      <line x1="200" y1="0" x2="200" y2="500" />
-                      <line x1="400" y1="0" x2="400" y2="500" />
-                      <line x1="600" y1="0" x2="600" y2="500" />
-                      <line x1="800" y1="0" x2="800" y2="500" />
-                    </g>
-
-                    {/* 2. Mock Chart Time & Price Axes */}
-                    <g opacity="0.12" fill="#ffffff" fontSize="9" fontFamily="monospace">
-                      {/* Price Axis (Right) */}
-                      <text x="960" y="95">
-                        1.1320
-                      </text>
-                      <text x="960" y="195">
-                        1.1300
-                      </text>
-                      <text x="960" y="295">
-                        1.1280
-                      </text>
-                      <text x="960" y="395">
-                        1.1260
-                      </text>
-                      {/* Time Axis (Bottom) */}
-                      <text x="200" y="485">
-                        14:00
-                      </text>
-                      <text x="400" y="485">
-                        15:00
-                      </text>
-                      <text x="600" y="485">
-                        16:00
-                      </text>
-                      <text x="800" y="485">
-                        17:00
-                      </text>
-                    </g>
-
-                    {/* 3. Live Price Dotted Tracker Line */}
-                    <line
-                      className={styles.priceTrackerLine}
-                      x1="0"
-                      y1="15"
-                      x2="990"
-                      y2="15"
-                      stroke="#36F936"
-                      strokeWidth="1"
-                      strokeDasharray="4 4"
-                      opacity="0.15"
-                    />
-
-                    {/* 4. Financial Market Candlesticks */}
-                    {CANDLES_DATA.map((candle, idx) => {
-                      const isGreen = candle.close < candle.open
-                      const color = isGreen ? '#36F936' : '#FF4976'
-                      const bodyHeight = Math.max(2, Math.abs(candle.open - candle.close))
-                      const bodyY = Math.min(candle.open, candle.close)
-                      const bodyWidth = 8
-                      return (
-                        <g key={idx} className={styles.candle}>
-                          {/* Shadow/Wick line */}
-                          <line
-                            x1={candle.x}
-                            y1={candle.high}
-                            x2={candle.x}
-                            y2={candle.low}
-                            stroke={color}
-                            strokeWidth="1.5"
-                            opacity="0.3"
-                          />
-                          {/* Candle Body */}
-                          <rect
-                            x={candle.x - bodyWidth / 2}
-                            y={bodyY}
-                            width={bodyWidth}
-                            height={bodyHeight}
-                            fill={color}
-                            opacity="0.2"
-                            rx="1"
-                          />
-                        </g>
-                      )
-                    })}
-
-                    {/* 5. Live Glowing Price Pulse Indicator */}
-                    <g className={styles.pulseDotGroup}>
-                      {/* Outer expanding pulse wave */}
-                      <circle
-                        className={styles.pulseOuter}
-                        cx="990"
-                        cy="15"
-                        r="12"
-                        fill="#36F936"
-                        opacity="0.25"
-                      />
-                      {/* Inner solid tracking dot */}
-                      <circle cx="990" cy="15" r="4" fill="#36F936" />
-                    </g>
-                  </svg>
-                </div>
-              </div>
-              <div className={`${styles.slideContainer} ${styles.slideCenter}`}>
-                <div className={styles.slideCenterContent}>
-                  <h2 className={styles.slideHeadline}>
-                    100% Bonus on Your
-                    <br />
-                    First Deposit
-                  </h2>
-                  <p className={styles.slideSubheadline}>Plus 50% Extra Every Time You Top Up*.</p>
-                  <Link {...PORTAL_SIGNUP_LINK_PROPS} className={styles.ctaButtonGreen}>
-                    Open Account Now
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* ── Slide 3 ─────────────────────── */}
-            <div className={styles.slideItem}>
               <div
                 className={`${styles.slideBg} ${styles.slideBg3}`}
                 style={{ backgroundImage: "url('/smooth_pattern.png')" }}
@@ -587,12 +362,12 @@ export default function HeroSection() {
 
         {/* ── Pagination ─────────────────────── */}
         <div className={styles.pagination}>
-          {[0, 1, 2].map((idx) => (
+          {[0, 1].map((idx) => (
             <button
               key={idx}
-              className={`${styles.dot} ${currentSlide === idx || (currentSlide === 3 && idx === 0) ? styles.activeDot : ''}`}
+              className={`${styles.dot} ${currentSlide === idx || (currentSlide === 2 && idx === 0) ? styles.activeDot : ''}`}
               onClick={() => {
-                if (currentSlide !== 3) setCurrentSlide(idx)
+                if (currentSlide !== 2) setCurrentSlide(idx)
               }}
               aria-label={`Go to slide ${idx + 1}`}
             />
