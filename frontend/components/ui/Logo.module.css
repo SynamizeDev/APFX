@@ -55,3 +55,38 @@
     transform-origin: center center;
     margin-left: -10px; /* Pull text closer to icon because of internal white space */
 }
+
+.logoTextDark {
+    display: inline-block;
+}
+
+.logoTextLight {
+    display: none;
+}
+
+/* Light mode overrides */
+:global(.light-mode) .logoTextDark {
+    display: none;
+}
+
+:global(.light-mode) .logoTextLight {
+    display: inline-block;
+}
+
+/* Footer overrides (always dark mode) */
+:global(footer) .logoTextDark {
+    display: inline-block !important;
+}
+
+:global(footer) .logoTextLight {
+    display: none !important;
+}
+
+/* Home page unscrolled header overrides (always dark mode logo) */
+:global(.home-page) :global(.header:not(.scrolled)) .logoTextDark {
+    display: inline-block !important;
+}
+
+:global(.home-page) :global(.header:not(.scrolled)) .logoTextLight {
+    display: none !important;
+}
