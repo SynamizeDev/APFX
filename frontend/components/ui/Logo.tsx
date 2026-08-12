@@ -1,6 +1,7 @@
 'use client'
 
 import React, { forwardRef } from 'react'
+import { usePreferences } from '@/context/PreferencesContext'
 import styles from './Logo.module.css'
 
 interface LogoProps {
@@ -18,6 +19,9 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(({
     style = {},
     id
 }, ref) => {
+    const { theme } = usePreferences()
+    const isLight = theme === 'light'
+
     return (
         <div
             ref={ref}
@@ -40,7 +44,7 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(({
             />
             {variant === 'full' && (
                 <img
-                    src="/assets/apfx-text.png"
+                    src={isLight ? "/assets/apfx-light-text.png" : "/assets/apfx-text.png"}
                     alt="APFX"
                     className={styles.logoText}
                 />
