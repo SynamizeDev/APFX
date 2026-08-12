@@ -83,10 +83,10 @@
 }
 
 /* Home page unscrolled header overrides (always dark mode logo) */
-:global(.home-page) :global(.header:not(.scrolled)) .logoTextDark {
+:global(.home-page) :global(.global-header.is-unscrolled) .logoTextDark {
     display: inline-block !important;
 }
 
-:global(.home-page) :global(.header:not(.scrolled)) .logoTextLight {
+:global(.home-page) :global(.global-header.is-unscrolled) .logoTextLight {
     display: none !important;
 }

@@ -133,31 +133,31 @@
 }
 
 /* Home Page unscrolled header overrides (always force dark mode style over transparent header) */
-:global(.home-page) :global(.header:not(.scrolled)) .desktopToggle {
+:global(.home-page) :global(.global-header.is-unscrolled) .desktopToggle {
     background: rgba(13, 17, 23, 0.6) !important;
     border-color: var(--color-accent) !important;
 }
 
-:global(.home-page) :global(.header:not(.scrolled)) .iconMoon,
-:global(.home-page) :global(.header:not(.scrolled)) .iconSun {
+:global(.home-page) :global(.global-header.is-unscrolled) .iconMoon,
+:global(.home-page) :global(.global-header.is-unscrolled) .iconSun {
     color: rgba(255, 255, 255, 0.9) !important;
 }
 
-:global(.home-page) :global(.header:not(.scrolled)) .active {
+:global(.home-page) :global(.global-header.is-unscrolled) .active {
     filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)) !important;
 }
 
-:global(.home-page) :global(.header:not(.scrolled)) .active .iconMoon,
-:global(.home-page) :global(.header:not(.scrolled)) .active .iconSun {
+:global(.home-page) :global(.global-header.is-unscrolled) .active .iconMoon,
+:global(.home-page) :global(.global-header.is-unscrolled) .active .iconSun {
     color: #fff !important;
 }
 
-:global(.home-page) :global(.header:not(.scrolled)) .mobileToggle {
+:global(.home-page) :global(.global-header.is-unscrolled) .mobileToggle {
     background: rgba(13, 17, 23, 0.6) !important;
     border-color: var(--color-accent) !important;
 }
 
-:global(.home-page) :global(.header:not(.scrolled)) .mobileIcon {
+:global(.home-page) :global(.global-header.is-unscrolled) .mobileIcon {
     color: var(--color-accent) !important;
     filter: drop-shadow(0 0 4px rgba(54, 249, 54, 0.3)) !important;
 }

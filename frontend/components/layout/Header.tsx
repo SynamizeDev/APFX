@@ -229,7 +229,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
     <>
       <motion.header
         ref={headerRef}
-        className={`${styles.header} ${scrolled ? styles.scrolled : ''} ${activeDropdown ? styles.menuActive : ''}`}
+        className={`global-header ${scrolled ? 'is-scrolled' : 'is-unscrolled'} ${styles.header} ${scrolled ? styles.scrolled : ''} ${activeDropdown ? styles.menuActive : ''}`}
         role="banner"
         style={{
           backgroundColor: headerBg,
