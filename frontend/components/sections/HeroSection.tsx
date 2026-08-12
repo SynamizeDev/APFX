@@ -290,7 +290,7 @@ export default function HeroSection() {
 
           <div className={styles.contentRight}>
             <div className={styles.mockupImageWrapper}>
-              <Image 
+              <Image
                 src="/Hero Image Slide 1.png"
                 alt="APFX Platforms"
                 width={1000}
@@ -317,39 +317,68 @@ export default function HeroSection() {
             {/* ── Slide 1 ─────────────────────── */}
             {renderSlide1(false)}
 
-            {/* ── Slide 2 ─────────────────────── */}
+            {/* ── Slide 2 — USP Chips ─────────── */}
             <div className={styles.slideItem}>
               <div
                 className={`${styles.slideBg} ${styles.slideBg3}`}
                 style={{ backgroundImage: "url('/smooth_pattern.png')" }}
               />
               <div className={`${styles.slideContainer} ${styles.slideCenter}`}>
-                {/* 3D Floating Cubes */}
-                <div className={`${styles.cube3d} ${styles.cubeLeft}`}>
-                  <span>Premium</span>
-                </div>
-                <div className={`${styles.cube3d} ${styles.cubeSwapFree}`}>
-                  <span>Swap Free</span>
-                </div>
-                <div className={`${styles.cube3d} ${styles.cubeStandard}`}>
-                  <span>
-                    Standard
-                    <br />
-                    Account
-                  </span>
-                </div>
+                <div className={styles.slide2ContentWrapper}>
+                  {/* ── Centre headline ── */}
+                  <div className={styles.slideCenterContent}>
+                    <h2 className={styles.slide2Headline}>
+                      Everything You Need
+                      <br />
+                      <span className={styles.slide2HeadlineAccent}>to Trade Smarter.</span>
+                    </h2>
+                    <p className={styles.slideSubheadline}>
+                      Advanced tools, AI &amp; education — built around your journey.
+                    </p>
+                  </div>
 
-                <div className={styles.slideCenterContent}>
-                  <h2 className={styles.slideHeadline}>
-                    More Choice.
-                    <br />
-                    <span className={styles.boldText}>More Control.</span>
-                  </h2>
-                  <p className={styles.slideSubheadline}>
-                    New account types designed to support your trading strategy and execution style.
-                  </p>
-                  <Link href="/accounts" className={styles.ctaButtonOutline}>
-                    Learn More
+                  {/* ── USP Chips Wrapper ── */}
+                  <div className={styles.uspChipsWrapper}>
+                    {/* Left Column in Desktop */}
+                    <div className={`${styles.uspChip} ${styles.uspChipTL1}`}>
+                      <TrendingUp size={14} />
+                      <span>15-Min Withdrawals</span>
+                    </div>
+                    <div className={`${styles.uspChip} ${styles.uspChipTL2} ${styles.uspChipPurple}`}>
+                      <Star size={14} />
+                      <span>AI Trading Assistance</span>
+                    </div>
+                    <div className={`${styles.uspChip} ${styles.uspChipTL3}`}>
+                      <Activity size={14} />
+                      <span>100+ Smart Indicators</span>
+                    </div>
+                    <div className={`${styles.uspChip} ${styles.uspChipBL}`}>
+                      <Plus size={14} />
+                      <span>Copy Trading &amp; PAMM</span>
+                    </div>
+
+                    {/* Right Column in Desktop */}
+                    <div className={`${styles.uspChip} ${styles.uspChipTR1}`}>
+                      <ShieldCheck size={14} />
+                      <span>1,000+ Free Bots</span>
+                    </div>
+                    <div className={`${styles.uspChip} ${styles.uspChipTR2} ${styles.uspChipBlue}`}>
+                      <Info size={14} />
+                      <span>Advanced cTrader</span>
+                    </div>
+                    <div className={`${styles.uspChip} ${styles.uspChipTR3}`}>
+                      <Search size={14} />
+                      <span>1,200+ Instruments</span>
+                    </div>
+                    <div className={`${styles.uspChip} ${styles.uspChipBR} ${styles.uspChipAcademy}`}>
+                      <ArrowUpRight size={14} />
+                      <span>APFX Academy</span>
+                    </div>
+                  </div>
+
+                  {/* ── CTA Button — after chips so it renders last on mobile ── */}
+                  <Link href="/company/about-us" className={styles.ctaButtonGreen} target="_blank" rel="noopener noreferrer">
+                    Explore APFX
                   </Link>
                 </div>
               </div>
