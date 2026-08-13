@@ -73,13 +73,22 @@
     display: inline-block;
 }
 
-/* Footer overrides (always dark mode) */
+/* Footer overrides — dark mode: force dark variant (white text on dark bg) */
 :global(footer) .logoTextDark {
     display: inline-block !important;
 }
 
 :global(footer) .logoTextLight {
     display: none !important;
+}
+
+/* Footer in light mode: follow light theme (black text on light bg) */
+:global(.light-mode footer) .logoTextDark {
+    display: none !important;
+}
+
+:global(.light-mode footer) .logoTextLight {
+    display: inline-block !important;
 }
 
 /* Home page unscrolled header overrides (always dark mode logo) */
