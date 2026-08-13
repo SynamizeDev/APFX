@@ -93,7 +93,7 @@ const MEGA_MENU_DATA = {
       title: 'Resources',
       links: [
         { label: 'Courses', href: '/learn/courses' },
-        { label: 'Glossary', href: '/learn/glossary' },
+        { label: 'Glossary', href: '/academy/glossary' },
       ],
     },
   ],
@@ -101,7 +101,7 @@ const MEGA_MENU_DATA = {
     {
       title: '',
       links: [
-        { label: 'About Us', href: '/company/about-us' },
+        { label: 'About Us', href: '/about' },
         { label: 'Account Types', href: '/accounts' },
         { label: 'Become a Partner', href: '/partners' },
         { label: 'Marketing Materials', href: '/company/marketing-materials' },
@@ -110,6 +110,7 @@ const MEGA_MENU_DATA = {
         { label: 'Terms of Service', href: '/terms-of-service' },
         { label: 'Risk Disclosure', href: '/risk-disclosure' },
         { label: 'Support', href: '/support' },
+        { label: 'Contact Us', href: '/contact' },
       ],
     },
   ],

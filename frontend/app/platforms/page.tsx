@@ -1,12 +1,6 @@
-import type { Metadata } from 'next'
 import PlatformsClient from './PlatformsClient'
 
-export const metadata: Metadata = {
-    title: 'Institutional Trading Platforms - Desktop, Web & Mobile',
-    description:
-        'Access the markets via our Advanced Web Terminal, cTrader integration, and native mobile apps. High-speed, low-latency execution for serious traders.',
-}
-
+// Metadata is defined in layout.tsx (includes canonical URL + alternates)
 export default function PlatformsPage() {
     return <PlatformsClient />
 }

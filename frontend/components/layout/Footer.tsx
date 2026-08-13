@@ -7,25 +7,26 @@ import Logo from '@/components/ui/Logo'
 import styles from './Footer.module.css'
 
 const FOOTER_LINKS = {
-    Trading: [
-        { label: 'Commodities', href: '/trade&invest/commodities' },
-        { label: 'Indices', href: '/trade&invest/indices' },
-        { label: 'Stocks (CFDs)', href: '/trade&invest/stocks' },
-        { label: 'Cryptocurrencies', href: '/trade&invest/cryptocurrencies' },
-        { label: 'Futures', href: '/trade&invest/futures' },
+    Markets: [
+        { label: 'Forex CFDs', href: '/products/forex' },
+        { label: 'Commodities CFDs', href: '/products/commodities' },
+        { label: 'Indices CFDs', href: '/products/indices' },
+        { label: 'Stocks CFDs', href: '/products/stocks' },
+        { label: 'Cryptocurrency CFDs', href: '/products/cryptocurrencies' },
+        { label: 'Futures CFDs', href: '/products/futures' },
     ],
     Platforms: [
         { label: 'All Platforms', href: '/platforms' },
-        { label: 'Web Terminal', href: '/platforms' },
-        { label: 'cTrader', href: '/platforms' },
-        { label: 'Mobile App', href: '/platforms' },
+        { label: 'cTrader Web Terminal', href: '/ctrader' },
+        { label: 'Copy Trading', href: '/tools/copy-trading' },
+        { label: 'PAMM Accounts', href: '/pamm' },
     ],
-    Support: [
-        { label: 'About Us', href: '/company/about-us' },
-        { label: 'Success Stories', href: '/company/success-stories' },
+    Company: [
+        { label: 'About APFX', href: '/about' },
+        { label: 'Partner with Us', href: '/partners' },
+        { label: 'APFX Academy', href: '/academy/courses' },
         { label: 'Support Center', href: '/support' },
-        { label: 'FAQ', href: '/faq' },
-        { label: 'Contact', href: '/contact' },
+        { label: 'Contact Us', href: '/contact' },
     ],
 }
 
