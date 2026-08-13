@@ -8,6 +8,7 @@ import type { Course, CourseVideo } from './coursesData'
 interface CoursesClientProps {
   forexCourse: Course | { error: string }
   algoCourse: Course | { error: string }
+  course3: Course | { error: string }
 }
 
 interface EnrichedVideo extends CourseVideo {
@@ -96,7 +97,7 @@ function SearchResults({ videos, query }: { videos: EnrichedVideo[]; query: stri
 }
 
 // ── Main client component ────────────────────────────────────────
-export default function CoursesClient({ forexCourse, algoCourse }: CoursesClientProps) {
+export default function CoursesClient({ forexCourse, algoCourse, course3 }: CoursesClientProps) {
   const [query, setQuery] = useState('')
   const carouselRef = useRef<HTMLDivElement>(null)
   const videoSectionRef = useRef<HTMLDivElement>(null)
@@ -106,8 +107,9 @@ export default function CoursesClient({ forexCourse, algoCourse }: CoursesClient
     const list: Course[] = []
     if (isCourse(forexCourse)) list.push(forexCourse)
     if (isCourse(algoCourse)) list.push(algoCourse)
+    if (isCourse(course3)) list.push(course3)
     return list
-  }, [forexCourse, algoCourse])
+  }, [forexCourse, algoCourse, course3])
 
   // Track the active selected course ID
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(() => {
@@ -129,8 +131,11 @@ export default function CoursesClient({ forexCourse, algoCourse }: CoursesClient
     if (isCourse(algoCourse)) {
       algoCourse.videos.forEach(v => pool.push({ ...v, courseTitle: algoCourse.title, courseLevel: 'Advanced', levelColor: '#a78bfa' }))
     }
+    if (isCourse(course3)) {
+      course3.videos.forEach(v => pool.push({ ...v, courseTitle: course3.title, courseLevel: 'Intermediate', levelColor: '#60a5fa' }))
+    }
     return pool
-  }, [forexCourse, algoCourse])
+  }, [forexCourse, algoCourse, course3])
 
   const filteredVideos = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -299,6 +304,7 @@ export default function CoursesClient({ forexCourse, algoCourse }: CoursesClient
           {/* Show error blocks for any failed API loads at the bottom */}
           {!isCourse(forexCourse) && <ErrorBlock msg={forexCourse.error} />}
           {!isCourse(algoCourse) && <ErrorBlock msg={algoCourse.error} />}
+          {!isCourse(course3) && <ErrorBlock msg={course3.error} />}
         </>
       )}
     </div>

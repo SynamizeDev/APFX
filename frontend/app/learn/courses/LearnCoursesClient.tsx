@@ -9,8 +9,10 @@ import type { Course, CourseVideo } from '@/app/academy/courses/coursesData'
 /* ── helpers ── */
 function isCourse(c: Course | { error: string }): c is Course { return !('error' in c) }
 function getCourseSlug(id: string) {
-  if (id === 'PLIioKedKLbjY') return 'forex'
-  if (id === 'PLX2aFJVbtr_A') return 'algo'
+  const nid = id.toLowerCase()
+  if (nid === 'pliiokedklbjy' || nid === 'plliokedklbjy' || nid === 'forex') return 'forex'
+  if (nid === 'plx2afjvbtr_a' || nid === 'algo') return 'algo'
+  if (nid === 'pldjy75lqbly8' || nid === 'insights') return 'insights'
   return id
 }
 function getCourseLevel(title: string) {
@@ -94,17 +96,19 @@ function FeaturedCourse({ course }: { course: Course }) {
     <motion.div ref={ref} initial="hidden" animate={inView ? 'show' : 'hidden'} variants={stagger} className={styles.featuredSection}>
       <motion.p variants={fadeUp} className={styles.sectionEyebrow}>Featured Course</motion.p>
       <div className={styles.featuredCard}>
-        {/* Thumbnail */}
-        <motion.div variants={fadeUp} className={styles.featuredThumb}>
-          {thumbnail && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={thumbnail} alt={course.title} className={styles.featuredImg} />
-          )}
-          <div className={styles.featuredThumbOverlay} />
-          <div className={styles.featuredPlayBtn}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </div>
-        </motion.div>
+        {/* Thumbnail Link */}
+        <Link href={`/learn/courses/${slug}`} className={styles.featuredThumbLink}>
+          <motion.div variants={fadeUp} className={styles.featuredThumb}>
+            {thumbnail && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={thumbnail} alt={course.title} className={styles.featuredImg} />
+            )}
+            <div className={styles.featuredThumbOverlay} />
+            <div className={styles.featuredPlayBtn}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </motion.div>
+        </Link>
 
         {/* Info */}
         <div className={styles.featuredInfo}>
@@ -327,15 +331,16 @@ function LibrarySection({ courses }: { courses: Course[] }) {
 /* ════════════════════════════════════════════════════════════
    MAIN PAGE COMPONENT
 ════════════════════════════════════════════════════════════ */
-interface Props { forexCourse: Course | { error: string }; algoCourse: Course | { error: string } }
+interface Props { forexCourse: Course | { error: string }; algoCourse: Course | { error: string }; course3: Course | { error: string } }
 
-export default function LearnCoursesClient({ forexCourse, algoCourse }: Props) {
+export default function LearnCoursesClient({ forexCourse, algoCourse, course3 }: Props) {
   const [query, setQuery] = useState('')
   const heroRef = useRef(null)
 
   const allCourses: Course[] = []
   if (isCourse(forexCourse)) allCourses.push(forexCourse)
   if (isCourse(algoCourse)) allCourses.push(algoCourse)
+  if (isCourse(course3)) allCourses.push(course3)
 
   const featuredCourse = allCourses[0] ?? null
   const totalVideos = allCourses.reduce((a, c) => a + c.videos.length, 0)
@@ -367,7 +372,7 @@ export default function LearnCoursesClient({ forexCourse, algoCourse }: Props) {
       totalCount: videos.length + courses.length,
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, forexCourse, algoCourse])
+  }, [query, forexCourse, algoCourse, course3])
 
   const isSearching = query.trim().length > 0
 
