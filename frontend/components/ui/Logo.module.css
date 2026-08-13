@@ -42,7 +42,7 @@
     width: auto;
     object-fit: contain;
     flex-shrink: 0;
-    transform: scale(2.2); /* Reduced from 2.8 to make it 20% smaller */
+    transform: scale(2.8); /* Compensate for large white space in the source PNG */
     transform-origin: center center;
 }
 
