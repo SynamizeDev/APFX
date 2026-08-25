@@ -93,6 +93,7 @@ const MEGA_MENU_DATA = {
       title: 'Resources',
       links: [
         { label: 'Courses', href: '/learn/courses' },
+        { label: 'Webinars', href: '/education/webinars' },
         { label: 'Glossary', href: '/academy/glossary' },
       ],
     },

@@ -85,7 +85,7 @@ export default function ContactPage() {
                                         transition={{ duration: 0.2 }}
                                     >
                                         <Phone size={18} />
-                                        +44 (0) 20 3000 0000
+                                        +91 81490 67969
                                     </motion.div>
                                 </motion.div>
                             </motion.aside>
