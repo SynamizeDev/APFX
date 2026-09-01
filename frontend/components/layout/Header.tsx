@@ -40,6 +40,7 @@ const MEGA_MENU_DATA = {
     {
       title: '',
       links: [
+        { label: 'Trading Platforms', href: '/platforms' },
         { label: 'Accounts Overview', href: '/accounts?type=overview' },
         { label: 'Premium Account', href: '/accounts?type=premium' },
         { label: 'Standard Account', href: '/accounts?type=standard' },
@@ -68,6 +69,7 @@ const MEGA_MENU_DATA = {
     {
       title: '',
       links: [
+        { label: 'Trading Platforms', href: '/platforms' },
         { label: 'Trade Terminal', href: '/ctrader' },
         { label: 'Calculators', href: '/tools/calculators' },
         { label: 'Copy Trade', href: '/tools/copy-trading' },

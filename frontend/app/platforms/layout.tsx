@@ -2,17 +2,17 @@ import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Trading Platforms — Web Terminal, Mobile & cTrader',
+  title: 'APFX Trading Platforms — Advanced Web Terminal & cTrader App',
   description:
-    'Access global markets from any device with APFX trading platforms. Advanced Web Terminal, full cTrader integration, WebTrader, and mobile apps for iOS and Android.',
+    'Trade your way with APFX trading platforms. Trade directly in your browser with our Advanced Web Terminal or trade on the go with the APFX cTrader App for iOS and Android.',
   path: '/platforms',
   keywords: [
-    'trading platform',
-    'cTrader',
-    'web trading terminal',
-    'forex trading app',
-    'APFX platform',
-    'mobile trading',
+    'APFX trading platforms',
+    'Advanced Web Terminal',
+    'APFX cTrader App',
+    'browser trading',
+    'mobile trading app',
+    'APFX cTrader',
   ],
 })
 
@@ -23,3 +23,4 @@ export default function PlatformsLayout({
 }) {
   return <>{children}</>
 }
+
