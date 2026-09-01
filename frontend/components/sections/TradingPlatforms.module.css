@@ -88,10 +88,105 @@
     margin-bottom: 0.5rem;
 }
 
-.platformDesc {
+.platformSubtitle {
     font-size: var(--text-xs);
     color: var(--color-text-3);
-    line-height: 1.5;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.actionContainer {
+    margin-top: auto;
+    padding-top: 0.75rem;
+}
+
+.darkCtaBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.625rem 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-1);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--fw-semibold);
+    text-decoration: none;
+    transition: border-color var(--duration-normal) var(--ease-out),
+        background var(--duration-normal) var(--ease-out),
+        color var(--duration-normal) var(--ease-out),
+        transform var(--duration-fast) var(--ease-out),
+        box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.darkCtaBtn:hover {
+    border-color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    color: var(--color-accent);
+    transform: translateY(-1px);
+}
+
+.storeBadges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
+}
+
+.storeBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.65rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-1);
+    text-decoration: none;
+    flex: 1 1 calc(50% - 0.25rem);
+    min-width: 110px;
+    box-sizing: border-box;
+    transition: border-color var(--duration-normal) var(--ease-out),
+        background var(--duration-normal) var(--ease-out),
+        transform var(--duration-fast) var(--ease-out),
+        box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.storeBadge:hover {
+    border-color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    color: var(--color-text-1);
+    transform: translateY(-1px);
+}
+
+.storeBadgeIcon {
+    flex-shrink: 0;
+    color: var(--color-text-1);
+}
+
+.badgeTextGroup {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.badgeSubtext {
+    font-size: 0.52rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-text-3);
+    margin-bottom: 0.15rem;
+    font-weight: 500;
+}
+
+.badgeTitle {
+    font-size: 0.72rem;
+    font-weight: var(--fw-bold);
+    color: var(--color-text-1);
+    white-space: nowrap;
 }
 
 /* ── Visual Section (Right) ────────────────────────────────── */
@@ -204,7 +299,8 @@
     .platformItem {
         flex: 0 0 92%;
         min-width: 92%;
-        height: 220px;
+        min-height: 220px;
+        height: auto;
         scroll-snap-align: start;
         justify-content: flex-start;
     }
