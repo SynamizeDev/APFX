@@ -67,6 +67,17 @@ const nextConfig: NextConfig = {
   // ── Redirects to fix 404s ─────────────────────────────────────
   async redirects() {
     return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'apfxglobal.com',
+          },
+        ],
+        destination: 'https://www.apfxglobal.com/:path*',
+        permanent: true,
+      },
       { source: '/faq', destination: '/support', permanent: false },
     ]
   },
