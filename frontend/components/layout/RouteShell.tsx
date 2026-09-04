@@ -14,7 +14,7 @@ export function RouteMain({ children }: { children: React.ReactNode }) {
             className="main-wrapper"
             style={{
                 paddingTop: '72px',
-                paddingBottom: '38px',
+                // paddingBottom: '38px',
                 position: 'relative',
                 isolation: 'isolate',
             }}
@@ -38,7 +38,8 @@ export function RouteFooter() {
     return (
         <>
             <Footer />
-            <BottomBar />
+            {/* <BottomBar /> */}
         </>
     )
 }
+

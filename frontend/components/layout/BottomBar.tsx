@@ -1,9 +1,10 @@
 'use client'
 
-import dynamic from 'next/dynamic'
-
-const TickerTape = dynamic(() => import('./TickerTape'), { ssr: false })
+// import dynamic from 'next/dynamic'
+// const TickerTape = dynamic(() => import('./TickerTape'), { ssr: false })
 
 export default function BottomBar() {
-    return <TickerTape />
+    return null
+    // return <TickerTape />
 }
+
