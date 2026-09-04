@@ -2,7 +2,7 @@
 .wrapper {
   max-width: 720px;
   margin: 0 auto;
-  padding: 2rem var(--container-px, 1.5rem) 4rem;
+  padding: 2.5rem var(--container-px, 1.5rem) 4rem;
 }
 
 .backLink {
@@ -13,11 +13,20 @@
   color: var(--color-text-2);
   text-decoration: none;
   margin-bottom: 1.5rem;
+  padding: 0.45rem 0.75rem;
+  margin-left: -0.75rem;
+  border-radius: 0.5rem;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-.backLink:hover {
+.backLink:hover,
+.backLink:active {
   color: var(--color-accent);
+  background-color: rgba(54, 249, 54, 0.08);
 }
+
 
 .articleHeader {
   margin-bottom: 2rem;
