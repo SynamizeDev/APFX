@@ -11,7 +11,10 @@ import { HomeEntryProvider } from '@/context/HomeEntryContext'
    ========================================================= */
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://apfxglobal.com'),
+  metadataBase: new URL('https://www.apfxglobal.com'),
+  alternates: {
+    canonical: '/',
+  },
   title: {
     default: 'APFX',
     template: '%s | APFX',
@@ -30,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://apfxglobal.com',
+    url: 'https://www.apfxglobal.com',
     siteName: 'APFX',
     title: 'APFX',
     description:
@@ -66,16 +69,17 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
-      { url: "/android-chrome-192x192.png", type: "image/png", sizes: "192x192" },
-      { url: "/android-chrome-512x512.png", type: "image/png", sizes: "512x512" }
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/android-chrome-192x192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/android-chrome-512x512.png', type: 'image/png', sizes: '512x512' }
     ],
+    shortcut: '/favicon.ico',
     apple: [
       {
-        url: "/apple-touch-icon.png",
-        sizes: "180x180",
-        type: "image/png"
+        url: '/apple-touch-icon.png',
+        sizes: '180x180',
+        type: 'image/png'
       }
     ]
   },
