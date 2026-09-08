@@ -9,7 +9,7 @@ export const metadata: Metadata = {
         title: 'APFX Global Webinars | Trading Education & Market Insights',
         description:
             'Join APFX Global webinars covering trading platforms, technical analysis, market insights, strategies, and professional trading tools.',
-        url: 'https://apfxglobal.com/education/webinars',
+        url: 'https://www.apfxglobal.com/education/webinars',
         type: 'website',
     },
     twitter: {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         follow: true,
     },
     alternates: {
-        canonical: 'https://apfxglobal.com/education/webinars',
+        canonical: 'https://www.apfxglobal.com/education/webinars',
     },
 }
 

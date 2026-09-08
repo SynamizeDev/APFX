@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'Delete Your APFX Trading Account | APFX',
   description: 'Learn how to request deletion of your APFX trading account. Submit your account deletion request and our support team will process it according to our policies.',
   alternates: {
-    canonical: 'https://apfxglobal.com/account-deletion',
+    canonical: 'https://www.apfxglobal.com/account-deletion',
   }
 }
 

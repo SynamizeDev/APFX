@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
    Single source of truth for metadata and JSON-LD
    ========================================================= */
 
-export const siteUrl = 'https://apfxglobal.com'
+export const siteUrl = 'https://www.apfxglobal.com'
 
 export const defaultOgImage = `${siteUrl}/og-image.jpg`
 

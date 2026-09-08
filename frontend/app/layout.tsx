@@ -127,13 +127,13 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Organization',
-              '@id': `${'https://apfxglobal.com'}/#organization`,
+              '@id': `${'https://www.apfxglobal.com'}/#organization`,
               name: 'APFX',
               legalName: 'APFX Global Markets Ltd',
-              url: 'https://apfxglobal.com',
+              url: 'https://www.apfxglobal.com',
               logo: {
                 '@type': 'ImageObject',
-                url: `${'https://apfxglobal.com'}/android-chrome-512x512.png`,
+                url: `${'https://www.apfxglobal.com'}/android-chrome-512x512.png`,
                 width: 512,
                 height: 512,
               },
@@ -144,7 +144,7 @@ export default function RootLayout({
                 '@type': 'ContactPoint',
                 contactType: 'customer support',
                 availableLanguage: 'English',
-                url: `${'https://apfxglobal.com'}/contact`,
+                url: `${'https://www.apfxglobal.com'}/contact`,
               },
               sameAs: [
                 'https://twitter.com/apfx',
@@ -161,18 +161,18 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              '@id': `${'https://apfxglobal.com'}/#website`,
+              '@id': `${'https://www.apfxglobal.com'}/#website`,
               name: 'APFX',
-              url: 'https://apfxglobal.com',
+              url: 'https://www.apfxglobal.com',
               description: 'Institutional-grade global trading platform for Forex, Commodities, Indices, and Metals.',
               publisher: {
-                '@id': `${'https://apfxglobal.com'}/#organization`,
+                '@id': `${'https://www.apfxglobal.com'}/#organization`,
               },
               potentialAction: {
                 '@type': 'SearchAction',
                 target: {
                   '@type': 'EntryPoint',
-                  urlTemplate: `${'https://apfxglobal.com'}/academy/courses?q={search_term_string}`,
+                  urlTemplate: `${'https://www.apfxglobal.com'}/academy/courses?q={search_term_string}`,
                 },
                 'query-input': 'required name=search_term_string',
               },
