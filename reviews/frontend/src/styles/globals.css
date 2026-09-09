@@ -287,3 +287,12 @@ button {
 .light-mode input.bg-\[\#0B111E\]::placeholder {
   color: #94A3B8 !important;
 }
+
+/* Link Hover Overrides */
+.light-mode .hover\:text-\[\#36F936\]:hover {
+  color: #15803D !important;
+}
+
+.light-mode .hover\:text-white:hover {
+  color: #0F172A !important;
+}

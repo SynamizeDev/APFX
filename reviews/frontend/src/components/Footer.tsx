@@ -28,22 +28,22 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="https://app.apfxglobal.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                <a href="https://app.apfxglobal.com/" target="_blank" rel="noopener noreferrer" className="hover:text-[#36F936] transition-colors">
                   Main Trading Platform
                 </a>
               </li>
               <li>
-                <a href="https://apfxglobal.com/accounts" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                <a href="https://apfxglobal.com/accounts" target="_blank" rel="noopener noreferrer" className="hover:text-[#36F936] transition-colors">
                   Account Types & Spreads
                 </a>
               </li>
               <li>
-                <a href="https://apfxglobal.com/academy" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                <a href="https://apfxglobal.com/academy" target="_blank" rel="noopener noreferrer" className="hover:text-[#36F936] transition-colors">
                   Trading Academy
                 </a>
               </li>
               <li>
-                <a href="https://apfxglobal.com/support" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                <a href="https://apfxglobal.com/support" target="_blank" rel="noopener noreferrer" className="hover:text-[#36F936] transition-colors">
                   Client Support 24/7
                 </a>
               </li>
@@ -57,22 +57,22 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="https://apfxglobal.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                <a href="https://apfxglobal.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="hover:text-[#36F936] transition-colors">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="https://apfxglobal.com/terms-of-service" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                <a href="https://apfxglobal.com/terms-of-service" target="_blank" rel="noopener noreferrer" className="hover:text-[#36F936] transition-colors">
                   Terms of Service
                 </a>
               </li>
               <li>
-                <a href="https://apfxglobal.com/risk-disclosure" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                <a href="https://apfxglobal.com/risk-disclosure" target="_blank" rel="noopener noreferrer" className="hover:text-[#36F936] transition-colors">
                   High Risk Disclaimer
                 </a>
               </li>
               <li>
-                <a href="https://apfxglobal.com/aml-kyc-policy" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                <a href="https://apfxglobal.com/aml-kyc-policy" target="_blank" rel="noopener noreferrer" className="hover:text-[#36F936] transition-colors">
                   AML / KYC Policy
                 </a>
               </li>

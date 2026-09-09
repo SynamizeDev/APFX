@@ -96,9 +96,14 @@ export default function Testimonials() {
                         Trusted by Performance‑Driven Traders Worldwide
                     </h2>
                 </div>
-                <Link href="/about/success-stories" className={styles.btnSmall}>
+                <a
+                    href="https://reviews.apfxglobal.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.btnSmall}
+                >
                     See More Reviews <ArrowRight size={14} />
-                </Link>
+                </a>
             </div>
 
             {/* Row — scrolls left */}

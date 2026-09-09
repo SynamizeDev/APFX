@@ -78,6 +78,8 @@ const nextConfig: NextConfig = {
         destination: 'https://www.apfxglobal.com/:path*',
         permanent: true,
       },
+      { source: '/company/success-stories', destination: 'https://reviews.apfxglobal.com/', permanent: true },
+      { source: '/about/success-stories', destination: 'https://reviews.apfxglobal.com/', permanent: true },
       { source: '/faq', destination: '/support', permanent: false },
     ]
   },
