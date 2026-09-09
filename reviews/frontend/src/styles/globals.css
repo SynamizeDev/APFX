@@ -1,0 +1,289 @@
+@import './tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   APFX Reviews Platform — Global Styles
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-2);
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text-2);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--color-text-1);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
+}
+
+/* Utility Animations & Ambient Effects */
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.emerald-glow {
+  box-shadow: 0 0 40px rgba(54, 249, 54, 0.15);
+}
+
+.emerald-text-gradient {
+  background: linear-gradient(135deg, #FFFFFF 30%, #36F936 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-text-gradient {
+  background: linear-gradient(135deg, #FFF0BD 0%, #C9A84C 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+}
+
+/* Modal Overlay Animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ============================================================
+   LIGHT MODE ADAPTATIONS
+   Seamlessly adapts the existing UI components for Light Theme
+   ============================================================ */
+
+.light-mode {
+  color-scheme: light;
+}
+
+.light-mode body {
+  background-color: #FFFFFF;
+  color: #334155;
+}
+
+/* Base dark container overrides */
+.light-mode .bg-\[\#03050A\] {
+  background-color: #FFFFFF !important;
+}
+
+.light-mode .bg-\[\#070B14\],
+.light-mode .bg-\[\#06090D\] {
+  background-color: #F8FAFC !important;
+}
+
+.light-mode .bg-\[\#0B111E\] {
+  background-color: #FFFFFF !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.light-mode .bg-\[\#0B111E\]\/60,
+.light-mode .bg-\[\#0B111E\]\/70,
+.light-mode .bg-\[\#0B111E\]\/80 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.light-mode .bg-\[\#03050A\]\/70,
+.light-mode .bg-\[\#03050A\]\/80,
+.light-mode .bg-\[\#03050A\]\/90 {
+  background-color: #F8FAFC !important;
+}
+
+.light-mode .bg-\[\#121A2C\] {
+  background-color: #F1F5F9 !important;
+}
+
+.light-mode .hover\:bg-\[\#121A2C\]:hover {
+  background-color: #F1F5F9 !important;
+}
+
+/* Gradient Background Overrides */
+.light-mode .bg-gradient-to-b.from-\[\#03050A\] {
+  background-image: linear-gradient(to bottom, #FFFFFF 0%, #F8FAFC 50%, #FFFFFF 100%) !important;
+}
+
+.light-mode .bg-gradient-to-b.from-\[\#0B111E\].to-\[\#070B14\] {
+  background-image: linear-gradient(to bottom, #FFFFFF 0%, #F8FAFC 100%) !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08) !important;
+}
+
+.light-mode .bg-gradient-to-br.from-\[\#0B111E\].via-\[\#070B14\].to-\[\#03050A\] {
+  background-image: linear-gradient(to bottom right, #FFFFFF 0%, #F8FAFC 50%, #F1F5F9 100%) !important;
+}
+
+.light-mode .bg-gradient-to-br.from-\[\#36F936\]\/20 {
+  background-image: linear-gradient(to bottom right, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05)) !important;
+  border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+/* Text Gradients */
+.light-mode .bg-gradient-to-r.from-white.via-\[\#36F936\].to-emerald-400 {
+  background-image: linear-gradient(to right, #0F172A 0%, #16A34A 100%) !important;
+}
+
+/* Border overrides */
+.light-mode .border-\[\#1A2235\],
+.light-mode .border-\[\#243050\] {
+  border-color: #E2E8F0 !important;
+}
+
+/* Typography contrast */
+.light-mode .text-white {
+  color: #0F172A !important;
+}
+
+.light-mode .text-slate-200 {
+  color: #1E293B !important;
+}
+
+.light-mode .text-slate-300 {
+  color: #334155 !important;
+}
+
+.light-mode .text-slate-400 {
+  color: #64748B !important;
+}
+
+.light-mode .text-slate-500 {
+  color: #64748B !important;
+}
+
+/* Emerald accent text in light mode */
+.light-mode .text-\[\#36F936\] {
+  color: #15803D !important;
+}
+
+.light-mode .emerald-text-gradient {
+  background: linear-gradient(135deg, #0F172A 30%, #15803D 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.light-mode .gold-text-gradient {
+  background: linear-gradient(135deg, #92400E 0%, #B45309 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Grid pattern */
+.light-mode .bg-grid-pattern {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+}
+
+/* Transparent overlays */
+.light-mode .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+.light-mode .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+.light-mode .border-white\/5,
+.light-mode .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.light-mode .hover\:bg-white\/5:hover,
+.light-mode .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* CTA & Action Buttons */
+.light-mode button.bg-gradient-to-r {
+  color: #03050A !important;
+}
+
+.light-mode a.bg-\[\#36F936\]\/10 {
+  background-color: #ECFDF5 !important;
+  border-color: #A7F3D0 !important;
+  color: #047857 !important;
+}
+
+.light-mode a.bg-\[\#36F936\]\/10:hover {
+  background-color: #D1FAE5 !important;
+  color: #065F46 !important;
+}
+
+/* Search input in modal */
+.light-mode input.bg-\[\#0B111E\] {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+}
+
+.light-mode input.bg-\[\#0B111E\]::placeholder {
+  color: #94A3B8 !important;
+}

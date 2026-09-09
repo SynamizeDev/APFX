@@ -1,0 +1,90 @@
+/* ============================================================
+   APFX Unified Logo Styles — Parity with Main Website
+   ============================================================ */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: var(--color-text-1);
+  font-family: var(--font-display);
+  font-weight: var(--fw-extrabold);
+  font-size: var(--text-xl);
+  letter-spacing: -0.08em;
+  user-select: none;
+  transition: color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scaling */
+.sm { transform: scale(1); }
+.md { transform: scale(1.5); }
+.lg { transform: scale(1.8); }
+
+.logoMark {
+  width: 34px;
+  height: 34px;
+  background: radial-gradient(circle at 20% 0%,
+          #ffffff 0%,
+          #b4ffe5 12%,
+          var(--color-accent) 45%,
+          #1E9B1E 100%);
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 34px rgba(54, 249, 54, 0.45);
+  flex-shrink: 0;
+}
+
+.logoIcon {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  transform: scale(2.8); /* Compensate for internal space in source asset */
+  transform-origin: center center;
+}
+
+.logoText {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  transform: scale(2.8); /* Compensate for internal space in source asset */
+  transform-origin: center center;
+  margin-left: -10px; /* Pull text closer to icon */
+}
+
+.logoTextDark {
+  display: inline-block;
+}
+
+.logoTextLight {
+  display: none;
+}
+
+/* Light mode overrides */
+:global(.light-mode) .logoTextDark {
+  display: none;
+}
+
+:global(.light-mode) .logoTextLight {
+  display: inline-block;
+}
+
+/* Footer overrides */
+:global(footer) .logoTextDark {
+  display: inline-block !important;
+}
+
+:global(footer) .logoTextLight {
+  display: none !important;
+}
+
+:global(.light-mode footer) .logoTextDark {
+  display: none !important;
+}
+
+:global(.light-mode footer) .logoTextLight {
+  display: inline-block !important;
+}

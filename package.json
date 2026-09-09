@@ -6,7 +6,8 @@
   "packageManager": "npm@11.1.0",
   "workspaces": [
     "frontend",
-    "backend"
+    "backend",
+    "reviews/frontend"
   ],
   "scripts": {
     "dev": "turbo run dev",

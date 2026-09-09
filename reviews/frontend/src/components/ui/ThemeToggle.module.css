@@ -1,0 +1,134 @@
+.desktopToggle {
+  position: relative;
+  width: 76px;
+  height: 38px;
+  background: rgba(13, 17, 23, 0.6);
+  border: 1.5px solid var(--color-accent);
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 10px rgba(54, 249, 54, 0.15);
+}
+
+.desktopToggle:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 15px rgba(54, 249, 54, 0.25);
+  background: rgba(13, 17, 23, 0.8);
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.iconMoon {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.iconSun {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.active {
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+.active .iconMoon,
+.active .iconSun {
+  color: #fff;
+}
+
+.handle {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 28px;
+  height: 28px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 15px rgba(54, 249, 54, 0.4);
+}
+
+/* Mobile Toggle Styles */
+.mobileToggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(13, 17, 23, 0.6);
+  border: 1px solid var(--color-accent);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 8px rgba(54, 249, 54, 0.15);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobileToggle:hover {
+  box-shadow: 0 0 12px rgba(54, 249, 54, 0.3);
+  transform: scale(1.05);
+}
+
+.mobileIcon {
+  color: var(--color-accent);
+  filter: drop-shadow(0 0 4px rgba(54, 249, 54, 0.3));
+}
+
+/* Light Mode Overrides */
+:global(.light-mode) .desktopToggle {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+:global(.light-mode) .desktopToggle:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+:global(.light-mode) .iconMoon,
+:global(.light-mode) .iconSun {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+:global(.light-mode) .active .iconMoon,
+:global(.light-mode) .active .iconSun {
+  color: #000;
+}
+
+:global(.light-mode) .handle {
+  box-shadow: 0 0 15px rgba(54, 249, 54, 0.4);
+}
+
+:global(.light-mode) .mobileToggle {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+:global(.light-mode) .mobileIcon {
+  color: rgba(0, 0, 0, 0.8);
+  filter: none;
+}
+
+/* Responsive Trigger */
+@media (max-width: 1024px) {
+  .desktopToggle {
+    display: none !important;
+  }
+  .mobileToggle {
+    display: flex !important;
+  }
+}
