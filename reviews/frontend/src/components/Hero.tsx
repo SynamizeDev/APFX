@@ -32,7 +32,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToVideos }) => {
 
         {/* Subtitle Description */}
         <p className="mt-6 text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-          Discover unvarnished video testimonials and trading performance feedback directly from verified APFX Global traders across institutional, prop, and retail markets worldwide.
+          Discover unvarnished video testimonials and trading performance feedback directly from verified APFX Global traders across institutional, professional, and retail markets worldwide.
         </p>
 
         {/* CTA Actions */}

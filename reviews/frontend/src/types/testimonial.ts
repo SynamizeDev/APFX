@@ -1,4 +1,4 @@
-export type ReviewCategory = 'All' | 'Trading' | 'Prop Trading' | 'API & Execution' | 'Institutional' | 'Education';
+export type ReviewCategory = 'All' | 'Trading' | 'API & Execution' | 'Institutional' | 'Education';
 
 export type ReviewSortOption = 'featured' | 'latest' | 'highest';
 

@@ -22,7 +22,6 @@ export const VideoGrid: React.FC<VideoGridProps> = ({ initialTestimonials }) => 
   const categories: ReviewCategory[] = [
     'All',
     'Trading',
-    'Prop Trading',
     'API & Execution',
     'Institutional',
     'Education',
@@ -78,7 +77,7 @@ export const VideoGrid: React.FC<VideoGridProps> = ({ initialTestimonials }) => 
               What Our Clients Say
             </h2>
             <p className="text-sm text-slate-400 mt-1 max-w-xl">
-              Explore authentic video reviews from institutional partners, prop firm traders, and active forex investors.
+              Explore authentic video reviews from institutional partners, professional traders, and active forex investors.
             </p>
           </div>
 
@@ -119,7 +118,7 @@ export const VideoGrid: React.FC<VideoGridProps> = ({ initialTestimonials }) => 
             </div>
             <h3 className="text-lg font-bold text-white mb-2">No video testimonials found</h3>
             <p className="text-xs sm:text-sm text-slate-400 mb-6">
-              We couldn't find any reviews matching "{searchQuery}". Try clearing filters or searching for terms like "Trading", "Liquidity", or "Prop".
+              We couldn't find any reviews matching "{searchQuery}". Try clearing filters or searching for terms like "Trading", "Liquidity", or "Execution".
             </p>
             <button
               onClick={() => {

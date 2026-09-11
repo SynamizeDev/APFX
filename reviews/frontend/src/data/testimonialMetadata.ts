@@ -26,10 +26,10 @@ export const TESTIMONIAL_METADATA_MAP: Record<string, TestimonialMetadataOverrid
   // "dQw4w9WgXcQ": {
   //   youtubeId: "dQw4w9WgXcQ",
   //   clientName: "Alex Rivera",
-  //   role: "Senior Prop Trader",
+  //   role: "Senior Trader",
   //   country: "United States",
   //   rating: 5,
-  //   category: "Prop Trading",
+  //   category: "Trading",
   //   verified: true,
   //   featured: true,
   // },

@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
               </Link>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed max-w-md">
-              The official client review and video testimonial platform for APFX Global Markets. Built to provide transparent, verifiable performance feedback from retail, prop, and institutional traders worldwide.
+              The official client review and video testimonial platform for APFX Global Markets. Built to provide transparent, verifiable performance feedback from retail, professional, and institutional traders worldwide.
             </p>
           </div>
 

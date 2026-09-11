@@ -13,7 +13,7 @@ export default function CTABanner() {
                         <h2 className={styles.title}>Ready to Trade with a True Institutional Edge?</h2>
                         <p className={styles.desc}>
                             Join 27,000+ active traders and experience execution, pricing, and support that
-                            feel closer to a prop desk than a retail broker.
+                            feel closer to an institutional desk than a retail broker.
                         </p>
                         <div className={styles.actions}>
                             <Link href="/contact" className={styles.btnSecondary}>

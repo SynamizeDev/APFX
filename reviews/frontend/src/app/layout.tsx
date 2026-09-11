@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://reviews.apfxglobal.com'),
   title: 'APFX Global Reviews | Verified Trader Video Testimonials & Ratings',
   description:
-    'Read verified client reviews and watch authentic video testimonials from active forex traders, prop firm investors, and institutional partners on APFX Global.',
+    'Read verified client reviews and watch authentic video testimonials from active forex traders, professional investors, and institutional partners on APFX Global.',
   keywords: [
     'APFX Global Reviews',
     'APFX broker testimonials',

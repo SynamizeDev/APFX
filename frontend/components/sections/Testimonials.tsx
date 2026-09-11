@@ -37,7 +37,7 @@ const REVIEWS = [
     {
         quote: "Regulation and transparency were my top concerns. APFX checks every box. Withdrawals are fast, reporting is clear, and the team is professional.",
         name: 'Sofia L.',
-        role: 'Prop Firm Trader',
+        role: 'Professional Trader',
         initials: 'SL',
         stars: 5,
     },
