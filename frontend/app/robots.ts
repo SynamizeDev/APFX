@@ -24,6 +24,10 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: 'Googlebot-Image',
         allow: '/',
       },
+      {
+        userAgent: 'Google-Favicon',
+        allow: '/',
+      },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   }
