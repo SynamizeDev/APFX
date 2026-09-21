@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useInViewport } from '@/hooks/useInViewport'
 import styles from './TradingPlatforms.module.css'
 
@@ -77,6 +78,14 @@ export default function TradingPlatforms() {
                             </div>
                         </a>
                     </div>
+
+                    <Link href="/platforms" className={styles.platformsOverviewLink}>
+                        <span>Explore All Trading Platforms</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </Link>
                 </div>
 
                 <div className={styles.visual} aria-hidden="true">

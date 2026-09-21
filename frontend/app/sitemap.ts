@@ -18,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/products/range', priority: 0.95, changeFrequency: 'weekly' },
     { path: '/platforms', priority: 0.95, changeFrequency: 'weekly' },
     { path: '/tools/copy-trading', priority: 0.9, changeFrequency: 'weekly' },
-    { path: '/academy/courses', priority: 0.9, changeFrequency: 'daily' },
+    { path: '/learn/courses', priority: 0.9, changeFrequency: 'daily' },
     { path: '/partners', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/about', priority: 0.85, changeFrequency: 'monthly' },
     { path: '/contact', priority: 0.85, changeFrequency: 'monthly' },

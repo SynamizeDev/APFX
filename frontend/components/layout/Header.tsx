@@ -46,7 +46,7 @@ const MEGA_MENU_DATA = {
         { label: 'Standard Account', href: '/accounts?type=standard' },
         { label: 'Copy Trading', href: '/tools/copy-trading' },
         { label: 'PAMM', href: '/pamm' },
-        { label: 'Social Trading', href: '/social-trading' },
+        { label: 'Social Trading', href: '/tools/copy-trading' },
       ],
     },
   ],
