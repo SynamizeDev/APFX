@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: '%s | APFX',
   },
   description:
-    'APFX is a premium global trading platform offering Forex, Commodities, Indices, and Metals with deep liquidity, tight spreads, and institutional-grade execution.',
+    'Trade Forex, Indices, Commodities, and digital assets securely with institutional execution and 24/7 support on APFX Global.',
   keywords: [
     'forex broker',
     'CFD trading',

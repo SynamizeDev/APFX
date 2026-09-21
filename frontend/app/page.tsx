@@ -9,9 +9,9 @@ import { buildMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = {
   ...buildMetadata({
-    title: 'APFX — Institutional Forex & CFD Trading Platform',
+    title: 'APFX: Institutional Forex & CFD Trading Platform',
     description:
-      'APFX is a premium global trading platform offering Forex, Commodities, Indices, and Metals with deep liquidity, tight spreads, and institutional-grade execution. Open your account today.',
+      'Trade Forex, Indices, Commodities, and digital assets securely with institutional execution and 24/7 support on APFX Global.',
     path: '/',
     keywords: [
       'forex broker',
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   }),
   // `absolute` bypasses the root layout template ('%s | APFX')
   // without this, the title would render as:
-  // 'APFX — Institutional Forex & CFD Trading Platform | APFX'
+  // 'APFX: Institutional Forex & CFD Trading Platform | APFX'
   title: {
-    absolute: 'APFX — Institutional Forex & CFD Trading Platform',
+    absolute: 'APFX: Institutional Forex & CFD Trading Platform',
   },
 }
 
