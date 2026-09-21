@@ -14,7 +14,7 @@ const ACADEMY_ITEMS = [
         title: 'Trading\nAcademy',
         desc: 'Learn with APFX Academy for clear, structured lessons. Easy steps to build trading skills. No experience needed.',
         link: 'Explore Courses',
-        href: '/learn'
+        href: '/learn/courses'
     },
     {
         id: 'education',
@@ -22,7 +22,7 @@ const ACADEMY_ITEMS = [
         title: 'Education\nSection',
         desc: 'Read articles and watch tutorials that cover every trading aspect. All topics, all levels, all in one click.',
         link: 'Browse All Topics',
-        href: '/education'
+        href: '/learn/courses'
     },
     {
         id: 'webinars',
