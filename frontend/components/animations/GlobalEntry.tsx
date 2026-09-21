@@ -19,6 +19,7 @@ export default function GlobalEntry({ children }: { children: React.ReactNode })
 
   useEffect(() => {
     if (!isHome) {
+      document.documentElement.classList.remove('hide-header-initially')
       setShowAnimation(false)
       setReady(true)
       return

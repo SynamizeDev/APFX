@@ -112,7 +112,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                if (sessionStorage.getItem('apfx.globalEntryAnimation.shown') !== '1') {
+                if (
+                  (window.location.pathname === '/' || window.location.pathname === '') &&
+                  sessionStorage.getItem('apfx.globalEntryAnimation.shown') !== '1'
+                ) {
                   document.documentElement.classList.add('hide-header-initially');
                 }
               } catch (e) {}
