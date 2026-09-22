@@ -177,3 +177,42 @@
     transform: scale(1.4);
     box-shadow: 0 0 15px rgba(54, 249, 54, 0.5);
 }
+
+/* ── Light Mode Support ───────────────────────────────────── */
+:global(.light-mode) .readOnlyRow {
+    border-top-color: var(--color-border, #E5E7EB);
+}
+
+:global(.light-mode) .readOnlyField {
+    background: #F0FDF4;
+    border-color: #BBF7D0;
+    color: #15803D;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+:global(.light-mode) .resultRow {
+    background: linear-gradient(180deg, rgba(54, 249, 54, 0.12) 0%, rgba(240, 253, 244, 0.95) 100%);
+    border-color: rgba(34, 197, 94, 0.25);
+    box-shadow: 
+        0 20px 45px -10px rgba(34, 197, 94, 0.15),
+        inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+:global(.light-mode) .infoCarouselWrap,
+:global(.light-mode) .infoSectionPhoneReduced {
+    border-top-color: var(--color-border, #E5E7EB);
+}
+
+:global(.light-mode) .carouselDot {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+:global(.light-mode) .carouselDot:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+:global(.light-mode) .carouselDotActive {
+    background: #16A34A;
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
+}
+

@@ -14,33 +14,12 @@ import { Info, Target, Shield, Zap, AlertTriangle, Calculator, Globe } from 'luc
 import Select from '@/components/ui/Select'
 import styles from '@/components/ui/CalculatorLayout.module.css'
 import pipStyles from './PipCalculator.module.css'
-
-const INSTRUMENTS = [
-    'EUR/USD',
-    'GBP/USD',
-    'USD/JPY',
-    'USD/CHF',
-    'AUD/USD',
-    'USD/CAD',
-] as const
-
-const DEPOSIT_CURRENCIES = [
-    { value: 'USD', label: 'US Dollar' },
-    { value: 'EUR', label: 'Euro' },
-    { value: 'GBP', label: 'British Pound' },
-    { value: 'AUD', label: 'Australian Dollar' },
-] as const
-
-const UNITS_PER_LOT = 100_000
-
-const mockRates: Record<string, number> = {
-    'EUR/USD': 1.1000,
-    'GBP/USD': 1.3000,
-    'USD/JPY': 150.0,
-    'USD/CHF': 0.88,
-    'AUD/USD': 0.66,
-    'USD/CAD': 1.36,
-}
+import {
+    INSTRUMENT_DEFINITIONS,
+    DEPOSIT_CURRENCIES,
+    getPipSize,
+    calculatePipValue,
+} from '../instrumentData'
 
 type InfoVariant = 'formula' | 'default' | 'proTip' | 'mistake'
 
@@ -244,30 +223,30 @@ export default function PipCalculatorPage() {
         }
     }, [])
 
-    const pipSize = useMemo(() => {
-        return instrument.includes('JPY') ? 0.01 : 0.0001
-    }, [instrument])
+    const pipSize = useMemo(() => getPipSize(instrument), [instrument])
 
     const pipValue = useMemo(() => {
-        const quoteCurrency = instrument.split('/')[1]
-        const units = lots * UNITS_PER_LOT
-        let valueInQuote = pipSize * pips * units
+        return calculatePipValue(instrument, pips, lots, depositCurrency)
+    }, [instrument, pips, lots, depositCurrency])
 
-        if (quoteCurrency !== depositCurrency) {
-            const conversionPair = `${quoteCurrency}/${depositCurrency}`
-            const inversePair = `${depositCurrency}/${quoteCurrency}`
-            if (mockRates[conversionPair]) {
-                valueInQuote *= mockRates[conversionPair]
-            } else if (mockRates[inversePair]) {
-                valueInQuote /= mockRates[inversePair]
-            } else if (depositCurrency === 'USD') {
-                if (quoteCurrency === 'CAD') valueInQuote /= mockRates['USD/CAD']
-                if (quoteCurrency === 'CHF') valueInQuote /= mockRates['USD/CHF']
-                if (quoteCurrency === 'JPY') valueInQuote /= mockRates['USD/JPY']
-            }
-        }
-        return valueInQuote
-    }, [pipSize, pips, lots, instrument, depositCurrency])
+    const instrumentOptions = useMemo(
+        () =>
+            INSTRUMENT_DEFINITIONS.map((inst) => ({
+                value: inst.symbol,
+                label: inst.name,
+                group: inst.category,
+            })),
+        []
+    )
+
+    const depositCurrencyOptions = useMemo(
+        () =>
+            DEPOSIT_CURRENCIES.map((c) => ({
+                value: c.value,
+                label: c.label,
+            })),
+        []
+    )
 
     return (
         <main className={styles.container}>
@@ -326,7 +305,7 @@ export default function PipCalculatorPage() {
                                 id="pip-instrument"
                                 value={instrument}
                                 onChange={setInstrument}
-                                options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
+                                options={instrumentOptions}
                                 triggerClassName={styles.selectTrigger}
                             />
                             <div className={styles.inputIcon}><Globe size={20} /></div>
@@ -366,7 +345,7 @@ export default function PipCalculatorPage() {
                                 id="pip-deposit"
                                 value={depositCurrency}
                                 onChange={setDepositCurrency}
-                                options={DEPOSIT_CURRENCIES.map((c) => ({ value: c.value, label: c.label }))}
+                                options={depositCurrencyOptions}
                                 triggerClassName={styles.selectTrigger}
                             />
                             <div className={styles.inputIcon}><Shield size={20} /></div>

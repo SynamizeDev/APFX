@@ -14,33 +14,12 @@ import { Target, Shield, Zap, AlertTriangle, Calculator, Globe, Scale } from 'lu
 import Select from '@/components/ui/Select'
 import styles from '@/components/ui/CalculatorLayout.module.css'
 import marginStyles from './MarginCalculator.module.css'
-
-const INSTRUMENTS = [
-    'EUR/USD',
-    'GBP/USD',
-    'USD/JPY',
-    'USD/CHF',
-    'AUD/USD',
-    'USD/CAD',
-] as const
-
-const DEPOSIT_CURRENCIES = [
-    { value: 'USD', label: 'US Dollar' },
-    { value: 'EUR', label: 'Euro' },
-    { value: 'GBP', label: 'British Pound' },
-    { value: 'AUD', label: 'Australian Dollar' },
-] as const
-
-const CONTRACT_SIZE = 100_000
-
-const mockRates: Record<string, number> = {
-    'EUR/USD': 1.1000,
-    'GBP/USD': 1.3000,
-    'USD/JPY': 150.0,
-    'USD/CHF': 0.88,
-    'AUD/USD': 0.66,
-    'USD/CAD': 1.36,
-}
+import {
+    INSTRUMENT_DEFINITIONS,
+    DEPOSIT_CURRENCIES,
+    MOCK_RATES,
+    calculateMargin,
+} from '../instrumentData'
 
 type InfoVariant = 'formula' | 'default' | 'proTip' | 'mistake'
 
@@ -343,30 +322,32 @@ export default function MarginCalculatorPage() {
     const [price, setPrice] = useState(1.14152)
 
     useEffect(() => {
-        const rate = mockRates[instrument]
+        const rate = MOCK_RATES[instrument]
         if (rate != null) setPrice(rate)
     }, [instrument])
 
     const marginRequired = useMemo(() => {
-        const quoteCurrency = instrument.split('/')[1]
-        const notionalInQuote = CONTRACT_SIZE * lots * price
-        let marginInQuote = notionalInQuote / leverage
+        return calculateMargin(instrument, lots, price, leverage, depositCurrency)
+    }, [instrument, lots, price, leverage, depositCurrency])
 
-        if (quoteCurrency !== depositCurrency) {
-            const conversionPair = `${quoteCurrency}/${depositCurrency}`
-            const inversePair = `${depositCurrency}/${quoteCurrency}`
-            if (mockRates[conversionPair]) {
-                marginInQuote *= mockRates[conversionPair]
-            } else if (mockRates[inversePair]) {
-                marginInQuote /= mockRates[inversePair]
-            } else if (depositCurrency === 'USD') {
-                if (quoteCurrency === 'CAD') marginInQuote /= mockRates['USD/CAD']
-                if (quoteCurrency === 'CHF') marginInQuote /= mockRates['USD/CHF']
-                if (quoteCurrency === 'JPY') marginInQuote /= mockRates['USD/JPY']
-            }
-        }
-        return marginInQuote
-    }, [instrument, depositCurrency, leverage, lots, price])
+    const instrumentOptions = useMemo(
+        () =>
+            INSTRUMENT_DEFINITIONS.map((inst) => ({
+                value: inst.symbol,
+                label: inst.name,
+                group: inst.category,
+            })),
+        []
+    )
+
+    const depositCurrencyOptions = useMemo(
+        () =>
+            DEPOSIT_CURRENCIES.map((c) => ({
+                value: c.value,
+                label: c.label,
+            })),
+        []
+    )
 
     const renderInfoCards = (keyPrefix: string) =>
         MARGIN_INFO_CARDS.map((card, i) => (
@@ -426,7 +407,7 @@ export default function MarginCalculatorPage() {
                                 id="margin-instrument"
                                 value={instrument}
                                 onChange={setInstrument}
-                                options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
+                                options={instrumentOptions}
                                 triggerClassName={styles.selectTrigger}
                             />
                             <div className={styles.inputIcon}><Globe size={20} /></div>
@@ -449,10 +430,7 @@ export default function MarginCalculatorPage() {
                                 id="margin-deposit"
                                 value={depositCurrency}
                                 onChange={setDepositCurrency}
-                                options={DEPOSIT_CURRENCIES.map((c) => ({
-                                    value: c.value,
-                                    label: c.label,
-                                }))}
+                                options={depositCurrencyOptions}
                                 triggerClassName={styles.selectTrigger}
                             />
                             <div className={styles.inputIcon}><Shield size={20} /></div>

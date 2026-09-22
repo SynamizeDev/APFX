@@ -34,6 +34,10 @@
     background: rgba(255, 255, 255, 0.02);
 }
 
+.wrapper[data-open='true'] {
+    z-index: 100;
+}
+
 .wrapper[data-open='true'] .trigger {
     border-color: var(--color-accent);
     background: rgba(0, 0, 0, 0.6);
@@ -71,32 +75,124 @@
     box-shadow: 
         0 20px 40px rgba(0, 0, 0, 0.8),
         0 0 0 1px rgba(255, 255, 255, 0.05);
-    max-height: 280px;
-    overflow-y: auto;
     padding: 0.5rem;
     backdrop-filter: blur(20px);
 }
 
-/* Custom Scrollbar for Dropdown */
-.dropdown::-webkit-scrollbar {
+/* ── Search Input ─────────────────────────────────────────── */
+.searchWrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0.25rem 0.5rem 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 0.25rem;
+}
+
+.searchIcon {
+    width: 16px;
+    height: 16px;
+    color: var(--color-text-3);
+    position: absolute;
+    left: 1rem;
+    pointer-events: none;
+}
+
+.searchInput {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 0.5rem 2rem 0.5rem 2.25rem;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.searchInput:focus {
+    border-color: var(--color-accent);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.searchClear {
+    position: absolute;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--color-text-3);
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchClear:hover {
+    color: #fff;
+}
+
+/* ── Options List & Groups ────────────────────────────────── */
+.optionsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    max-height: 280px;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+}
+
+.optionsList::-webkit-scrollbar {
     width: 6px;
 }
-.dropdown::-webkit-scrollbar-thumb {
+.optionsList::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
+}
+
+.groupWrapper {
+    margin-bottom: 0.5rem;
+    list-style: none;
+}
+
+.groupHeading {
+    font-size: 0.6875rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    padding: 0.5rem 0.75rem 0.25rem;
+    opacity: 0.9;
+}
+
+.groupList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.noOptions {
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--color-text-3);
+    font-size: 0.875rem;
 }
 
 .option {
     display: block;
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.65rem 0.875rem;
     color: var(--color-text-3);
-    font-size: 1rem;
+    font-size: 0.9375rem;
     font-weight: 500;
     text-align: left;
     background: none;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s var(--ease-out);
     margin-bottom: 2px;
@@ -114,8 +210,93 @@
 .option[data-selected='true'] {
     background: rgba(54, 249, 54, 0.1);
     color: var(--color-accent);
+    font-weight: 600;
 }
 
 .option[data-selected='true']:hover {
     background: rgba(54, 249, 54, 0.15);
+}
+
+/* ── Light Mode Support ───────────────────────────────────── */
+:global(.light-mode) .trigger {
+    background: #F8FAFC;
+    border-color: #CBD5E1;
+    color: #0F172A;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+:global(.light-mode) .trigger:hover {
+    border-color: #94A3B8;
+    background: #F1F5F9;
+}
+
+:global(.light-mode) .wrapper[data-open='true'] .trigger {
+    border-color: #16A34A;
+    background: #FFFFFF;
+    box-shadow: 
+        0 0 0 1px #16A34A,
+        0 0 20px -5px rgba(34, 197, 94, 0.35);
+}
+
+:global(.light-mode) .chevron {
+    color: #475569;
+}
+
+:global(.light-mode) .dropdown {
+    background: #FFFFFF;
+    border-color: #E2E8F0;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+:global(.light-mode) .searchWrapper {
+    border-bottom-color: #F1F5F9;
+}
+
+:global(.light-mode) .searchInput {
+    background: #F8FAFC;
+    border-color: #E2E8F0;
+    color: #0F172A;
+}
+
+:global(.light-mode) .searchInput:focus {
+    background: #FFFFFF;
+    border-color: #16A34A;
+}
+
+:global(.light-mode) .searchClear {
+    color: #94A3B8;
+}
+
+:global(.light-mode) .searchClear:hover {
+    color: #0F172A;
+}
+
+:global(.light-mode) .groupHeading {
+    color: #15803D;
+}
+
+:global(.light-mode) .optionsList::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+:global(.light-mode) .option {
+    color: #334155;
+}
+
+:global(.light-mode) .option:hover {
+    background: #F1F5F9;
+    color: #0F172A;
+}
+
+:global(.light-mode) .option[data-selected='true'] {
+    background: rgba(54, 249, 54, 0.12);
+    color: #15803D;
+    font-weight: 700;
+}
+
+:global(.light-mode) .option[data-selected='true']:hover {
+    background: rgba(54, 249, 54, 0.18);
+    color: #15803D;
 }

@@ -14,31 +14,13 @@ import { Target, Shield, Zap, AlertTriangle, Calculator, Globe, Scale, TrendingD
 import Select from '@/components/ui/Select'
 import styles from '@/components/ui/CalculatorLayout.module.css'
 import posStyles from './PositionSizeCalculator.module.css'
-
-const INSTRUMENTS = [
-    'EUR/USD',
-    'GBP/USD',
-    'USD/JPY',
-    'USD/CHF',
-    'AUD/USD',
-    'USD/CAD',
-] as const
-
-const DEPOSIT_CURRENCIES = [
-    { value: 'USD', label: 'US Dollar' },
-    { value: 'EUR', label: 'Euro' },
-    { value: 'GBP', label: 'British Pound' },
-    { value: 'AUD', label: 'Australian Dollar' },
-] as const
-
-const mockRates: Record<string, number> = {
-    'EUR/USD': 1.1,
-    'GBP/USD': 1.3,
-    'USD/JPY': 150,
-    'USD/CHF': 0.88,
-    'AUD/USD': 0.66,
-    'USD/CAD': 1.36,
-}
+import {
+    INSTRUMENT_DEFINITIONS,
+    DEPOSIT_CURRENCIES,
+    getPipSize,
+    getContractSize,
+    calculatePipValue,
+} from '../instrumentData'
 
 type InfoVariant = 'formula' | 'default' | 'proTip' | 'mistake'
 
@@ -341,25 +323,20 @@ export default function PositionSizeCalculatorPage() {
     const [riskPercent, setRiskPercent] = useState(0)
     const [contractSize, setContractSize] = useState(100000)
 
-    const pipSize = useMemo(() => (instrument.includes('JPY') ? 0.01 : 0.0001), [instrument])
+    useEffect(() => {
+        setContractSize(getContractSize(instrument))
+    }, [instrument])
+
+    const pipSize = useMemo(() => getPipSize(instrument), [instrument])
 
     const { riskAmount, units, lots } = useMemo(() => {
         const riskAmount = accountBalance * (riskPercent / 100)
-        const quoteCurrency = instrument.split('/')[1]
-        let pipValuePerLot = contractSize * pipSize
-
-        if (quoteCurrency !== depositCurrency) {
-            if (depositCurrency === 'USD') {
-                if (quoteCurrency === 'CAD') pipValuePerLot /= mockRates['USD/CAD']
-                if (quoteCurrency === 'CHF') pipValuePerLot /= mockRates['USD/CHF']
-                if (quoteCurrency === 'JPY') pipValuePerLot /= mockRates['USD/JPY']
-            }
-        }
-
-        const pipValuePerUnit = pipValuePerLot / contractSize
+        const pipValuePerLot = calculatePipValue(instrument, 1, 1, depositCurrency)
+        const cSize = contractSize > 0 ? contractSize : getContractSize(instrument)
+        const pipValuePerUnit = cSize > 0 ? pipValuePerLot / cSize : 0
         const unitsCalculated =
-            stopLossPips > 0 ? riskAmount / (stopLossPips * pipValuePerUnit) : 0
-        const lotsCalculated = contractSize > 0 ? unitsCalculated / contractSize : 0
+            stopLossPips > 0 && pipValuePerUnit > 0 ? riskAmount / (stopLossPips * pipValuePerUnit) : 0
+        const lotsCalculated = cSize > 0 ? unitsCalculated / cSize : 0
 
         return {
             riskAmount,
@@ -372,9 +349,27 @@ export default function PositionSizeCalculatorPage() {
         stopLossPips,
         instrument,
         depositCurrency,
-        pipSize,
         contractSize,
     ])
+
+    const instrumentOptions = useMemo(
+        () =>
+            INSTRUMENT_DEFINITIONS.map((inst) => ({
+                value: inst.symbol,
+                label: inst.name,
+                group: inst.category,
+            })),
+        []
+    )
+
+    const depositCurrencyOptions = useMemo(
+        () =>
+            DEPOSIT_CURRENCIES.map((c) => ({
+                value: c.value,
+                label: c.label,
+            })),
+        []
+    )
 
     const renderInfoCards = (keyPrefix: string) =>
         POS_INFO_CARDS.map((card, i) => (
@@ -433,7 +428,7 @@ export default function PositionSizeCalculatorPage() {
                                 id="pos-instrument"
                                 value={instrument}
                                 onChange={setInstrument}
-                                options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
+                                options={instrumentOptions}
                                 triggerClassName={styles.selectTrigger}
                             />
                             <div className={styles.inputIcon}><Globe size={20} /></div>
@@ -454,10 +449,7 @@ export default function PositionSizeCalculatorPage() {
                                 id="pos-deposit"
                                 value={depositCurrency}
                                 onChange={setDepositCurrency}
-                                options={DEPOSIT_CURRENCIES.map((c) => ({
-                                    value: c.value,
-                                    label: c.label,
-                                }))}
+                                options={depositCurrencyOptions}
                                 triggerClassName={styles.selectTrigger}
                             />
                             <div className={styles.inputIcon}><Shield size={20} /></div>

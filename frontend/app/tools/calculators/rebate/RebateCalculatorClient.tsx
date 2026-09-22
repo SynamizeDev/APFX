@@ -14,38 +14,17 @@ import { Shield, Zap, AlertTriangle, Calculator, Globe, TrendingUp, HandCoins } 
 import Select from '@/components/ui/Select'
 import styles from '@/components/ui/CalculatorLayout.module.css'
 import rebateStyles from './RebateCalculator.module.css'
-
-const INSTRUMENTS = [
-    'EUR/USD',
-    'GBP/USD',
-    'USD/JPY',
-    'USD/CHF',
-    'AUD/USD',
-    'USD/CAD',
-] as const
-
-const DEPOSIT_CURRENCIES = [
-    { value: 'USD', label: 'US Dollar' },
-    { value: 'EUR', label: 'Euro' },
-    { value: 'GBP', label: 'British Pound' },
-    { value: 'AUD', label: 'Australian Dollar' },
-] as const
+import {
+    INSTRUMENT_DEFINITIONS,
+    DEPOSIT_CURRENCIES,
+    calculatePipValue,
+    convertCurrency,
+} from '../instrumentData'
 
 const REBATE_UNITS = [
     { value: 'pips', label: 'Pips' },
     { value: 'USD', label: 'USD' },
 ] as const
-
-const CONTRACT_SIZE = 100_000
-
-const mockRates: Record<string, number> = {
-    'EUR/USD': 1.1,
-    'GBP/USD': 1.3,
-    'USD/JPY': 150,
-    'USD/CHF': 0.88,
-    'AUD/USD': 0.66,
-    'USD/CAD': 1.36,
-}
 
 type InfoVariant = 'formula' | 'default' | 'proTip' | 'mistake'
 
@@ -351,19 +330,31 @@ export default function RebateCalculatorPage() {
 
     const totalRebate = useMemo(() => {
         if (rebateUnit === 'USD') {
-            return rebatePerLot * lotsTraded
+            const rawUSD = rebatePerLot * lotsTraded
+            return convertCurrency(rawUSD, 'USD', depositCurrency)
         }
-        const quoteCurrency = instrument.split('/')[1]
-        let pipValuePerLot = CONTRACT_SIZE * pipSize
-        if (quoteCurrency !== depositCurrency) {
-            if (depositCurrency === 'USD') {
-                if (quoteCurrency === 'CAD') pipValuePerLot /= mockRates['USD/CAD']
-                if (quoteCurrency === 'CHF') pipValuePerLot /= mockRates['USD/CHF']
-                if (quoteCurrency === 'JPY') pipValuePerLot /= mockRates['USD/JPY']
-            }
-        }
+        const pipValuePerLot = calculatePipValue(instrument, 1, 1, depositCurrency)
         return rebatePerLot * pipValuePerLot * lotsTraded
-    }, [instrument, depositCurrency, rebatePerLot, rebateUnit, lotsTraded, pipSize])
+    }, [instrument, depositCurrency, rebatePerLot, rebateUnit, lotsTraded])
+
+    const instrumentOptions = useMemo(
+        () =>
+            INSTRUMENT_DEFINITIONS.map((inst) => ({
+                value: inst.symbol,
+                label: inst.name,
+                group: inst.category,
+            })),
+        []
+    )
+
+    const depositCurrencyOptions = useMemo(
+        () =>
+            DEPOSIT_CURRENCIES.map((c) => ({
+                value: c.value,
+                label: c.label,
+            })),
+        []
+    )
 
     const renderInfoCards = (keyPrefix: string) =>
         REBATE_INFO_CARDS.map((card, i) => (
@@ -422,7 +413,7 @@ export default function RebateCalculatorPage() {
                                 id="rebate-instrument"
                                 value={instrument}
                                 onChange={setInstrument}
-                                options={INSTRUMENTS.map((p) => ({ value: p, label: p }))}
+                                options={instrumentOptions}
                                 triggerClassName={styles.selectTrigger}
                             />
                             <div className={styles.inputIcon}><Globe size={20} /></div>
@@ -443,10 +434,7 @@ export default function RebateCalculatorPage() {
                                 id="rebate-deposit"
                                 value={depositCurrency}
                                 onChange={setDepositCurrency}
-                                options={DEPOSIT_CURRENCIES.map((c) => ({
-                                    value: c.value,
-                                    label: c.label,
-                                }))}
+                                options={depositCurrencyOptions}
                                 triggerClassName={styles.selectTrigger}
                             />
                             <div className={styles.inputIcon}><Shield size={20} /></div>

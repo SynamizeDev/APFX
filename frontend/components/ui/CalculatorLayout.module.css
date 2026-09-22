@@ -84,7 +84,7 @@
         0 100px 200px -50px rgba(0, 0, 0, 0.9),
         inset 0 1px 1px rgba(255, 255, 255, 0.07);
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    overflow: hidden;
+    overflow: visible;
 }
 
 /* Reflective Glass Sheen Overlay */
@@ -337,3 +337,150 @@
     visibility: visible;
     transform: translateX(-50%) translateY(0);
 }
+
+/* ── Light Mode Support ───────────────────────────────────── */
+:global(.light-mode) .container::before {
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(54, 249, 54, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.04) 0%, transparent 40%);
+}
+
+:global(.light-mode) .container::after {
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    opacity: 0.6;
+}
+
+:global(.light-mode) .title {
+    color: var(--color-text-1, #000000);
+    background: linear-gradient(180deg, #000000 0%, #333333 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+}
+
+:global(.light-mode) .subtitle {
+    color: var(--color-text-3, #555555);
+}
+
+:global(.light-mode) .inputPanel {
+    background: #FFFFFF;
+    border-color: var(--color-border, #E5E7EB);
+    box-shadow: 
+        0 20px 50px -10px rgba(0, 0, 0, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+:global(.light-mode) .inputPanel::after {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.01) 0%, transparent 50%, rgba(0, 0, 0, 0.005) 100%);
+}
+
+:global(.light-mode) .inputPanel::before {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.08), transparent 40%, rgba(54, 249, 54, 0.15));
+}
+
+:global(.light-mode) .label {
+    color: var(--color-text-2, #333333);
+    opacity: 1;
+}
+
+:global(.light-mode) .tooltipContainer {
+    color: var(--color-text-3, #555555);
+    opacity: 0.6;
+}
+
+:global(.light-mode) .tooltipContainer:hover {
+    color: #16A34A;
+    opacity: 1;
+}
+
+:global(.light-mode) .inputIcon {
+    color: var(--color-text-3, #555555);
+    opacity: 0.6;
+}
+
+:global(.light-mode) .input,
+:global(.light-mode) .selectTrigger {
+    background: #F8FAFC;
+    border-color: #CBD5E1;
+    color: #0F172A;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+:global(.light-mode) .input:hover,
+:global(.light-mode) .selectTrigger:hover {
+    border-color: #94A3B8;
+    background: #F1F5F9;
+}
+
+:global(.light-mode) .input:focus,
+:global(.light-mode) .selectTrigger:focus {
+    background: #FFFFFF;
+    border-color: #16A34A;
+    color: #0F172A;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.02),
+        0 0 25px -5px rgba(34, 197, 94, 0.35);
+}
+
+:global(.light-mode) .input:focus + .inputIcon,
+:global(.light-mode) .selectTrigger:focus + .inputIcon {
+    color: #16A34A;
+    opacity: 1;
+}
+
+:global(.light-mode) .resultRow {
+    background: linear-gradient(180deg, rgba(54, 249, 54, 0.12) 0%, rgba(240, 253, 244, 0.9) 100%);
+    border-color: rgba(34, 197, 94, 0.25);
+    box-shadow: 0 15px 35px -5px rgba(34, 197, 94, 0.12);
+}
+
+:global(.light-mode) .resultRow::before {
+    background: 
+        linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+}
+
+:global(.light-mode) .resultTitle {
+    color: #15803D;
+    opacity: 1;
+}
+
+:global(.light-mode) .resultValue {
+    color: #16A34A;
+    filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.3));
+}
+
+:global(.light-mode) .infoCard {
+    background: var(--color-section-band, #F5F5F7);
+    border-color: var(--color-border, #E5E7EB);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+:global(.light-mode) .infoCard:hover {
+    background: #FFFFFF;
+    border-color: #CBD5E1;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+}
+
+:global(.light-mode) .infoTitle {
+    color: var(--color-text-1, #000000);
+}
+
+:global(.light-mode) .infoTitle svg {
+    color: #16A34A;
+    filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.3));
+}
+
+:global(.light-mode) .infoText {
+    color: var(--color-text-2, #333333);
+}
+
+:global(.light-mode) .tooltipText {
+    background: #1E293B;
+    border-color: #334155;
+    color: #F8FAFC;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
