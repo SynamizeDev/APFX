@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/products/stocks', priority: 0.8, changeFrequency: 'weekly' },
     { path: '/products/cryptocurrencies', priority: 0.8, changeFrequency: 'weekly' },
     { path: '/products/futures', priority: 0.8, changeFrequency: 'weekly' },
+    { path: '/products/bonds', priority: 0.8, changeFrequency: 'weekly' },
 
     // ── Accounts ─────────────────────────────────────────────────
     { path: '/accounts', priority: 0.85, changeFrequency: 'weekly' },
@@ -42,7 +43,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // ── Company ──────────────────────────────────────────────────
     { path: '/about/about-us', priority: 0.75, changeFrequency: 'monthly' },
-    { path: '/about/press', priority: 0.6, changeFrequency: 'weekly' },
 
     // ── Academy ──────────────────────────────────────────────────
     { path: '/academy/glossary', priority: 0.7, changeFrequency: 'monthly' },
@@ -63,10 +63,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ── Support ──────────────────────────────────────────────────
     { path: '/support', priority: 0.7, changeFrequency: 'monthly' },
 
-    // ── Legal ────────────────────────────────────────────────────
+    // ── Legal & Policies ─────────────────────────────────────────
+    { path: '/legal', priority: 0.5, changeFrequency: 'monthly' },
     { path: '/privacy-policy', priority: 0.4, changeFrequency: 'yearly' },
     { path: '/terms-of-service', priority: 0.4, changeFrequency: 'yearly' },
     { path: '/risk-disclosure', priority: 0.4, changeFrequency: 'yearly' },
+    { path: '/aml-kyc-policy', priority: 0.4, changeFrequency: 'yearly' },
+    { path: '/cookie-policy', priority: 0.4, changeFrequency: 'yearly' },
+    { path: '/complaint-handling-policy', priority: 0.4, changeFrequency: 'yearly' },
+    { path: '/bonus-terms', priority: 0.4, changeFrequency: 'yearly' },
+    { path: '/deposit-withdrawal-policy', priority: 0.4, changeFrequency: 'yearly' },
+    { path: '/restricted-countries-policy', priority: 0.4, changeFrequency: 'yearly' },
+    { path: '/compliance-tips', priority: 0.4, changeFrequency: 'yearly' },
+    { path: '/high-risk-disclaimer', priority: 0.4, changeFrequency: 'yearly' },
+    { path: '/payment-disclaimer', priority: 0.4, changeFrequency: 'yearly' },
     { path: '/account-deletion', priority: 0.3, changeFrequency: 'yearly' },
   ]
 

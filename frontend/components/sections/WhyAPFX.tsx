@@ -56,7 +56,7 @@ const FEATURES: {
     icon: <Headphones size={24} />,
     label: 'Support',
     title: '24/7 Human Support',
-    desc: 'Talk to real trading experts anytime via live chat, email, or phone. Fast, reliable human assistance whenever you need it.',
+    desc: 'Talk to real trading experts anytime via live chat, email, or phone. Available 24 hours a day, 7 days a week for fast, reliable human assistance.',
     large: false,
     theme: 'light',
     iconBg: 'rgba(54, 249, 54, 0.1)',

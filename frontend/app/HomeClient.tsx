@@ -5,20 +5,24 @@ import dynamic from 'next/dynamic'
 import { motion, type Variants } from 'framer-motion'
 
 /* =========================================================
-   Dynamic Imports — SEO-safe & performance-aware
+   Direct Imports for Server/Prerendered HTML Content
    ========================================================= */
 
-const HeroSection = dynamic(() => import('@/components/sections/HeroSection'), {
-  ssr: true, // Keep SEO shell intact
-  loading: () => (
-    <div
-      style={{
-        height: '80vh',
-        background: 'var(--color-bg)',
-      }}
-    />
-  ),
-})
+import HeroSection from '@/components/sections/HeroSection'
+import StatsBar from '@/components/sections/StatsBar'
+import MarketplaceTeaser from '@/components/sections/MarketplaceTeaser'
+import WhyAPFX from '@/components/sections/WhyAPFX'
+import TradingPlatforms from '@/components/sections/TradingPlatforms'
+import AccountTypes from '@/components/sections/AccountTypes'
+import TradingAcademy from '@/components/sections/TradingAcademy'
+import DifferenceSection from '@/components/sections/DifferenceSection'
+import Testimonials from '@/components/sections/Testimonials'
+import CTABanner from '@/components/sections/CTABanner'
+import AnimatedSection from '@/components/animations/AnimatedSection'
+
+/* =========================================================
+   Isolated Dynamic Browser-Only Components
+   ========================================================= */
 
 const GlobalScale = dynamic(() => import('@/components/sections/GlobalScale'), {
   ssr: false, // Heavy / canvas-based section
@@ -32,26 +36,9 @@ const GlobalScale = dynamic(() => import('@/components/sections/GlobalScale'), {
   ),
 })
 
-const StatsBar = dynamic(() => import('@/components/sections/StatsBar'), { ssr: true })
-const MarketplaceTeaser = dynamic(() => import('@/components/sections/MarketplaceTeaser'), { ssr: true })
-const WhyAPFX = dynamic(() => import('@/components/sections/WhyAPFX'), { ssr: true })
-const CTraderPreview = dynamic(() => import('@/components/sections/CTraderPreview'), { ssr: false })
-const TradingPlatforms = dynamic(() => import('@/components/sections/TradingPlatforms'), {
-  ssr: true,
+const CTraderPreview = dynamic(() => import('@/components/sections/CTraderPreview'), {
+  ssr: false,
 })
-const AccountTypes = dynamic(() => import('@/components/sections/AccountTypes'), { ssr: true })
-const TradingAcademy = dynamic(() => import('@/components/sections/TradingAcademy'), { ssr: true })
-const DifferenceSection = dynamic(() => import('@/components/sections/DifferenceSection'), {
-  ssr: true,
-})
-const Testimonials = dynamic(() => import('@/components/sections/Testimonials'), { ssr: true })
-const CTABanner = dynamic(() => import('@/components/sections/CTABanner'), { ssr: true })
-
-/* =========================================================
-   Static Components
-   ========================================================= */
-
-import AnimatedSection from '@/components/animations/AnimatedSection'
 
 /* =========================================================
    Motion Presets — subtle, confidence-led

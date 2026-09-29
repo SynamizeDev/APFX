@@ -68,8 +68,8 @@ export function buildMetadata({
     },
     twitter: {
       card: twitterCard,
-      site: '@apfx',
-      creator: '@apfx',
+      // site: '@apfx', // Disabled: APFX does not have an X/Twitter account
+      // creator: '@apfx',
       title,
       description,
       images: [ogImage],
@@ -80,6 +80,67 @@ export function buildMetadata({
         follow: false,
       },
     }),
+  }
+}
+
+/* ---------------------------------------------------------
+   Company Data & Identity Configuration
+   Single source of truth for sitewide company data & schema
+   --------------------------------------------------------- */
+
+export const COMPANY_INFO = {
+  name: 'APFX',
+  legalName: 'APFX Global Markets Ltd',
+  url: siteUrl,
+  logo: `${siteUrl}/android-chrome-512x512.png`,
+  description:
+    'Institutional-grade global trading platform for Forex, Commodities, Indices, and Metals.',
+  foundingDate: '2026',
+  supportEmail: 'support@apfxglobal.com',
+  supportAvailability: 'Available 24 hours a day, 7 days a week',
+  sameAs: [
+    'https://www.linkedin.com/company/apfxglobal',
+  ],
+} as const
+
+/** Sitewide Organization JSON-LD schema */
+export function buildOrganizationJsonLd(): object {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${COMPANY_INFO.url}/#organization`,
+    name: COMPANY_INFO.name,
+    legalName: COMPANY_INFO.legalName,
+    url: COMPANY_INFO.url,
+    logo: {
+      '@type': 'ImageObject',
+      url: COMPANY_INFO.logo,
+      width: 512,
+      height: 512,
+    },
+    description: COMPANY_INFO.description,
+    foundingDate: COMPANY_INFO.foundingDate,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      availableLanguage: 'English',
+      url: `${COMPANY_INFO.url}/contact`,
+      hoursAvailable: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: [
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+          'Sunday',
+        ],
+        opens: '00:00',
+        closes: '23:59',
+      },
+    },
+    sameAs: [...COMPANY_INFO.sameAs],
   }
 }
 

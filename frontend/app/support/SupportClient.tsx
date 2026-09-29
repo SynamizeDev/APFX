@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { motion, Variants } from 'framer-motion'
 import InnerPageHero from '@/components/layout/InnerPageHero'
@@ -62,8 +62,8 @@ export default function SupportClient() {
                                         <Clock size={20} className="text-accent" />
                                         Working Hours
                                     </h4>
-                                    <p>Monday to Friday:</p>
-                                    <p><strong>9:00 AM – 6:00 PM (GMT)</strong></p>
+                                    <p>24/7 Support:</p>
+                                    <p><strong>Available 24 hours a day, 7 days a week</strong></p>
                                 </div>
                             </motion.div>
 

@@ -105,6 +105,15 @@ body {
     pointer-events: none !important;
 }
 
+:root.entry-animating-initially body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9996;
+    background: var(--color-bg, #03050A);
+    pointer-events: none;
+}
+
 :root.home-page .main-wrapper {
     padding-top: 0 !important;
 }

@@ -44,7 +44,7 @@ const TRUST_HIGHLIGHTS = [
         id: 'support',
         code: '24/7 Desk',
         name: 'Global coverage',
-        desc: 'Specialist desks aligned to major trading sessions—chat, phone, and email when markets move.',
+        desc: 'Specialist desks available 24 hours a day, 7 days a week—chat, phone, and email when markets move.',
         icon: '🎧',
     },
 ]

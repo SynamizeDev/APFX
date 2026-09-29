@@ -37,10 +37,13 @@ export default function EntryAnimation({
         ).matches
 
         if (prefersReduced || !animationsEnabled) {
-            if (onReadyToReveal) onReadyToReveal()
-            onComplete()
+            if (onReadyToRevealRef.current) onReadyToRevealRef.current()
+            if (onCompleteRef.current) onCompleteRef.current()
             return
         }
+
+        // Remove initial anti-FOUC curtain since EntryAnimation's own dark overlay is active
+        document.documentElement.classList.remove('entry-animating-initially')
 
         // Hide the fixed header during branding entry animation.
         // Some pages/stacking contexts can still momentarily show it while the entry
@@ -65,6 +68,7 @@ export default function EntryAnimation({
             if (finished) return
             finished = true
             document.documentElement.classList.remove('hide-header-initially')
+            document.documentElement.classList.remove('entry-animating-initially')
             if (headerEl && prevHeaderStyles) {
                 headerEl.style.opacity = prevHeaderStyles.opacity
                 headerEl.style.visibility = prevHeaderStyles.visibility
@@ -138,6 +142,7 @@ export default function EntryAnimation({
         return () => {
             tl.kill()
             document.documentElement.classList.remove('hide-header-initially')
+            document.documentElement.classList.remove('entry-animating-initially')
             // Ensure header isn't left hidden if the animation is interrupted
             if (headerEl && prevHeaderStyles) {
                 headerEl.style.opacity = prevHeaderStyles.opacity

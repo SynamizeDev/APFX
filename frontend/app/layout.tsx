@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { SmoothScrollProvider } from '@/components/animations/SmoothScrollProvider'
 import Header from '@/components/layout/Header'
+import { buildOrganizationJsonLd } from '@/lib/seo'
 import '@/styles/globals.css'
 import { PreferencesProvider } from '@/context/PreferencesContext'
 import { HomeEntryProvider } from '@/context/HomeEntryContext'
@@ -49,8 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@apfx',
-    creator: '@apfx',
+    // site: '@apfx', // Disabled: APFX does not have an X/Twitter account
+    // creator: '@apfx',
     title: 'APFX — Global Trading Platform',
     description:
       'Premium global trading platform with institutional-grade execution.',
@@ -112,11 +113,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                if (
-                  (window.location.pathname === '/' || window.location.pathname === '') &&
-                  sessionStorage.getItem('apfx.globalEntryAnimation.shown') !== '1'
-                ) {
+                var isHome = window.location.pathname === '/' || window.location.pathname === '';
+                var nav = window.performance && window.performance.getEntriesByType && window.performance.getEntriesByType('navigation');
+                var isReload = (nav && nav[0] && nav[0].type === 'reload') || (window.performance && window.performance.navigation && window.performance.navigation.type === 1);
+                var notShown = sessionStorage.getItem('apfx.globalEntryAnimation.shown') !== '1';
+                if (isHome && (isReload || notShown)) {
                   document.documentElement.classList.add('hide-header-initially');
+                  document.documentElement.classList.add('entry-animating-initially');
                 }
               } catch (e) {}
             `,
@@ -127,33 +130,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Organization',
-              '@id': `${'https://www.apfxglobal.com'}/#organization`,
-              name: 'APFX',
-              legalName: 'APFX Global Markets Ltd',
-              url: 'https://www.apfxglobal.com',
-              logo: {
-                '@type': 'ImageObject',
-                url: `${'https://www.apfxglobal.com'}/android-chrome-512x512.png`,
-                width: 512,
-                height: 512,
-              },
-              description:
-                'Premium global trading platform for Forex, Commodities, Indices, and Metals.',
-              foundingDate: '2020',
-              contactPoint: {
-                '@type': 'ContactPoint',
-                contactType: 'customer support',
-                availableLanguage: 'English',
-                url: `${'https://www.apfxglobal.com'}/contact`,
-              },
-              sameAs: [
-                'https://twitter.com/apfx',
-                'https://linkedin.com/company/apfx',
-              ],
-            }),
+            __html: JSON.stringify(buildOrganizationJsonLd()),
           }}
         />
 

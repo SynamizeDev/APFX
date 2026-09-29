@@ -3,9 +3,9 @@ import { buildMetadata } from '@/lib/seo'
 import SupportClient from './SupportClient'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Support Center — APFX Help & Trading Assistance',
+  title: 'Support Center — APFX Help & 24/7 Support',
   description:
-    'Contact the APFX support team 24/5. Get help with account setup, deposits, withdrawals, platform guidance, and institutional trading queries.',
+    'Contact the APFX support team. Available 24 hours a day, 7 days a week. Get help with account setup, deposits, withdrawals, platform guidance, and institutional trading queries.',
   path: '/support',
   keywords: ['APFX support', 'forex broker help', 'trading support', 'contact APFX'],
 })

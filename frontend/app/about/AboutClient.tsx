@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
@@ -400,14 +400,9 @@ const HOW_IT_WORKS_COMPARISON = [
 
 // Instruments list removed as it's now inline in the renderMarkets function
 
-function AboutContent() {
+function AboutUrlSync({ onTabChange }: { onTabChange: (tab: string) => void }) {
     const searchParams = useSearchParams()
-    const router = useRouter()
-    const [activeTab, setActiveTab] = useState('Why APFX')
-    const [activeInstrument, setActiveInstrument] = useState<string | null>(null)
-    const [bonusOpen, setBonusOpen] = useState(false)
 
-    // ── Sync tab with URL ───────────────────────────────────────
     useEffect(() => {
         const type = searchParams.get('type')
         if (type) {
@@ -421,10 +416,19 @@ function AboutContent() {
             }
             const mappedTab = tabMap[type.toLowerCase()]
             if (mappedTab) {
-                setActiveTab(mappedTab)
+                onTabChange(mappedTab)
             }
         }
-    }, [searchParams])
+    }, [searchParams, onTabChange])
+
+    return null
+}
+
+export default function AboutClient() {
+    const router = useRouter()
+    const [activeTab, setActiveTab] = useState('Why APFX')
+    const [activeInstrument, setActiveInstrument] = useState<string | null>(null)
+    const [bonusOpen, setBonusOpen] = useState(false)
 
     const handleTabChange = (tab: string) => {
         setActiveTab(tab)
@@ -955,6 +959,10 @@ function AboutContent() {
 
     return (
         <div className={styles.page}>
+            <Suspense fallback={null}>
+                <AboutUrlSync onTabChange={setActiveTab} />
+            </Suspense>
+
             <InnerPageHero
                 title="Institutional"
                 accentLine="Introduction"
@@ -998,13 +1006,5 @@ function AboutContent() {
             </main>
 
         </div>
-    )
-}
-
-export default function AboutPage() {
-    return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <AboutContent />
-        </Suspense>
     )
 }

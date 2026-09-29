@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { Linkedin, Send, Youtube, Instagram, Facebook, Twitter } from 'lucide-react'
+import { Linkedin, Send, Youtube, Instagram, Facebook /*, Twitter */ } from 'lucide-react'
 import Logo from '@/components/ui/Logo'
 import styles from './Footer.module.css'
 
@@ -37,7 +37,7 @@ const SOCIAL = [
     { label: 'YouTube', href: 'https://www.youtube.com/@apfx_global', icon: <Youtube size={18} /> },
     { label: 'Instagram', href: 'https://www.instagram.com/apfxglobal', icon: <Instagram size={18} /> },
     { label: 'Facebook', href: 'https://www.facebook.com/apfxglobal', icon: <Facebook size={18} /> },
-    { label: 'X', href: 'https://x.com/apfxglobal', icon: <Twitter size={18} /> },
+    // { label: 'X', href: 'https://x.com/apfxglobal', icon: <Twitter size={18} /> },
 ]
 
 

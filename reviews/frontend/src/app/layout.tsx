@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@apfx',
+    // site: '@apfx', // Disabled: APFX does not have an X/Twitter account
     title: 'APFX Global Reviews',
     description: 'Verified trader video testimonials & ratings for APFX Global.',
   },

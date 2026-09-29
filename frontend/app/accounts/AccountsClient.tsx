@@ -159,12 +159,9 @@ const COMPARISON_ROWS = [
   { label: 'Dedicated Support', values: [false, true] },
 ]
 
-function AccountsContent() {
+function AccountsUrlSync({ onTabChange }: { onTabChange: (tab: string) => void }) {
   const searchParams = useSearchParams()
-  const router = useRouter()
-  const [activeTab, setActiveTab] = useState('Account Overview')
 
-  // ── Sync tab with URL ───────────────────────────────────────
   useEffect(() => {
     const type = searchParams.get('type')
     if (type) {
@@ -178,10 +175,17 @@ function AccountsContent() {
       }
       const mappedTab = tabMap[type.toLowerCase()]
       if (mappedTab) {
-        setActiveTab(mappedTab)
+        onTabChange(mappedTab)
       }
     }
-  }, [searchParams])
+  }, [searchParams, onTabChange])
+
+  return null
+}
+
+export default function AccountsClient() {
+  const router = useRouter()
+  const [activeTab, setActiveTab] = useState('Account Overview')
 
   const handleTabChange = (tab: string) => {
     if (tab === 'PAMM') {
@@ -505,6 +509,10 @@ function AccountsContent() {
 
   return (
     <div className={styles.page}>
+      <Suspense fallback={null}>
+        <AccountsUrlSync onTabChange={setActiveTab} />
+      </Suspense>
+
       {activeTab === 'Account Overview' ? (
         <>
           <div className={styles.overviewHeroOffset}>
@@ -545,13 +553,5 @@ function AccountsContent() {
         <>{renderDetailView(activeTab)}</>
       )}
     </div>
-  )
-}
-
-export default function AccountsPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <AccountsContent />
-    </Suspense>
   )
 }

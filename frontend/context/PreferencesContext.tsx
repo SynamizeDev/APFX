@@ -1,6 +1,13 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+    useSyncExternalStore,
+} from 'react'
 
 type Theme = 'dark' | 'light'
 
@@ -15,37 +22,58 @@ interface PreferencesContextType {
 
 const PreferencesContext = createContext<PreferencesContextType | undefined>(undefined)
 
+const noopSubscribe = (callback: () => void) => {
+    if (typeof window === 'undefined') return () => {}
+    window.addEventListener('storage', callback)
+    return () => window.removeEventListener('storage', callback)
+}
+
+function getStoredTheme(): Theme {
+    try {
+        const val = localStorage.getItem('apfx-theme')
+        return val === 'dark' || val === 'light' ? val : 'light'
+    } catch {
+        return 'light'
+    }
+}
+
+function getStoredAnimations(): boolean {
+    try {
+        const val = localStorage.getItem('apfx-animations')
+        return val !== null ? val === 'true' : true
+    } catch {
+        return true
+    }
+}
+
+function getStoredKpi(): boolean {
+    try {
+        const val = localStorage.getItem('apfx-kpi')
+        return val !== null ? val === 'true' : false
+    } catch {
+        return false
+    }
+}
+
 export const PreferencesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [theme, setThemeState] = useState<Theme>('light')
-    const [animationsEnabled, setAnimationsEnabledState] = useState(true)
-    const [kpiMode, setKpiModeState] = useState(false)
-    const [isMounted, setIsMounted] = useState(false)
+    const storedTheme = useSyncExternalStore<Theme>(noopSubscribe, getStoredTheme, () => 'light')
+    const storedAnimations = useSyncExternalStore<boolean>(noopSubscribe, getStoredAnimations, () => true)
+    const storedKpi = useSyncExternalStore<boolean>(noopSubscribe, getStoredKpi, () => false)
 
-    // Load from localStorage on mount
+    const [themeOverride, setThemeOverride] = useState<Theme | null>(null)
+    const [animationsOverride, setAnimationsOverride] = useState<boolean | null>(null)
+    const [kpiOverride, setKpiOverride] = useState<boolean | null>(null)
+
+    const theme = themeOverride ?? storedTheme
+    const animationsEnabled = animationsOverride ?? storedAnimations
+    const kpiMode = kpiOverride ?? storedKpi
+
+    const isFirstRender = useRef(true)
+
+    // Synchronize updates to documentElement classes & localStorage
     useEffect(() => {
-        const savedTheme = localStorage.getItem('apfx-theme') as Theme
-        const savedAnimations = localStorage.getItem('apfx-animations')
-        const savedKpi = localStorage.getItem('apfx-kpi')
-
-        if (savedTheme) setThemeState(savedTheme)
-        else setThemeState('light')
-        if (savedAnimations !== null) setAnimationsEnabledState(savedAnimations === 'true')
-        if (savedKpi !== null) setKpiModeState(savedKpi === 'true')
-        
-        setIsMounted(true)
-    }, [])
-
-    // Sync with localStorage and document body classes
-    useEffect(() => {
-        if (!isMounted) return
-
-        localStorage.setItem('apfx-theme', theme)
-        localStorage.setItem('apfx-animations', String(animationsEnabled))
-        localStorage.setItem('apfx-kpi', String(kpiMode))
-
-        // Apply classes to root element
         const root = document.documentElement
-        
+
         if (theme === 'light') {
             root.classList.add('light-mode')
         } else {
@@ -63,17 +91,40 @@ export const PreferencesProvider: React.FC<{ children: React.ReactNode }> = ({ c
         } else {
             root.classList.remove('no-animations')
         }
-    }, [theme, animationsEnabled, kpiMode, isMounted])
 
-    const setTheme = (t: Theme) => setThemeState(t)
-    const setAnimationsEnabled = (e: boolean) => setAnimationsEnabledState(e)
-    const setKpiMode = (k: boolean) => {
-        setKpiModeState(k)
-        if (k) {
-            setAnimationsEnabledState(false)
-        } else {
-            setAnimationsEnabledState(true)
+        if (!isFirstRender.current) {
+            try {
+                localStorage.setItem('apfx-theme', theme)
+                localStorage.setItem('apfx-animations', String(animationsEnabled))
+                localStorage.setItem('apfx-kpi', String(kpiMode))
+            } catch {
+                // Storage unavailable / quota exceeded
+            }
         }
+        isFirstRender.current = false
+    }, [theme, animationsEnabled, kpiMode])
+
+    const setTheme = (t: Theme) => {
+        setThemeOverride(t)
+        try {
+            localStorage.setItem('apfx-theme', t)
+        } catch {}
+    }
+
+    const setAnimationsEnabled = (e: boolean) => {
+        setAnimationsOverride(e)
+        try {
+            localStorage.setItem('apfx-animations', String(e))
+        } catch {}
+    }
+
+    const setKpiMode = (k: boolean) => {
+        setKpiOverride(k)
+        setAnimationsOverride(!k)
+        try {
+            localStorage.setItem('apfx-kpi', String(k))
+            localStorage.setItem('apfx-animations', String(!k))
+        } catch {}
     }
 
     return (

@@ -1,6 +1,6 @@
-﻿'use client'
+'use client'
 
-import { Mail, Phone } from 'lucide-react'
+import { Mail } from 'lucide-react'
 import { motion, Variants } from 'framer-motion'
 import InnerPageHero from '@/components/layout/InnerPageHero'
 import styles from './ContactPage.module.css'
@@ -65,8 +65,8 @@ export default function ContactPage() {
                                 >
                                     <h4>Global Support</h4>
                                     <p>
-                                        Our client services team operates 24 hours a
-                                        day, five days a week, across global time
+                                        Our client services team is available 24 hours a
+                                        day, 7 days a week, across global time
                                         zones.
                                     </p>
 
@@ -77,15 +77,6 @@ export default function ContactPage() {
                                     >
                                         <Mail size={18} />
                                         support@apfxglobal.com
-                                    </motion.div>
-
-                                    <motion.div
-                                        className={styles.contactLink}
-                                        whileHover={{ y: -2 }}
-                                        transition={{ duration: 0.2 }}
-                                    >
-                                        <Phone size={18} />
-                                        +91 81490 67969
                                     </motion.div>
                                 </motion.div>
                             </motion.aside>
