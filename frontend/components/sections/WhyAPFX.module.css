@@ -342,6 +342,914 @@
     }
 }
 
+/* ── Withdrawals Card Custom Layout ─────────────────────────── */
+.withdrawalsCard {
+    /* Inherits all base bento card styles */
+}
+
+.withdrawalsWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    gap: 2rem;
+}
+
+.withdrawalsContent {
+    flex: 0 0 58%;
+    max-width: 58%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+}
+
+.stopwatchMedia {
+    flex: 0 0 38%;
+    max-width: 38%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stopwatchImg {
+    width: 100%;
+    height: auto;
+    max-width: 220px;
+    max-height: 200px;
+    object-fit: contain;
+    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 24px rgba(54, 249, 54, 0.15));
+    user-select: none;
+    pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bentoItem.withdrawalsCard:hover .stopwatchMedia {
+        transform: translateY(-6px) scale(1.04);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stopwatchMedia,
+    .bentoItem.withdrawalsCard:hover .stopwatchMedia {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* ── Support Card Custom Layout ────────────────────────────────── */
+.supportCard {
+    /* Inherits all base bento card styles */
+}
+
+.supportWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+.headsetMedia {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 2;
+    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.headsetImg {
+    width: auto;
+    height: 110px;
+    max-height: 120px;
+    max-width: 100%;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
+
+.supportContent {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    text-align: left;
+    width: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bentoItem.supportCard:hover .headsetMedia {
+        transform: translateY(-6px) scale(1.04);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .headsetMedia,
+    .bentoItem.supportCard:hover .headsetMedia {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* ── AI Card Custom Layout ─────────────────────────────────────── */
+.aiCard {
+    /* Inherits all base bento card styles */
+}
+
+.aiWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+.chipMedia {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 2;
+    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.chipImg {
+    width: auto;
+    height: 105px;
+    max-height: 120px;
+    max-width: 100%;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
+
+.aiContent {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    text-align: left;
+    width: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bentoItem.aiCard:hover .chipMedia {
+        transform: translateY(-6px) scale(1.04);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chipMedia,
+    .bentoItem.aiCard:hover .chipMedia {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* ── Indicators Card Custom Layout ─────────────────────────────── */
+.indicatorsCard {
+    /* Inherits all base bento card styles */
+}
+
+.indicatorsWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+.indicatorsMedia {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 2;
+    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.indicatorsImg {
+    width: auto;
+    height: 105px;
+    max-height: 120px;
+    max-width: 100%;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
+
+.indicatorsContent {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    text-align: left;
+    width: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bentoItem.indicatorsCard:hover .indicatorsMedia {
+        transform: translateY(-6px) scale(1.04);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .indicatorsMedia,
+    .bentoItem.indicatorsCard:hover .indicatorsMedia {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* ── Automation Card Custom Layout ─────────────────────────────── */
+.automationCard {
+    /* Inherits all base bento card styles */
+}
+
+.automationWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+.robotMedia {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 2;
+    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.robotImg {
+    width: auto;
+    height: 105px;
+    max-height: 120px;
+    max-width: 100%;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
+
+.automationContent {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    text-align: left;
+    width: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bentoItem.automationCard:hover .robotMedia {
+        transform: translateY(-6px) scale(1.04);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .robotMedia,
+    .bentoItem.automationCard:hover .robotMedia {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* ── Platform Card Custom Layout ───────────────────────────────── */
+.platformCard {
+    /* Inherits all base bento card styles */
+}
+
+.platformWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+.monitorMedia {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 2;
+    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.monitorImg {
+    width: auto;
+    height: 105px;
+    max-height: 120px;
+    max-width: 100%;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
+
+.platformContent {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    text-align: left;
+    width: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bentoItem.platformCard:hover .monitorMedia {
+        transform: translateY(-6px) scale(1.04);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .monitorMedia,
+    .bentoItem.platformCard:hover .monitorMedia {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* ── Markets Card Custom Layout ────────────────────────────────── */
+.marketsCard {
+    /* Inherits all base bento card styles */
+}
+
+.marketsWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+.globeMedia {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 2;
+    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.globeImg {
+    width: auto;
+    height: 105px;
+    max-height: 120px;
+    max-width: 100%;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
+
+.marketsContent {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    text-align: left;
+    width: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bentoItem.marketsCard:hover .globeMedia {
+        transform: translateY(-6px) scale(1.04);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .globeMedia,
+    .bentoItem.marketsCard:hover .globeMedia {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* ── Copy Trading Card Custom Layout ───────────────────────────── */
+.copyTradingCard {
+    /* Inherits all base bento card styles */
+}
+
+.copyTradingWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+.panelsMedia {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 2;
+    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.panelsImg {
+    width: auto;
+    height: 105px;
+    max-height: 120px;
+    max-width: 100%;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
+
+.copyTradingContent {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    text-align: left;
+    width: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bentoItem.copyTradingCard:hover .panelsMedia {
+        transform: translateY(-6px) scale(1.04);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .panelsMedia,
+    .bentoItem.copyTradingCard:hover .panelsMedia {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* ── Risk Management Card Custom Layout ────────────────────────── */
+.riskManagementCard {
+    /* Inherits all base bento card styles */
+}
+
+.riskManagementWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+.shieldMedia {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 2;
+    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.shieldImg {
+    width: auto;
+    height: 105px;
+    max-height: 120px;
+    max-width: 100%;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
+
+.riskManagementContent {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    text-align: left;
+    width: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bentoItem.riskManagementCard:hover .shieldMedia {
+        transform: translateY(-6px) scale(1.04);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .shieldMedia,
+    .bentoItem.riskManagementCard:hover .shieldMedia {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* ── Partners Card Custom Layout ────────────────────────────── */
+.partnersCard {
+    /* Inherits all base bento card styles */
+}
+
+.partnersWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    gap: 2rem;
+}
+
+.partnersContent {
+    flex: 0 0 58%;
+    max-width: 58%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+}
+
+.linksMedia {
+    flex: 0 0 38%;
+    max-width: 38%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.linksImg {
+    width: 100%;
+    height: auto;
+    max-width: 210px;
+    max-height: 190px;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bentoItem.partnersCard:hover .linksMedia {
+        transform: translateY(-6px) scale(1.04);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .linksMedia,
+    .bentoItem.partnersCard:hover .linksMedia {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .withdrawalsWrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .stopwatchMedia {
+        order: -1;
+        flex: 0 0 auto;
+        max-width: none;
+        width: auto;
+        height: 52px;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .stopwatchImg {
+        width: auto;
+        height: 52px;
+        max-height: 52px;
+        max-width: 52px;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 10px rgba(54, 249, 54, 0.15));
+    }
+
+    .withdrawalsContent {
+        flex: 1 1 auto;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .supportWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
+    .headsetMedia {
+        margin-bottom: 0.75rem;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .headsetImg {
+        width: auto;
+        height: 52px;
+        max-height: 52px;
+        max-width: 52px;
+        object-fit: contain;
+    }
+
+    .supportContent {
+        flex: 1 1 auto;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .aiWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
+    .chipMedia {
+        margin-bottom: 0.75rem;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .chipImg {
+        width: auto;
+        height: 52px;
+        max-height: 52px;
+        max-width: 52px;
+        object-fit: contain;
+    }
+
+    .aiContent {
+        flex: 1 1 auto;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .indicatorsWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
+    .indicatorsMedia {
+        margin-bottom: 0.75rem;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .indicatorsImg {
+        width: auto;
+        height: 52px;
+        max-height: 52px;
+        max-width: 52px;
+        object-fit: contain;
+    }
+
+    .indicatorsContent {
+        flex: 1 1 auto;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .automationWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
+    .robotMedia {
+        margin-bottom: 0.75rem;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .robotImg {
+        width: auto;
+        height: 52px;
+        max-height: 52px;
+        max-width: 52px;
+        object-fit: contain;
+    }
+
+    .automationContent {
+        flex: 1 1 auto;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .platformWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
+    .monitorMedia {
+        margin-bottom: 0.75rem;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .monitorImg {
+        width: auto;
+        height: 52px;
+        max-height: 52px;
+        max-width: 52px;
+        object-fit: contain;
+    }
+
+    .platformContent {
+        flex: 1 1 auto;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .marketsWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
+    .globeMedia {
+        margin-bottom: 0.75rem;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .globeImg {
+        width: auto;
+        height: 52px;
+        max-height: 52px;
+        max-width: 52px;
+        object-fit: contain;
+    }
+
+    .marketsContent {
+        flex: 1 1 auto;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .copyTradingWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
+    .panelsMedia {
+        margin-bottom: 0.75rem;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .panelsImg {
+        width: auto;
+        height: 52px;
+        max-height: 52px;
+        max-width: 52px;
+        object-fit: contain;
+    }
+
+    .copyTradingContent {
+        flex: 1 1 auto;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .riskManagementWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
+    .shieldMedia {
+        margin-bottom: 0.75rem;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .shieldImg {
+        width: auto;
+        height: 52px;
+        max-height: 52px;
+        max-width: 52px;
+        object-fit: contain;
+    }
+
+    .riskManagementContent {
+        flex: 1 1 auto;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .partnersWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
+    .linksMedia {
+        order: -1;
+        flex: 0 0 auto;
+        max-width: none;
+        width: auto;
+        height: 52px;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .linksImg {
+        width: auto;
+        height: 52px;
+        max-height: 52px;
+        max-width: 52px;
+        object-fit: contain;
+    }
+
+    .partnersContent {
+        flex: 1 1 auto;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+}
+
 /* ── Mobile carousel dots ───────────────────────────────────── */
 .carouselDots {
     display: none;

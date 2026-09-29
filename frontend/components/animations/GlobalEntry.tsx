@@ -53,6 +53,12 @@ export default function GlobalEntry({ children }: { children: React.ReactNode })
   }, [])
 
   useEffect(() => {
+    if (showAnimation) {
+      // Ensure the page starts at the top during the entry animation.
+      // The inline anti-FOUC script handles this pre-hydration, but Lenis
+      // or late browser scroll restoration can still fight back.
+      window.scrollTo(0, 0)
+    }
     if (!showAnimation) {
       document.documentElement.classList.remove('hide-header-initially')
       document.documentElement.classList.remove('entry-animating-initially')

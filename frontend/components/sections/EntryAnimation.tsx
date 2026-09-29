@@ -42,6 +42,9 @@ export default function EntryAnimation({
             return
         }
 
+        // Force scroll to top before animation begins — catches late Lenis restoration
+        window.scrollTo(0, 0)
+
         // Remove initial anti-FOUC curtain since EntryAnimation's own dark overlay is active
         document.documentElement.classList.remove('entry-animating-initially')
 

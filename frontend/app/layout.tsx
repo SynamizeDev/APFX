@@ -120,6 +120,10 @@ export default function RootLayout({
                 if (isHome && (isReload || notShown)) {
                   document.documentElement.classList.add('hide-header-initially');
                   document.documentElement.classList.add('entry-animating-initially');
+                  if (window.history && 'scrollRestoration' in window.history) {
+                    window.history.scrollRestoration = 'manual';
+                  }
+                  window.scrollTo(0, 0);
                 }
               } catch (e) {}
             `,

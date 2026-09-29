@@ -1,18 +1,8 @@
 'use client'
 
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import {
-  Clock,
-  Sparkles,
-  BarChart2,
-  Monitor,
-  Globe,
-  Handshake,
-  Headphones,
-  Bot,
-  Users,
-  ShieldCheck,
-} from 'lucide-react'
+import Image from 'next/image'
+
 import { useInViewport } from '@/hooks/useInViewport'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
@@ -24,19 +14,25 @@ if (typeof window !== 'undefined') {
 }
 
 const FEATURES: {
-  icon: React.ReactNode
+  id?: string
+  icon?: React.ReactNode
+  image?: {
+    src: string
+    width: number
+    height: number
+  }
   label: string
   title: string
   desc: React.ReactNode
   large: boolean
-  iconBg: string
-  iconBorder: string
+  iconBg?: string
+  iconBorder?: string
   glow: string
   highlight?: boolean
   theme?: 'light' | 'dark'
 }[] = [
   {
-    icon: <Clock size={24} />,
+    id: 'withdrawals',
     label: 'Withdrawals',
     title: 'Withdrawals in as Little as 15 Minutes',
     desc: (
@@ -51,9 +47,14 @@ const FEATURES: {
     iconBg: 'rgba(54, 249, 54, 0.1)',
     iconBorder: 'rgba(54, 249, 54, 0.2)',
     glow: 'rgba(54, 249, 54, 0.1)',
+    image: {
+      src: '/assets/stopwatch-fast-withdrawal.webp',
+      width: 726,
+      height: 893,
+    },
   },
   {
-    icon: <Headphones size={24} />,
+    id: 'support',
     label: 'Support',
     title: '24/7 Human Support',
     desc: 'Talk to real trading experts anytime via live chat, email, or phone. Available 24 hours a day, 7 days a week for fast, reliable human assistance.',
@@ -62,9 +63,14 @@ const FEATURES: {
     iconBg: 'rgba(54, 249, 54, 0.1)',
     iconBorder: 'rgba(54, 249, 54, 0.2)',
     glow: 'rgba(54, 249, 54, 0.1)',
+    image: {
+      src: '/assets/headset-support.webp',
+      width: 933,
+      height: 1008,
+    },
   },
   {
-    icon: <Sparkles size={24} />,
+    id: 'ai',
     label: 'AI',
     title: 'AI-Powered Trading Assistance',
     desc: 'Trade smarter using ChatGPT, DeepSeek, AI Agents, and intelligent automation to assist with market research and trading decisions.',
@@ -73,9 +79,14 @@ const FEATURES: {
     iconBg: 'rgba(99, 102, 241, 0.1)',
     iconBorder: 'rgba(99, 102, 241, 0.2)',
     glow: 'rgba(99, 102, 241, 0.1)',
+    image: {
+      src: '/assets/ai-chip.webp',
+      width: 933,
+      height: 772,
+    },
   },
   {
-    icon: <BarChart2 size={24} />,
+    id: 'indicators',
     label: 'Indicators',
     title: '100+ Smart Indicators',
     desc: (
@@ -90,9 +101,14 @@ const FEATURES: {
     iconBg: 'rgba(54, 249, 54, 0.1)',
     iconBorder: 'rgba(54, 249, 54, 0.2)',
     glow: 'rgba(54, 249, 54, 0.1)',
+    image: {
+      src: '/assets/candlestick-indicators.webp',
+      width: 994,
+      height: 992,
+    },
   },
   {
-    icon: <Bot size={24} />,
+    id: 'automation',
     label: 'Automation',
     title: '1000+ Free Trading Bots',
     desc: (
@@ -107,9 +123,14 @@ const FEATURES: {
     iconBg: 'rgba(54, 249, 54, 0.1)',
     iconBorder: 'rgba(54, 249, 54, 0.2)',
     glow: 'rgba(54, 249, 54, 0.1)',
+    image: {
+      src: '/assets/trading-bots.webp',
+      width: 840,
+      height: 1007,
+    },
   },
   {
-    icon: <Monitor size={24} />,
+    id: 'platform',
     label: 'Platform',
     title: 'Advanced cTrader Trading Platform',
     desc: 'Trade on the powerful cTrader platform with advanced charting, lightning-fast execution, algorithmic trading, and professional-grade tools.',
@@ -118,9 +139,14 @@ const FEATURES: {
     iconBg: 'rgba(59, 130, 246, 0.1)',
     iconBorder: 'rgba(59, 130, 246, 0.2)',
     glow: 'rgba(59, 130, 246, 0.1)',
+    image: {
+      src: '/assets/ctrader-platform.webp',
+      width: 1008,
+      height: 971,
+    },
   },
   {
-    icon: <Globe size={24} />,
+    id: 'markets',
     label: 'Markets',
     title: '1,200+ Tradable Instruments',
     desc: (
@@ -135,21 +161,30 @@ const FEATURES: {
     iconBg: 'rgba(249, 115, 22, 0.1)',
     iconBorder: 'rgba(249, 115, 22, 0.2)',
     glow: 'rgba(249, 115, 22, 0.1)',
+    image: {
+      src: '/assets/tradable-instruments.webp',
+      width: 940,
+      height: 780,
+    },
   },
   {
-    icon: <Users size={24} />,
+    id: 'copy-trading',
     label: 'Copy Trading',
     title: 'Advanced Copy Trading & PAMM Solutions',
     desc: 'Follow experienced traders or invest through professional PAMM solutions with complete transparency and flexibility.',
     large: false,
-    highlight: true,
     theme: 'dark',
     iconBg: 'rgba(99, 102, 241, 0.1)',
     iconBorder: 'rgba(99, 102, 241, 0.2)',
     glow: 'rgba(99, 102, 241, 0.1)',
+    image: {
+      src: '/assets/copy-trading.webp',
+      width: 922,
+      height: 870,
+    },
   },
   {
-    icon: <ShieldCheck size={24} />,
+    id: 'risk-management',
     label: 'Risk Management',
     title: 'Advanced Risk Management Tools',
     desc: 'Protect your capital using built-in calculators, position sizing tools, risk analysis, and trade management features.',
@@ -158,9 +193,14 @@ const FEATURES: {
     iconBg: 'rgba(54, 249, 54, 0.1)',
     iconBorder: 'rgba(54, 249, 54, 0.2)',
     glow: 'rgba(54, 249, 54, 0.1)',
+    image: {
+      src: '/assets/risk-management.webp',
+      width: 773,
+      height: 1016,
+    },
   },
   {
-    icon: <Handshake size={24} />,
+    id: 'partners',
     label: 'Partners',
     title: 'High-Reward Partnership Program',
     desc: (
@@ -170,10 +210,15 @@ const FEATURES: {
       </>
     ),
     large: true,
-    theme: 'light',
-    iconBg: 'rgba(201, 168, 76, 0.1)',
-    iconBorder: 'rgba(201, 168, 76, 0.2)',
-    glow: 'rgba(201, 168, 76, 0.12)',
+    theme: 'dark',
+    iconBg: 'rgba(54, 249, 54, 0.1)',
+    iconBorder: 'rgba(54, 249, 54, 0.2)',
+    glow: 'rgba(54, 249, 54, 0.1)',
+    image: {
+      src: '/assets/partnership-program.webp',
+      width: 994,
+      height: 923,
+    },
   },
 ]
 
@@ -336,7 +381,17 @@ export default function WhyAPFX() {
               key={f.title}
               className={`${styles.bentoItem} ${f.large ? styles.bentoLarge : ''} ${
                 f.highlight ? styles.bentoHighlighted : ''
-              } ${f.theme === 'light' ? styles.bentoLight : ''}`}
+              } ${f.theme === 'light' ? styles.bentoLight : ''} ${
+                f.id === 'withdrawals' ? styles.withdrawalsCard : ''
+              } ${f.id === 'support' ? styles.supportCard : ''} ${
+                f.id === 'ai' ? styles.aiCard : ''
+              } ${f.id === 'indicators' ? styles.indicatorsCard : ''} ${
+                f.id === 'automation' ? styles.automationCard : ''
+              } ${f.id === 'platform' ? styles.platformCard : ''} ${
+                f.id === 'markets' ? styles.marketsCard : ''
+              } ${f.id === 'copy-trading' ? styles.copyTradingCard : ''} ${
+                f.id === 'risk-management' ? styles.riskManagementCard : ''
+              } ${f.id === 'partners' ? styles.partnersCard : ''}`}
               style={
                 {
                   '--glow-color': f.glow,
@@ -345,12 +400,206 @@ export default function WhyAPFX() {
                 } as React.CSSProperties
               }
             >
-              <div className={styles.bentoIcon}>{f.icon}</div>
-              <div className={styles.bentoContent}>
-                <span className={styles.bentoLabel}>{f.label}</span>
-                <h3 className={styles.bentoTitle}>{f.title}</h3>
-                <p className={styles.bentoDesc}>{f.desc}</p>
-              </div>
+              {f.id === 'withdrawals' && f.image ? (
+                <div className={styles.withdrawalsWrapper}>
+                  <div className={styles.withdrawalsContent}>
+                    <span className={styles.bentoLabel}>{f.label}</span>
+                    <h3 className={styles.bentoTitle}>{f.title}</h3>
+                    <p className={styles.bentoDesc}>{f.desc}</p>
+                  </div>
+                  <div className={styles.stopwatchMedia}>
+                    <Image
+                      src={f.image.src}
+                      alt=""
+                      aria-hidden="true"
+                      width={f.image.width}
+                      height={f.image.height}
+                      className={styles.stopwatchImg}
+                      sizes="(max-width: 768px) 60px, (max-width: 1024px) 240px, 280px"
+                    />
+                  </div>
+                </div>
+              ) : f.id === 'support' && f.image ? (
+                <div className={styles.supportWrapper}>
+                  <div className={styles.headsetMedia}>
+                    <Image
+                      src={f.image.src}
+                      alt=""
+                      aria-hidden="true"
+                      width={f.image.width}
+                      height={f.image.height}
+                      className={styles.headsetImg}
+                      sizes="(max-width: 768px) 60px, (max-width: 1024px) 140px, 160px"
+                    />
+                  </div>
+                  <div className={styles.supportContent}>
+                    <span className={styles.bentoLabel}>{f.label}</span>
+                    <h3 className={styles.bentoTitle}>{f.title}</h3>
+                    <p className={styles.bentoDesc}>{f.desc}</p>
+                  </div>
+                </div>
+              ) : f.id === 'ai' && f.image ? (
+                <div className={styles.aiWrapper}>
+                  <div className={styles.chipMedia}>
+                    <Image
+                      src={f.image.src}
+                      alt=""
+                      aria-hidden="true"
+                      width={f.image.width}
+                      height={f.image.height}
+                      className={styles.chipImg}
+                      sizes="(max-width: 768px) 60px, (max-width: 1024px) 140px, 160px"
+                    />
+                  </div>
+                  <div className={styles.aiContent}>
+                    <span className={styles.bentoLabel}>{f.label}</span>
+                    <h3 className={styles.bentoTitle}>{f.title}</h3>
+                    <p className={styles.bentoDesc}>{f.desc}</p>
+                  </div>
+                </div>
+              ) : f.id === 'indicators' && f.image ? (
+                <div className={styles.indicatorsWrapper}>
+                  <div className={styles.indicatorsMedia}>
+                    <Image
+                      src={f.image.src}
+                      alt=""
+                      aria-hidden="true"
+                      width={f.image.width}
+                      height={f.image.height}
+                      className={styles.indicatorsImg}
+                      sizes="(max-width: 768px) 60px, (max-width: 1024px) 140px, 160px"
+                    />
+                  </div>
+                  <div className={styles.indicatorsContent}>
+                    <span className={styles.bentoLabel}>{f.label}</span>
+                    <h3 className={styles.bentoTitle}>{f.title}</h3>
+                    <p className={styles.bentoDesc}>{f.desc}</p>
+                  </div>
+                </div>
+              ) : f.id === 'automation' && f.image ? (
+                <div className={styles.automationWrapper}>
+                  <div className={styles.robotMedia}>
+                    <Image
+                      src={f.image.src}
+                      alt=""
+                      aria-hidden="true"
+                      width={f.image.width}
+                      height={f.image.height}
+                      className={styles.robotImg}
+                      sizes="(max-width: 768px) 60px, (max-width: 1024px) 140px, 160px"
+                    />
+                  </div>
+                  <div className={styles.automationContent}>
+                    <span className={styles.bentoLabel}>{f.label}</span>
+                    <h3 className={styles.bentoTitle}>{f.title}</h3>
+                    <p className={styles.bentoDesc}>{f.desc}</p>
+                  </div>
+                </div>
+              ) : f.id === 'platform' && f.image ? (
+                <div className={styles.platformWrapper}>
+                  <div className={styles.monitorMedia}>
+                    <Image
+                      src={f.image.src}
+                      alt=""
+                      aria-hidden="true"
+                      width={f.image.width}
+                      height={f.image.height}
+                      className={styles.monitorImg}
+                      sizes="(max-width: 768px) 60px, (max-width: 1024px) 140px, 160px"
+                    />
+                  </div>
+                  <div className={styles.platformContent}>
+                    <span className={styles.bentoLabel}>{f.label}</span>
+                    <h3 className={styles.bentoTitle}>{f.title}</h3>
+                    <p className={styles.bentoDesc}>{f.desc}</p>
+                  </div>
+                </div>
+              ) : f.id === 'markets' && f.image ? (
+                <div className={styles.marketsWrapper}>
+                  <div className={styles.globeMedia}>
+                    <Image
+                      src={f.image.src}
+                      alt=""
+                      aria-hidden="true"
+                      width={f.image.width}
+                      height={f.image.height}
+                      className={styles.globeImg}
+                      sizes="(max-width: 768px) 60px, (max-width: 1024px) 140px, 160px"
+                    />
+                  </div>
+                  <div className={styles.marketsContent}>
+                    <span className={styles.bentoLabel}>{f.label}</span>
+                    <h3 className={styles.bentoTitle}>{f.title}</h3>
+                    <p className={styles.bentoDesc}>{f.desc}</p>
+                  </div>
+                </div>
+              ) : f.id === 'copy-trading' && f.image ? (
+                <div className={styles.copyTradingWrapper}>
+                  <div className={styles.panelsMedia}>
+                    <Image
+                      src={f.image.src}
+                      alt=""
+                      aria-hidden="true"
+                      width={f.image.width}
+                      height={f.image.height}
+                      className={styles.panelsImg}
+                      sizes="(max-width: 768px) 60px, (max-width: 1024px) 140px, 160px"
+                    />
+                  </div>
+                  <div className={styles.copyTradingContent}>
+                    <span className={styles.bentoLabel}>{f.label}</span>
+                    <h3 className={styles.bentoTitle}>{f.title}</h3>
+                    <p className={styles.bentoDesc}>{f.desc}</p>
+                  </div>
+                </div>
+              ) : f.id === 'risk-management' && f.image ? (
+                <div className={styles.riskManagementWrapper}>
+                  <div className={styles.shieldMedia}>
+                    <Image
+                      src={f.image.src}
+                      alt=""
+                      aria-hidden="true"
+                      width={f.image.width}
+                      height={f.image.height}
+                      className={styles.shieldImg}
+                      sizes="(max-width: 768px) 60px, (max-width: 1024px) 140px, 160px"
+                    />
+                  </div>
+                  <div className={styles.riskManagementContent}>
+                    <span className={styles.bentoLabel}>{f.label}</span>
+                    <h3 className={styles.bentoTitle}>{f.title}</h3>
+                    <p className={styles.bentoDesc}>{f.desc}</p>
+                  </div>
+                </div>
+              ) : f.id === 'partners' && f.image ? (
+                <div className={styles.partnersWrapper}>
+                  <div className={styles.partnersContent}>
+                    <span className={styles.bentoLabel}>{f.label}</span>
+                    <h3 className={styles.bentoTitle}>{f.title}</h3>
+                    <p className={styles.bentoDesc}>{f.desc}</p>
+                  </div>
+                  <div className={styles.linksMedia}>
+                    <Image
+                      src={f.image.src}
+                      alt=""
+                      aria-hidden="true"
+                      width={f.image.width}
+                      height={f.image.height}
+                      className={styles.linksImg}
+                      sizes="(max-width: 768px) 60px, (max-width: 1024px) 240px, 280px"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {f.icon && <div className={styles.bentoIcon}>{f.icon}</div>}
+                  <div className={styles.bentoContent}>
+                    <span className={styles.bentoLabel}>{f.label}</span>
+                    <h3 className={styles.bentoTitle}>{f.title}</h3>
+                    <p className={styles.bentoDesc}>{f.desc}</p>
+                  </div>
+                </>
+              )}
             </div>
           ))}
         </div>

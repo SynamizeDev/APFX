@@ -336,7 +336,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                                   )}
                                   <ul className={styles.megaMenuLinks}>
                                     {col.links.map((subLink) => (
-                                      <li key={subLink.href}>
+                                      <li key={`${subLink.label}-${subLink.href}`}>
                                         {/* @ts-ignore - Custom property for divider */}
                                         {subLink.dividerTop && (
                                           <hr className={styles.menuDivider} />
@@ -451,7 +451,10 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                     }}
                   >
                     {mobileSubLinks.map((subLink) => (
-                      <div key={subLink.href} className={styles.mobileSubmenuItemWrapper}>
+                      <div
+                        key={`${subLink.label}-${subLink.href}`}
+                        className={styles.mobileSubmenuItemWrapper}
+                      >
                         {/* @ts-ignore */}
                         {subLink.dividerTop && (
                           <hr className={styles.menuDivider} style={{ margin: '0.25rem 1rem' }} />
