@@ -16,7 +16,11 @@ export const PORTAL_SIGNUP_LINK_PROPS = {
     prefetch: false,
 } as const
 
-export const GOOGLE_APPS_SCRIPT_NEWSLETTER_URL =
+export const GOOGLE_APPS_SCRIPT_URL =
+    process.env.GOOGLE_APPS_SCRIPT_URL ||
     process.env.GOOGLE_APPS_SCRIPT_NEWSLETTER_URL ||
-    'https://script.google.com/macros/s/AKfycbzWCrxJPHm9Ho0ExnD8cpvQ6OmazDcNMvIB7Z-cvkMmKfRcZMDVzJVlXA_fNJzajk7JBA/exec'
+    'https://script.google.com/macros/s/AKfycbwJ-8BT5y36r4V7rz2ZqT1dL_fGhQIduozgh22fvGqQS6lYkShR5t5XMWqR0Nj7gVqg-Q/exec'
+
+export const GOOGLE_APPS_SCRIPT_NEWSLETTER_URL = GOOGLE_APPS_SCRIPT_URL
+
 

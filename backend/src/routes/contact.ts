@@ -52,8 +52,30 @@ router.post('/', async (req: Request, res: Response) => {
             })
         }
 
+        const scriptUrl =
+            process.env.GOOGLE_APPS_SCRIPT_URL ||
+            process.env.GOOGLE_APPS_SCRIPT_NEWSLETTER_URL ||
+            'https://script.google.com/macros/s/AKfycbwJ-8BT5y36r4V7rz2ZqT1dL_fGhQIduozgh22fvGqQS6lYkShR5t5XMWqR0Nj7gVqg-Q/exec'
+
+        try {
+            await fetch(scriptUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type: 'support',
+                    fullName: name,
+                    email,
+                    subject,
+                    message,
+                }),
+                redirect: 'follow',
+            })
+        } catch (scriptErr) {
+            logger.error('Google Apps Script contact forwarding error', { error: scriptErr })
+        }
+
         logger.info('Contact form submitted', { name, email, subject })
-        return res.status(200).json({ success: true, message: 'Message sent successfully.' })
+        return res.status(200).json({ success: true, message: 'Your message has been sent successfully.' })
     } catch (error) {
         logger.error('Contact form error', { error })
         return res.status(500).json({ error: 'Failed to send message. Please try again.' })

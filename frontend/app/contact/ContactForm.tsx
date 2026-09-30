@@ -15,38 +15,67 @@ const SUBJECT_OPTIONS = [
 
 export default function ContactForm() {
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+    const [errorMessage, setErrorMessage] = useState('')
     const [subject, setSubject] = useState('')
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        setStatus('loading')
+        const form = e.currentTarget
+        const formData = new FormData(form)
+        const fullName = (formData.get('name') as string)?.trim() || ''
+        const email = (formData.get('email') as string)?.trim() || ''
+        const msgSubject = (formData.get('subject') as string)?.trim() || subject.trim()
+        const message = (formData.get('message') as string)?.trim() || ''
 
-        const formData = new FormData(e.currentTarget)
+        if (!fullName || !email || !msgSubject || !message) {
+            setStatus('error')
+            setErrorMessage('Please fill in all required fields.')
+            return
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!emailRegex.test(email)) {
+            setStatus('error')
+            setErrorMessage('Please enter a valid email address.')
+            return
+        }
+
+        setStatus('loading')
+        setErrorMessage('')
+
         const data = {
-            name: formData.get('name'),
-            email: formData.get('email'),
-            subject: formData.get('subject'),
-            message: formData.get('message'),
+            type: 'support',
+            fullName,
+            email,
+            subject: msgSubject,
+            message,
         }
 
         try {
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
-            const res = await fetch(`${apiUrl}/api/contact`, {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL
+                ? `${process.env.NEXT_PUBLIC_API_URL}/api/contact`
+                : '/api/contact'
+
+            const res = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             })
 
-            if (res.ok) {
+            const resData = await res.json().catch(() => null)
+
+            if (res.ok && (resData?.success || resData?.status === 'success')) {
                 setStatus('success')
                 setSubject('')
-                ;(e.target as HTMLFormElement).reset()
+                form.reset()
             } else {
                 setStatus('error')
+                setErrorMessage(resData?.message || 'Something went wrong. Please try again shortly.')
             }
         } catch (err) {
             console.error('Contact form submission error:', err)
             setStatus('error')
+            setErrorMessage('Something went wrong. Please try again shortly.')
         }
     }
 
@@ -161,7 +190,7 @@ export default function ContactForm() {
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.35, ease: 'easeOut' }}
                             >
-                                Thank you. Your message has been sent successfully.
+                                Your message has been sent successfully.
                             </motion.p>
                         )}
 
@@ -174,7 +203,7 @@ export default function ContactForm() {
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.35, ease: 'easeOut' }}
                             >
-                                Something went wrong. Please try again shortly.
+                                {errorMessage || 'Something went wrong. Please try again shortly.'}
                             </motion.p>
                         )}
                     </AnimatePresence>
