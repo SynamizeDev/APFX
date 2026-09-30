@@ -42,6 +42,60 @@ const SOCIAL = [
 
 
 export default function Footer() {
+    const [email, setEmail] = useState('')
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'already_subscribed' | 'error'>('idle')
+    const [feedbackMessage, setFeedbackMessage] = useState('')
+
+    const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        const trimmedEmail = email.trim()
+        if (!trimmedEmail) {
+            setStatus('error')
+            setFeedbackMessage('Please enter an email address.')
+            return
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!emailRegex.test(trimmedEmail)) {
+            setStatus('error')
+            setFeedbackMessage('Please enter a valid email address.')
+            return
+        }
+
+        setStatus('loading')
+        setFeedbackMessage('')
+
+        try {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL
+                ? `${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`
+                : '/api/subscribe'
+
+            const res = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: trimmedEmail }),
+            })
+
+            const data = await res.json().catch(() => null)
+
+            if (res.ok && data?.success) {
+                setStatus('success')
+                setFeedbackMessage("You're subscribed!")
+                setEmail('')
+            } else if (data?.status === 'already_subscribed') {
+                setStatus('already_subscribed')
+                setFeedbackMessage("You're already subscribed!")
+            } else {
+                setStatus('error')
+                setFeedbackMessage(data?.message || 'Unable to subscribe right now. Please try again later.')
+            }
+        } catch {
+            setStatus('error')
+            setFeedbackMessage('Unable to subscribe right now. Please try again later.')
+        }
+    }
+
     return (
         <footer className={`${styles.footer} apfx-section apfx-section--no-divider`} role="contentinfo">
 
@@ -65,38 +119,47 @@ export default function Footer() {
                         <form
                             className={styles.newsletterForm}
                             aria-labelledby="newsletter-heading"
-                            onSubmit={async (e) => {
-                                e.preventDefault();
-                                const form = e.currentTarget;
-                                const emailInput = form.querySelector('input');
-                                const email = emailInput?.value;
-                                if (!email) return;
-
-                                try {
-                                    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
-                                    const res = await fetch(`${apiUrl}/api/subscribe`, {
-                                        method: 'POST',
-                                        headers: { 'Content-Type': 'application/json' },
-                                        body: JSON.stringify({ email })
-                                    });
-                                    if (res.ok) {
-                                        alert('Successfully subscribed!');
-                                        form.reset();
-                                    }
-                                } catch (err) {
-                                    // Silent fail or handle UI-side
-                                }
-                            }}
+                            onSubmit={handleSubscribe}
+                            noValidate
                         >
                             <label htmlFor="newsletter-email" className="sr-only">Email Address</label>
                             <input
                                 id="newsletter-email"
                                 type="email"
                                 placeholder="Email Address"
+                                value={email}
+                                onChange={(e) => {
+                                    setEmail(e.target.value)
+                                    if (status !== 'idle') {
+                                        setStatus('idle')
+                                        setFeedbackMessage('')
+                                    }
+                                }}
+                                disabled={status === 'loading'}
                                 required
                             />
-                            <button type="submit" aria-label="Subscribe to newsletter">Join</button>
+                            <button
+                                type="submit"
+                                aria-label="Subscribe to newsletter"
+                                disabled={status === 'loading'}
+                            >
+                                {status === 'loading' ? 'Joining...' : 'Join'}
+                            </button>
                         </form>
+                        {feedbackMessage && (
+                            <p
+                                className={`${styles.newsletterStatus} ${
+                                    status === 'success'
+                                        ? styles.statusSuccess
+                                        : status === 'already_subscribed'
+                                        ? styles.statusInfo
+                                        : styles.statusError
+                                }`}
+                                role="alert"
+                            >
+                                {feedbackMessage}
+                            </p>
+                        )}
                     </div>
 
                     <div className={styles.social}>

@@ -220,9 +220,35 @@
     transition: all var(--duration-fast) var(--ease-out);
 }
 
-.newsletterForm button:hover {
+.newsletterForm button:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(54, 249, 54, 0.4);
+}
+
+.newsletterForm button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.newsletterStatus {
+    margin-top: 0.6rem;
+    font-size: var(--text-xs);
+    font-weight: var(--fw-medium);
+    line-height: var(--lh-normal);
+}
+
+.statusSuccess {
+    color: var(--color-accent);
+}
+
+.statusError {
+    color: #f87171;
+}
+
+.statusInfo {
+    color: var(--color-accent);
 }
 
 /* ============================================================

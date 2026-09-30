@@ -15,9 +15,38 @@ router.post('/', async (req: Request, res: Response) => {
             return res.status(400).json({ error: 'Invalid email address' })
         }
 
-        // TODO: Integrate with your email marketing provider (Mailchimp / Kit / Loops)
-        logger.info('Newsletter subscription', { email: parsed.data.email })
-        return res.status(200).json({ success: true, message: 'Successfully subscribed!' })
+        const scriptUrl =
+            process.env.GOOGLE_APPS_SCRIPT_NEWSLETTER_URL ||
+            'https://script.google.com/macros/s/AKfycbzWCrxJPHm9Ho0ExnD8cpvQ6OmazDcNMvIB7Z-cvkMmKfRcZMDVzJVlXA_fNJzajk7JBA/exec'
+
+        logger.info('Newsletter subscription attempt', { email: parsed.data.email })
+
+        const scriptRes = await fetch(scriptUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: parsed.data.email }),
+            redirect: 'follow',
+        })
+
+        const text = await scriptRes.text().catch(() => '')
+        let data: { success?: boolean; status?: string; message?: string; error?: string } = {}
+        try {
+            data = JSON.parse(text)
+        } catch {
+            data = { message: text }
+        }
+
+        const msgLower = (data?.message || data?.error || data?.status || '').toString().toLowerCase()
+        if (msgLower.includes('already') || msgLower.includes('exist')) {
+            return res.status(200).json({ success: false, status: 'already_subscribed', message: "You're already subscribed!" })
+        }
+
+        if (!scriptRes.ok || data?.success === false) {
+            logger.error('Google Apps Script subscribe error', { data, text })
+            return res.status(400).json({ success: false, error: 'Subscription failed. Please try again.' })
+        }
+
+        return res.status(200).json({ success: true, message: "You're subscribed!" })
     } catch (error) {
         logger.error('Subscribe error', { error })
         return res.status(500).json({ error: 'Subscription failed. Please try again.' })

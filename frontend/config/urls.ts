@@ -15,3 +15,8 @@ export const PORTAL_SIGNUP_LINK_PROPS = {
     rel: 'noopener noreferrer',
     prefetch: false,
 } as const
+
+export const GOOGLE_APPS_SCRIPT_NEWSLETTER_URL =
+    process.env.GOOGLE_APPS_SCRIPT_NEWSLETTER_URL ||
+    'https://script.google.com/macros/s/AKfycbzWCrxJPHm9Ho0ExnD8cpvQ6OmazDcNMvIB7Z-cvkMmKfRcZMDVzJVlXA_fNJzajk7JBA/exec'
+
