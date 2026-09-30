@@ -107,7 +107,7 @@ export default function RootLayout({
               },
               publisher: {
                 '@type': 'Organization',
-                name: 'APFX Global Markets Ltd',
+                name: 'APFX Global Ltd',
                 url: 'https://www.apfxglobal.com',
               },
             }),

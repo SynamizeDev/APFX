@@ -134,7 +134,7 @@ export default function Footer() {
             <div className={styles.bottom}>
                 <div className={styles.disclosure}>
                     <p>
-                        APFX is a trading name of APFX Global Markets Ltd., an International Business Company incorporated in Saint Lucia under Registration No. 2026-00357.
+                        APFX is a trading name of APFX Global Ltd., an International Business Company incorporated in Saint Lucia under Registration No. 2026-00357.
                     </p>
                     <p>
                         <span className={styles.disclosureLabel}>Risk Warning:</span> Trading in securities involves significant risk. Prices may fluctuate and securities can become entirely valueless. You may incur losses that exceed your potential profits, and in some cases, losses may exceed the amount you have deposited. Securities, futures, options, and contracts for differences are complex financial instruments and are not suitable for all investors. Engaging in such transactions requires a sound understanding of the associated risks. Please read and ensure you fully understand our <Link href="/risk-disclosure" className={styles.accentLink}>Risk Disclosure</Link>.
@@ -143,13 +143,13 @@ export default function Footer() {
                         Our leverage is dynamic and may change at any time. Such changes may affect your positions and margin requirements. You are responsible for monitoring your positions and maintaining sufficient margin at all times.
                     </p>
                     <p>
-                        <span className={styles.disclosureLabel}>Restricted Countries:</span> APFX Global Markets Ltd does not provide services for residents of certain countries such as the United States, Iran, North Korea, Syria, Sudan and Cuba or a country where such distribution or use would be contrary to local law or regulation.
+                        <span className={styles.disclosureLabel}>Restricted Countries:</span> APFX Global Ltd does not provide services for residents of certain countries such as the United States, Iran, North Korea, Syria, Sudan and Cuba or a country where such distribution or use would be contrary to local law or regulation.
                     </p>
                     <p>
-                        You must be 18 years old, or of legal age as determined in your country. Upon registering an account with APFX Global Markets Ltd, you acknowledge that you are registering <span className={styles.underline}>at your own free will, without solicitation on behalf of APFX Global Markets Ltd</span>.
+                        You must be 18 years old, or of legal age as determined in your country. Upon registering an account with APFX Global Ltd, you acknowledge that you are registering <span className={styles.underline}>at your own free will, without solicitation on behalf of APFX Global Ltd</span>.
                     </p>
                     <p>
-                        APFX Global Markets Ltd does not direct its website and services to any individual in any country in which the use of its website and services are prohibited by local laws or regulations. When accessing this website from a country in which its use may or may not be prohibited, it is the user&apos;s <span className={styles.underline}>responsibility to ensure that any use of the website or services adheres to local laws or regulations</span>. APFX Global Markets Ltd does not affirm that the information on its website is suitable for all jurisdictions.
+                        APFX Global Ltd does not direct its website and services to any individual in any country in which the use of its website and services are prohibited by local laws or regulations. When accessing this website from a country in which its use may or may not be prohibited, it is the user&apos;s <span className={styles.underline}>responsibility to ensure that any use of the website or services adheres to local laws or regulations</span>. APFX Global Ltd does not affirm that the information on its website is suitable for all jurisdictions.
                     </p>
 
                     <nav className={styles.legalNav} aria-label="Legal navigation">
@@ -171,7 +171,7 @@ export default function Footer() {
 
                 <div className={styles.bottomInner}>
                     <span className={styles.copy}>
-                        © {new Date().getFullYear()} APFX Global Markets Ltd | All rights reserved.
+                        © {new Date().getFullYear()} APFX Global Ltd | All rights reserved.
                     </span>
                 </div>
             </div>

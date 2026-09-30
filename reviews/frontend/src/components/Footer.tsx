@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
               </Link>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed max-w-md">
-              The official client review and video testimonial platform for APFX Global Markets. Built to provide transparent, verifiable performance feedback from retail, professional, and institutional traders worldwide.
+              The official client review and video testimonial platform for APFX Global. Built to provide transparent, verifiable performance feedback from retail, professional, and institutional traders worldwide.
             </p>
           </div>
 
@@ -87,7 +87,7 @@ export const Footer: React.FC = () => {
             <strong className="text-slate-400">Risk Warning:</strong> Trading Foreign Exchange (Forex) and Contracts for Difference (CFDs) on margin carries a high level of risk and may not be suitable for all investors. Testimonials displayed on this website represent individual experiences and do not guarantee future performance or profits.
           </p>
           <p className="flex justify-between items-center text-[10px] text-slate-600">
-            <span>© {new Date().getFullYear()} APFX Global Markets Ltd. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} APFX Global Ltd. All rights reserved.</span>
             <span>reviews.apfxglobal.com</span>
           </p>
         </div>

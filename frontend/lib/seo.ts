@@ -90,7 +90,7 @@ export function buildMetadata({
 
 export const COMPANY_INFO = {
   name: 'APFX',
-  legalName: 'APFX Global Markets Ltd',
+  legalName: 'APFX Global Ltd',
   url: siteUrl,
   logo: `${siteUrl}/android-chrome-512x512.png`,
   description:
