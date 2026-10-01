@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { getActiveJobs } from '@/config/careers'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.apfxglobal.com'
@@ -9,6 +10,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: number
     changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency']
   }
+
+  const activeJobEntries: Entry[] = getActiveJobs().map((job) => ({
+    path: `/careers/${job.slug}`,
+    priority: 0.7,
+    changeFrequency: 'weekly',
+  }))
 
   const routes: Entry[] = [
     // ── Homepage ────────────────────────────────────────────────
@@ -21,7 +28,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/learn/courses', priority: 0.9, changeFrequency: 'daily' },
     { path: '/partners', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/about', priority: 0.85, changeFrequency: 'monthly' },
+    { path: '/careers', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/contact', priority: 0.85, changeFrequency: 'monthly' },
+
+    // ── Active Job Openings (if any) ───────────────────────────
+    ...activeJobEntries,
 
     // ── Products / Markets ───────────────────────────────────────
     { path: '/products/forex', priority: 0.85, changeFrequency: 'weekly' },

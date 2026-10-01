@@ -1,0 +1,887 @@
+/* ============================================================
+   APFX Careers & Job Postings CSS Module
+   Institutional fintech styling, dark surface parity
+   ============================================================ */
+
+.pageWrapper {
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max, 1200px);
+  margin-inline: auto;
+  padding-inline: var(--container-px, 1.5rem);
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   1. HERO SECTION
+   ============================================================ */
+
+.heroSection {
+  position: relative;
+  padding-top: clamp(4.5rem, 8vw, 7.5rem);
+  padding-bottom: clamp(4rem, 7vw, 6rem);
+  border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.heroGlow {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1000px, 90vw);
+  height: 450px;
+  background: radial-gradient(
+    ellipse 60% 40% at 50% 30%,
+    rgba(2, 228, 2, 0.07),
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heroGridPattern {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 80%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heroContent {
+  max-width: 860px;
+  margin-inline: auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(2, 228, 2, 0.06);
+  border: 1px solid rgba(2, 228, 2, 0.2);
+  border-radius: var(--radius-full, 9999px);
+  color: var(--color-accent, #02E402);
+  font-family: var(--font-body);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--fw-semibold, 600);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider, 0.1em);
+  margin-bottom: 1.5rem;
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-accent, #02E402);
+  box-shadow: 0 0 8px var(--color-accent, #02E402);
+}
+
+.heroHeadline {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5.5vw, 4.25rem);
+  font-weight: var(--fw-extrabold, 800);
+  line-height: 1.08;
+  letter-spacing: var(--ls-tight, -0.04em);
+  color: var(--color-text-1);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.headlineAccent {
+  color: var(--color-accent, #02E402);
+  display: block;
+}
+
+.heroDescription {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  line-height: var(--lh-relaxed, 1.7);
+  color: var(--color-text-2);
+  max-width: 680px;
+  margin-inline: auto;
+  margin-bottom: 2.5rem;
+}
+
+.heroCtas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.85rem;
+  background: linear-gradient(135deg, var(--color-accent, #02E402) 0%, #28D128 100%);
+  color: #03050A;
+  font-family: var(--font-body);
+  font-size: var(--text-sm, 0.95rem);
+  font-weight: var(--fw-bold, 700);
+  border-radius: var(--radius-full, 9999px);
+  text-decoration: none;
+  box-shadow: 0 4px 20px -4px rgba(2, 228, 2, 0.35);
+  transition: transform var(--duration-fast, 0.15s) ease, box-shadow var(--duration-fast, 0.15s) ease;
+  cursor: pointer;
+  border: none;
+}
+
+.ctaPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(2, 228, 2, 0.5);
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.85rem;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-text-1);
+  font-family: var(--font-body);
+  font-size: var(--text-sm, 0.95rem);
+  font-weight: var(--fw-medium, 500);
+  border-radius: var(--radius-full, 9999px);
+  text-decoration: none;
+  border: 1px solid var(--color-border);
+  transition: background var(--duration-fast, 0.15s) ease, border-color var(--duration-fast, 0.15s) ease, color var(--duration-fast, 0.15s) ease;
+  cursor: pointer;
+}
+
+.ctaSecondary:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+/* ============================================================
+   2. WHY APFX SECTION
+   ============================================================ */
+
+.sectionWhy {
+  padding-block: clamp(4.5rem, 7vw, 6.5rem);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-section-band, #06090D);
+  position: relative;
+  scroll-margin-top: clamp(80px, 8vw, 100px);
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 680px;
+  margin-inline: auto;
+  margin-bottom: clamp(3rem, 5vw, 4rem);
+}
+
+.sectionHeading {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+  font-weight: var(--fw-bold, 700);
+  color: var(--color-text-1);
+  letter-spacing: var(--ls-tight, -0.02em);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.sectionSubtext {
+  font-family: var(--font-body);
+  font-size: var(--text-base, 1rem);
+  color: var(--color-text-2);
+  line-height: var(--lh-relaxed, 1.7);
+}
+
+.whyGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.whyCard {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg, 1rem);
+  padding: 2.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  transition: border-color var(--duration-normal, 0.25s) ease, transform var(--duration-normal, 0.25s) ease, box-shadow var(--duration-normal, 0.25s) ease;
+}
+
+.whyCard:hover {
+  border-color: rgba(2, 228, 2, 0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.whyCardNumber {
+  font-family: var(--font-display);
+  font-size: var(--text-base, 1rem);
+  font-weight: var(--fw-bold, 700);
+  color: var(--color-accent, #02E402);
+  letter-spacing: var(--ls-wide, 0.05em);
+  margin-bottom: 1.25rem;
+}
+
+.whyCardTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-lg, 1.25rem);
+  font-weight: var(--fw-bold, 700);
+  color: var(--color-text-1);
+  letter-spacing: var(--ls-snug, -0.01em);
+  margin-bottom: 0.85rem;
+  text-transform: uppercase;
+}
+
+.whyCardBody {
+  font-family: var(--font-body);
+  font-size: var(--text-sm, 0.925rem);
+  color: var(--color-text-2);
+  line-height: var(--lh-relaxed, 1.6);
+  flex-grow: 1;
+}
+
+/* ============================================================
+   3. LIFE AT APFX / CULTURE SECTION
+   ============================================================ */
+
+.sectionCulture {
+  padding-block: clamp(4.5rem, 7vw, 6.5rem);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  position: relative;
+  scroll-margin-top: clamp(80px, 8vw, 100px);
+}
+
+.cultureLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.cultureContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.cultureKicker {
+  font-family: var(--font-body);
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-accent, #02E402);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider, 0.1em);
+  font-weight: var(--fw-semibold, 600);
+  margin-bottom: 0.75rem;
+}
+
+.cultureHeading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: var(--fw-bold, 700);
+  color: var(--color-text-1);
+  line-height: 1.15;
+  letter-spacing: var(--ls-tight, -0.02em);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.cultureText {
+  font-family: var(--font-body);
+  font-size: var(--text-base, 1.05rem);
+  color: var(--color-text-2);
+  line-height: var(--lh-relaxed, 1.7);
+  margin-bottom: 1rem;
+}
+
+.principlesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.principleItem {
+  background: var(--color-section-band, #06090D);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 0.75rem);
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  transition: border-color var(--duration-fast, 0.2s) ease, background var(--duration-fast, 0.2s) ease;
+}
+
+.principleItem:hover {
+  border-color: rgba(2, 228, 2, 0.35);
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.principleDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-accent, #02E402);
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(2, 228, 2, 0.4);
+}
+
+.principleTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-base, 1.1rem);
+  font-weight: var(--fw-bold, 700);
+  color: var(--color-text-1);
+  letter-spacing: var(--ls-snug, -0.01em);
+  margin-bottom: 0.35rem;
+}
+
+.principleDesc {
+  font-family: var(--font-body);
+  font-size: var(--text-sm, 0.9rem);
+  color: var(--color-text-2);
+  line-height: var(--lh-relaxed, 1.5);
+}
+
+/* ============================================================
+   4. OPEN POSITIONS SECTION
+   ============================================================ */
+
+.sectionPositions {
+  padding-block: clamp(4.5rem, 7vw, 6.5rem);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-section-band, #06090D);
+  position: relative;
+  scroll-margin-top: clamp(80px, 8vw, 100px);
+}
+
+.positionsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+/* Job Card */
+.jobCard {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg, 1rem);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  text-decoration: none;
+  transition: border-color var(--duration-normal, 0.2s) ease, transform var(--duration-normal, 0.2s) ease, box-shadow var(--duration-normal, 0.2s) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.jobCard:hover {
+  border-color: var(--color-accent, #02E402);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+}
+
+.jobCardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.jobDepartmentBadge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: 0.25rem 0.65rem;
+  background: rgba(2, 228, 2, 0.08);
+  border: 1px solid rgba(2, 228, 2, 0.2);
+  border-radius: var(--radius-sm, 0.375rem);
+  color: var(--color-accent, #02E402);
+  font-family: var(--font-body);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--fw-semibold, 600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.jobCardTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  font-weight: var(--fw-bold, 700);
+  color: var(--color-text-1);
+  letter-spacing: var(--ls-snug, -0.01em);
+  margin-top: 0.25rem;
+  transition: color var(--duration-fast, 0.15s) ease;
+}
+
+.jobCard:hover .jobCardTitle {
+  color: var(--color-accent, #02E402);
+}
+
+.jobMetaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-body);
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text-2);
+}
+
+.jobMetaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.jobMetaDivider {
+  color: var(--color-border-2);
+}
+
+.jobCardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--fw-semibold, 600);
+  color: var(--color-accent, #02E402);
+}
+
+.viewPositionArrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: transform var(--duration-fast, 0.15s) ease;
+}
+
+.jobCard:hover .viewPositionArrow {
+  transform: translateX(4px);
+}
+
+/* Empty State */
+.emptyStateContainer {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl, 1.25rem);
+  padding: clamp(3rem, 6vw, 4.5rem) clamp(1.5rem, 4vw, 3rem);
+  text-align: center;
+  max-width: 760px;
+  margin-inline: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.emptyStateContainer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent, #02E402), transparent);
+}
+
+.emptyStateTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: var(--fw-bold, 700);
+  color: var(--color-text-1);
+  margin-bottom: 1rem;
+  letter-spacing: var(--ls-tight, -0.02em);
+  text-transform: uppercase;
+}
+
+.emptyStateText {
+  font-family: var(--font-body);
+  font-size: var(--text-base, 1.05rem);
+  color: var(--color-text-2);
+  line-height: var(--lh-relaxed, 1.7);
+  max-width: 580px;
+  margin-inline: auto;
+  margin-bottom: 2rem;
+}
+
+/* ============================================================
+   5. RECRUITMENT CTA SECTION (#join-apfx)
+   ============================================================ */
+
+.sectionJoin {
+  padding-block: clamp(4.5rem, 7vw, 6.5rem);
+  background-color: var(--color-bg);
+  position: relative;
+  scroll-margin-top: clamp(80px, 8vw, 100px);
+}
+
+.joinLayout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.joinInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.joinHeading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: var(--fw-bold, 700);
+  color: var(--color-text-1);
+  line-height: 1.15;
+  letter-spacing: var(--ls-tight, -0.02em);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.joinSecondaryHeading {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  font-weight: var(--fw-semibold, 600);
+  color: var(--color-accent, #02E402);
+  letter-spacing: var(--ls-snug, -0.01em);
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+}
+
+.joinBody {
+  font-family: var(--font-body);
+  font-size: var(--text-base, 1.05rem);
+  color: var(--color-text-2);
+  line-height: var(--lh-relaxed, 1.7);
+  margin-bottom: 1rem;
+}
+
+.joinNote {
+  font-family: var(--font-body);
+  font-size: var(--text-sm, 0.95rem);
+  color: var(--color-text-3);
+  margin-bottom: 0;
+}
+
+.recruitmentCard {
+  background: var(--color-section-band, #06090D);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl, 1.25rem);
+  padding: clamp(2rem, 4vw, 2.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+.recruitmentCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-accent, #02E402), transparent);
+}
+
+.recruitmentCardTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl, 1.35rem);
+  font-weight: var(--fw-bold, 700);
+  color: var(--color-text-1);
+  letter-spacing: var(--ls-snug, -0.01em);
+  text-transform: uppercase;
+}
+
+.recruitmentCardText {
+  font-family: var(--font-body);
+  font-size: var(--text-sm, 0.95rem);
+  color: var(--color-text-2);
+  line-height: var(--lh-relaxed, 1.6);
+}
+
+.recruitmentEmailBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.25rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 0.625rem);
+}
+
+.recruitmentEmailLabel {
+  font-family: var(--font-body);
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-3);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider, 0.08em);
+  font-weight: var(--fw-semibold, 600);
+}
+
+.recruitmentEmailLink {
+  font-family: var(--font-body);
+  font-size: var(--text-base, 1.05rem);
+  font-weight: var(--fw-semibold, 600);
+  color: var(--color-accent, #02E402);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity var(--duration-fast, 0.15s) ease;
+}
+
+.recruitmentEmailLink:hover {
+  opacity: 0.85;
+}
+
+.recruitmentCtaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.95rem 1.5rem;
+  background: linear-gradient(135deg, var(--color-accent, #02E402) 0%, #28D128 100%);
+  color: #03050A;
+  font-family: var(--font-body);
+  font-size: var(--text-sm, 0.95rem);
+  font-weight: var(--fw-bold, 700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-md, 0.625rem);
+  text-decoration: none;
+  box-shadow: 0 4px 20px -4px rgba(2, 228, 2, 0.35);
+  transition: transform var(--duration-fast, 0.15s) ease, box-shadow var(--duration-fast, 0.15s) ease;
+}
+
+.recruitmentCtaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(2, 228, 2, 0.5);
+}
+
+/* ============================================================
+   6. INDIVIDUAL JOB PAGE STYLING
+   ============================================================ */
+
+.jobDetailHero {
+  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+  position: relative;
+}
+
+.jobBreadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: var(--text-xs, 0.8125rem);
+  color: var(--color-text-3);
+  margin-bottom: 2rem;
+}
+
+.breadcrumbLink {
+  color: var(--color-text-2);
+  text-decoration: none;
+  transition: color var(--duration-fast, 0.15s) ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-accent, #02E402);
+}
+
+.breadcrumbSeparator {
+  color: var(--color-border-2);
+}
+
+.jobDetailTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: var(--fw-bold, 700);
+  color: var(--color-text-1);
+  letter-spacing: var(--ls-tight, -0.02em);
+  margin-bottom: 1.5rem;
+}
+
+.jobDetailMetaBadges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.metaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  background: var(--color-section-band, #06090D);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full, 9999px);
+  font-family: var(--font-body);
+  font-size: var(--text-xs, 0.8125rem);
+  font-weight: var(--fw-medium, 500);
+  color: var(--color-text-2);
+}
+
+.metaBadgeAccent {
+  background: rgba(2, 228, 2, 0.08);
+  border-color: rgba(2, 228, 2, 0.25);
+  color: var(--color-accent, #02E402);
+}
+
+.jobDetailBodySection {
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.jobDetailLayout {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: flex-start;
+}
+
+.jobContentBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.jobSectionBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.jobSectionBlockTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl, 1.4rem);
+  font-weight: var(--fw-bold, 700);
+  color: var(--color-text-1);
+  letter-spacing: var(--ls-snug, -0.01em);
+}
+
+.jobTextContent {
+  font-family: var(--font-body);
+  font-size: var(--text-base, 1rem);
+  color: var(--color-text-2);
+  line-height: var(--lh-relaxed, 1.75);
+}
+
+.jobBulletList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.jobBulletItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-family: var(--font-body);
+  font-size: var(--text-base, 0.975rem);
+  color: var(--color-text-2);
+  line-height: var(--lh-relaxed, 1.6);
+}
+
+.jobBulletDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-accent, #02E402);
+  margin-top: 0.6rem;
+  flex-shrink: 0;
+}
+
+.jobSidebarSticky {
+  position: sticky;
+  top: 96px;
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .whyGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cultureLayout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .joinLayout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .jobDetailLayout {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .jobSidebarSticky {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .whyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .positionsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroHeadline {
+    font-size: clamp(2rem, 8vw, 2.75rem);
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    width: 100%;
+  }
+
+  .jobMetaRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .jobMetaDivider {
+    display: none;
+  }
+}

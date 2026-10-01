@@ -25,6 +25,7 @@ const FOOTER_LINKS = {
     Company: [
         { label: 'About APFX', href: '/about' },
         { label: 'Partner with Us', href: '/partners' },
+        { label: 'Careers', href: '/careers' },
         { label: 'APFX Academy', href: '/learn/courses' },
         { label: 'Support Center', href: '/support' },
         { label: 'Contact Us', href: '/contact' },

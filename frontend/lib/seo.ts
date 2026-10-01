@@ -272,3 +272,83 @@ export function buildSoftwareAppJsonLd({
     },
   }
 }
+
+/** JobPosting schema for Schema.org / Google Jobs search indexing */
+export function buildJobPostingJsonLd(job: {
+  slug: string
+  title: string
+  department: string
+  location: string
+  employmentType: string
+  workplaceType: string
+  description: string
+  responsibilities: string[]
+  requirements: string[]
+  niceToHave?: string[]
+  postedDate: string
+  validThrough?: string
+}): object {
+  const url = `${siteUrl}/careers/${job.slug}`
+
+  const responsibilitiesHtml = job.responsibilities?.length
+    ? `<h3>Responsibilities:</h3><ul>${job.responsibilities.map((r) => `<li>${r}</li>`).join('')}</ul>`
+    : ''
+  const requirementsHtml = job.requirements?.length
+    ? `<h3>Requirements:</h3><ul>${job.requirements.map((r) => `<li>${r}</li>`).join('')}</ul>`
+    : ''
+  const niceToHaveHtml = job.niceToHave?.length
+    ? `<h3>Nice to Have:</h3><ul>${job.niceToHave.map((n) => `<li>${n}</li>`).join('')}</ul>`
+    : ''
+
+  const fullDescriptionHtml = `<p>${job.description}</p>${responsibilitiesHtml}${requirementsHtml}${niceToHaveHtml}`
+
+  const employmentTypeMap: Record<string, string> = {
+    'Full-time': 'FULL_TIME',
+    'Part-time': 'PART_TIME',
+    Contract: 'CONTRACTOR',
+    Internship: 'INTERN',
+  }
+
+  const isRemote = job.workplaceType === 'Remote'
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'JobPosting',
+    '@id': `${url}#jobposting`,
+    title: job.title,
+    description: fullDescriptionHtml,
+    identifier: {
+      '@type': 'PropertyValue',
+      name: 'APFX',
+      value: job.slug,
+    },
+    datePosted: job.postedDate,
+    ...(job.validThrough && { validThrough: job.validThrough }),
+    employmentType: employmentTypeMap[job.employmentType] || 'FULL_TIME',
+    hiringOrganization: {
+      '@type': 'Organization',
+      name: COMPANY_INFO.name,
+      sameAs: siteUrl,
+      logo: COMPANY_INFO.logo,
+    },
+    jobLocation: isRemote
+      ? undefined
+      : {
+          '@type': 'Place',
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: job.location,
+          },
+        },
+    ...(isRemote && {
+      jobLocationType: 'TELECOMMUTE',
+      applicantLocationRequirements: {
+        '@type': 'Country',
+        name: 'Worldwide',
+      },
+    }),
+    occupationalCategory: job.department,
+    url,
+  }
+}
+

@@ -109,6 +109,7 @@ const MEGA_MENU_DATA = {
         { label: 'Become a Partner', href: '/partners' },
         { label: 'Marketing Materials', href: '/company/marketing-materials' },
         { label: 'Success Stories', href: 'https://reviews.apfxglobal.com/' },
+        { label: 'Careers', href: '/careers' },
         { label: 'Privacy Policy', href: '/privacy-policy' },
         { label: 'Terms of Service', href: '/terms-of-service' },
         { label: 'Risk Disclosure', href: '/risk-disclosure' },
