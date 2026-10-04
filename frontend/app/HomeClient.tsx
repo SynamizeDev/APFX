@@ -9,13 +9,12 @@ import { motion, type Variants } from 'framer-motion'
    ========================================================= */
 
 import HeroSection from '@/components/sections/HeroSection'
-import StatsBar from '@/components/sections/StatsBar'
 import MarketplaceTeaser from '@/components/sections/MarketplaceTeaser'
 import WhyAPFX from '@/components/sections/WhyAPFX'
 import TradingPlatforms from '@/components/sections/TradingPlatforms'
 import AccountTypes from '@/components/sections/AccountTypes'
 import TradingAcademy from '@/components/sections/TradingAcademy'
-import DifferenceSection from '@/components/sections/DifferenceSection'
+
 import Testimonials from '@/components/sections/Testimonials'
 import CTABanner from '@/components/sections/CTABanner'
 import AnimatedSection from '@/components/animations/AnimatedSection'
@@ -69,9 +68,6 @@ export default function HomeClient() {
     <>
       <motion.div initial="hidden" animate="visible" variants={pageFade}>
         <HeroSection />
-        <AnimatedSection className="bg-alternate-1">
-          <StatsBar />
-        </AnimatedSection>
 
         {/* 
         <AnimatedSection>
@@ -107,9 +103,6 @@ export default function HomeClient() {
           <TradingAcademy />
         </AnimatedSection>
 
-        <AnimatedSection>
-          <DifferenceSection />
-        </AnimatedSection>
 
         <AnimatedSection className="bg-alternate-1">
           <Testimonials />

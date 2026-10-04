@@ -437,7 +437,7 @@ export default function Globe({ active = true }: { active?: boolean }) {
 
 const statStyle: React.CSSProperties = {
     color: '#F8F9FA',
-    fontFamily: 'Space Grotesk, sans-serif',
+    fontFamily: 'Roboto, sans-serif',
     background: 'rgba(11, 15, 26, 0.4)',
     border: '1px solid rgba(255, 255, 255, 0.06)',
     backdropFilter: 'blur(8px)',

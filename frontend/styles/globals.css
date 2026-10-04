@@ -6,8 +6,9 @@
 
 @import './tokens.css';
 
-/* ── Fonts ─────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* ── Fonts — Roboto (mirrors XM.com typography) ─────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,700&display=swap');
+
 
 /* ============================================================
       Reset & Base
@@ -31,6 +32,7 @@ body {
     font-family: var(--font-body);
     font-size: var(--text-base);
     line-height: var(--lh-normal);
+    letter-spacing: var(--ls-normal);
     color: var(--color-text-2);
     background-color: var(--color-bg);
     overflow-x: hidden;
@@ -98,21 +100,6 @@ body {
     transition-delay: 0s !important;
 }
 
-/* Anti-FOUC for Initial Load (Entry Animation) */
-:root.hide-header-initially header[role="banner"] {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-}
-
-:root.entry-animating-initially body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 9996;
-    background: var(--color-bg, #03050A);
-    pointer-events: none;
-}
 
 :root.home-page .main-wrapper {
     padding-top: 0 !important;

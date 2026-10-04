@@ -91,13 +91,14 @@ export default function TradingPlatforms() {
                 <div className={styles.visual} aria-hidden="true">
                     <div className={styles.imageContainer}>
                         <Image 
-                            src="/assets/device-bg.png" 
-                            alt="Trading Platforms" 
-                            width={1200}
-                            height={800}
+                            src="/fox-tab.png" 
+                            alt="APFX Fox Mascot" 
+                            width={1374}
+                            height={1145}
                             className={styles.platformImage}
                             priority
                         />
+                        <div className={styles.imageFade} />
                     </div>
                 </div>
             </div>

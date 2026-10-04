@@ -56,46 +56,11 @@
     margin-left: -10px; /* Pull text closer to icon because of internal white space */
 }
 
+/* Always show light (white) logo */
 .logoTextDark {
-    display: inline-block;
+    display: none !important;
 }
 
 .logoTextLight {
-    display: none;
-}
-
-/* Light mode overrides */
-:global(.light-mode) .logoTextDark {
-    display: none;
-}
-
-:global(.light-mode) .logoTextLight {
-    display: inline-block;
-}
-
-/* Footer overrides — dark mode: force dark variant (white text on dark bg) */
-:global(footer) .logoTextDark {
     display: inline-block !important;
-}
-
-:global(footer) .logoTextLight {
-    display: none !important;
-}
-
-/* Footer in light mode: follow light theme (black text on light bg) */
-:global(.light-mode footer) .logoTextDark {
-    display: none !important;
-}
-
-:global(.light-mode footer) .logoTextLight {
-    display: inline-block !important;
-}
-
-/* Home page unscrolled header overrides (always dark mode logo) */
-:global(.home-page) :global(.global-header.is-unscrolled) .logoTextDark {
-    display: inline-block !important;
-}
-
-:global(.home-page) :global(.global-header.is-unscrolled) .logoTextLight {
-    display: none !important;
 }

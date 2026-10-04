@@ -101,34 +101,9 @@ export default function RootLayout({
       <head>
         {/* ── Performance & Fonts ───────────────────────── */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <meta name="theme-color" content="#03050A" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <meta name="theme-color" content="#FFFFFF" />
 
-        {/* Anti-FOUC Script for Entry Animation */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                var isHome = window.location.pathname === '/' || window.location.pathname === '';
-                var nav = window.performance && window.performance.getEntriesByType && window.performance.getEntriesByType('navigation');
-                var isReload = (nav && nav[0] && nav[0].type === 'reload') || (window.performance && window.performance.navigation && window.performance.navigation.type === 1);
-                var notShown = sessionStorage.getItem('apfx.globalEntryAnimation.shown') !== '1';
-                if (isHome && (isReload || notShown)) {
-                  document.documentElement.classList.add('hide-header-initially');
-                  document.documentElement.classList.add('entry-animating-initially');
-                  if (window.history && 'scrollRestoration' in window.history) {
-                    window.history.scrollRestoration = 'manual';
-                  }
-                  window.scrollTo(0, 0);
-                }
-              } catch (e) {}
-            `,
-          }}
-        />
 
         {/* ── Structured Data (Organization) ───────────── */}
         <script

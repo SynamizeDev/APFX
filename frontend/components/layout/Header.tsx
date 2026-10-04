@@ -6,11 +6,11 @@ import Logo from '@/components/ui/Logo'
 import { ChevronDown, X, User } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useScroll, useTransform, motion, AnimatePresence, useMotionTemplate } from 'framer-motion'
-import { usePreferences } from '@/context/PreferencesContext'
+
 
 import { PORTAL_LINK_PROPS, PORTAL_SIGNUP_LINK_PROPS } from '@/config/urls'
 import styles from './Header.module.css'
-import ThemeToggle from '@/components/ui/ThemeToggle'
+
 
 const NAV_LINKS = [
   { label: 'Introduction', href: '/about?type=why-apfx', hasMegaMenu: true },
@@ -127,55 +127,24 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
   const [mobileExpandedDropdown, setMobileExpandedDropdown] = useState<string | null>(null)
   const pathname = usePathname()
   const headerRef = useRef<HTMLElement>(null)
+  const mobileMenuRef = useRef<HTMLElement>(null)
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  // ── Scroll-driven animations ─────────────────────────────
-  const { scrollY } = useScroll()
-  const { theme } = usePreferences()
-  const isLight = theme === 'light'
-
-  // Smooth scroll progress (0 to 1)
-  const scrollProgress = useTransform(scrollY, [0, 150], [0, 1])
-
-  // Header Animations
-  const headerBgOpacity = useTransform(scrollProgress, [0.1, 1], [0, isLight ? 0.7 : 0.85])
-
-  const headerBg = useMotionTemplate`rgba(${isLight ? '255, 255, 255' : '3, 5, 10'}, ${headerBgOpacity})`
-
-  const headerBorderOpacity = useTransform(scrollProgress, [0, 1], [0, 0.08])
-  const headerBorder = useMotionTemplate`rgba(${isLight ? '0, 0, 0' : '255, 255, 255'}, ${headerBorderOpacity})`
-
-  const headerBlurAmount = useTransform(scrollProgress, [0, 1], [0, 20])
-  const headerBlur = useMotionTemplate`blur(${headerBlurAmount}px)`
-
-  // Nav Pill Animations
-  const pillBgOpacity = useTransform(
-    scrollProgress,
-    [0, 1],
-    [isLight ? 0.04 : 0.06, isLight ? 0.02 : 0.05]
-  )
-
-  const pillBg = useMotionTemplate`rgba(0, 0, 0, ${pillBgOpacity})`
-
-  const pillBorderOpacity = useTransform(scrollProgress, [0, 1], [isLight ? 0.08 : 0.1, 0])
-  const pillBorder = useMotionTemplate`rgba(${isLight ? '0, 0, 0' : '255, 255, 255'}, ${pillBorderOpacity})`
-
-  const pillShadowOpacity = useTransform(scrollProgress, [0, 1], [isLight ? 0.05 : 0.3, 0])
-  const pillShadow = useMotionTemplate`0 ${isLight ? '2px 10px' : '4px 20px'} rgba(0, 0, 0, ${pillShadowOpacity})`
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40)
+      // Close mobile dropdown on any scroll
+      if (menuOpen) {
+        setMenuOpen(false)
+        setMobileExpandedDropdown(null)
+      }
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  // ── Lock body scroll when mobile menu open ─────────────────
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
   }, [menuOpen])
+
+  // (no body scroll lock — menu is now a compact dropdown)
 
   // ── Close menu on Escape ───────────────────────────────────
   useEffect(() => {
@@ -198,7 +167,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
     setMobileExpandedDropdown(null)
   }, [pathname])
 
-  // ── Click outside to close dropdown ─────────────────────────
+  // ── Click outside to close desktop dropdown ─────────────────
   useEffect(() => {
     if (!activeDropdown) return
     const handleClickOutside = (e: MouseEvent) => {
@@ -209,6 +178,22 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [activeDropdown])
+
+  // ── Click outside to close mobile dropdown ───────────────────
+  useEffect(() => {
+    if (!menuOpen) return
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node
+      const outsideHeader = headerRef.current && !headerRef.current.contains(target)
+      const outsideMenu = mobileMenuRef.current && !mobileMenuRef.current.contains(target)
+      if (outsideHeader && outsideMenu) {
+        setMenuOpen(false)
+        setMobileExpandedDropdown(null)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [menuOpen])
 
   const closeMenu = () => {
     setMenuOpen(false)
@@ -232,16 +217,10 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
 
   return (
     <>
-      <motion.header
+      <header
         ref={headerRef}
         className={`global-header ${scrolled ? 'is-scrolled' : 'is-unscrolled'} ${styles.header} ${scrolled ? styles.scrolled : ''} ${activeDropdown ? styles.menuActive : ''}`}
         role="banner"
-        style={{
-          backgroundColor: headerBg,
-          borderBottomColor: headerBorder,
-          backdropFilter: headerBlur,
-          WebkitBackdropFilter: headerBlur,
-        }}
       >
         <div className={styles.inner}>
           {/* ── Hamburger (mobile/tablet only) ───────────────── */}
@@ -271,14 +250,9 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
 
           {/* ── Desktop Navigation ────────────────────────────── */}
           <nav aria-label="Main navigation" onMouseLeave={handleMouseLeave}>
-            <motion.ul
+            <ul
               className={styles.nav}
               role="list"
-              style={{
-                backgroundColor: pillBg,
-                borderColor: pillBorder,
-                boxShadow: pillShadow,
-              }}
             >
               {NAV_LINKS.map((link) => (
                 <li
@@ -373,7 +347,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
                   </AnimatePresence>
                 </li>
               ))}
-            </motion.ul>
+            </ul>
           </nav>
 
           {/* ── Actions ───────────────────────────────────────── */}
@@ -385,13 +359,13 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
             <Link {...PORTAL_SIGNUP_LINK_PROPS} className={styles.btnSolidWhite}>
               Register
             </Link>
-            <ThemeToggle />
           </div>
         </div>
-      </motion.header>
+      </header>
 
-      {/* ── Mobile Overlay Menu ──────────────────────────────── */}
+      {/* ── Mobile Dropdown Menu ──────────────────────────────── */}
       <nav
+        ref={mobileMenuRef}
         id="mobile-menu"
         className={`${styles.mobileMenu} ${menuOpen ? styles.open : ''}`}
         aria-label="Mobile navigation"

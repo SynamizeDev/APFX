@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" role="img" aria-labelledby="title"><title id="title">Trading Academy</title>
+<defs>
+ <linearGradient id="pearl" x1="0" y1="0" x2=".85" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#ffffff"/><stop offset=".42" stop-color="#f6faf7"/><stop offset="1" stop-color="#abbeb0"/></linearGradient>
+ <linearGradient id="paper" x2=".2" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#dce7df"/></linearGradient>
+ <linearGradient id="green" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#acff94"/><stop offset=".4" stop-color="#02e402"/><stop offset="1" stop-color="#009a23"/></linearGradient>
+ <linearGradient id="edge" x2=".3" y2="1"><stop stop-color="#00b924"/><stop offset="1" stop-color="#005e21"/></linearGradient>
+ <linearGradient id="dark" x2=".8" y2="1"><stop stop-color="#53675e"/><stop offset=".45" stop-color="#233a30"/><stop offset="1" stop-color="#10261b"/></linearGradient>
+ <radialGradient id="glass" cx=".32" cy=".25" r=".8"><stop stop-color="#6c9c7b"/><stop offset=".4" stop-color="#253e30"/><stop offset="1" stop-color="#071b10"/></radialGradient>
+ <radialGradient id="shadow"><stop stop-color="#1d532d" stop-opacity=".18"/><stop offset="1" stop-color="#1d532d" stop-opacity="0"/></radialGradient>
+</defs>
+<style>
+.float{animation:float 5s ease-in-out infinite;transform-origin:160px 160px}
+.signal{animation:signal 3s ease-out infinite;transform-origin:239px 87px}
+.signal2{animation-delay:.45s}
+.chart{stroke-dasharray:150;stroke-dashoffset:0;animation:draw 5s ease-in-out infinite}
+.tassel{animation:swing 5s ease-in-out infinite;transform-origin:226px 119px}
+.dot{animation:pulse 2.8s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(3px)}50%{transform:translateY(-5px)}}
+@keyframes draw{0%,15%{stroke-dashoffset:150}60%,90%{stroke-dashoffset:0}100%{stroke-dashoffset:150}}
+@keyframes swing{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(4deg)}}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes signal{0%{opacity:0;transform:scale(.94)}35%{opacity:.8}100%{opacity:0;transform:scale(1.07)}}
+@media(prefers-reduced-motion:reduce){.float,.signal,.chart,.tassel,.dot{animation:none}}
+</style>
+<ellipse cx="160" cy="263" rx="112" ry="19" fill="url(#shadow)"/>
+<g class="float">
+<!-- Sculpted cover and stacked page block -->
+<path d="M45 119Q96 97 155 130Q205 97 272 119L270 228Q211 206 157 241Q103 212 47 230Z" fill="url(#edge)"/>
+<path d="M45 111Q102 95 156 123Q208 92 273 111L270 218Q211 201 156 233Q101 205 45 223Z" fill="url(#green)" stroke="#089d2a" stroke-width="1.5"/>
+<path d="M54 103Q107 91 156 121L156 220Q111 195 54 213Z" fill="url(#pearl)"/>
+<path d="M156 121Q207 88 263 102L263 208Q207 196 156 220Z" fill="url(#pearl)"/>
+<path d="M57 96Q110 88 155 116L155 211Q110 189 57 202Z" fill="url(#paper)" stroke="#fff" stroke-width="2"/>
+<path d="M158 116Q205 85 259 95L259 198Q203 189 158 211Z" fill="url(#paper)" stroke="#fff" stroke-width="2"/>
+<path d="M156 120V216" stroke="#95aa9a" stroke-width="2"/>
+<path d="M70 174Q107 169 139 185M70 184Q107 178 130 191M179 171Q213 156 245 161M179 184Q214 170 244 175" fill="none" stroke="#a5b8aa" stroke-width="4" stroke-linecap="round"/>
+<path d="M183 102V137L197 126L208 129V91" fill="url(#green)"/>
+<path d="M77 150L77 136M93 158V126M110 156V132M128 159V122" stroke="#254837" stroke-width="8" stroke-linecap="round"/>
+<path class="chart" d="M72 157L89 145L104 151L122 130L139 124" stroke="#02df13" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M55 210Q108 196 146 217M166 219Q211 197 261 207" stroke="#fff" stroke-opacity=".8" fill="none"/>
+</g></svg>

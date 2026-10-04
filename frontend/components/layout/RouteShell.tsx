@@ -3,7 +3,6 @@
 import Footer from '@/components/layout/Footer'
 import BottomBar from '@/components/layout/BottomBar'
 import LazyChatWidget from '@/components/ui/LazyChatWidget'
-import BackToTop from '@/components/ui/BackToTop'
 import CookieConsent from '@/components/ui/CookieConsent'
 import PageTransition from '@/components/animations/PageTransition'
 
@@ -28,7 +27,6 @@ export function RouteMain({ children }: { children: React.ReactNode }) {
 export function RouteFloatingActions() {
     return (
         <>
-            <BackToTop />
             <LazyChatWidget />
         </>
     )

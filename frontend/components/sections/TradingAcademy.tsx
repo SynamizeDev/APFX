@@ -3,14 +3,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { BookOpen, GraduationCap, Video, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useInViewport } from '@/hooks/useInViewport'
 import styles from './TradingAcademy.module.css'
 
 const ACADEMY_ITEMS = [
     {
         id: 'academy',
-        icon: <BookOpen size={28} />,
+        icon: '/trading-academy.svg',
         title: 'Trading\nAcademy',
         desc: 'Learn with APFX Academy for clear, structured lessons. Easy steps to build trading skills. No experience needed.',
         link: 'Explore Courses',
@@ -18,7 +18,7 @@ const ACADEMY_ITEMS = [
     },
     {
         id: 'education',
-        icon: <GraduationCap size={28} />,
+        icon: '/education-section.svg',
         title: 'Education\nSection',
         desc: 'Read articles and watch tutorials that cover every trading aspect. All topics, all levels, all in one click.',
         link: 'Browse All Topics',
@@ -26,7 +26,7 @@ const ACADEMY_ITEMS = [
     },
     {
         id: 'webinars',
-        icon: <Video size={28} />,
+        icon: '/live-webinars.svg',
         title: 'Live\nWebinars',
         desc: 'Attend our weekly live webinars to analyse trends. Improve your trading skills, in simple and understandable terms.',
         link: 'Reserve Your Spot',
@@ -154,7 +154,14 @@ export default function TradingAcademy() {
                             <div className={styles.iconContainer}>
                                 <div className={styles.iconBlob} />
                                 <div className={styles.iconWrapper}>
-                                    {item.icon}
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src={item.icon}
+                                        alt={item.title}
+                                        width={110}
+                                        height={110}
+                                        className={styles.iconImage}
+                                    />
                                 </div>
                             </div>
 

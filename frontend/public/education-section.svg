@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" role="img" aria-labelledby="title"><title id="title">Education Section</title>
+<defs>
+ <linearGradient id="pearl" x1="0" y1="0" x2=".85" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#ffffff"/><stop offset=".42" stop-color="#f6faf7"/><stop offset="1" stop-color="#abbeb0"/></linearGradient>
+ <linearGradient id="paper" x2=".2" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#dce7df"/></linearGradient>
+ <linearGradient id="green" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#acff94"/><stop offset=".4" stop-color="#02e402"/><stop offset="1" stop-color="#009a23"/></linearGradient>
+ <linearGradient id="edge" x2=".3" y2="1"><stop stop-color="#00b924"/><stop offset="1" stop-color="#005e21"/></linearGradient>
+ <linearGradient id="dark" x2=".8" y2="1"><stop stop-color="#53675e"/><stop offset=".45" stop-color="#233a30"/><stop offset="1" stop-color="#10261b"/></linearGradient>
+ <radialGradient id="glass" cx=".32" cy=".25" r=".8"><stop stop-color="#6c9c7b"/><stop offset=".4" stop-color="#253e30"/><stop offset="1" stop-color="#071b10"/></radialGradient>
+ <radialGradient id="shadow"><stop stop-color="#1d532d" stop-opacity=".18"/><stop offset="1" stop-color="#1d532d" stop-opacity="0"/></radialGradient>
+</defs>
+<style>
+.float{animation:float 5s ease-in-out infinite;transform-origin:160px 160px}
+.signal{animation:signal 3s ease-out infinite;transform-origin:239px 87px}
+.signal2{animation-delay:.45s}
+.chart{stroke-dasharray:150;stroke-dashoffset:0;animation:draw 5s ease-in-out infinite}
+.tassel{animation:swing 5s ease-in-out infinite;transform-origin:226px 119px}
+.dot{animation:pulse 2.8s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(3px)}50%{transform:translateY(-5px)}}
+@keyframes draw{0%,15%{stroke-dashoffset:150}60%,90%{stroke-dashoffset:0}100%{stroke-dashoffset:150}}
+@keyframes swing{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(4deg)}}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes signal{0%{opacity:0;transform:scale(.94)}35%{opacity:.8}100%{opacity:0;transform:scale(1.07)}}
+@media(prefers-reduced-motion:reduce){.float,.signal,.chart,.tassel,.dot{animation:none}}
+</style>
+<ellipse cx="160" cy="263" rx="112" ry="19" fill="url(#shadow)"/>
+<g class="float">
+<!-- Curved graphite crown beneath a beveled mortarboard -->
+<path d="M97 145L97 194Q152 239 217 194L217 144Z" fill="url(#dark)" stroke="#234632"/>
+<path d="M99 183Q155 218 216 182L217 195Q154 238 97 194Z" fill="url(#green)"/>
+<path d="M110 158V185Q135 202 149 201V173Z" fill="#fff" opacity=".08"/>
+<path d="M40 114L155 67L280 112L280 126L160 178L40 130Z" fill="url(#edge)"/>
+<path d="M40 113L154 66Q157 65 160 66L280 112L160 163Z" fill="url(#green)" stroke="#90ff88" stroke-width="1.4" stroke-linejoin="round"/>
+<path d="M40 114L160 163L160 177L40 129Z" fill="#007d23"/>
+<path d="M58 113L157 74L260 113L160 155Z" stroke="#deffd5" stroke-opacity=".45" fill="none"/>
+<path d="M154 111L228 135" fill="none" stroke="#006c23" stroke-width="6" stroke-linecap="round"/>
+<path d="M154 108L228 132" fill="none" stroke="#f5fff2" stroke-width="4" stroke-linecap="round"/>
+<ellipse cx="156" cy="110" rx="10" ry="5" fill="#007623"/><ellipse cx="156" cy="107" rx="10" ry="5" fill="url(#pearl)"/>
+<g class="tassel"><path d="M227 131Q237 153 231 191" fill="none" stroke="#d6e9db" stroke-width="4"/><ellipse cx="231" cy="192" rx="6" ry="7" fill="url(#pearl)"/><path d="M225 198L220 222Q229 228 239 222L237 198Z" fill="url(#green)"/><path d="M230 201L229 222M234 202L235 221" stroke="#c4ffb3" stroke-width="1.5"/></g>
+</g></svg>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, Fragment } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './StatsBar.module.css'
 
 interface Stat {
@@ -57,15 +57,18 @@ function Counter({ stat }: { stat: Stat }) {
 
 export default function StatsBar() {
     return (
-        <section className={`${styles.statsBar} apfx-section apfx-section--no-divider`} aria-label="Platform statistics">
-            <div className={styles.grid}>
-                {STATS.map((stat) => (
-                    <div key={stat.label} className={styles.item}>
-                        <Counter stat={stat} />
-                        <span className={styles.label}>{stat.label}</span>
-                    </div>
-                ))}
+        <div className={styles.statsBarWrapper} aria-label="Platform statistics">
+            <div className={styles.card}>
+                <div className={styles.grid}>
+                    {STATS.map((stat) => (
+                        <div key={stat.label} className={styles.item}>
+                            <Counter stat={stat} />
+                            <span className={styles.label}>{stat.label}</span>
+                        </div>
+                    ))}
+                </div>
             </div>
-        </section>
+        </div>
     )
 }
+

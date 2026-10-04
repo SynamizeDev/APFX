@@ -183,13 +183,26 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-    margin-top: -9%;
-    margin-bottom: -4%;
+    display: block;
+    /* Fade bottom to white */
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, rgba(0,0,0,0.4) 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 55%, rgba(0,0,0,0.4) 80%, transparent 100%);
     transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .imageContainer:hover .platformImage {
-    transform: scale(1.04) translateY(-2%);
+    transform: scale(1.03) translateY(-1%);
+}
+
+.imageFade {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 160px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.75) 50%, #ffffff 100%);
+    pointer-events: none;
+    z-index: 2;
 }
 
 @media (max-width: 1024px) {
@@ -234,6 +247,6 @@
     }
 
     .visual {
-        display: none;
+        max-width: 420px;
     }
 }

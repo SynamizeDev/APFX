@@ -1,8 +1,9 @@
 /* ── Testimonials — Infinite marquee ─────────────────────────── */
 .section {
     padding-block: var(--section-py);
-    background-color: var(--color-section-band);
+    background: linear-gradient(160deg, #1b1d21 0%, #1e2024 50%, #1b1d22 100%);
     overflow: hidden;
+    position: relative;
 }
 
 .inner {
@@ -62,7 +63,7 @@
     font-family: var(--font-display);
     font-size: var(--text-4xl);
     font-weight: var(--fw-extrabold);
-    color: var(--color-text-1);
+    color: #ffffff;
     letter-spacing: var(--ls-tight);
 }
 
@@ -86,12 +87,12 @@
 
 .marqueeWrap::before {
     left: 0;
-    background: linear-gradient(to right, var(--color-section-band), transparent);
+    background: linear-gradient(to right, #1b1d21, transparent);
 }
 
 .marqueeWrap::after {
     right: 0;
-    background: linear-gradient(to left, var(--color-section-band), transparent);
+    background: linear-gradient(to left, #1b1d22, transparent);
 }
 
 .track {
@@ -120,15 +121,46 @@
 .card {
     flex-shrink: 0;
     width: 320px;
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px) saturate(140%);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-xl);
     padding: 1.75rem;
-    transition: border-color var(--duration-normal) var(--ease-out);
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition:
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.3s ease;
+}
+
+/* Subtle green edge shine along the top */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 10%, rgba(0, 220, 0, 0.5) 50%, transparent 90%);
+    opacity: 0.6;
+    transition: opacity 0.35s ease;
 }
 
 .card:hover {
-    border-color: var(--color-border-2);
+    border-color: rgba(0, 220, 0, 0.2);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.3),
+        0 0 20px -4px rgba(0, 220, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.card:hover::before {
+    opacity: 1;
 }
 
 .stars {
@@ -141,7 +173,7 @@
 
 .quote {
     font-size: var(--text-sm);
-    color: var(--color-text-2);
+    color: rgba(255, 255, 255, 0.7);
     line-height: var(--lh-relaxed);
     margin-bottom: 1.5rem;
     font-style: italic;
@@ -157,8 +189,8 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: var(--color-section-band);
-    border: 1px solid var(--color-border);
+    background: rgba(0, 220, 0, 0.1);
+    border: 1px solid rgba(0, 220, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -172,12 +204,12 @@
 .name {
     font-size: var(--text-sm);
     font-weight: var(--fw-semibold);
-    color: var(--color-text-1);
+    color: #ffffff;
 }
 
 .role {
     font-size: var(--text-xs);
-    color: var(--color-text-3);
+    color: rgba(255, 255, 255, 0.45);
 }
 
 .gap {
@@ -190,7 +222,7 @@
     gap: 0.5rem;
     padding: 0.6rem 1.25rem;
     background: transparent;
-    color: var(--color-text-1);
+    color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: var(--radius-full);
     font-size: var(--text-xs);

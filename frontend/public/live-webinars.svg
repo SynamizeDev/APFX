@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" role="img" aria-labelledby="title"><title id="title">Live Webinars</title>
+<defs>
+ <linearGradient id="pearl" x1="0" y1="0" x2=".85" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#ffffff"/><stop offset=".42" stop-color="#f6faf7"/><stop offset="1" stop-color="#abbeb0"/></linearGradient>
+ <linearGradient id="paper" x2=".2" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#dce7df"/></linearGradient>
+ <linearGradient id="green" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#acff94"/><stop offset=".4" stop-color="#02e402"/><stop offset="1" stop-color="#009a23"/></linearGradient>
+ <linearGradient id="edge" x2=".3" y2="1"><stop stop-color="#00b924"/><stop offset="1" stop-color="#005e21"/></linearGradient>
+ <linearGradient id="dark" x2=".8" y2="1"><stop stop-color="#53675e"/><stop offset=".45" stop-color="#233a30"/><stop offset="1" stop-color="#10261b"/></linearGradient>
+ <radialGradient id="glass" cx=".32" cy=".25" r=".8"><stop stop-color="#6c9c7b"/><stop offset=".4" stop-color="#253e30"/><stop offset="1" stop-color="#071b10"/></radialGradient>
+ <radialGradient id="shadow"><stop stop-color="#1d532d" stop-opacity=".18"/><stop offset="1" stop-color="#1d532d" stop-opacity="0"/></radialGradient>
+</defs>
+<style>
+.float{animation:float 5s ease-in-out infinite;transform-origin:160px 160px}
+.signal{animation:signal 3s ease-out infinite;transform-origin:239px 87px}
+.signal2{animation-delay:.45s}
+.chart{stroke-dasharray:150;stroke-dashoffset:0;animation:draw 5s ease-in-out infinite}
+.tassel{animation:swing 5s ease-in-out infinite;transform-origin:226px 119px}
+.dot{animation:pulse 2.8s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(3px)}50%{transform:translateY(-5px)}}
+@keyframes draw{0%,15%{stroke-dashoffset:150}60%,90%{stroke-dashoffset:0}100%{stroke-dashoffset:150}}
+@keyframes swing{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(4deg)}}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes signal{0%{opacity:0;transform:scale(.94)}35%{opacity:.8}100%{opacity:0;transform:scale(1.07)}}
+@media(prefers-reduced-motion:reduce){.float,.signal,.chart,.tassel,.dot{animation:none}}
+</style>
+<ellipse cx="160" cy="263" rx="112" ry="19" fill="url(#shadow)"/>
+<g class="float">
+<!-- Pearl housing, deep lens and broadcast detail -->
+<path d="M221 137L267 115Q278 111 278 123V211Q278 223 267 217L221 192Z" fill="url(#edge)"/>
+<path d="M218 133L259 112Q267 109 267 119V205Q267 214 259 209L218 187Z" fill="url(#green)" stroke="#91fda0" stroke-width="1.3"/>
+<path d="M249 124L259 120V200L249 194Z" fill="#e0ffd7" opacity=".4"/>
+<rect x="55" y="110" width="177" height="125" rx="30" fill="#91a99a"/>
+<rect x="48" y="100" width="177" height="125" rx="29" fill="url(#pearl)" stroke="#dbe9de" stroke-width="1.5"/>
+<rect x="57" y="109" width="159" height="106" rx="23" fill="url(#paper)" stroke="#fff"/>
+<path d="M86 98V88Q86 78 96 78H155Q165 78 165 88V99" fill="none" stroke="#5b7063" stroke-width="9"/>
+<path d="M87 95V87Q87 80 97 80H154Q162 80 162 87V95" fill="none" stroke="#d1dfd4" stroke-width="4"/>
+<ellipse cx="140" cy="164" rx="43" ry="44" fill="#9db3a3"/>
+<ellipse cx="136" cy="160" rx="43" ry="44" fill="url(#dark)" stroke="#eaf7eb" stroke-width="2"/>
+<circle cx="136" cy="160" r="32" fill="url(#green)"/>
+<circle cx="136" cy="160" r="26" fill="url(#glass)" stroke="#a4ff99" stroke-width="1.5"/>
+<path d="M130 148Q129 147 128 150V171Q129 174 132 171L148 162Q151 160 148 158Z" fill="#caffbf"/>
+<path d="M115 153Q118 140 131 138" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"/>
+<circle class="dot" cx="194" cy="126" r="5" fill="#02e402"/>
+<path d="M72 189H86M72 195H86" stroke="#8fa99a" stroke-width="3" stroke-linecap="round"/>
+<path class="signal" d="M221 74Q237 75 243 91" fill="none" stroke="#00cf20" stroke-width="5" stroke-linecap="round"/>
+<path class="signal signal2" d="M224 59Q250 61 260 86" fill="none" stroke="#02e402" stroke-width="4" stroke-linecap="round"/>
+</g></svg>

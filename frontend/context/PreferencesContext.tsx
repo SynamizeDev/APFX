@@ -29,12 +29,7 @@ const noopSubscribe = (callback: () => void) => {
 }
 
 function getStoredTheme(): Theme {
-    try {
-        const val = localStorage.getItem('apfx-theme')
-        return val === 'dark' || val === 'light' ? val : 'light'
-    } catch {
-        return 'light'
-    }
+    return 'light' // locked to light/white mode
 }
 
 function getStoredAnimations(): boolean {
@@ -74,11 +69,8 @@ export const PreferencesProvider: React.FC<{ children: React.ReactNode }> = ({ c
     useEffect(() => {
         const root = document.documentElement
 
-        if (theme === 'light') {
-            root.classList.add('light-mode')
-        } else {
-            root.classList.remove('light-mode')
-        }
+        // Locked to light mode — always add light-mode class
+        root.classList.add('light-mode')
 
         if (kpiMode) {
             root.classList.add('kpi-mode')
