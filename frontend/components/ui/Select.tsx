@@ -137,7 +137,7 @@ export default function Select({
                 </svg>
             </button>
             {open && (
-                <div className={styles.dropdown} data-lenis-prevent="true">
+                <div className={styles.dropdown}>
                     {showSearch && (
                         <div className={styles.searchWrapper}>
                             <svg className={styles.searchIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -172,7 +172,6 @@ export default function Select({
                         role="listbox"
                         className={styles.optionsList}
                         aria-activedescendant={value}
-                        data-lenis-prevent="true"
                     >
                         {filteredOptions.length === 0 ? (
                             <li className={styles.noOptions}>No instruments found</li>

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { SmoothScrollProvider } from '@/components/animations/SmoothScrollProvider'
 import Header from '@/components/layout/Header'
 import { buildOrganizationJsonLd } from '@/lib/seo'
 import '@/styles/globals.css'
@@ -143,23 +142,21 @@ export default function RootLayout({
       <body>
         <PreferencesProvider>
           <HomeEntryProvider>
-            <SmoothScrollProvider>
-              <GlobalEntry>
-                {/*
+            <GlobalEntry>
+              {/*
               ───────────────────────────────────────────────
               Global Layout Notes
               Header: ~72px fixed at top
               BottomBar / Ticker: ~38px fixed at bottom
               Padding is applied to main to preserve layout
-              and scroll integrity with smooth scrolling.
+              and scroll integrity.
               ───────────────────────────────────────────────
             */}
-                <Header />
-                <RouteMain>{children}</RouteMain>
-                <RouteFooter />
-                <RouteFloatingActions />
-              </GlobalEntry>
-            </SmoothScrollProvider>
+              <Header />
+              <RouteMain>{children}</RouteMain>
+              <RouteFooter />
+              <RouteFloatingActions />
+            </GlobalEntry>
           </HomeEntryProvider>
         </PreferencesProvider>
         <Analytics />
