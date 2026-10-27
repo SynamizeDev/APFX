@@ -1105,17 +1105,20 @@
 }
 
 @media (max-width: 1024px) {
-  .widgetCard { height: 520px; }
+  .widgetCard { height: 540px; }
 }
 
 @media (max-width: 768px) {
   .widgetCard {
-    height: 500px;
-    border-radius: 12px;
+    height: clamp(540px, 68vh, 620px);
+    border-radius: 14px;
   }
 }
 
 @media (max-width: 480px) {
-  .widgetCard { height: 480px; }
+  .widgetCard {
+    height: clamp(560px, 72vh, 640px);
+    border-radius: 12px;
+  }
 }
 

@@ -9,6 +9,7 @@ import { motion, type Variants } from 'framer-motion'
    ========================================================= */
 
 import HeroSection from '@/components/sections/HeroSection'
+import StatsBar from '@/components/sections/StatsBar'
 import MarketplaceTeaser from '@/components/sections/MarketplaceTeaser'
 import WhyAPFX from '@/components/sections/WhyAPFX'
 import TradingPlatforms from '@/components/sections/TradingPlatforms'
@@ -68,6 +69,7 @@ export default function HomeClient() {
     <>
       <motion.div initial="hidden" animate="visible" variants={pageFade}>
         <HeroSection />
+        <StatsBar />
 
         {/* 
         <AnimatedSection>

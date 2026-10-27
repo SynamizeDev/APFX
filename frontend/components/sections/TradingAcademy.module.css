@@ -73,18 +73,116 @@
 .header {
     text-align: center;
     margin-bottom: clamp(3.5rem, 8vw, 5.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
 }
 
+/* ── Badge Pill ── */
+.academyBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 1.2rem 0.4rem 0.85rem;
+    border-radius: 9999px;
+    background: rgba(54, 249, 54, 0.06);
+    border: 1px solid rgba(54, 249, 54, 0.22);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 2px 12px rgba(54, 249, 54, 0.08);
+}
+
+.academyBadgeDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 8px var(--color-accent), 0 0 3px var(--color-accent);
+    animation: dotPulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes dotPulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--color-accent); }
+    50% { opacity: 0.5; box-shadow: 0 0 16px var(--color-accent), 0 0 4px var(--color-accent); }
+}
+
+/* ── Main Title ── */
 .title {
     font-family: var(--font-display);
     font-size: var(--text-4xl);
     font-weight: var(--fw-extrabold);
     color: var(--color-text-1);
     letter-spacing: var(--ls-tight);
+    line-height: 1.1;
+    margin-bottom: 0;
+}
+
+.titleGradient {
+    background: linear-gradient(135deg, #36f936 0%, #00dc00 40%, #7dff7d 70%, #36f936 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 4s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+    100% { background-position: 0% center; }
 }
 
 .titleAccent {
     color: var(--color-accent);
+}
+
+/* ── Pulse Divider Line ── */
+.pulseLine {
+    width: 80px;
+    height: 3px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    margin: 1.25rem auto 1rem;
+    transform-origin: center;
+    animation: lineGlow 3s ease-in-out infinite;
+}
+
+@keyframes lineGlow {
+    0%, 100% { opacity: 0.7; box-shadow: 0 0 8px rgba(54, 249, 54, 0.3); }
+    50% { opacity: 1; box-shadow: 0 0 18px rgba(54, 249, 54, 0.6); }
+}
+
+/* ── Subtitle ── */
+.subtitle {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+    font-weight: 500;
+    color: var(--color-text-2, #94a3b8);
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+.subtitleArrow {
+    display: inline-flex;
+    font-size: 1.1rem;
+    color: var(--color-accent);
+    animation: bounceDown 1.8s ease-in-out infinite;
+}
+
+@keyframes bounceDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
 }
 
 .grid {

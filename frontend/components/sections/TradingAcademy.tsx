@@ -127,9 +127,36 @@ export default function TradingAcademy() {
 
             <div className={styles.inner}>
                 <header className={styles.header}>
-                    <h2 id="academy-heading" className={styles.title}>
+                    <motion.h2
+                        id="academy-heading"
+                        className={styles.title}
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        Welcome to <span className={styles.titleGradient}>APFX Academy</span>
+                    </motion.h2>
+
+                    <motion.div
+                        className={styles.pulseLine}
+                        initial={{ scaleX: 0, opacity: 0 }}
+                        whileInView={{ scaleX: 1, opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                        aria-hidden="true"
+                    />
+
+                    <motion.p
+                        className={styles.subtitle}
+                        initial={{ opacity: 0, y: 12 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    >
                         Start <span className={styles.titleAccent}>Learning Here</span>
-                    </h2>
+                        <span className={styles.subtitleArrow} aria-hidden="true">↓</span>
+                    </motion.p>
                 </header>
 
                 <div className={styles.grid} ref={sliderRef}>

@@ -32,7 +32,31 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([])
   const [isTyping, setIsTyping] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [showGreeting, setShowGreeting] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
+
+  // Show greeting popup on first visit after a short delay
+  useEffect(() => {
+    const alreadyGreeted = sessionStorage.getItem('apfx_greeted')
+    if (alreadyGreeted) return
+    const timer = setTimeout(() => {
+      setShowGreeting(true)
+      sessionStorage.setItem('apfx_greeted', '1')
+    }, 2000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Auto-dismiss the greeting popup after 8 seconds
+  useEffect(() => {
+    if (!showGreeting) return
+    const timer = setTimeout(() => setShowGreeting(false), 8000)
+    return () => clearTimeout(timer)
+  }, [showGreeting])
+
+  // Hide greeting when chat opens
+  useEffect(() => {
+    if (isOpen) setShowGreeting(false)
+  }, [isOpen])
 
   // Initialize chat when opened for the first time
   useEffect(() => {
@@ -286,6 +310,36 @@ export default function ChatWidget() {
                 </motion.div>
               )}
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Greeting Popup */}
+      <AnimatePresence>
+        {showGreeting && !isOpen && (
+          <motion.div
+            className={styles.greetingPopup}
+            initial={{ opacity: 0, x: 12, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 12, scale: 0.9 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            onClick={() => {
+              setShowGreeting(false)
+              setIsOpen(true)
+            }}
+          >
+            <button
+              className={styles.greetingDismiss}
+              onClick={(e) => {
+                e.stopPropagation()
+                setShowGreeting(false)
+              }}
+              aria-label="Dismiss greeting"
+            >
+              <X size={14} />
+            </button>
+            <div className={styles.greetingTitle}>Hey there! 👋</div>
+            <div className={styles.greetingBody}>How can we help you?</div>
           </motion.div>
         )}
       </AnimatePresence>

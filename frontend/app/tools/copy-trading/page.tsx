@@ -2,9 +2,9 @@
 
 import { useState, useMemo, useEffect, useRef, useLayoutEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  User, Wallet, Copy, BarChart3, UserCheck, Zap, Layers, TrendingUp, 
-  ShieldCheck, Clock, Target, Info, AlertTriangle, Users, 
+import {
+  User, Wallet, Copy, BarChart3, UserCheck, Zap, Layers, TrendingUp,
+  ShieldCheck, Clock, Target, Info, AlertTriangle, Users,
   Briefcase, TrendingDown, CheckCircle2, ChevronRight, Sliders, Plus
 } from 'lucide-react'
 import Link from 'next/link'
@@ -543,23 +543,23 @@ export default function CopyTradingPage() {
   return (
     <>
       <section className={styles.hero}>
-        <motion.h1 
+        <motion.h1
           className={styles.heroTitle}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
           Copy Trade
         </motion.h1>
-        <motion.p 
+        <motion.p
           className={styles.heroDesc}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
         >
-          Build your portfolio by following proven strategy providers. 
+          Build your portfolio by following proven strategy providers.
           Every trade is synchronized automatically, allowing you to participate in the markets with confidence.
         </motion.p>
-        
+
       </section>
 
       {/* ── Official cTrader Copy Trading Widget ────────────────── */}
@@ -582,7 +582,7 @@ export default function CopyTradingPage() {
                 </div>
               )}
               <iframe
-                src="https://app.apfxglobal.com/multiple-strategies/?lang=en&theme=dark&u=falmoguera&strategyIdList=106768,95145"
+                src="https://app.apfxglobal.com/multiple-strategies/?lang=en&theme=dark&u=falmoguera&strategyIdList=95145,113289,108026,113913"
                 className={styles.widgetIframe}
                 onLoad={() => setIframeLoaded(true)}
                 allow="clipboard-read; clipboard-write"
@@ -599,8 +599,8 @@ export default function CopyTradingPage() {
           <h2 id="how-title" className={styles.sectionTitle}>Get Started in 4 Steps</h2>
           <div className={styles.stepsWrap}>
             {STEPS.map((s, idx) => (
-              <motion.div 
-                key={s.step} 
+              <motion.div
+                key={s.step}
                 className={styles.stepCard}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -614,7 +614,7 @@ export default function CopyTradingPage() {
               </motion.div>
             ))}
           </div>
-          
+
           <div style={{ textAlign: 'center', marginTop: '3rem' }}>
             <Link href="https://portal.apfxglobal.com/signup" target="_blank" rel="noopener noreferrer" className={styles.heroCtaSecondary}>
               GO TRADE
@@ -629,7 +629,7 @@ export default function CopyTradingPage() {
           <h3 style={{ fontSize: '1.2rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontWeight: 400 }}>Invest for Your Success</h3>
           <h2 id="benefits-title" className={styles.sectionTitle} style={{ textAlign: 'left', margin: '0 0 1.5rem 0' }}>A Flexible Investment Platform</h2>
           <div style={{ width: '40px', height: '3px', background: 'var(--color-accent)', marginBottom: '2rem' }} />
-          
+
           <div style={{ maxWidth: '800px' }}>
             <p className={styles.sectionSubtitle} style={{ textAlign: 'left', marginBottom: '1.5rem' }}>
               cTrader Copy is a copy trading solution tailored for commitment-free investing.
@@ -664,30 +664,30 @@ export default function CopyTradingPage() {
           <h2 className={styles.sectionTitle}>Find Your Trading Style</h2>
           <p className={styles.sectionSubtitle}>Tailored solutions for every stage of the trading journey.</p>
           <div className={styles.personaGrid}>
-             <div className={styles.personaCard}>
-                <div className={styles.personaIcon}><Users size={24} /></div>
-                <h3 className={styles.personaTitle}>Beginners</h3>
-                <p className={styles.personaDesc}>Accelerate your learning curve by observing and replicating the trade logic of experienced market professionals in real-time.</p>
-             </div>
-             <div className={styles.personaCard}>
-                <div className={styles.personaIcon}><Briefcase size={24} /></div>
-                <h3 className={styles.personaTitle}>Busy Professionals</h3>
-                <p className={styles.personaDesc}>Access global markets without the time commitment of manual analysis. Let proven systems manage your capital while you focus on your career.</p>
-             </div>
-             <div className={styles.personaCard}>
-                <div className={styles.personaIcon}><Layers size={24} /></div>
-                <h3 className={styles.personaTitle}>Advanced Investors</h3>
-                <p className={styles.personaDesc}>Diversify your portfolio across multiple asset classes and non-correlated strategies to smooth your returns and reduce systemic risk.</p>
-             </div>
+            <div className={styles.personaCard}>
+              <div className={styles.personaIcon}><Users size={24} /></div>
+              <h3 className={styles.personaTitle}>Beginners</h3>
+              <p className={styles.personaDesc}>Accelerate your learning curve by observing and replicating the trade logic of experienced market professionals in real-time.</p>
+            </div>
+            <div className={styles.personaCard}>
+              <div className={styles.personaIcon}><Briefcase size={24} /></div>
+              <h3 className={styles.personaTitle}>Busy Professionals</h3>
+              <p className={styles.personaDesc}>Access global markets without the time commitment of manual analysis. Let proven systems manage your capital while you focus on your career.</p>
+            </div>
+            <div className={styles.personaCard}>
+              <div className={styles.personaIcon}><Layers size={24} /></div>
+              <h3 className={styles.personaTitle}>Advanced Investors</h3>
+              <p className={styles.personaDesc}>Diversify your portfolio across multiple asset classes and non-correlated strategies to smooth your returns and reduce systemic risk.</p>
+            </div>
           </div>
         </section>
 
         {/* Risk Disclosure */}
         <section className={styles.riskDisclosureWrapper}>
-           <p className={styles.riskDisclosureText}>
-              <AlertTriangle size={14} style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-              <strong>Institutional Risk Disclosure:</strong> Copy trading involve significant risk to your capital. Performance data presented is historical and not a guarantee of future returns. You should only allocate capital that you can afford to lose. We recommend diversifying across multiple strategy providers to mitigate individual manager risk.
-           </p>
+          <p className={styles.riskDisclosureText}>
+            <AlertTriangle size={14} style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+            <strong>Institutional Risk Disclosure:</strong> Copy trading involve significant risk to your capital. Performance data presented is historical and not a guarantee of future returns. You should only allocate capital that you can afford to lose. We recommend diversifying across multiple strategy providers to mitigate individual manager risk.
+          </p>
         </section>
       </div>
 

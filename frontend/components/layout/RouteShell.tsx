@@ -19,7 +19,6 @@ export function RouteMain({ children }: { children: React.ReactNode }) {
             }}
         >
             <PageTransition>{children}</PageTransition>
-            <CookieConsent />
         </main>
     )
 }
@@ -28,6 +27,7 @@ export function RouteFloatingActions() {
     return (
         <>
             <LazyChatWidget />
+            <CookieConsent />
         </>
     )
 }

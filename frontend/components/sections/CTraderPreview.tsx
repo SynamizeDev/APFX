@@ -21,7 +21,12 @@ export default function CTraderPreview() {
                         Access real-time charts, manage positions, and execute trades directly
                         from your browser — no download required.
                     </p>
-                    <Link href="/ctrader" className={styles.ctaLink}>
+                    <Link
+                        href="https://app.apfxglobal.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.ctaLink}
+                    >
                         Open Full Terminal <ArrowRight size={16} />
                     </Link>
                 </header>
