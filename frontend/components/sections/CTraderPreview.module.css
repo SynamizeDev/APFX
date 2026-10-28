@@ -1,119 +1,56 @@
 /* ============================================================
-   CTrader Preview Section — homepage teaser above WhyAPFX
+   APFX Live Trading Terminal Section — Homepage Redesign
+   Desktop: Left 75% cTrader iframe, Right 25% iPhone + content
+   Tablet: 65% / 35% split
+   Mobile: Stacked with content above terminal
+   Background: White to subtle light-green gradient
    ============================================================ */
 
 .section {
-    padding: 5rem 1.5rem 4rem;
-    background: var(--color-bg, #0a0b0d);
+    padding: clamp(3rem, 4.5vw, 4.5rem) clamp(1.25rem, 3vw, 2.5rem);
+    background: linear-gradient(170deg, #ffffff 40%, #f0fdf0 100%);
     position: relative;
     overflow: hidden;
-}
-
-/* subtle radial glow behind the frame */
-.section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 900px;
-    height: 500px;
-    background: radial-gradient(ellipse at 50% 0%, rgba(54, 249, 54, 0.06) 0%, transparent 70%);
-    pointer-events: none;
 }
 
 .inner {
-    max-width: 1200px;
+    max-width: 1720px;
+    width: 100%;
     margin: 0 auto;
-    position: relative;
-    z-index: 1;
-}
-
-/* ── Header ──────────────────────────────────────────────── */
-.header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-}
-
-.eyebrow {
-    display: inline-flex;
+    display: grid;
+    grid-template-columns: minmax(0, 75fr) minmax(0, 25fr);
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #36F936;
-    margin-bottom: 1rem;
+    gap: clamp(2rem, 3vw, 3.5rem);
 }
 
-.eyebrow::before,
-.eyebrow::after {
-    content: '';
-    display: block;
-    width: 28px;
-    height: 1px;
-    background: #36F936;
-    opacity: 0.5;
-}
-
-.title {
-    font-size: clamp(1.75rem, 3vw, 2.35rem);
-    font-weight: 800;
-    color: var(--color-text-1);
-    line-height: 1.2;
-    margin: 0 0 0.875rem;
-    letter-spacing: -0.025em;
-}
-
-.titleAccent {
-    color: #00dc00;
-}
-
-.subtitle {
-    font-size: 1.05rem;
-    color: var(--color-text-2);
-    line-height: 1.65;
-    max-width: 520px;
-    margin: 0 auto 1.75rem;
-}
-
-.ctaLink {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.65rem 1.5rem;
-    background: #36F936;
-    color: #000;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.ctaLink:hover {
-    background: #2ce62c;
-    transform: translateY(-2px);
-}
-
-/* ── Terminal Frame ──────────────────────────────────────── */
-.frame {
-    border-radius: 14px;
+/* ── Terminal Container (Left 75%) ─────────────────────────── */
+.terminalContainer {
+    width: 100%;
+    border-radius: 16px;
     overflow: hidden;
-    border: 1px solid rgba(54, 249, 54, 0.15);
+    background: #0d0f14;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.04),
-        0 8px 60px rgba(0, 0, 0, 0.55),
-        0 0 60px rgba(54, 249, 54, 0.04);
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        0 12px 32px -4px rgba(0, 0, 0, 0.08),
+        0 24px 60px -12px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* faux browser chrome */
+.terminalContainer:hover {
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        0 18px 44px -4px rgba(0, 0, 0, 0.12),
+        0 30px 70px -12px rgba(0, 0, 0, 0.08);
+}
+
+/* Faux browser bar */
 .frameBar {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.6rem 1rem;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
     background: #111318;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -131,20 +68,19 @@
 }
 
 .frameLabel {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.45);
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
 
-/* iframe wrapper — fixed aspect ratio so it never collapses */
+/* Iframe wrapper */
 .iframeWrap {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 7;
+    height: clamp(520px, 42vw, 680px);
     background: #0d0f14;
-    min-height: 320px;
 }
 
 .iframe {
@@ -156,7 +92,7 @@
     display: block;
 }
 
-/* ── Loader ─────────────────────────────────────────────── */
+/* ── Loader ────────────────────────────────────────────────── */
 .loader {
     position: absolute;
     inset: 0;
@@ -174,13 +110,13 @@
     height: 32px;
     border: 2.5px solid rgba(255, 255, 255, 0.08);
     border-radius: 50%;
-    border-top-color: #36F936;
+    border-top-color: #00dc00;
     animation: spin 0.9s linear infinite;
 }
 
 .loaderText {
     font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.4);
     letter-spacing: 0.04em;
     margin: 0;
 }
@@ -189,23 +125,222 @@
     to { transform: rotate(360deg); }
 }
 
-/* ── Responsive ─────────────────────────────────────────── */
-@media (max-width: 768px) {
-    .section { padding: 3.5rem 1rem 3rem; }
-    .iframeWrap { aspect-ratio: 4 / 3; min-height: 260px; }
+/* ── Content Block (Right 25%) ─────────────────────────────── */
+.contentBlock {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 440px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 1.25rem 1.75rem 2.5rem;
+    border-radius: 28px 28px 38px 38px;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(240, 253, 244, 0.4) 26%,
+        rgba(220, 252, 231, 0.65) 62%,
+        rgba(187, 247, 208, 0.85) 100%
+    );
+    gap: 0;
 }
 
-@media (max-width: 480px) {
-    .iframeWrap { aspect-ratio: 1 / 1; min-height: 280px; }
+/* Subtle glossy ambient depth under the phone asset */
+.contentBlock::before {
+    content: '';
+    position: absolute;
+    top: 28%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 150px;
+    background: radial-gradient(ellipse at center, rgba(0, 220, 0, 0.12) 0%, rgba(54, 249, 54, 0.04) 50%, transparent 75%);
+    pointer-events: none;
+    z-index: 0;
 }
 
-@media (min-width: 1280px) {
+/* ── iPhone Asset ──────────────────────────────────────────── */
+.phoneAsset {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: clamp(310px, 21vw, 355px);
+    margin: 0 auto -0.75rem;
+}
+
+.phoneImage {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phoneImage:hover {
+    transform: translateY(-4px);
+}
+
+/* ── Text Content ──────────────────────────────────────────── */
+.textContent {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.heading {
+    font-family: var(--font-display, inherit);
+    font-size: clamp(1.85rem, 2.2vw, 2.35rem);
+    font-weight: 800;
+    color: #070a0e;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.85rem;
+    text-align: center;
+}
+
+.headingAccent {
+    color: #00dc00;
+}
+
+.description {
+    font-size: clamp(0.92rem, 1vw, 1rem);
+    color: #374151;
+    line-height: 1.6;
+    max-width: 36ch;
+    margin: 0 auto 1.65rem;
+    text-align: center;
+}
+
+.ctaButton {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.85rem;
+    background: linear-gradient(135deg, #1ef21e 0%, #00dc00 55%, #00ba00 100%);
+    color: #000000;
+    font-size: 0.94rem;
+    font-weight: 700;
+    border-radius: 14px;
+    text-decoration: none;
+    box-shadow: 
+        0 4px 18px rgba(0, 220, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.ctaButton:hover {
+    background: linear-gradient(135deg, #28f828 0%, #00ea00 55%, #00cc00 100%);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 26px rgba(0, 220, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.ctaIcon {
+    transition: transform 0.2s ease;
+}
+
+.ctaButton:hover .ctaIcon {
+    transform: translate(2px, -2px);
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+
+/* Tablet: 65/35 split */
+@media (max-width: 1024px) and (min-width: 769px) {
     .inner {
-        max-width: 1800px;
-        width: 98%;
+        grid-template-columns: minmax(0, 65fr) minmax(0, 35fr);
+        gap: 2rem;
     }
+
     .iframeWrap {
-        aspect-ratio: 16 / 9;
-        min-height: 750px;
+        height: 500px;
+    }
+
+    .contentBlock {
+        padding: 1.25rem 1.25rem 2rem;
+        border-radius: 24px 24px 34px 34px;
+    }
+
+    .phoneAsset {
+        max-width: 275px;
+        margin: 0 auto -0.5rem;
+    }
+}
+
+/* Mobile: Stack content above terminal */
+@media (max-width: 768px) {
+    .section {
+        padding: 3rem 1.25rem;
+    }
+
+    .inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contentBlock {
+        order: 1;
+        max-width: 440px;
+        padding: 1.25rem 1.25rem 2.25rem;
+        border-radius: 24px 24px 32px 32px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .terminalContainer {
+        order: 2;
+    }
+
+    .phoneAsset {
+        max-width: 240px;
+        margin: 0 auto -0.25rem;
+    }
+
+    .heading {
+        font-size: clamp(1.75rem, 6vw, 2.25rem);
+        margin-bottom: 0.75rem;
+    }
+
+    .description {
+        margin-bottom: 1.35rem;
+    }
+
+    .iframeWrap {
+        height: clamp(380px, 75vw, 460px);
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .section {
+        padding: 2.25rem 1rem;
+    }
+
+    .contentBlock {
+        padding: 1rem 0.85rem 1.85rem;
+        border-radius: 20px 20px 28px 28px;
+    }
+
+    .phoneAsset {
+        max-width: 200px;
+    }
+
+    .heading {
+        font-size: clamp(1.65rem, 5.5vw, 1.95rem);
+    }
+
+    .iframeWrap {
+        height: 380px;
     }
 }
