@@ -15,11 +15,12 @@ export default function CTraderPreview() {
                 <header className={styles.header}>
                     <div className={styles.eyebrow}>Live Trading Terminal</div>
                     <h2 id="ctrader-preview-heading" className={styles.title}>
-                        Trade Live with cTrader
+                        The Markets Move Fast.{' '}
+                        <span className={styles.titleAccent}>So Should You.</span>
                     </h2>
                     <p className={styles.subtitle}>
-                        Access real-time charts, manage positions, and execute trades directly
-                        from your browser — no download required.
+                        Trade directly from your browser with powerful charts, advanced tools,
+                        and seamless execution on cTrader.
                     </p>
                     <Link
                         href="https://app.apfxglobal.com"
