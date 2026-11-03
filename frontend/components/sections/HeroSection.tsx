@@ -42,26 +42,7 @@ const SLIDES: HeroSlide[] = [
   },
   {
     id: 'slide-2',
-    badge: (
-      <>
-        <span className={styles.flagWrap} aria-hidden="true">
-          <svg
-            width="24"
-            height="16"
-            viewBox="0 0 24 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className={styles.flagIcon}
-          >
-            <rect width="24" height="4" fill="#EA2839" />
-            <rect y="4" width="24" height="4" fill="#1A206D" />
-            <rect y="8" width="24" height="4" fill="#FFD500" />
-            <rect y="12" width="24" height="4" fill="#00A551" />
-          </svg>
-        </span>
-        <span className={styles.badgeText}>FSC Mauritius Regulated</span>
-      </>
-    ),
+    badge: null,
     headline: (
       <>
         Built for Traders<br />
