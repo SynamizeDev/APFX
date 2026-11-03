@@ -1,1282 +1,792 @@
-/* ── Why APFX — Bento Grid ───────────────────────────────────── */
-.section {
-    padding-block: var(--section-py);
-    background-color: var(--color-section-band);
-    overflow: hidden;
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap');
+
+/* ── Why APFX — Continuous Rotating Scroll-Driven Showcase ────── */
+
+.sectionWrapper {
+  position: relative;
+  width: 100%;
+  font-family: 'Rubik', sans-serif;
+  background-color: #FFFFFF;
+}
+
+/* Outer scroll track for desktop sticky scroll */
+.scrollTrack {
+  position: relative;
+  height: 480vh; /* Generous scroll distance across 10 USPs */
+  width: 100%;
+}
+
+/* Sticky viewport centered during scroll */
+.stickyContainer {
+  position: sticky;
+  top: 72px; /* Header clearance */
+  height: calc(100vh - 72px);
+  min-height: 660px;
+  max-height: 960px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFFFF;
+  overflow: hidden; /* Clips the left circular wheel extension cleanly at the viewport edge */
+  box-sizing: border-box;
 }
 
 .inner {
-    max-width: var(--container-max);
-    margin-inline: auto;
-    padding-inline: var(--container-px);
+  max-width: var(--container-max, 1380px);
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--container-px, 2.5rem);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 3.5rem;
+/* ── Top Bar: "Get Started" on Upper-Right ── */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  z-index: 20;
 }
 
-.eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: var(--text-xs);
-    font-weight: var(--fw-semibold);
-    letter-spacing: var(--ls-wider);
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: 1rem;
+.getStartedLink {
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #00dc00;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.eyebrow::before,
-.eyebrow::after {
-    content: '';
-    display: block;
-    width: 24px;
-    height: 1px;
-    background: var(--color-accent);
-    opacity: 0.5;
+.getStartedLink:hover {
+  color: #00b800;
+  transform: translateX(2px);
 }
 
-.title {
-    font-family: var(--font-display);
-    font-size: var(--text-4xl);
-    font-weight: var(--fw-extrabold);
-    color: var(--color-text-1);
-    letter-spacing: var(--ls-tight);
-    margin-bottom: 1rem;
+/* ── Main Showcase Grid (Arc on Far Left, Content on Right) ──── */
+.showcaseGrid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 3.5rem;
+  align-items: center;
+  width: 100%;
+  position: relative;
 }
 
-.subtitle {
-    font-size: var(--text-base);
-    color: var(--color-text-2);
-    max-width: 540px;
-    margin-inline: auto;
-    line-height: var(--lh-relaxed);
+/* ── Left Column: Stationary Arc Band with Rotating Icon Wheel ── */
+.arcColumn {
+  position: relative;
+  width: 360px;
+  height: 580px;
+  display: flex;
+  align-items: center;
+  user-select: none;
 }
 
-/* ── Bento Grid ──────────────────────────────────────────────── */
-.bento {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto auto;
-    gap: 1.5rem;
+/* SVG Stationary Mint-Green Circular Band */
+.arcSvgWrap {
+  position: absolute;
+  left: 0;
+  width: 360px;
+  height: 1400px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  overflow: visible;
 }
 
-.bentoItem {
-    background: rgba(20, 20, 20, 0.4);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: var(--radius-xl);
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-    height: 100%;
+.arcSvg {
+  width: 360px;
+  height: 1400px;
+  overflow: visible;
+}
+
+.arcThickBand {
+  fill: none;
+  stroke: rgba(0, 220, 0, 0.08);
+  stroke-width: 170px;
+}
+
+.arcOuterEdge {
+  fill: none;
+  stroke: rgba(0, 220, 0, 0.24);
+  stroke-width: 1.5px;
+}
+
+.arcInnerEdge {
+  fill: none;
+  stroke: rgba(0, 220, 0, 0.24);
+  stroke-width: 1.5px;
+}
+
+/* Rotating Wheel Container (physically rotated by GSAP ScrollTrigger) */
+.wheel {
+  position: absolute;
+  width: 960px;
+  height: 960px;
+  pointer-events: none;
+  transform-origin: 480px 480px;
+  will-change: transform;
+  z-index: 5;
+}
+
+/* Icon Node Button mounted on the wheel */
+.nodeItem {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  outline: none;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
+}
+
+/* Inactive Icon Styling (subtle translucent mint badge) */
+.nodeInactive {
+  width: 92px;
+  height: 92px;
+  background: rgba(0, 220, 0, 0.08);
+  border: 1.5px solid rgba(0, 220, 0, 0.22);
+  color: #00dc00;
+  box-shadow: none;
+  z-index: 5;
+}
+
+.nodeInactive:hover {
+  background: rgba(0, 220, 0, 0.18);
+  border-color: #00dc00;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* Active Icon Styling (doubled size, glowing APFX green button at focal position) */
+.nodeActive {
+  width: 160px;
+  height: 160px;
+  background: #00dc00;
+  border: none;
+  color: #FFFFFF;
+  box-shadow:
+    0 20px 60px rgba(0, 220, 0, 0.52),
+    0 0 36px rgba(0, 220, 0, 0.38);
+  z-index: 15;
+}
+
+.nodeActive:hover {
+  transform: translate(-50%, -50%) scale(1.03);
+  box-shadow:
+    0 24px 68px rgba(0, 220, 0, 0.62),
+    0 0 44px rgba(0, 220, 0, 0.48);
+}
+
+/* Counter-rotates icon SVG inside each node so it remains perfectly upright */
+.iconCounterRotate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.iconCounterRotate svg {
+  width: 38px;
+  height: 38px;
+  transition: width 0.25s ease, height 0.25s ease;
+}
+
+.nodeActive .iconCounterRotate svg {
+  width: 68px;
+  height: 68px;
+}
+
+/* Horizontal Thin Green Connector Line from Focal Point to Card */
+.connectorLine {
+  position: absolute;
+  transform: translateY(-50%);
+  height: 2px;
+  background: #00dc00;
+  box-shadow: 0 0 8px rgba(0, 220, 0, 0.45);
+  pointer-events: none;
+  z-index: 12;
+  transition: width 0.15s ease-out;
+}
+
+/* Glowing green circular endpoint on the card's border */
+.connectorEndpoint {
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #00dc00;
+  border: 2.5px solid #FFFFFF;
+  box-shadow:
+    0 0 10px rgba(0, 220, 0, 0.8),
+    0 0 20px rgba(0, 220, 0, 0.4);
+}
+
+/* ── Right Column: Headlines & Content Card ──────────────────── */
+.contentArea {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 820px;
+}
+
+/* Section Header Typography */
+.headerBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  width: 100%;
+  margin-bottom: 2.25rem;
+}
+
+.headlineLine1 {
+  font-family: 'Rubik', sans-serif;
+  font-size: clamp(2.5rem, 4.3vw, 3.85rem);
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin: 0;
+  text-align: right;
+}
+
+.headlineLine2 {
+  font-family: 'Rubik', sans-serif;
+  font-size: clamp(2.5rem, 4.3vw, 3.85rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin: 0 0 0.85rem;
+  color: #00dc00;
+  text-align: right;
+}
+
+.headerDesc {
+  font-family: 'Rubik', sans-serif;
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  color: #64748B;
+  line-height: 1.55;
+  max-width: 580px;
+  margin: 0;
+  text-align: right;
+}
+
+/* ── Content Card (Wide, Prominent, in Lower-Right Area) ─────── */
+.cardWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.uspCard {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(0, 220, 0, 0.45);
+  border-radius: 28px;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.04),
+    0 2px 10px rgba(0, 0, 0, 0.02);
+  padding: 2.4rem 2.8rem;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  min-height: 220px;
+}
+
+.cardLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cardHeadline {
+  font-family: 'Rubik', sans-serif;
+  font-size: clamp(1.85rem, 2.5vw, 2.35rem);
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  line-height: 1.22;
+  margin: 0 0 0.85rem;
+}
+
+.cardDescription {
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.05rem;
+  color: #64748B;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 560px;
+}
+
+/* Right Media (3D WebP Asset) */
+.cardRightMedia {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.assetImg {
+  width: 100%;
+  max-width: 125px;
+  max-height: 120px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.12));
+  pointer-events: none;
+}
+
+/* Progress Indicators in Bottom-Right of Card */
+.progressIndicatorRow {
+  position: absolute;
+  right: 2.8rem;
+  bottom: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  z-index: 5;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E2E8F0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s ease,
+    border-radius 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.dot:hover {
+  background: #CBD5E1;
+}
+
+.dotActive {
+  width: 26px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #00dc00;
+  box-shadow: 0 0 10px rgba(0, 220, 0, 0.55);
+}
+
+/* ── Ultra-Smooth Stage Change Animations ───────────────────── */
+
+/* Card Soft Illumination Pulse on State Change */
+.cardPulse {
+  animation: cardGlowPulse 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes cardGlowPulse {
+  0% {
+    border-color: rgba(0, 220, 0, 0.65);
+    box-shadow:
+      0 20px 50px rgba(0, 220, 0, 0.08),
+      0 0 25px rgba(0, 220, 0, 0.16);
+  }
+  100% {
+    border-color: rgba(0, 220, 0, 0.35);
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.04),
+      0 2px 10px rgba(0, 0, 0, 0.02);
+  }
+}
+
+/* Silky Smooth Headline Entrance */
+.textAnimHeadline {
+  animation: smoothHeadlineEnter 0.52s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform, filter;
+}
+
+@keyframes smoothHeadlineEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
+  }
+  60% {
+    opacity: 0.9;
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+/* Silky Smooth Description Entrance (Subtle Stagger) */
+.textAnimDesc {
+  animation: smoothDescEnter 0.56s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+  will-change: opacity, transform, filter;
+}
+
+@keyframes smoothDescEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(5px);
+  }
+  60% {
+    opacity: 0.85;
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+/* Luxurious Floating 3D Asset Entrance */
+.mediaAnim {
+  animation: smoothMediaEnter 0.62s cubic-bezier(0.16, 1, 0.3, 1) 0.03s both;
+  will-change: opacity, transform, filter;
+}
+
+@keyframes smoothMediaEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.9) rotate(-3deg);
+    filter: blur(8px) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.04));
+  }
+  60% {
+    opacity: 0.9;
+    filter: blur(1px) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+    filter: blur(0px) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.12));
+  }
+}
+
+/* Fallback cardTransition */
+.cardTransition {
+  animation: smoothHeadlineEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Tablet & Mobile Layout (<= 1080px) ───────────────────────── */
+@media (max-width: 1080px) {
+  .scrollTrack {
+    height: auto !important;
+  }
+
+  .stickyContainer {
+    position: relative !important;
+    top: 0 !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    padding-block: 4rem 3.5rem;
+    overflow: visible !important;
+  }
+
+  .inner {
+    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+    height: auto;
+  }
+
+  .topBar {
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+  }
+
+  .showcaseGrid {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    transition:
-        border-color var(--duration-normal) var(--ease-out),
-        transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1),
-        box-shadow var(--duration-normal) var(--ease-out);
-}
-
-.bentoItem:hover {
-    border-color: rgba(54, 249, 54, 0.4);
-    transform: translateY(-8px) scale(1.02);
-    box-shadow:
-        0 24px 64px rgba(0, 0, 0, 0.6),
-        0 0 32px rgba(54, 249, 54, 0.15),
-        inset 0 0 20px rgba(255, 255, 255, 0.02);
-    z-index: 2;
-}
-
-.bentoHighlighted {
-  border-color: rgba(54, 249, 54, 0.4);
-  box-shadow: 0 0 24px rgba(54, 249, 54, 0.05);
-}
-
-.bentoLight {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-  color: #111827;
-}
-
-.bentoLight .bentoTitle {
-  color: #111827;
-}
-
-.bentoLight .bentoDesc {
-  color: #4b5563;
-}
-
-.bentoLight::before {
-  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
-}
-
-.bentoLight::after {
-  display: none;
-}
-
-/* Invert the contrast cards when in global Light Mode */
-:global(.light-mode) .bentoItem {
-  background: rgba(255, 255, 255, 0.5);
-  border-color: rgba(0, 0, 0, 0.05);
-}
-
-:global(.light-mode) .bentoLight {
-  background: rgba(17, 17, 17, 0.9);
-  border-color: rgba(0, 0, 0, 0.1);
-  color: #ffffff;
-}
-
-:global(.light-mode) .bentoLight .bentoTitle {
-  color: #ffffff;
-}
-
-:global(.light-mode) .bentoLight .bentoDesc {
-  color: #a1a1aa;
-}
-
-:global(.light-mode) .bentoLight::before {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-}
-
-/* Large featured tile */
-.bentoLarge {
-    grid-column: span 2;
-    grid-row: span 1;
-    display: flex;
     gap: 2rem;
-    align-items: flex-start;
-}
+    width: 100%;
+    min-width: 0;
+  }
 
-.bentoItem::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: inherit;
-  background: radial-gradient(
-    600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-    rgba(255, 255, 255, 0.08),
-    transparent 40%
-  );
-  opacity: 0;
-  transition: opacity var(--duration-normal) var(--ease-out);
-  pointer-events: none;
-  z-index: 1;
-}
+  /* Left Column is replaced by Horizontal Icon Strip */
+  .arcColumn {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    order: 1; /* Sits directly below header */
+  }
 
-.bentoItem:hover::before {
-  opacity: 1;
-}
+  .arcSvgWrap,
+  .wheel,
+  .connectorLine {
+    display: none !important;
+  }
 
-.bentoIcon {
+  /* Horizontal interactive icon strip for mobile & tablet */
+  .mobileIconStrip {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    overflow-x: auto;
+    width: 100%;
+    max-width: 720px;
+    padding: 0.75rem 0.5rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  }
+
+  .mobileIconStrip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nodeItem {
+    position: static !important;
+    transform: none !important;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .nodeInactive {
     width: 52px;
     height: 52px;
-    border-radius: var(--radius-md);
-    background: var(--icon-bg, rgba(54, 249, 54, 0.1));
-    border: 1px solid var(--icon-border, rgba(54, 249, 54, 0.2));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    flex-shrink: 0;
-    transition: transform var(--duration-normal) var(--ease-spring);
-}
-
-.bentoItem:hover .bentoIcon {
-    transform: scale(1.1) rotate(-5deg);
-}
-
-
-.bentoLabel {
-    font-size: var(--text-xs);
-    font-weight: var(--fw-semibold);
-    letter-spacing: var(--ls-wider);
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: 0.5rem;
-    display: block;
-}
-
-.bentoTitle {
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    font-weight: var(--fw-bold);
-    color: var(--color-text-1);
-    letter-spacing: var(--ls-snug);
-    margin-bottom: 0.75rem;
-    line-height: 1.2;
-}
-
-.bentoDesc {
-    font-size: var(--text-sm);
-    color: var(--color-text-2);
-    line-height: var(--lh-relaxed);
-}
-
-/* Decorative glow dot in bottom-right */
-.bentoItem::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    right: -20px;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--glow-color, rgba(54, 249, 54, 0.12)), transparent 70%);
-    transition: transform var(--duration-slow) var(--ease-out);
-}
-
-.bentoItem:hover::after {
-    transform: scale(1.4);
-}
-
-@media (max-width: 1024px) {
-    .bento {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .bentoLarge {
-        grid-column: span 2;
-    }
-}
-
-@media (max-width: 768px) {
-    .bentoLarge {
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 768px) {
-    .bento {
-        display: flex;
-        overflow-x: auto;
-        overflow-y: visible;
-        gap: 1rem;
-        padding-top: 0.75rem;
-        padding-bottom: 0.45rem;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        align-items: stretch;
-    }
-
-    .bento::-webkit-scrollbar {
-        display: none;
-    }
-
-    .bento::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    .bento::-webkit-scrollbar-thumb {
-        background: var(--color-border-2);
-        border-radius: var(--radius-full);
-    }
-
-    .bentoItem,
-    .bentoLarge {
-        flex: 0 0 92%;
-        min-width: 92%;
-        height: 300px;
-        scroll-snap-align: start;
-    }
-
-    /* Remove desktop large-card spacing so all mobile cards align identically */
-    .bentoLarge {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        align-items: stretch;
-    }
-
-    /* Normalize text stack positioning across all slider cards */
-    .bentoContent {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .bentoLabel {
-        margin-bottom: 0;
-    }
-
-    .bentoTitle {
-        margin: 0;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        line-clamp: 2;
-        overflow: hidden;
-        min-height: 2.4em; /* reserve space for 2 title lines */
-    }
-
-    .bentoDesc {
-        margin: 0.75rem 0 0;
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
-        line-clamp: 4;
-        overflow: hidden;
-        min-height: 6em; /* reserve space for 4 description lines */
-    }
-
-    .bentoLarge {
-        grid-column: auto;
-    }
-}
-
-@media (hover: none) {
-    .bentoItem:hover {
-        transform: none;
-        box-shadow: none;
-    }
-}
-
-/* ── Withdrawals Card Custom Layout ─────────────────────────── */
-.withdrawalsCard {
-    /* Inherits all base bento card styles */
-}
-
-.withdrawalsWrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    gap: 2rem;
-}
-
-.withdrawalsContent {
-    flex: 0 0 58%;
-    max-width: 58%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    z-index: 2;
-}
-
-.stopwatchMedia {
-    flex: 0 0 38%;
-    max-width: 38%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
-    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.stopwatchImg {
-    width: 100%;
-    height: auto;
-    max-width: 220px;
-    max-height: 200px;
-    object-fit: contain;
-    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 24px rgba(54, 249, 54, 0.15));
-    user-select: none;
-    pointer-events: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .bentoItem.withdrawalsCard:hover .stopwatchMedia {
-        transform: translateY(-6px) scale(1.04);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .stopwatchMedia,
-    .bentoItem.withdrawalsCard:hover .stopwatchMedia {
-        transition: none !important;
-        transform: none !important;
-    }
-}
-
-/* ── Support Card Custom Layout ────────────────────────────────── */
-.supportCard {
-    /* Inherits all base bento card styles */
-}
-
-.supportWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    height: 100%;
-}
-
-.headsetMedia {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-bottom: 1.25rem;
-    position: relative;
-    z-index: 2;
-    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.headsetImg {
-    width: auto;
-    height: 110px;
-    max-height: 120px;
-    max-width: 100%;
-    object-fit: contain;
-    user-select: none;
-    pointer-events: none;
-}
-
-.supportContent {
-    display: flex;
-    flex-direction: column;
-    z-index: 2;
-    text-align: left;
-    width: 100%;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .bentoItem.supportCard:hover .headsetMedia {
-        transform: translateY(-6px) scale(1.04);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .headsetMedia,
-    .bentoItem.supportCard:hover .headsetMedia {
-        transition: none !important;
-        transform: none !important;
-    }
-}
-
-/* ── AI Card Custom Layout ─────────────────────────────────────── */
-.aiCard {
-    /* Inherits all base bento card styles */
-}
-
-.aiWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    height: 100%;
-}
-
-.chipMedia {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-bottom: 1.25rem;
-    position: relative;
-    z-index: 2;
-    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.chipImg {
-    width: auto;
-    height: 105px;
-    max-height: 120px;
-    max-width: 100%;
-    object-fit: contain;
-    user-select: none;
-    pointer-events: none;
-}
-
-.aiContent {
-    display: flex;
-    flex-direction: column;
-    z-index: 2;
-    text-align: left;
-    width: 100%;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .bentoItem.aiCard:hover .chipMedia {
-        transform: translateY(-6px) scale(1.04);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .chipMedia,
-    .bentoItem.aiCard:hover .chipMedia {
-        transition: none !important;
-        transform: none !important;
-    }
-}
-
-/* ── Indicators Card Custom Layout ─────────────────────────────── */
-.indicatorsCard {
-    /* Inherits all base bento card styles */
-}
-
-.indicatorsWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    height: 100%;
-}
-
-.indicatorsMedia {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-bottom: 1.25rem;
-    position: relative;
-    z-index: 2;
-    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.indicatorsImg {
-    width: auto;
-    height: 105px;
-    max-height: 120px;
-    max-width: 100%;
-    object-fit: contain;
-    user-select: none;
-    pointer-events: none;
-}
-
-.indicatorsContent {
-    display: flex;
-    flex-direction: column;
-    z-index: 2;
-    text-align: left;
-    width: 100%;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .bentoItem.indicatorsCard:hover .indicatorsMedia {
-        transform: translateY(-6px) scale(1.04);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .indicatorsMedia,
-    .bentoItem.indicatorsCard:hover .indicatorsMedia {
-        transition: none !important;
-        transform: none !important;
-    }
-}
-
-/* ── Automation Card Custom Layout ─────────────────────────────── */
-.automationCard {
-    /* Inherits all base bento card styles */
-}
-
-.automationWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    height: 100%;
-}
-
-.robotMedia {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-bottom: 1.25rem;
-    position: relative;
-    z-index: 2;
-    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.robotImg {
-    width: auto;
-    height: 105px;
-    max-height: 120px;
-    max-width: 100%;
-    object-fit: contain;
-    user-select: none;
-    pointer-events: none;
-}
-
-.automationContent {
-    display: flex;
-    flex-direction: column;
-    z-index: 2;
-    text-align: left;
-    width: 100%;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .bentoItem.automationCard:hover .robotMedia {
-        transform: translateY(-6px) scale(1.04);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .robotMedia,
-    .bentoItem.automationCard:hover .robotMedia {
-        transition: none !important;
-        transform: none !important;
-    }
-}
-
-/* ── Platform Card Custom Layout ───────────────────────────────── */
-.platformCard {
-    /* Inherits all base bento card styles */
-}
-
-.platformWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    height: 100%;
-}
-
-.monitorMedia {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-bottom: 1.25rem;
-    position: relative;
-    z-index: 2;
-    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.monitorImg {
-    width: auto;
-    height: 105px;
-    max-height: 120px;
-    max-width: 100%;
-    object-fit: contain;
-    user-select: none;
-    pointer-events: none;
-}
-
-.platformContent {
-    display: flex;
-    flex-direction: column;
-    z-index: 2;
-    text-align: left;
-    width: 100%;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .bentoItem.platformCard:hover .monitorMedia {
-        transform: translateY(-6px) scale(1.04);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .monitorMedia,
-    .bentoItem.platformCard:hover .monitorMedia {
-        transition: none !important;
-        transform: none !important;
-    }
-}
-
-/* ── Markets Card Custom Layout ────────────────────────────────── */
-.marketsCard {
-    /* Inherits all base bento card styles */
-}
-
-.marketsWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    height: 100%;
-}
-
-.globeMedia {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-bottom: 1.25rem;
-    position: relative;
-    z-index: 2;
-    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.globeImg {
-    width: auto;
-    height: 105px;
-    max-height: 120px;
-    max-width: 100%;
-    object-fit: contain;
-    user-select: none;
-    pointer-events: none;
-}
-
-.marketsContent {
-    display: flex;
-    flex-direction: column;
-    z-index: 2;
-    text-align: left;
-    width: 100%;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .bentoItem.marketsCard:hover .globeMedia {
-        transform: translateY(-6px) scale(1.04);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .globeMedia,
-    .bentoItem.marketsCard:hover .globeMedia {
-        transition: none !important;
-        transform: none !important;
-    }
-}
-
-/* ── Copy Trading Card Custom Layout ───────────────────────────── */
-.copyTradingCard {
-    /* Inherits all base bento card styles */
-}
-
-.copyTradingWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    height: 100%;
-}
-
-.panelsMedia {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-bottom: 1.25rem;
-    position: relative;
-    z-index: 2;
-    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.panelsImg {
-    width: auto;
-    height: 105px;
-    max-height: 120px;
-    max-width: 100%;
-    object-fit: contain;
-    user-select: none;
-    pointer-events: none;
-}
-
-.copyTradingContent {
-    display: flex;
-    flex-direction: column;
-    z-index: 2;
-    text-align: left;
-    width: 100%;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .bentoItem.copyTradingCard:hover .panelsMedia {
-        transform: translateY(-6px) scale(1.04);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .panelsMedia,
-    .bentoItem.copyTradingCard:hover .panelsMedia {
-        transition: none !important;
-        transform: none !important;
-    }
-}
-
-/* ── Risk Management Card Custom Layout ────────────────────────── */
-.riskManagementCard {
-    /* Inherits all base bento card styles */
-}
-
-.riskManagementWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    height: 100%;
-}
-
-.shieldMedia {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-bottom: 1.25rem;
-    position: relative;
-    z-index: 2;
-    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.shieldImg {
-    width: auto;
-    height: 105px;
-    max-height: 120px;
-    max-width: 100%;
-    object-fit: contain;
-    user-select: none;
-    pointer-events: none;
-}
-
-.riskManagementContent {
-    display: flex;
-    flex-direction: column;
-    z-index: 2;
-    text-align: left;
-    width: 100%;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .bentoItem.riskManagementCard:hover .shieldMedia {
-        transform: translateY(-6px) scale(1.04);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .shieldMedia,
-    .bentoItem.riskManagementCard:hover .shieldMedia {
-        transition: none !important;
-        transform: none !important;
-    }
-}
-
-/* ── Partners Card Custom Layout ────────────────────────────── */
-.partnersCard {
-    /* Inherits all base bento card styles */
-}
-
-.partnersWrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    gap: 2rem;
-}
-
-.partnersContent {
-    flex: 0 0 58%;
-    max-width: 58%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    z-index: 2;
-}
-
-.linksMedia {
-    flex: 0 0 38%;
-    max-width: 38%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
-    transition: transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.linksImg {
-    width: 100%;
-    height: auto;
-    max-width: 210px;
-    max-height: 190px;
-    object-fit: contain;
-    user-select: none;
-    pointer-events: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .bentoItem.partnersCard:hover .linksMedia {
-        transform: translateY(-6px) scale(1.04);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .linksMedia,
-    .bentoItem.partnersCard:hover .linksMedia {
-        transition: none !important;
-        transform: none !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .withdrawalsWrapper {
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        gap: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    .stopwatchMedia {
-        order: -1;
-        flex: 0 0 auto;
-        max-width: none;
-        width: auto;
-        height: 52px;
-        margin-bottom: 0.75rem;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    .stopwatchImg {
-        width: auto;
-        height: 52px;
-        max-height: 52px;
-        max-width: 52px;
-        object-fit: contain;
-        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 10px rgba(54, 249, 54, 0.15));
-    }
-
-    .withdrawalsContent {
-        flex: 1 1 auto;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .supportWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        width: 100%;
-        height: 100%;
-    }
-
-    .headsetMedia {
-        margin-bottom: 0.75rem;
-        height: 52px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    .headsetImg {
-        width: auto;
-        height: 52px;
-        max-height: 52px;
-        max-width: 52px;
-        object-fit: contain;
-    }
-
-    .supportContent {
-        flex: 1 1 auto;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .aiWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        width: 100%;
-        height: 100%;
-    }
-
-    .chipMedia {
-        margin-bottom: 0.75rem;
-        height: 52px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    .chipImg {
-        width: auto;
-        height: 52px;
-        max-height: 52px;
-        max-width: 52px;
-        object-fit: contain;
-    }
-
-    .aiContent {
-        flex: 1 1 auto;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .indicatorsWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        width: 100%;
-        height: 100%;
-    }
-
-    .indicatorsMedia {
-        margin-bottom: 0.75rem;
-        height: 52px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    .indicatorsImg {
-        width: auto;
-        height: 52px;
-        max-height: 52px;
-        max-width: 52px;
-        object-fit: contain;
-    }
-
-    .indicatorsContent {
-        flex: 1 1 auto;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .automationWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        width: 100%;
-        height: 100%;
-    }
-
-    .robotMedia {
-        margin-bottom: 0.75rem;
-        height: 52px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    .robotImg {
-        width: auto;
-        height: 52px;
-        max-height: 52px;
-        max-width: 52px;
-        object-fit: contain;
-    }
-
-    .automationContent {
-        flex: 1 1 auto;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .platformWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        width: 100%;
-        height: 100%;
-    }
-
-    .monitorMedia {
-        margin-bottom: 0.75rem;
-        height: 52px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    .monitorImg {
-        width: auto;
-        height: 52px;
-        max-height: 52px;
-        max-width: 52px;
-        object-fit: contain;
-    }
-
-    .platformContent {
-        flex: 1 1 auto;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .marketsWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        width: 100%;
-        height: 100%;
-    }
-
-    .globeMedia {
-        margin-bottom: 0.75rem;
-        height: 52px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    .globeImg {
-        width: auto;
-        height: 52px;
-        max-height: 52px;
-        max-width: 52px;
-        object-fit: contain;
-    }
-
-    .marketsContent {
-        flex: 1 1 auto;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .copyTradingWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        width: 100%;
-        height: 100%;
-    }
-
-    .panelsMedia {
-        margin-bottom: 0.75rem;
-        height: 52px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    .panelsImg {
-        width: auto;
-        height: 52px;
-        max-height: 52px;
-        max-width: 52px;
-        object-fit: contain;
-    }
-
-    .copyTradingContent {
-        flex: 1 1 auto;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .riskManagementWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        width: 100%;
-        height: 100%;
-    }
-
-    .shieldMedia {
-        margin-bottom: 0.75rem;
-        height: 52px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    .shieldImg {
-        width: auto;
-        height: 52px;
-        max-height: 52px;
-        max-width: 52px;
-        object-fit: contain;
-    }
-
-    .riskManagementContent {
-        flex: 1 1 auto;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .partnersWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        width: 100%;
-        height: 100%;
-    }
-
-    .linksMedia {
-        order: -1;
-        flex: 0 0 auto;
-        max-width: none;
-        width: auto;
-        height: 52px;
-        margin-bottom: 0.75rem;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    .linksImg {
-        width: auto;
-        height: 52px;
-        max-height: 52px;
-        max-width: 52px;
-        object-fit: contain;
-    }
-
-    .partnersContent {
-        flex: 1 1 auto;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-}
-
-/* ── Mobile carousel dots ───────────────────────────────────── */
-.carouselDots {
-    display: none;
-}
-
-@media (max-width: 768px) {
-    .carouselDots {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 1rem;
-    }
-}
-
-.carouselDot,
-.carouselDotActive {
-    width: 7px;
-    height: 7px;
-    border-radius: var(--radius-full);
+    background: rgba(0, 220, 0, 0.08);
+    border: 1.5px solid rgba(0, 220, 0, 0.22);
+    color: #00dc00;
+    opacity: 0.75;
+    box-shadow: none;
+  }
+
+  .nodeInactive:hover {
+    background: rgba(0, 220, 0, 0.16);
+    border-color: #00dc00;
+    opacity: 1;
+  }
+
+  .nodeActive {
+    width: 64px;
+    height: 64px;
+    background: #00dc00;
     border: none;
-    background: rgba(255, 255, 255, 0.18);
-    cursor: pointer;
-    transition: transform 140ms ease, background 140ms ease;
+    color: #FFFFFF;
+    box-shadow: 0 8px 26px rgba(0, 220, 0, 0.45);
+    opacity: 1;
+  }
+
+  .nodeActive .iconCounterRotate svg {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .nodeInactive .iconCounterRotate svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  /* Right column becomes centered content wrapper */
+  .contentArea {
+    width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
+    align-items: center;
+    text-align: center;
+    order: 0; /* Header sits at top */
+  }
+
+  .headerBlock {
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1.75rem;
+    width: 100%;
+  }
+
+  .headlineLine1,
+  .headlineLine2 {
+    text-align: center !important;
+    font-size: clamp(2rem, 5vw, 2.85rem);
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  .headlineLine2 {
+    margin-bottom: 0.85rem;
+  }
+
+  .headerDesc {
+    font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+    margin: 0 auto;
+    text-align: center !important;
+    max-width: 580px;
+  }
+
+  /* USP Card Responsive Styling */
+  .cardWrapper {
+    width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
+    order: 2; /* Card sits below icon strip */
+  }
+
+  .uspCard {
+    width: 100%;
+    box-sizing: border-box;
+    grid-template-columns: 1fr auto;
+    padding: 2.2rem 2.4rem 3.8rem;
+    gap: 1.75rem;
+    align-items: center;
+    border-radius: 24px;
+  }
+
+  .cardLeft {
+    text-align: left;
+    width: 100%;
+  }
+
+  .cardHeadline {
+    font-size: clamp(1.5rem, 3.5vw, 1.95rem);
+    text-align: left;
+    margin-bottom: 0.75rem;
+  }
+
+  .cardDescription {
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .cardRightMedia {
+    order: 1;
+    justify-content: center;
+  }
+
+  .assetImg {
+    max-width: 115px;
+    max-height: 115px;
+  }
+
+  .progressIndicatorRow {
+    right: 2rem;
+    bottom: 1.35rem;
+  }
 }
 
-.carouselDotActive {
-    background: rgba(54, 249, 54, 0.95);
-    transform: scale(1.15);
+/* ── Mobile Specific (< 768px: e.g. Galaxy Z Fold, iPhone) ────── */
+@media (max-width: 767px) {
+  .stickyContainer {
+    padding-block: 3.25rem 2.75rem;
+  }
+
+  .inner {
+    padding-inline: 1rem;
+  }
+
+  .headlineLine1,
+  .headlineLine2 {
+    font-size: clamp(1.75rem, 6.8vw, 2.25rem);
+  }
+
+  .headerDesc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .mobileIconStrip {
+    gap: 0.6rem;
+    padding: 0.5rem 0.25rem;
+  }
+
+  .nodeInactive {
+    width: 46px;
+    height: 46px;
+  }
+
+  .nodeActive {
+    width: 56px;
+    height: 56px;
+  }
+
+  .nodeActive .iconCounterRotate svg {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .nodeInactive .iconCounterRotate svg {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .uspCard {
+    grid-template-columns: 1fr;
+    padding: 1.85rem 1.4rem 3.6rem;
+    gap: 1.25rem;
+    border-radius: 20px;
+  }
+
+  .cardRightMedia {
+    order: -1;
+    justify-content: flex-start;
+  }
+
+  .assetImg {
+    max-width: 85px;
+    max-height: 85px;
+  }
+
+  .cardHeadline {
+    font-size: 1.35rem;
+  }
+
+  .cardDescription {
+    font-size: 0.92rem;
+  }
+
+  .progressIndicatorRow {
+    right: 1.4rem;
+    bottom: 1.2rem;
+  }
+}
+
+/* ── Reduced Motion ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .wheel,
+  .nodeItem,
+  .iconCounterRotate,
+  .connectorLine,
+  .dot,
+  .cardPulse,
+  .textAnimHeadline,
+  .textAnimDesc,
+  .mediaAnim,
+  .cardTransition {
+    transition: none !important;
+    animation: none !important;
+  }
 }
