@@ -740,6 +740,73 @@
     max-width: 600px;
 }
 
+/* ── YOUTUBE PLAYLIST EMBED ─────────────────────────────────────────────── */
+.playlistGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.playlistCard {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.015);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.playlistCard:hover {
+    border-color: rgba(54, 249, 54, 0.3);
+    box-shadow: 0 4px 24px rgba(54, 249, 54, 0.06);
+}
+
+:global(.light-mode) .playlistCard {
+    background: var(--color-section-band);
+    border-color: rgba(0, 0, 0, 0.06);
+}
+
+:global(.light-mode) .playlistCard:hover {
+    border-color: rgba(40, 209, 40, 0.35);
+    box-shadow: 0 4px 24px rgba(40, 209, 40, 0.08);
+}
+
+.playlistEmbed {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.playlistIframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.playlistFooter {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1.25rem 0 0;
+}
+
+.playlistLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: var(--text-sm);
+    font-weight: var(--fw-medium);
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.playlistLink:hover {
+    opacity: 0.8;
+}
+
 /* ── BOTTOM CTA ─────────────────────────────────────────────────────────── */
 .ctaSection {
     position: relative;
@@ -888,6 +955,10 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
+
+    .playlistGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -913,6 +984,11 @@
     }
 
     .whyGrid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .playlistGrid {
         grid-template-columns: 1fr;
         gap: 1.25rem;
     }

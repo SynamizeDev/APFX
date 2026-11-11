@@ -10,7 +10,7 @@ const SCROLL_STEP = Math.round(EVENT_STEP * 0.8) // 272px — 80% of one event h
 // Total scrollable content estimate (Luma renders ~10 events)
 const MAX_OFFSET = EVENT_STEP * 7  // safe cap — avoids blank whitespace at bottom
 
-export default function WebinarsClient() {
+export default function WebinarsClient({ latestVideoIds = [] }: { latestVideoIds?: string[] }) {
     const [offset, setOffset] = useState(0)
 
     const handleScrollToUpcoming = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -155,7 +155,7 @@ export default function WebinarsClient() {
                             <span className={styles.whyNumber}>03</span>
                             <h3 className={styles.whyTitle}>Built for Every Level</h3>
                             <p className={styles.whyDesc}>
-                                Whether you're starting out or refining your skills, our sessions are designed to help you progress.
+                                Whether you&apos;re starting out or refining your skills, our sessions are designed to help you progress.
                             </p>
                         </div>
                     </div>
@@ -171,17 +171,47 @@ export default function WebinarsClient() {
                         </p>
                     </div>
 
-                    {/* Polished Empty State Card */}
-                    <div className={styles.emptyState}>
-                        <div className={styles.emptyIconWrap} aria-hidden>
-                            <PlayCircle size={32} strokeWidth={1.25} />
+                    {/* YouTube — 3 Latest Videos (fetched server-side from RSS) */}
+                    {latestVideoIds.length > 0 ? (
+                        <div className={styles.playlistGrid}>
+                            {latestVideoIds.map((videoId, idx) => (
+                                <div key={videoId} className={styles.playlistCard}>
+                                    <div className={styles.playlistEmbed}>
+                                        <iframe
+                                            src={`https://www.youtube.com/embed/${videoId}?rel=0`}
+                                            title={`APFX Webinar — Video ${idx + 1}`}
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowFullScreen
+                                            loading="lazy"
+                                            className={styles.playlistIframe}
+                                        />
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                        <div className={styles.emptyTextContent}>
-                            <h3 className={styles.emptyTitle}>Webinar Archives</h3>
-                            <p className={styles.emptyDesc}>
-                                Previous sessions will appear here as recordings become available. Register for upcoming live events to stay updated on replay availability.
-                            </p>
+                    ) : (
+                        <div className={styles.emptyState}>
+                            <div className={styles.emptyIconWrap} aria-hidden>
+                                <PlayCircle size={32} strokeWidth={1.25} />
+                            </div>
+                            <div className={styles.emptyTextContent}>
+                                <h3 className={styles.emptyTitle}>Webinar Archives</h3>
+                                <p className={styles.emptyDesc}>
+                                    Previous sessions will appear here as recordings become available.
+                                </p>
+                            </div>
                         </div>
+                    )}
+                    <div className={styles.playlistFooter}>
+                        <a
+                            href="https://www.youtube.com/playlist?list=PLaEUDg617YTM"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.playlistLink}
+                        >
+                            View full playlist on YouTube
+                            <ArrowRight size={14} aria-hidden />
+                        </a>
                     </div>
                 </section>
 
