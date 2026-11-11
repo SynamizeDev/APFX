@@ -71,10 +71,10 @@ function Card({ r }: { r: (typeof REVIEWS)[0] }) {
         <div className={styles.card}>
             <div className={styles.stars} aria-label={`${r.stars} out of 5 stars`}>
                 {[...Array(r.stars)].map((_, i) => (
-                    <Star key={i} size={14} fill="currentColor" />
+                    <Star key={i} size={15} fill="currentColor" strokeWidth={0} />
                 ))}
             </div>
-            <p className={styles.quote}>"{r.quote}"</p>
+            <p className={styles.quote}>&ldquo;{r.quote}&rdquo;</p>
             <div className={styles.author}>
                 <div className={styles.avatar} aria-hidden="true">{r.initials}</div>
                 <div>
