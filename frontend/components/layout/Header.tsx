@@ -162,6 +162,7 @@ export default function Header({ hideLogo = false }: { hideLogo?: boolean }) {
   // Prevents the mega menu from staying open after navigation (e.g. when
   // clicking Trade & Invest → Stocks).
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMenuOpen(false)
     setActiveDropdown(null)
     setMobileExpandedDropdown(null)
