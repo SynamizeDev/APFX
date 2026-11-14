@@ -171,7 +171,7 @@ export default function WebinarsClient({ latestVideoIds = [] }: { latestVideoIds
                         </p>
                     </div>
 
-                    {/* YouTube — 3 Latest Videos (fetched server-side from RSS) */}
+                    {/* YouTube — Episodes 01, 02, 03 */}
                     {latestVideoIds.length > 0 ? (
                         <div className={styles.playlistGrid}>
                             {latestVideoIds.map((videoId, idx) => (

@@ -27,32 +27,14 @@ export const metadata: Metadata = {
     },
 }
 
-const PLAYLIST_ID = 'PLaEUDg617YTM'
+/** Episode 01, 02, and 03 from official APFX YouTube webinar series */
+const WEBINAR_VIDEO_IDS = [
+    'VVZeIxM6JZ0', // Episode 01 | 5 Trading Concepts Explained | Shiv Prasad Pakale
+    '8QSSd7KntU4', // Episode 02 | XAUUSD Trading Blueprint: Market Structure to Trade Setup | Faizan Ahmed
+    'R_6imoB9mGM', // Episode 03 | Risk Management in Trading: Protect Your Capital | Abhishek Pandey
+]
 
-/** Fetch the 3 latest video IDs from the YouTube playlist RSS feed (server-side). */
-async function getLatestVideoIds(count = 3): Promise<string[]> {
-    try {
-        const res = await fetch(
-            `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`,
-            { next: { revalidate: 3600 } } // revalidate every hour
-        )
-        if (!res.ok) return []
-        const xml = await res.text()
-        // Extract video IDs from <yt:videoId>...</yt:videoId> tags
-        const ids: string[] = []
-        const regex = /<yt:videoId>([^<]+)<\/yt:videoId>/g
-        let match: RegExpExecArray | null
-        while ((match = regex.exec(xml)) !== null && ids.length < count) {
-            ids.push(match[1])
-        }
-        return ids
-    } catch {
-        return []
-    }
-}
-
-export default async function WebinarsPage() {
-    const latestVideoIds = await getLatestVideoIds(3)
-    return <WebinarsClient latestVideoIds={latestVideoIds} />
+export default function WebinarsPage() {
+    return <WebinarsClient latestVideoIds={WEBINAR_VIDEO_IDS} />
 }
 
